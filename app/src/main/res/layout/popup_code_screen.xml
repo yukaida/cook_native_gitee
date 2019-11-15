@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/pay_code_ll"
+        android:layout_width="300dp"
+        android:layout_height="390dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_code_pay"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/qr_code_iv"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:background="@drawable/empty"
+            android:layout_marginTop="@dimen/fifty"
+            android:scaleType="fitXY"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/forty">
+
+        <TextView
+            android:id="@+id/dialog_base_left_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="下载"
+            style="@style/ButtonStyle"
+            android:textSize="@dimen/textsize_16"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/dialog_base_right_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="关闭"
+            style="@style/ButtonStyle"
+            android:background="@drawable/shape_cannal"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/textsize_16"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/twenty"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

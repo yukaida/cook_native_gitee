@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.home.BillActivity">
+
+   <!-- <RelativeLayout
+        android:id="@+id/title_my_bill"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_theme">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的账单"
+            android:textSize="@dimen/textsize_18"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
+
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_back"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"/>
+
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/icon_search"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/refresh_iv"
+            android:layout_marginRight="20dp"/>
+
+
+        <ImageView
+            android:id="@+id/refresh_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/icon_refresh"/>
+
+    </RelativeLayout>-->
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_my_bill"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:title="我的账单"
+        app:color_title="@color/white"
+        android:background="@color/app_theme"
+        app:icon_left="@drawable/icon_back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/day_before"
+            android:layout_width="93dp"
+            android:layout_height="45dp"
+            android:text="前一天"
+            android:gravity="center"
+            android:background="@color/step_back"/>
+
+        <LinearLayout
+            android:id="@+id/time_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/current_calendar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="2019-02-23"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_calendar"
+                android:layout_marginLeft="5dp"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/day_after"
+            android:layout_width="93dp"
+            android:layout_height="45dp"
+            android:text="后一天"
+            android:gravity="center"
+            android:background="@color/step_back"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+
+                <TextView
+                    android:id="@+id/amount_real_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textColor="@color/app_theme"
+                    android:textSize="@dimen/textsize_18"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="实收金额（元）"
+                    android:textColor="@color/text_gray_normal"
+                    android:textSize="@dimen/textsize_13"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/line_size"
+                android:layout_height="match_parent"
+                android:background="@color/gray_line"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/amount_refoud_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textColor="@color/app_theme"
+                    android:textSize="@dimen/textsize_18"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款金额（元）"
+                    android:textColor="@color/text_gray_normal"
+                    android:textSize="@dimen/textsize_13"/>
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray_line"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/bill_swrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bill_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

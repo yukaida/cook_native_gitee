@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 默认圆角按钮样式 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 按钮禁用状态 -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/thirty" />
+            <solid android:color="@color/colorButtonDisable" />
+        </shape>
+    </item>
+
+    <!-- 按钮按压状态 -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/thirty" />
+            <solid android:color="#fffb7479" />
+        </shape>
+    </item>
+
+    <!-- 按钮默认状态 -->
+    <item >
+        <shape android:shape="rectangle">
+            <solid android:color="#F34F1A" />
+            <gradient android:startColor="#F34F1A" android:endColor="#F34F1A"/>
+            <corners android:radius="@dimen/thirty"  />
+        </shape>
+    </item>
+
+</selector>

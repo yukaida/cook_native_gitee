@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/fifteen"
+    android:layout_marginRight="@dimen/fifteen">
+
+    <ImageView
+        android:id="@+id/delete_iv"
+        android:layout_width="20dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/icon_delete"
+        android:visibility="visible"
+        android:layout_gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/step_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_14"
+            android:textColor="@color/text_black_normal"
+            android:text="步骤1"
+            android:layout_marginBottom="@dimen/five"/>
+
+        <RelativeLayout
+            android:id="@+id/add_pic_step_rl"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/gray02">
+
+            <ImageView
+                android:id="@+id/step_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+
+            <LinearLayout
+                android:id="@+id/add_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="@dimen/fifteen"
+                    android:layout_height="@dimen/fifteen"
+                    android:background="@mipmap/icon_add"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="步骤图"
+                    android:textSize="@dimen/textsize_18"
+                    android:layout_marginLeft="@dimen/five"
+                    android:textColor="@color/text_gray_normal"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/step_desc_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:textSize="@dimen/textsize_12"
+            android:hint="添加步骤说明"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/five"
+            android:layout_marginBottom="@dimen/ten"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/touch_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="长按图片并拖动"
+            android:layout_marginLeft="@dimen/five"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

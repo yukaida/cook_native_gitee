@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="space_20">10dp</dimen>
+    <dimen name="space_24">12dp</dimen>
+    <dimen name="space_30">15dp</dimen>
+    <dimen name="space_40">20dp</dimen>
+    <dimen name="space_60">30dp</dimen>
+    <dimen name="space_80">40dp</dimen>
+    <dimen name="space_100">50dp</dimen>
+    <dimen name="space_120">60dp</dimen>
+    <dimen name="space_140">70dp</dimen>
+
+
+    <dimen name="font_size_28px">14sp</dimen>
+    <dimen name="font_size_30px">15sp</dimen>
+    <dimen name="font_size_46px">23sp</dimen>
+</resources>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.mine.SettingActivity">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/settiing_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:title="@string/setting"
+        app:size_title="@dimen/textsize_16">
+
+    </com.hjq.bar.TitleBar>
+
+    <LinearLayout
+        android:id="@+id/personal_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            android:layout_marginLeft="@dimen/twenty"
+            android:background="@mipmap/icon_acount_head"
+            android:layout_marginTop="@dimen/fifteen"
+            android:layout_marginBottom="@dimen/fifteen"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/username_tv"
+                style="@style/TextStyle"
+                android:layout_marginLeft="@dimen/ten"
+                android:gravity="left"
+                android:text="姓名"
+                android:textColor="@color/text_black_normal"
+                android:textSize="@dimen/textsize_14"/>
+
+            <TextView
+                android:id="@+id/store_name_tv"
+                style="@style/TextStyle"
+                android:layout_marginLeft="@dimen/ten"
+                android:gravity="left"
+                android:text="店名"
+                android:layout_marginTop="3dp"
+                android:textColor="@color/text_gray_normal"
+                android:textSize="@dimen/textsize_12"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/go"
+            android:layout_marginRight="15dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/message_notice_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="@dimen/ten"
+            android:background="@mipmap/icon_notice" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:text="@string/message_notice"
+            android:textSize="@dimen/textsize_14"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/go" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/line_size"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="@dimen/ten"
+            android:background="@mipmap/icon_voice" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:text="@string/keyboard_sound"
+            android:textSize="@dimen/textsize_14"/>
+
+        <com.ebanswers.kitchendiary.widget.SwitchButton
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/twentyfive"
+            app:sb_uncheck_color="@color/gray02"
+            app:sb_checked_color="@color/green"
+            app:sb_checked="true"
+            app:sb_shadow_effect="false"
+            app:sb_show_indicator="false"
+            android:layout_marginRight="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/modify_pass_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/line_size"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="@dimen/ten"
+            android:background="@mipmap/icon_modify_pass" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:text="@string/modify_pass"
+            android:textSize="@dimen/textsize_14"/>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/go"
+            android:layout_marginRight="15dp"/>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/logout_bt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:text="@string/logout_text"
+        android:textSize="@dimen/textsize_14"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/ten"/>
+
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+//文件开头配置
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+        }
+    }
+}
+
+dependencies {
+    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'com.google.android.material:material:1.0.0'
+}
+
+publish {
+    userOrg = 'getactivity'//填写bintray用户名，注意大小写
+    groupId = 'com.quanfuxin'//定义的maven group id最终引用形式
+    artifactId = 'formwork'//maven的artifact id
+    version = '1.0'//maven 上发布版本号
+//    description = 'An advanced template project'//描述，自己定义
+//    website = "https://github.com/getActivity/AndroidProject"//项目在github中的地址
+}
+
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//task javadoc(type: Javadoc) {
+//    options.encoding = "utf-8"
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += files(android.bootClasspath)
+//
+//    options {
+//        //links "http://docs.oracle.com/javase/7/docs/api/"
+//        linksOffline "https://developer.android.com/reference","${android.sdkDirectory}/docs/reference"
+//        encoding = "UTF-8"
+//    }
+//    exclude '**/BuildConfig.java'
+//    exclude '**/R.java'
+//
+//    android.libraryVariants.all { variant ->
+//        variant.javaCompileProvider.configure{
+//            javadoc.classpath += files(it.classpath.files)
+//        }
+//    }
+//}
+//
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--登录服务器的地址-->
+
+    <string-array name="base_url_login">
+        <item>http://wechat.53iq.com/</item>
+<!--        <item>http://app.jinyi.org/</item>-->
+    </string-array>
+
+    <string-array name="base_url_work">
+        <!--<item>http://192.168.1.38:5959/wxServer/</item>-->
+        <item>http://wechat.53iq.com/</item>
+<!--        <item>http://app.jinyi.org/</item>-->
+    </string-array>
+
+    <!--图片下载-->
+    <string-array name="image_path">
+        <item>http://wechat.53iq.com/</item>
+<!--        <item>http://app.jinyi.org/</item>-->
+    </string-array>
+
+    <!--环境名称-->
+    <string-array name="enviroment">
+        <item>正式环境</item>
+        <item>测试环境</item>
+    </string-array>
+
+</resources>

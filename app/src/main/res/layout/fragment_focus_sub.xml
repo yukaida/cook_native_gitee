@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/focus_srl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/focus_srv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten">
+
+                <LinearLayout
+                    android:id="@+id/search_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/thirty"
+                    android:background="@drawable/search_shape_bg"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/twenty"
+                        android:layout_height="@dimen/twenty"
+                        android:src="@drawable/icon_search"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/ten"/>
+
+                    <com.ebanswers.baselibrary.widget.ClearEditText
+                        android:id="@+id/search_et"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        style="@style/EditTextStyle"
+                        android:textSize="@dimen/textsize_14"
+                        android:padding="1dp"
+                        android:layout_marginLeft="@dimen/five"
+                        android:maxLines="1"
+                        android:hint="搜索达人和日记"/>
+
+                    <TextView
+                        android:id="@+id/search_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/fifteen"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:text="搜索"
+                        android:textColor="@color/app_theme"
+                        android:textSize="@dimen/textsize_16" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/search_bgiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/thirty"
+                    android:background="@mipmap/search_bg"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pic_show_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray01"
+                android:layout_marginLeft="@dimen/twenty"
+                android:layout_marginRight="@dimen/twenty"
+                android:layout_marginTop="@dimen/ten"/>
+
+            <LinearLayout
+                android:id="@+id/new_msg_show_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/new_msg_bg"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/ten">
+
+                <ImageView
+                    android:layout_width="@dimen/twenty"
+                    android:layout_height="@dimen/twenty"
+                    android:background="@mipmap/icon_new_msg"/>
+
+                <TextView
+                    android:id="@+id/new_msg_num_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1条新消息"
+                    android:textColor="#F34F1A"
+                    android:textSize="@dimen/textsize_12"
+                    android:layout_marginLeft="@dimen/five"/>
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/focus_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/ten" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

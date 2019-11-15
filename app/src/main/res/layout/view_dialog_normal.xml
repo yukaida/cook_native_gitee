@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shap_radius_white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/twenty"
+        android:textColor="@color/text_black_normal"
+        android:textSize="@dimen/textsize_16"/>
+
+    <TextView
+        android:id="@+id/dialog_content_tv"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/text_gray_normal"
+        android:textSize="@dimen/textsize_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray03"
+        android:layout_marginTop="@dimen/twenty"/>
+
+    <!--选择图片打开方式-->
+    <LinearLayout
+        android:id="@+id/dialog_base_btnll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/five"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dialog_base_left_tv"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="@dimen/one"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/text_gray_normal"
+            android:textSize="@dimen/textsize_14" />
+
+        <TextView
+            android:id="@+id/dialog_base_right_tv"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/one"
+            android:layout_weight="1"
+            android:text=""
+            android:textColor="@color/app_theme"
+            android:gravity="center"
+            android:textSize="@dimen/textsize_14" />
+    </LinearLayout>
+
+</LinearLayout>

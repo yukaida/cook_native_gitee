@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="130dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginRight="@dimen/five">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="168dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/cooking_activity_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="10dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="false"
+            app:riv_tile_mode="repeat"/>
+
+        <TextView
+            android:id="@+id/activity_status_tv"
+            android:layout_width="70dp"
+            android:layout_height="@dimen/twenty"
+            android:text="进行中"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:background="@mipmap/icon_doing_bg"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginBottom="@dimen/five"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:background="@drawable/red_point"
+                android:layout_marginRight="@dimen/five"/>
+
+            <TextView
+                android:id="@+id/activity_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="   6.20  5:20"
+                android:textSize="@dimen/ten"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/activity_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_14"
+        android:textColor="@color/text_black_normal"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginBottom="@dimen/ten"
+        android:text="1231"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+
+</LinearLayout>

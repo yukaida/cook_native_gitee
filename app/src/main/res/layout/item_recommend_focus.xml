@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/ten">
+
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="150dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:gravity="center_horizontal"
+            android:background="@mipmap/expert_story_bg"
+            android:orientation="vertical">
+
+            <com.ebanswers.kitchendiary.widget.CircleImageView
+                android:id="@+id/user_head_iv"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@mipmap/icon_user_head"
+                android:layout_marginTop="@dimen/twenty"/>
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginTop="@dimen/ten"/>
+
+            <TextView
+                android:id="@+id/user_status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="烹饪达人"
+                android:textColor="@color/text_gray_normal"
+                android:textSize="@dimen/textsize_12"
+                android:layout_marginTop="@dimen/five"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/focus_user_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:background="@mipmap/icon_focus_found"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

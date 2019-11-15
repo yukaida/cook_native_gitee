@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/expert_story_bg">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/fifteen"
+            android:layout_marginLeft="@dimen/thirty"
+            android:layout_marginRight="@dimen/thirty">
+
+            <com.ebanswers.kitchendiary.widget.CircleImageView
+                android:id="@+id/cooking_user_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@mipmap/icon_user_head"/>
+
+            <TextView
+                android:id="@+id/cooking_username_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="130dp"
+                android:text=""
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginLeft="@dimen/five"/>
+
+           <!-- <ImageView
+                android:id="@+id/auth_cooking_iv"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:background="@mipmap/icon_auth_cooking"
+                />-->
+
+            <ImageView
+                android:id="@+id/is_master_iv"
+                android:layout_width="@dimen/twentyfive"
+                android:layout_height="@dimen/twentyfive"
+                android:background="@mipmap/icon_master"
+                android:visibility="gone"/>
+
+
+            <ImageView
+                android:id="@+id/is_master_rank_iv"
+                android:layout_width="@dimen/twentyfive"
+                android:layout_height="@dimen/twentyfive"
+                android:background="@mipmap/icon_first"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/master_rank_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/app_theme"
+                android:text=""
+                android:textSize="@dimen/textsize_12"
+                android:visibility="gone"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/focu_iv"
+                android:layout_width="56dp"
+                android:layout_height="23dp"
+                android:background="@mipmap/icon_focus_found"/>
+
+        </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cooking_pic_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginBottom="@dimen/ten"
+        android:layout_marginRight="@dimen/ten"/>
+
+
+</LinearLayout>

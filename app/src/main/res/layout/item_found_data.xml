@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shadow">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:paddingLeft="@dimen/thirty"
+        android:paddingRight="@dimen/thirty"
+        android:paddingBottom="@dimen/ten"
+        android:minHeight="@dimen/onehundred">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/twenty"
+            android:gravity="center_vertical">
+
+            <com.ebanswers.kitchendiary.widget.CircleImageView
+                android:id="@+id/user_head_iv"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                android:background="@mipmap/icon_user_head"/>
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/five"
+                android:maxWidth="100dp"
+                android:text=""
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/text_black_normal"
+                android:textSize="@dimen/textsize_12" />
+
+            <ImageView
+                android:id="@+id/is_master_iv"
+                android:layout_width="@dimen/twentyfive"
+                android:layout_height="@dimen/twentyfive"
+                android:background="@mipmap/icon_master"
+                android:visibility="gone"/>
+
+
+            <ImageView
+                android:id="@+id/is_master_rank_iv"
+                android:layout_width="@dimen/twentyfive"
+                android:layout_height="@dimen/twentyfive"
+                android:background="@mipmap/icon_first"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/master_rank_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/app_theme"
+                android:text=""
+                android:textSize="@dimen/textsize_12"
+                android:visibility="gone"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/focu_status_iv"
+                android:layout_width="55dp"
+                android:layout_height="22dp"
+                android:background="@mipmap/icon_focus_found"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/user_descrbe_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text=""
+            android:textSize="@dimen/textsize_14"
+            android:lineSpacingMultiplier="1.0"
+            android:textColor="@color/text_gray_normal"
+            android:layout_marginTop="7dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/share_pic_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/three"
+                android:layout_height="@dimen/three"
+                android:background="@drawable/red_point"/>
+
+            <TextView
+                android:id="@+id/sned_time_tv"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_gray_normal"
+                android:textSize="@dimen/textsize_12"
+                android:text="12:00"
+                android:layout_marginLeft="@dimen/five"/>
+
+            <ImageView
+                android:id="@+id/share_iv"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:background="@mipmap/icon_share"
+                android:layout_marginRight="@dimen/thirty"/>
+
+            <ImageView
+                android:id="@+id/collection_status_iv"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:background="@mipmap/icon_collection_off" />
+            <TextView
+                android:id="@+id/collection_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="12"
+                android:layout_marginRight="@dimen/twenty"/>
+
+
+            <ImageView
+                android:id="@+id/message_iv"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:background="@mipmap/icon_message_found"/>
+
+            <TextView
+                android:id="@+id/message_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="12"
+                android:layout_marginRight="@dimen/twenty"/>
+
+            <ImageView
+                android:id="@+id/like_status_iv"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:background="@mipmap/icon_focus_off"/>
+
+            <TextView
+                android:id="@+id/like_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="12"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/liked_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/liked_username_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_12"
+                android:padding="@dimen/five"/>
+
+            <TextView
+                android:id="@+id/liked_user_all_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text=""
+                android:textSize="@dimen/textsize_12"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/five"/>
+
+        <TextView
+            android:id="@+id/look_more_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/btn_blue_normal"
+            android:textSize="@dimen/textsize_16"
+            android:text="查看更多"/>
+
+    </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/is_top_show_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/five"
+        android:layout_marginTop="@dimen/five"
+        android:src="@mipmap/icon_top"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

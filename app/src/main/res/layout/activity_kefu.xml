@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.mine.KefuActivity">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/kefu_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:title="客服中心"
+        app:color_title="@color/white"
+        app:icon_left="@drawable/icon_back"
+        android:background="@color/app_theme"/>
+
+    <LinearLayout
+        android:id="@+id/kefu_line_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/selector_selectable_transparent">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="客服热线："
+            android:gravity="right"
+            android:textColor="@color/text_black_normal"
+            android:textSize="@dimen/textsize_12"/>
+
+        <TextView
+            android:id="@+id/kefu_line_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_12"
+            android:textColor="@color/text_gray_normal"
+            android:layout_marginRight="10dp"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray_line"/>
+
+    <LinearLayout
+        android:id="@+id/data_email_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/selector_selectable_transparent">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="资料进件邮箱："
+            android:gravity="right"
+            android:textColor="@color/text_black_normal"
+            android:textSize="@dimen/textsize_12"/>
+
+        <TextView
+            android:id="@+id/data_email_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_12"
+            android:textColor="@color/text_gray_normal"
+            android:layout_marginRight="10dp"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray_line"/>
+
+
+    <LinearLayout
+        android:id="@+id/join_line_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/selector_selectable_transparent">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="招商加盟："
+            android:gravity="right"
+            android:textColor="@color/text_black_normal"
+            android:textSize="@dimen/textsize_12"/>
+
+        <TextView
+            android:id="@+id/join_line_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_12"
+            android:textColor="@color/text_gray_normal"
+            android:layout_marginRight="10dp"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray_line"/>
+
+
+    <LinearLayout
+        android:id="@+id/technical_support_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/selector_selectable_transparent">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="技术支持："
+            android:gravity="right"
+            android:textColor="@color/text_black_normal"
+            android:textSize="@dimen/textsize_12"/>
+
+        <TextView
+            android:id="@+id/technical_support_email_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_12"
+            android:textColor="@color/text_gray_normal"
+            android:layout_marginRight="10dp"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size"
+        android:background="@color/gray_line"/>
+
+
+
+
+</LinearLayout>

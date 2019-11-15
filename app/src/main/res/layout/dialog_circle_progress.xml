@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/transparent">
+
+
+
+       <!-- <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_likeanim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_fileName="likeanim.json"
+            app:lottie_loop="true"/>-->
+
+        <ProgressBar
+            android:id="@+id/loading_progress"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"/>
+
+<!--
+        <com.ebanswers.kitchendiary.network.progress.RotateLoading
+            android:id="@+id/rotateloading"
+            oden:loading_visible="true"
+            android:layout_width="80dp"
+            oden:loading_color="@color/app_theme"
+            android:layout_height="80dp"/>
+-->
+
+     <!--   <ImageView
+            android:id="@+id/loading_up_iv"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            android:src="@drawable/loadding"
+            android:layout_marginBottom="@dimen/fifteen"/>
+
+        <TextView
+            android:id="@+id/progreeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/gray03"
+            android:text="LOADING NOW" />
+
+        <ImageView
+            android:id="@+id/loading_bottom_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"/>-->
+
+</LinearLayout>

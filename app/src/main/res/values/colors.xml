@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="windowBackground">#f2f2f2</color>
+ <!--   <color name="colorPrimary">#4ad5c0</color>
+    <color name="colorPrimaryDark">#54e2c8</color>
+    <color name="colorAccent">#5A8DDF</color>-->
+
+    <!-- 按钮按压时的颜色 -->
+    <!-- 按钮禁用时的颜色 -->
+    <color name="colorButtonDisable">#DDDDDD</color>
+    <!-- 分割线的颜色 -->
+    <color name="colorLine">#fff75056</color>
+
+    <color name="colorPrimary">#F75056</color>
+    <color name="colorPrimaryDark">#F77856</color>
+    <color name="colorAccent">#F76056</color>
+
+    <color name="gray01">#eeeeee</color>
+    <color name="gray02">#e4e4e4</color>
+    <color name="gray03">#F4F7F7</color>
+    <color name="gray04">#999999</color>
+    <color name="gray_line">#ffaeaeae</color>
+    <color name="top_blue">#2A67A3</color>
+    <color name="black40">#40000000</color>
+    <color name="step_back">#fff1eaf1</color>
+    <color name="transparent">#0000</color>
+    <!-- 白色 -->
+    <color name="white">#ffffff</color>
+    <!-- 黑色 -->
+    <color name="black">#000000</color>
+    <!-- 红紫色 -->
+    <color name="red">#FF0000</color>
+
+   <!-- 红紫色 -->
+
+    <!-- 灰色 -->
+    <color name="gray">#A6A6A6</color>
+    <!-- 蓝色 -->
+    <color name="blue">#0000FF</color>
+    <color name="green">#00cc00</color>
+
+    <color name="app_theme">#F34F1A</color>
+    <color name="btn_blue_normal">#39CBCB</color>
+    <color name="text_gray_normal">#666666</color>
+    <color name="text_gray_middle">#999999</color>
+    <color name="text_black_normal">#333333</color>
+
+    <!-- 唯一亮色 -->
+
+    <!--二维码扫描界面-->
+    <color name="qr_code_white">#FFFFFFFF</color>
+    <color name="qr_code_flashlight_bg">#66000000</color>
+    <color name="qr_code_finder_mask">#80000000</color>
+    <color name="qr_code_flash_light_text_color">#66FFFFFF</color>
+    <color name="qr_code_finder_frame">#FFFFFFFF</color>
+    <color name="qr_code_finder_laser">#ef8394</color>
+
+    <!--时间控件-->
+    <color name="date_picker_divider">#11112233</color>
+    <color name="date_picker_text_light">#F76056</color>
+    <color name="date_picker_text_dark">#333333</color>
+
+
+</resources>

@@ -1,0 +1,71 @@
+ext {
+    plugins = [library    : 'com.android.library',
+               application: 'com.android.application',
+               maven      : 'com.github.dcendents.android-maven',
+               bintray    : 'com.jfrog.bintray']
+
+    android = [applicationId    : "com.ebanswers.kitchendiary",
+               compileSdkVersion: 28,
+               buildToolsVersion: "28.0.3",
+
+               minSdkVersion    : 19,
+               targetSdkVersion : 28,
+
+               versionCode      : 1,
+               versionName      : "0.0.1",]
+
+    bintray = [version       : "1.3.2",
+
+               siteUrl       : 'https://github.com/yanzhenjie/SwipeRecyclerView',
+               gitUrl        : 'https://github.com/yanzhenjie/SwipeRecyclerView.git',
+
+               packaging     : 'aar',
+               name          : 'SwipeRecyclerView',
+               description   : 'SwipeRecyclerView For Android',
+
+               licenseName   : 'The Apache Software License, Version 2.0',
+               licenseUrl    : 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+
+               developerId   : 'yanzhenjie',
+               developerName : 'yanzhenjie',
+               developerEmail: 'im.yanzhenjie@foxmail.com',
+
+               binrayLibrary : "",
+               bintrayRepo   : "maven",
+               bintrayUser   : 'yolanda',
+               bintrayLicense: "Apache-2.0"]
+
+    dependencies = [appCompat    : 'com.android.support:appcompat-v7:28.0.3',
+                    design       : 'com.android.support:design:28.0.3',
+                    cardView     : 'com.android.support:cardview-v7:28.0.3',
+                    palette     : 'com.android.support:palette-v7:28.0.3',
+                    recyclerView : 'com.android.support:recyclerview-v7:28.0.3',
+
+                    xDesign      : 'com.google.android.material:material:1.0.0',
+                    xAppCompat   : 'androidx.appcompat:appcompat:1.0.2',
+                    xRecyclerView: 'androidx.recyclerview:recyclerview:1.0.0',
+                    xCardView    : 'androidx.cardview:cardview:1.0.0',
+                    constraintLayout :'com.android.support.constraint:constraint-layout:1.1.3']
+
+    cfgs = [
+            minSdkVersion        : 14,
+            targetSdkVersion     : 28,
+            versionCode          : 10,
+            versionName          : "2.0.0",
+            ucropVersionCode     : 22,
+            ucropVersionName     : "2.2.0-native",
+            constraintlayoutVersion : '1.1.3',
+
+            butterknifeVersion : '10.1.0',
+            eventbusVersion : '3.0.0',
+
+
+            //open version control
+            androidSupportVersion: "28.0.3",
+            glide                : "4.5.0",
+            rxjava               : "2.0.5",
+            rxandroid            : "2.0.1"
+    ]
+
+
+}

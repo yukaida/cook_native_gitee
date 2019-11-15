@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ebanswers.kitchendiary">
+
+    <application
+        android:name=".common.CommonApplication"
+        android:anyDensity="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeScreens="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:normalScreens="true"
+        android:resizeableActivity="true"
+        android:usesCleartextTraffic="true"
+        android:roundIcon="@mipmap/icon_acount_head"
+        android:smallScreens="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".mvp.view.base.ForgetPassActivity" />
+
+        <activity android:name=".mvp.view.mine.SignmentActivity" />
+        <activity android:name=".mvp.view.home.BillActivity" />
+        <activity android:name=".mvp.view.mine.ModifyPasswordActivity" />
+        <activity android:name=".mvp.view.mine.KefuActivity" />
+        <activity android:name=".mvp.view.mine.HelpAndFeedbackActivity" />
+        <activity android:name=".mvp.view.mine.PersonalDataActivity" />
+        <activity android:name=".mvp.view.mine.SettingActivity" />
+        <activity android:name=".QrCode.QrCodeActivity" />
+        <activity
+            android:name=".mvp.view.base.ImageLookActivity"
+            android:theme="@style/LauncherTheme" />
+        <activity
+            android:name=".mvp.view.base.LauncherActivity"
+            android:theme="@style/LauncherTheme" />
+        <activity
+            android:name=".mvp.view.base.HomeActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+            <!-- 程序入口 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".mvp.view.base.LoginActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mvp.view.base.RegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mvp.view.mine.AboutActivity"
+            android:label="@string/about_text"
+            android:launchMode="singleTop" /> <!-- 启动页面（因为使用了LauncherTheme，所以不要给这个Activity设置screenOrientation属性，会导致崩溃） -->
+        <activity
+            android:name=".mvp.view.base.WebActivity"
+            android:launchMode="singleTop" /> <!-- 主页界面 -->
+        <activity
+            android:name=".mvp.view.base.SendRepiceActivity"
+            android:launchMode="singleTop" /> <!-- 登录界面 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 注册界面 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105879955" />
+            </intent-filter>
+        </activity> <!-- 关于界面 -->
+
+        <activity android:name="UCropActivity"/>
+
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.2" />
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" /> <!-- since 3.1.0 Required SDK 核心功能 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.2" /> <!-- Required SDK核心功能 -->
+        <meta-data
+            android:name="com.ebanswers.pharmacy.constant.BaseGlideMoudle"
+            android:value="GlideModule" /> <!-- Required SDK核心功能 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="587dca03717c19623d001674" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" /> <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ebanswers.kitchendiary.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider> <!-- Required  . Enable it you can get statistics data with channel -->
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <receiver android:name=".receiver.NetworkConnectChangedReceiver">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.CreateRepiceService"
+            android:enabled="true"
+            android:exported="true" /> <!-- 友盟统计 -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="com.quanfuxin.mljj.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+</manifest>

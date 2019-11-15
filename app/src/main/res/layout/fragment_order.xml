@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.helper.HelperFragment">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_test_b_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/order_swrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnableLoadMore="false"
+        android:background="@drawable/linearlayout_bg">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/helper_srv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten">
+
+                    <LinearLayout
+                        android:id="@+id/helper_search_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty"
+                        android:background="@drawable/search_shape_bg"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/twenty"
+                            android:layout_height="@dimen/twenty"
+                            android:src="@drawable/icon_search"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/ten"/>
+
+                        <com.ebanswers.baselibrary.widget.ClearEditText
+                            android:id="@+id/helper_search_et"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            style="@style/EditTextStyle"
+                            android:textSize="@dimen/textsize_14"
+                            android:padding="1dp"
+                            android:layout_marginLeft="@dimen/five"
+                            android:maxLines="1"
+                            android:hint="搜索达人和日记"/>
+
+                        <TextView
+                            android:id="@+id/helper_search_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/fifteen"
+                            android:layout_marginLeft="@dimen/ten"
+                            android:text="搜索"
+                            android:textColor="@color/app_theme"
+                            android:textSize="@dimen/textsize_16" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/helper_search_bgiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty"
+                        android:background="@mipmap/search_bg"
+                        android:clickable="true"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ten">
+
+                    <LinearLayout
+                        android:id="@+id/steaming_roast_recipe_ll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:background="@mipmap/icon_steaming_roast_recipe"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="蒸烤菜谱目录"
+                            android:ellipsize="end"
+                            android:textSize="@dimen/textsize_14"
+                            android:textColor="@color/text_black_normal"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/brand_zone_ll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:background="@mipmap/icon_brand_zone"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="品牌专区"
+                            android:textSize="@dimen/textsize_14"
+                            android:textColor="@color/text_black_normal"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/steam_oven_use_ll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:background="@mipmap/icon_steam_oven_use"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="蒸烤指南"
+                            android:textSize="@dimen/textsize_14"
+                            android:textColor="@color/text_black_normal"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户的推荐"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/textsize_18"
+                    android:layout_margin="@dimen/ten"
+                    android:textColor="@color/text_black_normal"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/order_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/ten"/>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+
+
+</LinearLayout>

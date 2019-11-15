@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.mine.PersonalDataActivity">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/personal_data_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        app:title="@string/personal_data"
+        app:size_title="@dimen/textsize_16"/>
+
+    <LinearLayout
+        android:id="@+id/personal_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:text="@string/head_image"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_black_normal"
+            android:textSize="@dimen/textsize_14"/>
+
+        <ImageView
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_marginRight="@dimen/ten"
+            android:background="@mipmap/icon_acount_head"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginBottom="@dimen/ten"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:text="@string/store_name"
+            android:textSize="@dimen/textsize_14"/>
+
+        <TextView
+            android:id="@+id/store_name_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/twenty"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:gravity="right"
+            android:textSize="@dimen/textsize_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/line_size"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:text="@string/account"
+            android:textSize="@dimen/textsize_14"/>
+
+        <TextView
+            android:id="@+id/account_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/twenty"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:gravity="right"
+            android:textSize="@dimen/textsize_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/line_size"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:text="@string/contact"
+            android:textSize="@dimen/textsize_14"/>
+
+        <TextView
+            android:id="@+id/contact_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/twenty"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:gravity="right"
+            android:textSize="@dimen/textsize_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginTop="@dimen/line_size"
+        android:background="@drawable/linearlayout_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_marginLeft="@dimen/ten"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:text="@string/mobile_num"
+            android:textSize="@dimen/textsize_14"/>
+
+        <TextView
+            android:id="@+id/mobile_num_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/twenty"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:gravity="right"
+            android:textSize="@dimen/textsize_14"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

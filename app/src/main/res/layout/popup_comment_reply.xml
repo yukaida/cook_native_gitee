@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/ten"
+    android:background="@drawable/shadow">
+
+    <EditText
+        android:id="@+id/reply_comment_et"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="回复内容"
+        android:focusable="true"
+        style="@style/EditTextStyle"/>
+
+    <TextView
+        android:id="@+id/reply_comment_tv"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="回复"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_button"
+        android:gravity="center"/>
+
+
+
+</LinearLayout>

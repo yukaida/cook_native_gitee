@@ -1,0 +1,671 @@
+package com.ebanswers.kitchendiary.mvp.view.base;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.viewpager.widget.ViewPager;
+
+import com.ebanswers.baselibrary.utils.OnClickUtils;
+import com.ebanswers.baselibrary.utils.ScreenUtils;
+import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.adapter.HomeViewPagerAdapter;
+import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
+import com.ebanswers.kitchendiary.mvp.view.found.FoundFragment;
+import com.ebanswers.kitchendiary.mvp.view.helper.HelperFragment;
+import com.ebanswers.kitchendiary.mvp.view.home.HomeFragment;
+import com.ebanswers.kitchendiary.mvp.view.mine.MineFragment;
+import com.ebanswers.kitchendiary.network.api.ApiMethods;
+import com.ebanswers.kitchendiary.network.observer.MyObserver;
+import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
+import com.ebanswers.kitchendiary.network.response.MessageResponse;
+import com.ebanswers.kitchendiary.service.UpdateService;
+import com.ebanswers.kitchendiary.utils.AppUtils;
+import com.ebanswers.kitchendiary.utils.ButtonUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
+import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
+import com.ebanswers.kitchendiary.widget.viewpager_animator.ZoomOutPageTransformer;
+import com.gyf.barlibrary.ImmersionBar;
+import com.hjq.toast.ToastUtils;
+import com.umeng.socialize.UMShareAPI;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * desc   : 主页界面
+ */
+public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener, Runnable, ScreenUtils {
+
+    @BindView(R.id.vp_home_pager)
+    ViewPager mViewPager;
+
+    public static boolean isForeground = false;
+    @BindView(R.id.home_image)
+    ImageView homeImage;
+    @BindView(R.id.home_tv)
+    TextView homeTv;
+    @BindView(R.id.home_ll)
+    LinearLayout homeLl;
+    @BindView(R.id.helper_image)
+    ImageView helperImage;
+    @BindView(R.id.helper_tv)
+    TextView helperTv;
+    @BindView(R.id.helper_ll)
+    LinearLayout helperLl;
+    @BindView(R.id.tab_center_image)
+    ImageView tabCenterImage;
+    @BindView(R.id.tab_center_ll)
+    LinearLayout tabCenterLl;
+    @BindView(R.id.found_image)
+    ImageView foundImage;
+    @BindView(R.id.found_tv)
+    TextView foundTv;
+    @BindView(R.id.found_ll)
+    LinearLayout foundLl;
+    @BindView(R.id.me_image)
+    ImageView meImage;
+    @BindView(R.id.me_tv)
+    TextView meTv;
+    @BindView(R.id.me_ll)
+    LinearLayout meLl;
+    @BindView(R.id.current_date_tv)
+    TextView currentDateTv;
+    @BindView(R.id.message_num_tv)
+    TextView messageNumTv;
+
+    private OrientationEventListener mOrientationListener;
+    // screen orientation listener
+    private boolean mScreenProtrait = true;
+    private boolean mCurrentOrient = false;
+
+    private HomeViewPagerAdapter mAdapter;
+    private String TAG = "HomeActivity";
+    private int msg_num;
+    private CustomPopWindow.PopupWindowBuilder popupWindowBuilder;
+    private CustomPopWindow customPopWindow;
+
+    private Timer timer;
+    private TimerTask task;
+
+    private Handler handler  = new Handler(){
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 1){
+                loadMessageInfo();
+            }
+        }
+    };
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    protected int getTitleBarId() {
+        return 0;
+    }
+
+    @Override
+    protected void initView() {
+        EventBusUtil.register(this);
+        if (TextUtils.isEmpty((String)SPUtils.get(AppConstant.USER_NAME,""))){
+            SPUtils.put(AppConstant.USER_NAME,"厨房客人");
+        }
+
+        if (TextUtils.isEmpty((String)SPUtils.get(AppConstant.USER_ID,""))){
+            SPUtils.put(AppConstant.USER_ID,"oYazTsqC-maRSIlVMXgnG_mcF2Sk");
+        }
+
+
+
+        mViewPager.addOnPageChangeListener(this);
+        currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");
+        // 修复在 ViewPager 中点击 EditText 弹出软键盘导致 BottomNavigationView 还显示在 ViewPager 下面的问题
+        postDelayed(this, 1000);
+
+        mAdapter = new HomeViewPagerAdapter(this);
+        mViewPager.setAdapter(mAdapter);
+//        startOrientationChangeListener();
+        mViewPager.setPageTransformer(false, new ZoomOutPageTransformer());
+        // 限制页面数量
+        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
+//        mViewPager.setOffscreenPageLimit(2);
+
+        /*
+         * Generate a new EC key pair entry in the Android Keystore by
+         * using the KeyPairGenerator API. The private key can only be
+         * used for signing or verification and only with SHA-256 or
+         * SHA-512 as the message digest.
+         */
+        startTask();
+
+    }
+
+    @Override
+    protected void initData() {
+        loadMessageInfo();
+    }
+
+    private void loadMessageInfo() {
+        ObserverOnNextListener<MessageResponse, Throwable> listener = new ObserverOnNextListener<MessageResponse, Throwable>() {
+            @Override
+            public void onNext(MessageResponse messageResponse) {
+                msg_num = messageResponse.getMsg_num();
+                SPUtils.put("msg_num",msg_num);
+
+                int currentItem = mViewPager.getCurrentItem();
+
+                if (msg_num>0){
+                    if (currentItem != 2){
+                        messageNumTv.setVisibility(View.VISIBLE);
+                        if (msg_num < 100){
+                            messageNumTv.setText(msg_num + "");
+                        }else {
+                            messageNumTv.setText("···");
+                        }
+                    }else {
+                        messageNumTv.setVisibility(View.GONE);
+                    }
+                    FoundFragment item = (FoundFragment) mAdapter.getItem(2);
+                    if (item != null){
+                        item.onStart();
+                    }
+
+
+                }else {
+                    messageNumTv.setVisibility(View.GONE);
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        };
+        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        ApiMethods.messageInfo(new MyObserver<>(this, listener), userId, "False");
+    }
+
+    /**
+     * {@link Runnable}
+     */
+    @Override
+    public void run() {
+        /*
+         父布局为LinearLayout，因为 ViewPager 使用了权重的问题
+         软键盘在弹出的时候会把布局进行收缩，ViewPager 的高度缩小了
+         所以 BottomNavigationView 会显示在ViewPager 下面
+         解决方法是在 ViewPager 初始化高度后手动进行设置 ViewPager 高度并将权重设置为0
+         */
+        if (mViewPager != null) {
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mViewPager.getLayoutParams();
+            layoutParams.height = mViewPager.getHeight();
+            layoutParams.weight = 0;
+            mViewPager.setLayoutParams(layoutParams);
+        }
+    }
+
+    /**
+     * {@link ViewPager.OnPageChangeListener}
+     */
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+//                mBottomNavigationView.setSelectedItemId(R.id.menu_home);
+                break;
+            case 1:
+//                mBottomNavigationView.setSelectedItemId(R.id.home_credit);
+                break;
+            /*case 2:
+                mBottomNavigationView.setSelectedItemId(R.id.home_message);
+                break;*/
+            case 2:
+//                mBottomNavigationView.setSelectedItemId(R.id.home_me);
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @OnClick({R.id.home_ll, R.id.helper_ll, R.id.tab_center_ll, R.id.found_ll, R.id.me_ll})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.home_ll:
+                currentDateTv.setVisibility(View.VISIBLE);
+                ImmersionBar.with(this).statusBarDarkFont(true).transparentStatusBar().init();
+                mViewPager.setCurrentItem(0);
+                clearStatus();
+                selectIndex(0);
+                if (ButtonUtils.isFastDoubleClick(R.id.home_ll)){
+                    HomeFragment item = (HomeFragment) mAdapter.getItem(0);
+                    if (item !=null){
+                        item.scroolTopRefresh();
+                    }
+                }
+                break;
+            case R.id.helper_ll:
+                currentDateTv.setVisibility(View.GONE);
+                ImmersionBar.with(this).statusBarDarkFont(true).transparentStatusBar().init();
+                mViewPager.setCurrentItem(1);
+                clearStatus();
+                selectIndex(1);
+                if (ButtonUtils.isFastDoubleClick(R.id.helper_ll)){
+                    HelperFragment item = (HelperFragment) mAdapter.getItem(1);
+                    if (item !=null){
+                        item.scroolTopRefresh();
+                    }
+                }
+                break;
+            case R.id.tab_center_ll:
+                popupSendRepiceWindow(tabCenterLl);
+                break;
+            case R.id.found_ll:
+                if (ButtonUtils.isFastDoubleClick(R.id.found_ll)){
+                    FoundFragment item = (FoundFragment) mAdapter.getItem(2);
+                    if (item !=null){
+                        item.scroolTopRefresh();
+                    }
+                }
+                currentDateTv.setVisibility(View.GONE);
+                ImmersionBar.with(this).statusBarDarkFont(true).transparentStatusBar().init();
+                mViewPager.setCurrentItem(2);
+                clearStatus();
+                selectIndex(2);
+                break;
+            case R.id.me_ll:
+                if (ButtonUtils.isFastDoubleClick(R.id.me_ll)){
+                    MineFragment item = (MineFragment) mAdapter.getItem(3);
+                    if (item !=null){
+                        item.scroolTopRefresh();
+                    }
+                }
+                currentDateTv.setVisibility(View.GONE);
+                ImmersionBar.with(this).statusBarDarkFont(true).transparentStatusBar().init();
+                mViewPager.setCurrentItem(3);
+                clearStatus();
+                selectIndex(3);
+                break;
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private void popupSendRepiceWindow(LinearLayout tabCenterLl) {
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View inflate = layoutInflater.inflate(R.layout.popup_send_repice_diary, null);
+        TextView closeTv = inflate.findViewById(R.id.close_tv);
+        LinearLayout diaryLl = inflate.findViewById(R.id.diary_ll);
+        LinearLayout repiceLl = inflate.findViewById(R.id.repice_ll);
+        inflate.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+        if (popupWindowBuilder == null) {
+            popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(this);
+        }
+        popupWindowBuilder
+                .setView(inflate)
+                .size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setBgDarkAlpha(0.7f)
+                .enableBackgroundDark(true)
+                .setOutsideTouchable(true)
+                .setAnimationStyle(R.style.RtcPopupAnimation);
+        customPopWindow = popupWindowBuilder.create();
+        customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
+
+        repiceLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                customPopWindow.dissmiss();
+            }
+        });
+
+        closeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customPopWindow.dissmiss();
+            }
+        });
+    }
+
+    public void clearStatus() {
+
+        homeImage.setBackgroundResource(R.mipmap.tab_ico_home_off);
+        helperImage.setBackgroundResource(R.mipmap.tab_ico_message_off);
+        foundImage.setBackgroundResource(R.mipmap.tab_ico_found_off);
+        meImage.setBackgroundResource(R.mipmap.tab_ico_me_off);
+
+        homeTv.setTextColor(getResources().getColor(R.color.text_gray_normal));
+        helperTv.setTextColor(getResources().getColor(R.color.text_gray_normal));
+        foundTv.setTextColor(getResources().getColor(R.color.text_gray_normal));
+        meTv.setTextColor(getResources().getColor(R.color.text_gray_normal));
+
+    }
+
+    public void selectIndex(int position) {
+        switch (position) {
+            case 0:
+                homeImage.setBackgroundResource(R.mipmap.tab_ico_home);
+                homeTv.setTextColor(getResources().getColor(R.color.app_theme));
+
+                break;
+            case 1:
+                helperImage.setBackgroundResource(R.mipmap.tab_ico_message);
+                helperTv.setTextColor(getResources().getColor(R.color.app_theme));
+
+                break;
+            case 2:
+                foundImage.setBackgroundResource(R.mipmap.tab_ico_found);
+                foundTv.setTextColor(getResources().getColor(R.color.app_theme));
+                messageNumTv.setVisibility(View.GONE);
+                break;
+            case 3:
+                meImage.setBackgroundResource(R.mipmap.tab_ico_me);
+                meTv.setTextColor(getResources().getColor(R.color.app_theme));
+
+                break;
+            default:
+                homeImage.setBackgroundResource(R.mipmap.tab_ico_home);
+                homeTv.setTextColor(getResources().getColor(R.color.app_theme));
+                break;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (OnClickUtils.isOnDoubleClick()) {
+            //移动到上一个任务栈，避免侧滑引起的不良反应
+            moveTaskToBack(false);
+            getWindow().getDecorView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //销毁掉当前界面
+                    finish();
+                }
+            }, 300);
+        } else {
+            ToastUtils.show(getResources().getString(R.string.home_exit_hint));
+        }
+    }
+
+    @Override
+    public boolean isStatusBarEnabled() {
+        return super.isStatusBarEnabled();
+    }
+
+    @Override
+    public boolean statusBarDarkFont() {
+        return super.statusBarDarkFont();
+    }
+
+    @Override
+    protected void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        isForeground = false;
+        super.onPause();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.setAdapter(null);
+        stopTask();
+        EventBusUtil.unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean isSupportSwipeBack() {
+        // 不使用侧滑功能
+        return !super.isSupportSwipeBack();
+    }
+
+
+    private final void startOrientationChangeListener() {
+        mOrientationListener = new OrientationEventListener(this) {
+            @Override
+            public void onOrientationChanged(int rotation) {
+                if (((rotation >= 0) && (rotation <= 45)) || (rotation >= 315) || ((rotation >= 135) && (rotation <= 225))) {//portrait
+                    mCurrentOrient = true;
+                    if (mCurrentOrient != mScreenProtrait) {
+                        mScreenProtrait = mCurrentOrient;
+                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        Log.d(TAG, "Screen orientation changed from Landscape to Portrait!");
+                    }
+                } else if (((rotation > 45) && (rotation < 135)) || ((rotation > 225) && (rotation < 315))) {//landscape
+                    mCurrentOrient = false;
+                    if (mCurrentOrient != mScreenProtrait) {
+                        mScreenProtrait = mCurrentOrient;
+                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        Log.d(TAG, "Screen orientation changed from Portrait to Landscape!");
+                    }
+                }
+            }
+        };
+        mOrientationListener.enable();
+    }
+
+
+    @Override
+    public void OrientationChanged(int orientation) {
+        if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            //横屏设置
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            //竖屏设置
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+
+    /**
+     * 请求版本号
+     */
+    private void checkVersion() {
+        //新版本的apk的地址
+        int newVersionCode = 101;
+        //获取当前app版本
+        int currVersionCode = AppUtils.getPackageVersionCode(HomeActivity.this);
+
+        //如果当前版本小于新版本，则提示更新
+        if (currVersionCode < newVersionCode) {
+            Log.i("tag", "有新版本需要更新");
+            showHintDialog();
+        }
+    }
+
+    //显示询问用户是否更新APP的dialog
+    private void showHintDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.mipmap.ic_launcher).setMessage("检测到当前有新版本，是否更新?").setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //取消更新，则跳转到旧版本的APP的页面
+                Toast.makeText(HomeActivity.this, "暂时不更新app", Toast.LENGTH_SHORT).show();
+            }
+        }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //6.0以下系统，不需要请求权限,直接下载新版本的app
+                      /*  requestReadAndWriteSDPermission(new PermissionHandler() {
+                            @Override
+                            public void onGranted() {
+                                downloadApk();
+                            }
+                        });*/
+            }
+        }).create().show();
+    }
+
+    //下载最新版的app
+    private void downloadApk() {
+        boolean isWifi = AppUtils.isWifi(this); //是否处于WiFi状态
+        if (isWifi) {
+            startService(new Intent(HomeActivity.this, UpdateService.class));
+            Toast.makeText(HomeActivity.this, "开始下载。", Toast.LENGTH_LONG).show();
+        } else {
+            //弹出对话框，提示是否用流量下载
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("提示");
+            builder.setMessage("是否要用流量进行下载更新");
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    Toast.makeText(HomeActivity.this, "取消更新。", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    startService(new Intent(HomeActivity.this, UpdateService.class));
+                    Toast.makeText(HomeActivity.this, "开始下载。", Toast.LENGTH_LONG).show();
+                }
+            });
+            builder.setCancelable(false);
+
+            AlertDialog dialog = builder.create();
+            //设置不可取消对话框
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    /*在fragment的管理类中，我们要实现这部操作，而他的主要作用是，当D这个activity回传数据到
+    这里碎片管理器下面的fragnment中时，往往会经过这个管理器中的onActivityResult的方法。*/
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        /*在这里，我们通过碎片管理器中的Tag，就是每个碎片的名称，来获取对应的fragment*/
+        MineFragment f = (MineFragment) mAdapter.getItem(3);
+        /*然后在碎片中调用重写的onActivityResult方法*/
+        f.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    public int getMsg_num() {
+        return msg_num;
+    }
+
+    public void setMessageNumTv(){
+        SPUtils.put("msg_num",0);
+        messageNumTv.setVisibility(View.GONE);
+       /* if (msg_num>0){
+            messageNumTv.setVisibility(View.VISIBLE);
+            if (msg_num < 100){
+                messageNumTv.setText(msg_num + "");
+            }else {
+                messageNumTv.setText("···");
+            }
+
+        }else {
+            messageNumTv.setVisibility(View.GONE);
+        }*/
+    }
+
+    public void startTask(){
+
+        if (timer == null){
+            timer = new Timer(true);
+        }
+
+        if (task == null){
+            //任务
+            task = new TimerTask() {
+                public void run() {
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+                }
+            };
+        }
+
+        //启动定时器
+        timer.schedule(task, 0, 10*1000);
+    }
+
+    public void stopTask(){
+        task.cancel();
+        task = null;
+        timer.cancel();
+        timer.purge();
+        timer = null;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetMessage(Event message) {
+        if (message.getType() == Event.EVENT_UPDATE_FOUBND){
+            mViewPager.setCurrentItem(2);
+            clearStatus();
+            selectIndex(2);
+            FoundFragment item = (FoundFragment) mAdapter.getItem(2);
+            if (item !=null){
+                item.addData();
+            }
+        }
+    }
+
+
+
+}

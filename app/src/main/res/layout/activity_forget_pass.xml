@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.base.ForgetPassActivity">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/forget_password_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        app:title="忘记密码"
+        app:size_title="@dimen/textsize_16"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/linearlayout_bg"
+        android:layout_marginTop="@dimen/ten"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@mipmap/icon_logo"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/icon_mobile"/>
+
+            <EditText
+                style="@style/EditTextStyle"
+                android:id="@+id/mobile_num_et"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:hint="@string/register_phone_input_hint"
+                android:lines="1"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:id="@+id/clear_iv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="@dimen/ten"
+                android:background="@mipmap/icon_text_clear"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_size"
+            android:background="@color/line_color"
+            android:layout_marginLeft="@dimen/twentyfive"
+            android:layout_marginRight="@dimen/twentyfive"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:background="@drawable/linearlayout_bg">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/icon_vercode"/>
+
+            <EditText
+                style="@style/EditTextStyle"
+                android:id="@+id/code_et"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:hint="@string/register_code_input_hint"
+                android:lines="1"
+                android:layout_marginLeft="10dp"/>
+
+            <com.ebanswers.baselibrary.widget.CountdownView
+                android:id="@+id/send_code_cdv"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:text="@string/register_send_code"
+                android:textSize="10dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/selector_button_round"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_size"
+            android:background="@color/line_color"
+            android:layout_marginLeft="@dimen/twentyfive"
+            android:layout_marginRight="@dimen/twentyfive"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:background="@drawable/linearlayout_bg">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/icon_password"/>
+
+            <EditText
+                style="@style/EditTextStyle"
+                android:id="@+id/new_pass_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:hint="请输入新密码"
+                android:inputType="textPassword"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM"
+                android:maxLines="1"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_size"
+            android:background="@color/line_color"
+            android:layout_marginLeft="@dimen/twentyfive"
+            android:layout_marginRight="@dimen/twentyfive"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:background="@drawable/linearlayout_bg">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/icon_password"/>
+
+            <EditText
+                style="@style/EditTextStyle"
+                android:id="@+id/confirm_pass_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/text_black_normal"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:hint="请再次输入新密码"
+                android:inputType="textPassword"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM"
+                android:maxLines="1"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_size"
+            android:background="@color/line_color"
+            android:layout_marginLeft="@dimen/twentyfive"
+            android:layout_marginRight="@dimen/twentyfive"/>
+
+
+        <Button
+            android:id="@+id/btn_modify_commit"
+            style="@style/ButtonStyle"
+            android:background="@drawable/selector_button_round"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_120"
+            android:layout_marginTop="@dimen/space_80"
+            android:layout_marginRight="@dimen/space_120"
+            android:text="@string/submit_text" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
