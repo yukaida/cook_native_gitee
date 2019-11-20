@@ -36,9 +36,9 @@ public class ExpertStoryAdapter extends BaseQuickAdapter<SquareInfo.DataBean, Ba
 
             GlideApp.with(mContext)
                     .load(item.getHead_url())
-                    .skipMemoryCache(true)
+//                    .skipMemoryCache(false)
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(cookingUserIv);
 
         }

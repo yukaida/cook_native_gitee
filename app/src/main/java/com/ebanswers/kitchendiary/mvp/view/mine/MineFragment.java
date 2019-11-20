@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -52,6 +53,8 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.List;
 
@@ -138,6 +141,40 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     private CustomPopWindow.PopupWindowBuilder popupWindowBuilder;
     private CustomPopWindow customPopWindow;
     String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+    UMShareListener umShareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         *
+         */
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         */
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         */
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            Toast.makeText(getContext(), "失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            Toast.makeText(getContext(), "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
 
     public static MineFragment newInstance() {
         return new MineFragment();
@@ -155,6 +192,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     protected void initView() {
+
+
 
         minePresenter = new MinePresenter(this, this);
         mineSrl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -271,9 +310,35 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
             case R.id.share_iv:
 
+              /*  UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+                image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+//                        压缩格式设置
+                image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
+                web.setTitle(item.getTitle());//标题
+                web.setThumb(image);  //缩略图
+                web.setDescription(item.getDesc());//描述
+
+                new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        if (share_media == SHARE_MEDIA.QQ) {
+                            LogUtils.e("点击QQ");
+                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
+                        } else if (share_media == SHARE_MEDIA.WEIXIN) {
+                            LogUtils.e("点击微信");
+                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
+                        } else if (share_media == SHARE_MEDIA.QZONE) {
+                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
+                        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
+
+                        }
+                    }
+                }).open();*/
                 break;
             case R.id.setting_iv:
-
 
                 Intent intent4 = new Intent(getContext(), WebActivity.class);
                 intent4.putExtra("url", " https://wechat.53iq.com/tmp/kitchen/setting?code=123");
@@ -489,10 +554,12 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     kitchenDiaryAdapter.addData(data1);
+                    kitchenDiaryAdapter.notifyItemRangeChanged(kitchenDiaryAdapter.getData().size() - 6,
+                            kitchenDiaryAdapter.getData().size());
                 } else {
                     kitchenDiaryAdapter.setNewData(data1);
+                    kitchenDiaryAdapter.notifyDataSetChanged();
                 }
-                kitchenDiaryAdapter.notifyDataSetChanged();
             } else {
                 loadEmpty("请登录后查看日记记录",diaryRv);
                 kitchenDiaryAdapter.setEmptyView(noDataView);
@@ -513,10 +580,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     cookBookAdapter.addData(data1);
+                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - 6,
+                            cookBookAdapter.getData().size());
                 } else {
                     cookBookAdapter.setNewData(data1);
+                    cookBookAdapter.notifyDataSetChanged();
                 }
-                cookBookAdapter.notifyDataSetChanged();
+
             } else {
                 mineSrl.setEnableLoadMore(false);
                 loadEmpty("请登录后查看创建的菜谱",repiceRv);

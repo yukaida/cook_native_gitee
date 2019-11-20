@@ -16,7 +16,6 @@
         android:id="@+id/order_swrl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableLoadMore="false"
         android:background="@drawable/linearlayout_bg">
 
         <androidx.core.widget.NestedScrollView

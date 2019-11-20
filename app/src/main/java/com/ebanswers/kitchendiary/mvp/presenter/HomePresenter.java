@@ -40,7 +40,7 @@ public class HomePresenter extends BasePresenter<BaseView.HomeView, HomeFragment
         ApiMethods.userinfo(new ProgressObserver<HomePageInfo>(getActivity().getSupportActivity(),listener),"123","json",openid );
     }
 
-    public void loadSquareInfo(String openid, boolean isRefresh){
+    public void loadSquareInfo(String openid, String totle,boolean isRefresh){
         ObserverOnNextListener<SquareInfo,Throwable> listener = new ObserverOnNextListener<SquareInfo, Throwable>() {
             @Override
             public void onNext(SquareInfo squareInfo) {
@@ -54,9 +54,9 @@ public class HomePresenter extends BasePresenter<BaseView.HomeView, HomeFragment
         };
 
         if (isRefresh){
-            ApiMethods.square(new MyObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more","0",openid,"recommend");
+            ApiMethods.square(new MyObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more",totle,openid,"recommend");
         }else {
-            ApiMethods.square(new ProgressObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more","0",openid,"recommend");
+            ApiMethods.square(new ProgressObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more",totle,openid,"recommend");
         }
     }
 

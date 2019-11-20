@@ -157,7 +157,7 @@ public class WebActivity extends CommonActivity {
         // 跳转到其他链接
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, final String url) {
-
+            LogUtils.d("url===" + url);
             String scheme = Uri.parse(url).getScheme();
             if (scheme != null) {
                 scheme = scheme.toLowerCase();

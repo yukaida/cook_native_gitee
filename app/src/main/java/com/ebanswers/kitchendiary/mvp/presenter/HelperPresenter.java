@@ -23,7 +23,7 @@ public class HelperPresenter extends BasePresenter<BaseView.HelperView, HelperFr
     }
 
 
-    public void loadSquareInfo(String openid, boolean isRefresh){
+    public void loadSquareInfo(String openid, String totle,boolean isRefresh){
         ObserverOnNextListener<SquareInfo,Throwable> listener = new ObserverOnNextListener<SquareInfo, Throwable>() {
             @Override
             public void onNext(SquareInfo squareInfo) {
@@ -37,11 +37,10 @@ public class HelperPresenter extends BasePresenter<BaseView.HelperView, HelperFr
         };
 
         if (isRefresh){
-            ApiMethods.square(new MyObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more","0",openid,"recommend");
+            ApiMethods.square(new MyObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more",totle,openid,"recommend");
         }else {
-            ApiMethods.square(new ProgressObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more","0",openid,"recommend");
+            ApiMethods.square(new ProgressObserver<SquareInfo>(getActivity().getSupportActivity(),listener),"more",totle,openid,"recommend");
         }
-
     }
 
 

@@ -193,7 +193,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }else {
                 SinglePictureAdapter singlePictureAdapter = new SinglePictureAdapter();
                 sharePicRv.setAdapter(singlePictureAdapter);
-                singlePictureAdapter.setNewData(item.getThumbnail_url());
+                singlePictureAdapter.setNewData(item.getImg_url());
                 singlePictureAdapter.notifyDataSetChanged();
                 singlePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
@@ -205,7 +205,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                         for (int i = 0;i < item.getImg_url().size(); i++) {
                             Rect bounds = new Rect();
                             //new ThumbViewInfo(图片地址);
-                            ThumbViewInfo iteminfo = new ThumbViewInfo(item.getThumbnail_url().get(i));
+                            ThumbViewInfo iteminfo = new ThumbViewInfo(item.getImg_url().get(i));
                             iteminfo.setBounds(bounds);
                             mThumbViewInfoList.add(iteminfo);
                         }

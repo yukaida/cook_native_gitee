@@ -240,7 +240,6 @@ public class BillActivity extends CommonActivity implements SwipeRefreshLayout.O
 //        }
     }
 
-
     @Override
     public void netWorkError(String msg) {
         ToastUtils.show(msg);

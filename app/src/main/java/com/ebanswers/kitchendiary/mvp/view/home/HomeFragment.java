@@ -42,7 +42,7 @@ import com.hjq.permissions.XXPermissions;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -98,8 +98,10 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     private ExpertStoryAdapter expertStoryAdapter;
 
     private boolean isSimpleClick = false;
+    private boolean isRefresh = false;
     private int currentPosition = 0;
     private int msg_num;
+
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -122,12 +124,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
         EventBusUtil.register(this);
         homePresenter = new HomePresenter(this, this);
-        homeSwrl.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                homePresenter.loadSquareInfo(userId, true);
-            }
-        });
+
 
 
         cookingActivityRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -175,14 +172,34 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 }
             }
         });
+
+        homeSwrl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                isRefresh = false;
+                if (expertStoryAdapter != null) {
+                    List<SquareInfo.DataBean> data = expertStoryAdapter.getData();
+                    if (data.size() > 0) {
+                        homePresenter.loadSquareInfo(userId, String.valueOf(data.size()),true);
+                    }
+                }
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                isRefresh = true;
+                homePresenter.loadSquareInfo(userId, "0",true);
+            }
+        });
     }
 
 
     @Override
     protected void initData() {
+        isRefresh = true;
         String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
         homePresenter.loadInfo(userId);
-        homePresenter.loadSquareInfo(userId, false);
+        homePresenter.loadSquareInfo(userId,"0", false);
     }
 
     @Override
@@ -261,16 +278,27 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     @Override
     public void setMoreData(SquareInfo data) {
         homeSwrl.finishRefresh();
+        homeSwrl.finishLoadMore();
         if (data != null) {
             if (data.getData() != null) {
                 if (data.getData().size() > 0) {
-                    if (isSimpleClick) {
-                        expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
-                        isSimpleClick = false;
-                    } else {
-                        expertStoryAdapter.setNewData(data.getData());
-                    }
-                    cookingActivityAdapter.notifyDataSetChanged();
+
+                        if (isSimpleClick) {
+                            expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
+                            isSimpleClick = false;
+                        } else {
+                            if (isRefresh){
+                                if (data.getData().size() < 5) {
+                                    expertStoryAdapter.loadMoreEnd();
+                                }
+                                expertStoryAdapter.setNewData(data.getData());
+                                expertStoryAdapter.notifyDataSetChanged();
+                            }else {
+                                expertStoryAdapter.addData(data.getData());
+//                                expertStoryAdapter.notifyDataSetChanged();
+                                expertStoryAdapter.notifyItemRangeChanged(expertStoryAdapter.getData().size() - 6,expertStoryAdapter.getData().size());
+                            }
+                        }
                 }
             }
 

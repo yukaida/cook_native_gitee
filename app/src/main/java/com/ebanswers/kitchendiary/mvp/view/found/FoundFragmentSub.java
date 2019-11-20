@@ -258,7 +258,8 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
                         image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                        final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
+                        String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+                        final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
                         web.setTitle(item.getTitle());//标题
                         web.setThumb(image);  //缩略图
                         web.setDescription(item.getDesc());//描述
@@ -327,7 +328,8 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     case R.id.user_descrbe_tv:
                     case R.id.share_pic_rv:
                         Intent intent1 = new Intent(getContext(), WebActivity.class);
-                        intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123");
+                        String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
+                        intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
                         startActivity(intent1);
                         break;
                 }
@@ -603,7 +605,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 }
                 foundAdapter.addData(data.getData());
 //                foundAdapter.setNewData(data.getData());
-                foundAdapter.notifyDataSetChanged();
+//                foundAdapter.notifyDataSetChanged();
+                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - 6,
+                        foundAdapter.getData().size());
+
             }
         }
 

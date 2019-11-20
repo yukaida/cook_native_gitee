@@ -35,9 +35,9 @@ public class MoreWonderfulAdapter extends BaseQuickAdapter<SquareInfo.DataBean, 
 
             GlideApp.with(mContext)
                     .load(item.getHead_url())
-                    .skipMemoryCache(true)
+//                    .skipMemoryCache(true)
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(cookingUserIv);
 
         }

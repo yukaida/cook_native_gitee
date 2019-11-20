@@ -9,8 +9,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.SquareInfo;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.utils.GlideApp;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 /**
@@ -48,10 +50,9 @@ public class PictureAdapter extends BaseQuickAdapter<SquareInfo.DataBean.DiaryBe
         picIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(mContext, WebActivity.class);
-
-                String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123";
+                String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+                String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid;
                 intent.putExtra("url",url);
                 mContext.startActivity(intent);
 

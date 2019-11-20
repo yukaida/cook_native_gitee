@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.adapter;
 
 import android.text.TextUtils;
 
+import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
@@ -25,16 +26,28 @@ public class SinglePictureAdapter extends BaseQuickAdapter<String, BaseViewHolde
         RoundedImageView picIv = helper.getView(R.id.pic_iv);
 
         if (!TextUtils.isEmpty(item)){
+            //1、通过自己构造 target 可以获取到图片实例
+      /*      SimpleTarget<Bitmap> simpleTarget = new SimpleTarget<Bitmap>() {
+
+                @Override
+                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                    picIv.setImageBitmap(resource);
+                }
+            };*/
 
             GlideApp.with(mContext)
                     .load(item)
                     .placeholder(R.drawable.empty)
                     .dontAnimate()
                     .centerCrop()
-                    .thumbnail(0.5f)
-//                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-//                    .optionalTransform(new TransformationUtils())
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+//                    .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                     .into(picIv);
+
+
         }
     }
+
+
+
 }

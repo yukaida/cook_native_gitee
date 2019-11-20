@@ -33,7 +33,7 @@ import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +79,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
 
     private boolean isSimpleClick = false;
     private int currentPosition = 0;
+    private boolean isRefresh  = false;
 
     public static HelperFragment newInstance() {
         return new HelperFragment();
@@ -98,13 +99,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
     protected void initView() {
 
         helperPresenter = new HelperPresenter(this, this);
-        orderSwrl.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                String userId =  (String) SPUtils.get(AppConstant.USER_ID, "");
-                helperPresenter.loadSquareInfo(userId, true);
-            }
-        });
+
         List<SquareInfo.DataBean> cookingActivityInfos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             cookingActivityInfos.add(new SquareInfo.DataBean());
@@ -137,7 +132,8 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary().get(0).getDiary_id() + "/detail?code=123";
+                    String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary().get(0).getDiary_id() + "/detail?code=123&openid=" + openid;
                     intent.putExtra("url",url);
                     startActivity(intent);
                 }
@@ -149,16 +145,36 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
         TextView emptyTv = noDataView.findViewById(R.id.empty_tv);
         ImageView emptyIv = noDataView.findViewById(R.id.empty_iv);
         emptyTv.setText(getResources().getString(R.string.push_data_empty));
+        orderSwrl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                isRefresh = false;
+                String userId =  (String) SPUtils.get(AppConstant.USER_ID, "");
+                if (moreWonderfulAdapter != null) {
+                    List<SquareInfo.DataBean> data = moreWonderfulAdapter.getData();
+                    if (data.size() > 0) {
+                        helperPresenter.loadSquareInfo(userId, String.valueOf(data.size()),true);
+                    }
+                }
 
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                isRefresh  = true;
+                String userId =  (String) SPUtils.get(AppConstant.USER_ID, "");
+                helperPresenter.loadSquareInfo(userId, "0",true);
+            }
+        });
 
     }
 
 
     @Override
     protected void initData() {
-
+        isRefresh  = true;
         String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-        helperPresenter.loadSquareInfo(userId, true);
+        helperPresenter.loadSquareInfo(userId, "0",true);
     }
 
 
@@ -245,16 +261,27 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
     @Override
     public void setMoreData(SquareInfo data) {
         orderSwrl.finishRefresh();
+        orderSwrl.finishLoadMore();
+
         if (data != null) {
             if (data.getData() != null) {
                 if (data.getData().size() > 0) {
+
                     if (isSimpleClick) {
                         moreWonderfulAdapter.setData(currentPosition, data.getData().get(currentPosition));
                         isSimpleClick = false;
                     } else {
-                        moreWonderfulAdapter.setNewData(data.getData());
+                        if (isRefresh){
+                            if (data.getData().size() < 5) {
+                                moreWonderfulAdapter.loadMoreEnd();
+                            }
+                            moreWonderfulAdapter.setNewData(data.getData());
+                            moreWonderfulAdapter.notifyDataSetChanged();
+                        }else {
+                            moreWonderfulAdapter.addData(data.getData());
+                            moreWonderfulAdapter.notifyItemRangeChanged(moreWonderfulAdapter.getData().size() - 6,moreWonderfulAdapter.getData().size());
+                        }
                     }
-                    moreWonderfulAdapter.notifyDataSetChanged();
                 }
             }
 
