@@ -1,15 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.trycatch.android:mysnackbar:1.2.2@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4fd3358f9d11337f44ba63b4040ca644/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8fe3bc3a02a157599c3d15fbf3b741c/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4fd3358f9d11337f44ba63b4040ca644/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4fd3358f9d11337f44ba63b4040ca644/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8fe3bc3a02a157599c3d15fbf3b741c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8fe3bc3a02a157599c3d15fbf3b741c/res" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trycatch.android/mysnackbar/1.2.2/17f0c360104a192444cc235d423dfaee78b090dc/mysnackbar-1.2.2-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trycatch.android/mysnackbar/1.2.2/23766f89099d6b560b0145e0147d04590680e3b4/mysnackbar-1.2.2-sources.jar!/" />
     </SOURCES>

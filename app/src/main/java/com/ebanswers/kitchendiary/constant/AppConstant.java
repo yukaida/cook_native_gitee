@@ -35,6 +35,7 @@ public class AppConstant {
     public static final String USER_NAME = "userName";
 
     public static final String USER_IMAGE = "userImage";
+    public static final String USER_IMAGE2 = "userImage2";
 
     public static final String USER_OBJECT = "userObject";
 
@@ -56,8 +57,10 @@ public class AppConstant {
     public static final String dynamicKey =  "dynamicKey";
 
     public static final String repice =  "repice";
+    public static final String repice2 =  "repice2";
 
     public static final String pic =  "pic";
+    public static final String pic2 =  "pic2";
 
 
 }

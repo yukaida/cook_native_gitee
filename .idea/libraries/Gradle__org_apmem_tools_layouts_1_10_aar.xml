@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.apmem.tools:layouts:1.10@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9631b802a4361c7ec4f46930a627789a/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9631b802a4361c7ec4f46930a627789a/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39e2b5f50f7484b11e2e122051cb3acc/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39e2b5f50f7484b11e2e122051cb3acc/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apmem.tools/layouts/1.10/20a16bcaeabc382ecec14c1328fc2367bf88066d/layouts-1.10-javadoc.jar!/" />

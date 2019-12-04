@@ -515,7 +515,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void changeName(BaseResponse data) {
-
         minePresenter.loadUserInfo("wer", userId);
     }
 
@@ -536,7 +535,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
 
             if (!TextUtils.isEmpty(data.getOpenid())) {
-                SPUtils.put(AppConstant.USER_NAME, data.getOpenid());
+                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
             }
 
             if (!TextUtils.isEmpty(data.getHead_url())) {

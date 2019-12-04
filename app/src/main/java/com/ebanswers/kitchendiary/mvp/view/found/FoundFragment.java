@@ -153,6 +153,9 @@ public class FoundFragment extends CommonLazyFragment implements ViewPager.OnPag
     public void addData() {
         focuFoundVp.setCurrentItem(0);
         FoundFragmentSub item = (FoundFragmentSub) foundViewPagerAdapter.getItem(0);
-        item.addData();
+        if (item != null){
+            item.addData();
+        }
+
     }
 }

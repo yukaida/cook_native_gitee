@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.receiver.AlarmReceiver;
+import com.ebanswers.kitchendiary.utils.PollingUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,6 +50,13 @@ public class CreateRepiceService extends Service {
     List<FoodStepinfo> foodStepinfos = new ArrayList<>();
     private AllMsgFound allMsgFound;
     private List<Stepinfo> stepinfos;
+    private boolean uploadHeadImage = false;
+    private boolean uploadStepImage = false;
+    private boolean uploadStep = false;
+    private PollingUtil pollingUtil;
+    private Runnable runnable;
+    private Runnable runnable1;
+
 
     @Nullable
     @Override
@@ -79,9 +88,44 @@ public class CreateRepiceService extends Service {
             RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
             MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
             uploadHeadImg(part, watermark);
-        }else {
-
         }
+
+        //每3秒打印一次日志
+        pollingUtil = new PollingUtil(new Handler(getMainLooper()));
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (uploadHeadImage){
+                    if (stepinfos != null){
+                        if (!uploadStep){
+                            uploadStep = true;
+                            if (currentcount < stepinfos.size()) {
+                                File file = new File(stepinfos.get(currentcount).getThumbnail());
+                                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+                                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+                                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+                                uploadImg(part, watermark);
+                            }else {
+                                uploadStepImage = true;
+                                allMsgFound.setSteps(foodStepinfos);
+                                loadCookbook("cookbook",new Gson().toJson(allMsgFound));
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        pollingUtil.startPolling(runnable, 2000, true);
+
+        runnable1 = new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+
+        pollingUtil.startPolling(runnable1, 10000, true);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -102,13 +146,8 @@ public class CreateRepiceService extends Service {
                     }
                     allMsgFound.setImg_url(img_url);
                     allMsgFound.setThumbnail_url(thumbnail_url);
-                    if (stepinfos != null){
-                        File file = new File(stepinfos.get(currentcount).getThumbnail());
-                        RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                        RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                        MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                        uploadImg(part,watermark);
-                    }
+                    uploadHeadImage = true;
+
                 }
             }
 
@@ -126,69 +165,56 @@ public class CreateRepiceService extends Service {
         ObserverOnNextListener<BaseResponse,Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
             @Override
             public void onNext(BaseResponse baseResponse) {
-                SPUtils.put("success",true);
-                SPUtils.put(AppConstant.repice,"");
-                SPUtils.put(AppConstant.pic,"");
-                SPUtils.put(AppConstant.USER_IMAGE,"");
-                ToastUtils.show("菜谱创建成功");
-                stopSelf();
+                if (baseResponse.getCode() == 0){
+                    SPUtils.put("success",true);
+                    SPUtils.put(AppConstant.repice,"");
+                    SPUtils.put(AppConstant.pic,"");
+                    SPUtils.put(AppConstant.USER_IMAGE,"");
+                    ToastUtils.show("菜谱创建成功");
+                    if (uploadStepImage){
+                        pollingUtil.endPolling(runnable);
+                        pollingUtil.endPolling(runnable1);
+                    }
+                    stopSelf();
+                }else {
+                    manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    int anHour = 60 * 1000; // 这是8小时的毫秒数
+                    long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+                    Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+                    mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                    manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+                }
             }
 
             @Override
             public void onError(Throwable throwable) {
                 ToastUtils.show("菜谱创建失败");
+                count ++;
+                manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                int anHour = 60 * 1000; // 这是8小时的毫秒数
+                long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+                Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+                mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
 
             }
         };
 
-        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(getApplicationContext(),listener),allMsgFound,action);
+        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(this,listener),allMsgFound,action);
     }
 
-    public void uploadImg(MultipartBody.Part allMsgFound, RequestBody body){
+    public void uploadImg(MultipartBody.Part part, RequestBody body){
         ObserverOnNextListener<ImageResponse,Throwable> listener = new ObserverOnNextListener<ImageResponse, Throwable>() {
             @Override
             public void onNext(ImageResponse imageResponse) {
                 if (imageResponse != null && imageResponse.getData() != null){
-                    FoodStepinfo foodStepinfo = new FoodStepinfo();
-                    foodStepinfo.setImg(imageResponse.getData().getImg_url());
-                    foodStepinfo.setThumbnail(imageResponse.getData().getThumbnail_url());
-                    foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
-                    foodStepinfos.add(foodStepinfo);
-                    currentcount ++ ;
-                   if (currentcount < stepinfos.size()){
-                       File file = new File(stepinfos.get(currentcount).getThumbnail());
-                       RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                       RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                       MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                       uploadImg(part,watermark);
-                   }else {
-
-                       count ++;
-                       if(!success){
-                           if (count < 5){
-                               new Thread(new Runnable() {
-                                   @Override
-                                   public void run() {
-
-                                       loadCookbook("cookbook",new Gson().toJson(allMsgFound));
-                                   }
-                               }).start();
-
-                               manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                               int anHour = 60 * 1000; // 这是8小时的毫秒数
-                               long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-                               Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
-                               mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-                               manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
-                           }else {
-                               ToastUtils.show("菜谱创建失败");
-                           }
-
-                       }
-
-
-                   }
-
+                        FoodStepinfo foodStepinfo = new FoodStepinfo();
+                        foodStepinfo.setImg(imageResponse.getData().getImg_url());
+                        foodStepinfo.setThumbnail(imageResponse.getData().getThumbnail_url());
+                        foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
+                        foodStepinfos.add(foodStepinfo);
+                        currentcount ++ ;
+                        uploadStep = false;
                 }
             }
 
@@ -198,7 +224,7 @@ public class CreateRepiceService extends Service {
             }
         };
 
-        ApiMethods.uploadImg(new MyObserver<ImageResponse>(getApplicationContext(),listener),allMsgFound,body);
+        ApiMethods.uploadImg(new MyObserver<ImageResponse>(this,listener),part,body);
 
 
     }
@@ -206,7 +232,9 @@ public class CreateRepiceService extends Service {
     @Override
     public void onDestroy() {
         Log.e(TAG, "onDestroy: 关闭广播注册者");
-        manager.cancel(mPi);//关闭的服务的时候同时关闭广播注册者
+        if (manager != null) {
+            manager.cancel(mPi);//关闭的服务的时候同时关闭广播注册者
+        }
         super.onDestroy();
     }
 

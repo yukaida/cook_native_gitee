@@ -33,10 +33,12 @@ import com.ebanswers.kitchendiary.adapter.FoundTabAdapter;
 import com.ebanswers.kitchendiary.adapter.RecommendFocusAdapter;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
+import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.FoundTopInfo;
 import com.ebanswers.kitchendiary.bean.MasterInfo;
+import com.ebanswers.kitchendiary.bean.Stepinfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
@@ -52,6 +54,7 @@ import com.ebanswers.kitchendiary.utils.Utils;
 import com.ebanswers.kitchendiary.widget.decorator.VerticalltemDecoration;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hjq.toast.ToastUtils;
 import com.previewlibrary.ZoomMediaLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -123,6 +126,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     private CustomPopWindow customPopWindow2;
     private Bundle bundle;
     CommentInfo commentInfo;
+    List<FoodStepinfo> foodStepinfos = new ArrayList<>();
 
     String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
     private int deletePosition;
@@ -785,9 +789,28 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             initData();
 //            foundSwrl.autoRefresh();
         } else {
-            String repiceString = (String) SPUtils.get(AppConstant.repice, "");
+            String repice = (String) SPUtils.get(AppConstant.repice2, "");
+            String pic = (String) SPUtils.get(AppConstant.pic2, "");
             Gson gson = new Gson();
-            AllMsgFound allMsgFound = gson.fromJson(repiceString, AllMsgFound.class);
+            AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+            List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
+            }.getType());
+            String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
+            ArrayList<String> img_url = new ArrayList<String>();
+            ArrayList<String> thumbnail_url = new ArrayList<String>();
+            img_url.add(userImage);
+            thumbnail_url.add(userImage);
+            allMsgFound.setImg_url(img_url);
+            allMsgFound.setThumbnail_url(thumbnail_url);
+            for (int i = 0; i < stepinfos.size(); i++) {
+                FoodStepinfo foodStepinfo = new FoodStepinfo();
+                foodStepinfo.setImg(stepinfos.get(i).getImg());
+                foodStepinfo.setThumbnail(stepinfos.get(i).getThumbnail());
+                foodStepinfo.setDesc(stepinfos.get(i).getDesc());
+                foodStepinfos.add(foodStepinfo);
+            }
+            allMsgFound.setSteps(foodStepinfos);
+            
             if (foundAdapter != null) {
                 foundAdapter.addData(0, allMsgFound);
                 foundAdapter.notifyDataSetChanged();

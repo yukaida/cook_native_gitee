@@ -40,6 +40,7 @@ import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.utils.GlideApp;
+import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
@@ -372,13 +373,13 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 /**
                  * 发布和保存都是需要获取所有的item的值，保存在info中，
                  */
-                repiceCreate();
                 String repiceName1 = repiceNameEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(repiceName1) && !TextUtils.isEmpty(titlePath)){
                     if (foodStepAdapter.getData().size() > 0) {
                         for (int i = 0; i < foodStepAdapter.getData().size(); i++) {
                             if (!TextUtils.isEmpty(foodStepAdapter.getData().get(0).getDesc()) || !TextUtils.isEmpty(foodStepAdapter.getData().get(0).getImg())){
                                 SPUtils.put("success",false);
+                                repiceCreate();
                                 startService(new Intent(SendRepiceActivity.this, CreateRepiceService.class));
                                 EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUBND,"发现页"));
                                 finish();
@@ -456,8 +457,14 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         Gson gson = new Gson();
 
         SPUtils.put(AppConstant.USER_IMAGE,titleThumbPath);
+        SPUtils.put(AppConstant.USER_IMAGE2,titleThumbPath);
         SPUtils.put(AppConstant.pic,gson.toJson(data));
+        SPUtils.put(AppConstant.pic2,gson.toJson(data));
         SPUtils.put(AppConstant.repice,gson.toJson(allMsgFound));
+        SPUtils.put(AppConstant.repice2,gson.toJson(allMsgFound));
+
+        LogUtils.d("步骤信息：" + gson.toJson(data));
+        LogUtils.d("菜谱信息：" + gson.toJson(allMsgFound));
 
         return allMsgFound;
     }
@@ -496,21 +503,18 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             ImageView deleteIv = childAt.findViewById(R.id.delete_iv);
             EditText foodNameEt = childAt.findViewById(R.id.food_name_et);
             EditText foodUseNumEt = childAt.findViewById(R.id.food_use_num_et);
+            foodNameEt.setFocusableInTouchMode(false);
+            foodUseNumEt.setFocusableInTouchMode(false);
             if (adjustFoodMaterial){
                 deleteIv.setVisibility(View.VISIBLE);
-                foodNameEt.setFocusable(false);
                 foodNameEt.setFocusableInTouchMode(false);
+                foodNameEt.setFocusable(false);
                 foodUseNumEt.setFocusable(false);
                 foodUseNumEt.setFocusableInTouchMode(false);
             }else {
                 deleteIv.setVisibility(View.GONE);
                 foodNameEt.setFocusableInTouchMode(true);
-                foodNameEt.setFocusable(true);
-                foodNameEt.requestFocus();
-
                 foodUseNumEt.setFocusableInTouchMode(true);
-                foodUseNumEt.setFocusable(true);
-                foodUseNumEt.requestFocus();
             }
 
             deleteIv.setOnClickListener(new View.OnClickListener() {
