@@ -245,7 +245,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         kitchenDiaryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                DiaryInfo item = (DiaryInfo) adapter.getItem(position);
+                Intent intent1 = new Intent(getContext(), WebActivity.class);
+                String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
+                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                startActivity(intent1);
             }
         });
 
@@ -261,6 +265,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         repiceRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         repiceRv.setAdapter(cookBookAdapter);
         cookBookAdapter.notifyDataSetChanged();
+        cookBookAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CookbookInfo item = (CookbookInfo) adapter.getItem(position);
+                Intent intent1 = new Intent(getContext(), WebActivity.class);
+                String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
+                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                startActivity(intent1);
+            }
+        });
         cookBookAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
