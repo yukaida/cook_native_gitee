@@ -16,26 +16,56 @@
         android:roundIcon="@mipmap/icon_acount_head"
         android:smallScreens="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.base.ForgetPassActivity" />
+        <activity android:name=".mvp.view.base.ForgetPassActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.base.FullActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.base.WelActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.TestCodeinActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
 
-        <activity android:name=".mvp.view.mine.SignmentActivity" />
-        <activity android:name=".mvp.view.home.BillActivity" />
-        <activity android:name=".mvp.view.mine.ModifyPasswordActivity" />
-        <activity android:name=".mvp.view.mine.KefuActivity" />
-        <activity android:name=".mvp.view.mine.HelpAndFeedbackActivity" />
-        <activity android:name=".mvp.view.mine.PersonalDataActivity" />
-        <activity android:name=".mvp.view.mine.SettingActivity" />
-        <activity android:name=".QrCode.QrCodeActivity" />
+        <activity android:name=".mvp.view.mine.SignmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.home.BillActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.ModifyPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.KefuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.HelpAndFeedbackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.PersonalDataActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".mvp.view.mine.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+        <activity android:name=".QrCode.QrCodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
         <activity
             android:name=".mvp.view.base.ImageLookActivity"
-            android:theme="@style/LauncherTheme" />
+            android:theme="@style/LauncherTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.LauncherActivity"
-            android:theme="@style/LauncherTheme" />
+            android:theme="@style/LauncherTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.HomeActivity"
             android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
             <!-- 程序入口 -->
@@ -48,28 +78,33 @@
         </activity>
         <activity
             android:name=".mvp.view.base.LoginActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
         <activity
             android:name=".mvp.view.base.RegisterActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.mine.AboutActivity"
             android:label="@string/about_text"
-            android:launchMode="singleTop" /> <!-- 启动页面（因为使用了LauncherTheme，所以不要给这个Activity设置screenOrientation属性，会导致崩溃） -->
+            android:launchMode="standard" /> <!-- 启动页面（因为使用了LauncherTheme，所以不要给这个Activity设置screenOrientation属性，会导致崩溃） -->
         <activity
             android:name=".mvp.view.base.WebActivity"
-            android:launchMode="singleTop" /> <!-- 主页界面 -->
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/> <!-- 主页界面 -->
         <activity
             android:name=".mvp.view.base.SendRepiceActivity"
-            android:launchMode="singleTop" /> <!-- 登录界面 -->
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/> <!-- 登录界面 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 注册界面 -->
+            android:theme="@style/LoginTheme"/> <!-- 注册界面 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -80,8 +115,6 @@
                 <data android:scheme="tencent1105879955" />
             </intent-filter>
         </activity> <!-- 关于界面 -->
-
-        <activity android:name="UCropActivity"/>
 
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
@@ -148,6 +181,12 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+        <meta-data
+            android:name="design_width"
+            android:value="720" />
+        <meta-data
+            android:name="design_height"
+            android:value="1280" />
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

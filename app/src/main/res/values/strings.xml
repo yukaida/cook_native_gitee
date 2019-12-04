@@ -89,6 +89,416 @@
     <string name="cannal_text">取消</string>
     <string name="push_data_empty">暂无数据</string>
     <string name="share">分享</string>
+    <string name="tip_exit">再按一次退出程序</string>
+    <string name="login_code_checking">正在验证</string>
+    <string name="check_fail">验证失败</string>
+    <string name="net_error">网络不给力</string>
+
+    <string name="register_failed">注册失败</string>
+    <string name="change_failed">修改失败</string>
+    <string name="login_retry">重新发送(%d)</string>
+    <string name="check_code_error">发送太频繁, 请一分钟后再试</string>
+    <string name="tip_policy">登录注册即代表同意用户协议和隐私政策</string>
+
+    <string name="login_resend_code">重新发送</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="home">智能厨房</string>
+    <string name="community">厨房社区</string>
+    <string name="acp">烹饪程序</string>
+    <string name="recipe">蒸烤助手</string>
+    <string name="own">我的</string>
+    <string name="say_tip">你此刻想说些什么...</string>
+    <string name="http_link">在这里粘贴文章链接http://</string>
+    <string name="tab">标签</string>
+    <string name="device_connect">连接设备</string>
+    <string name="tab_success">标签生成成功</string>
+    <string name="advice_article">推荐一篇</string>
+    <string name="connect_recipe">关联菜谱</string>
+    <string name="kitchen_diary">厨房日记</string>
+    <string name="community_main">首页</string>
+    <string name="community_find">发现</string>
+    <string name="community_care">关注</string>
+
+    <string name="check_network">请检查网络连接</string>
+    <string name="check_network_dialog">当前网络不可用\n请检查网络设置</string>
+
+    <string name="common_confirm">确定</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_ignore">忽略</string>
+    <string name="common_unknown">未知</string>
+    <string name="btn_confirm">确认</string>
+    <string name="common_search">搜索</string>
+
+    <string name="appid">58743d95</string>
+    <string name="login">正在登录...</string>
+    <string name="register">正在注册...</string>
+    <string name="password_changing">正在修改密码...</string>
+    <string name="password_error">密码错误</string>
+    <string name="login_tip">点击启用微信登录</string>
+    <string name="login_overtime">登录已过期, 请重新登录</string>
+    <string name="login_failed">登录失败</string>
+    <string name="login_cancel">发送取消</string>
+    <string name="login_refuse">发送被拒绝</string>
+    <string name="login_back">发送返回</string>
+    <string name="login_requesting">正在请求...</string>
+    <string name="login_error">您还未安装微信客户端！</string>
+    <string name="login_phone">输入手机号码</string>
+    <string name="login_email">邮箱登录</string>
+    <string name="login_code">验证码</string>
+    <string name="login_btn">登录</string>
+    <string name="login_wechat">微信登录</string>
+    <string name="login_other">其他登录方式</string>
+    <string name="login_account">账号</string>
+    <string name="login_password">密码</string>
+    <string name="login_password_input">输入密码</string>
+    <string name="login_password_hint">6-18位密码, 仅支持字母和数字</string>
+    <string name="password_digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="login_register">注册</string>
+    <string name="login_register_title">账号注册</string>
+    <string name="login_submit">提交</string>
+    <string name="login_change_password">密码修改</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_exist">该账号已注册</string>
+    <string name="change_success">修改成功</string>
+    <string name="account_error">该账号不存在</string>
+    <string name="login_type_phone">手机登录</string>
+    <string name="login_phone_register">手机注册</string>
+    <string name="login_email_register">邮箱注册</string>
+    <string name="login_type_password">密码登录</string>
+    <string name="login_type_phone_tip">未注册用户验证后直接登录</string>
+    <string name="login_input_checkcode">输入验证码</string>
+    <string name="login_input_email">输入邮箱地址</string>
+    <string name="login_input_new_pwd">输入新密码</string>
+    <string name="login_input_confirm_pwd">确认新密码</string>
+    <string name="login_set_pwd">设置密码</string>
+    <string name="login_confirm_pwd">确认密码</string>
+    <string name="login_find_pwd">找回密码</string>
+    <string name="login_set_new_pwd">新密码</string>
+    <string name="login_pwd_error">两次输入密码不一致</string>
+    <string name="acp_search">搜索烹饪程序/频道</string>
+    <string name="search_hot">热门搜索</string>
+    <string name="search_history">历史搜索</string>
+    <string name="search_acp">最近使用的ACP</string>
+    <string name="search_food">扫食材</string>
+    <string name="search_recipe">搜索智能菜谱</string>
+    <string name="search_publish">发布你的第一篇菜谱</string>
+    <string name="bind_recipe">绑定菜谱</string>
+    <string name="wel_skip">跳过广告</string>
+
+    <string name="publish_recipe">菜谱</string>
+    <string name="publish">发布</string>
+    <string name="publish_introduce">下面, 请隆重介绍你的美食~</string>
+    <string name="publish_share">写下你分享的理由吧</string>
+    <string name="publish_link">在这里黏贴文章链接http://</string>
+    <string name="publish_recipe_hint">记录我与美食的点滴...</string>
+    <string name="public_content_tip">请您填写需要发表的内容</string>
+    <string name="public_content_url">请您填写合法的url地址</string>
+    <string name="article_link">在这里黏贴文章链接http://</string>
+    <string name="you_can_ask_me">你可以这样问我:</string>
+    <string name="recipe_collect_tip">输入:食材,菜名...</string>
+    <string name="query">查询</string>
+    <string name="recipe_food_tip">按住话筒开始说:食材、菜名</string>
+    <string name="recipe_input">请输入您要查询的内容</string>
+    <string name="recipe_recommend">今日%s推荐:</string><!--例如: 今日午餐推荐-->
+    <string name="recipe_period_breakfast">早餐</string>
+    <string name="recipe_period_lunch">午餐</string>
+    <string name="recipe_period_afternoon">下午茶</string>
+    <string name="recipe_period_supper">晚餐</string>
+    <string name="recipe_period_midnight">夜宵</string>
+    <string name="voice_error">初始化失败,错误码：</string>
+    <string name="voice_start">开始说话</string>
+    <string name="voice_recognizing">正在识别</string>
+    <string name="voice_recognize_error">识别结果不正确。</string>
+    <string name="voice_none">你好像什么话也没有说哦</string>
+    <string name="voice_eg_bake">烘焙</string>
+    <string name="voice_eg_soup">菠菜猪肝汤</string>
+    <string name="voice_eg_bread">菠萝包</string>
+    <string name="voice_eg_cake">戚风蛋糕</string>
+    <string name="voice_eg_western">西餐</string>
+    <string name="voice_eg_pizza">披萨</string>
+    <string name="voice_eg_vegetables">青菜</string>
+    <string name="voice_eg_beef">牛肉</string>
+    <string name="voice_eg_mushroom">金针菇</string>
+    <string name="voice_eg_crucian">鲫鱼豆腐汤</string>
+    <string name="voice_eg_nougat">牛轧糖</string>
+    <string name="voice_eg_wings">烤翅</string>
+    <string name="voice_eg_cream">奶油</string>
+    <string name="voice_eg_puff">泡芙</string>
+    <string name="voice_eg_pie">苹果派</string>
+    <string name="voice_eg_pudding">布丁</string>
+
+
+    <string name="diary_publishing">正在发布日记...</string>
+    <string name="diary_hide">隐藏</string>
+    <string name="advice">意见反馈</string>
+    <string name="check_update">检查更新</string>
+    <string name="diary">日记</string>
+    <string name="diary_publish">上传作品</string>
+    <string name="recipe_publish">"菜谱发布"</string>
+    <string name="diary_detail">日记详情</string>
+    <string name="main_page">达人主页</string>
+    <string name="kitchen_vote">厨房票选</string>
+    <string name="article_collect">精选合集</string>
+    <string name="master_top">达人排行榜</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="family_food">家常菜</string>
+    <string name="body_food">食疗养生</string>
+    <string name="share_title">分享</string>
+    <string name="vote_goods">票选商品</string>
+    <string name="collect_recipe">菜谱收藏</string>
+    <string name="collect_diary">日记收藏</string>
+    <string name="share_tip">选择要分享到的平台</string>
+    <string name="cancel_share">取消分享</string>
+    <string name="notify">通知</string>
+    <string name="mytag">我的标签</string>
+    <string name="about_diary">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <string name="re_voice">请直接说:食材、菜名</string>
+    <string name="reply">反馈</string>
+    <string name="oven_current_temperature">温度%d℃</string>
+    <string name="web_refresh">请尝试下拉刷新</string>
+    <string name="web_file_chooser">选择背景图片</string>
+    <string name="picture_save">保存图片</string>
+    <string name="dialog_waiting">请稍后...</string>
+    <string name="web_load">与其他场合相比，餐桌上的时光最有趣</string>
+
+
+    <string name="share_snapshoot_generating">请稍等哦,正在生成快照中...</string>
+    <string name="share_snapshoot_failed">生成快照失败,请重试一下哦</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_failed">分享失败</string>
+    <string name="share_wechat">微信</string>
+    <string name="share_wechat_circle">微信朋友圈</string>
+    <string name="share_sina">新浪</string>
+    <string name="share_snapshoot">日记快照</string>
+    <string name="share_save_phone">保存至手机</string>
+    <string name="share_content">（更多精彩美食？@厨房日记官博）</string>
+
+    <string name="device_wifi_hint">输入手机所在Wi-Fi密码</string>
+    <string name="device_wifi_tip">长按厨电上对应的配网键，直到Wi-Fi指示灯快闪，输入Wi-Fi密码，再点击APP搜索设备</string>
+    <string name="device_adding">··· 设备等待添加 ···</string>
+    <string name="device_add_wifi">添加Wi-Fi厨电</string>
+    <string name="device_nearby">搜索附近设备</string>
+    <string name="device_oven">智能烤箱</string>
+    <string name="device_oven_add">添加烤箱</string>
+    <string name="device_search">搜索设备</string>
+    <string name="device_searching">正在搜索设备</string>
+    <string name="device_search_overtime">搜索超时</string>
+    <string name="device_search_mico">手动搜索</string>
+    <string name="device_search_wifi_tip">确定当前Wi-Fi没有密码吗?</string>
+    <string name="device_bind">绑定设备</string>
+    <string name="device_unbind">是否确定解除绑定?</string>
+    <string name="device_have_bound_tip">此设备已被绑定\n1.可以请绑定用户将此设备共享给您使用\n2.绑定用户删除设备后，您可以重新添加此设备\n3.可以直接添加微信请求帮助</string>
+    <string name="device_bind_no_tip">设备编号位于待添加设备屏幕设置菜单页上方</string>
+    <string name="device_name_input">请输入设备编号</string>
+    <string name="device_name_change">修改设备名称</string>
+    <string name="device_binding">正在绑定</string>
+    <string name="device_bind_failed">绑定失败</string>
+    <string name="device_bind_success">绑定成功</string>
+    <string name="device_find">正在配置</string>
+    <string name="device_find_more">发现多台设备</string>
+    <string name="device_set_success">配置成功</string>
+    <string name="device_set_failed">配置失败</string>
+    <string name="device_bind_tip">绑定</string>
+    <string name="device_normal">正常</string>
+    <string name="device_abnormal">异常</string>
+    <string name="device_mdoe_compatibility">兼容模式</string>
+    <string name="search_mode_wifi">Wi-Fi</string>
+    <string name="search_mode_ble">蓝牙</string>
+    <string name="device_product_name">请输入商品名称</string>
+
+    <string name="wifi_setting">努力配网中...</string>
+    <string name="wifi_set_success">配网成功</string>
+    <string name="wifi_set_failed">配网失败</string>
+    <string name="wifi_current_none">无</string>
+    <string name="wifi_set_opening">正在打开wifi</string>
+    <string name="wifi_name_null">请选择Wi-Fi</string>
+    <string name="device_connecting">正在连接</string>
+    <string name="device_connect_error">连接失败</string>
+    <string name="deveice_connection_tip">设备列表,点击进行连接</string>
+
+    <string name="zxing_bar_name">ZxingLib</string>
+    <string name="camera_scan_qr">将二维码/条形码放入框内即可自动扫描</string>
+    <string name="scan_input">手输</string>
+    <string name="scan_input_title">手动输入</string>
+    <string name="scan_auto">扫一扫</string>
+    <string name="qr_check">请检查是否为有效的二维码</string>
+    <string name="qr_error_system">系统繁忙,检查参数后再试</string>
+    <string name="qr_error_overdue">二维码已过期</string>
+    <string name="qr_error_success">请求成功</string>
+    <string name="qr_error_1001">无效的设备编号</string>
+    <string name="qr_error_1002">无效的用户id</string>
+    <string name="qr_error_1003">无效的token</string>
+    <string name="qr_error_1004">无效的消息类型</string>
+    <string name="qr_error_1005">无效的请求数据</string>
+    <string name="qr_error_1006">无效的action操作</string>
+    <string name="qr_error_1007">无效的application_id</string>
+    <string name="qr_error_1008">无效的app_key</string>
+    <string name="qr_error_1009">无效的控制指令command</string>
+    <string name="qr_error_1010">无效的控制指令value</string>
+    <string name="qr_error_2001">缺少设备mac信息</string>
+    <string name="qr_error_2002">缺少屏幕编号</string>
+    <string name="qr_error_2003">缺少openid</string>
+    <string name="qr_error_2004">缺少命令</string>
+    <string name="qr_error_2005">缺少值</string>
+    <string name="qr_error_2006">缺少access_token</string>
+    <string name="qr_error_2007">缺少消息类型</string>
+    <string name="qr_error_2008">缺少article_link</string>
+    <string name="qr_error_2009">缺少日记内容</string>
+    <string name="qr_error_2010">缺少unionid</string>
+    <string name="qr_error_2011">缺少来源信息</string>
+    <string name="qr_error_2012">缺少设备名称</string>
+    <string name="qr_error_2013">缺少openid或者设备id</string>
+    <string name="qr_error_2014">缺少厂家uid</string>
+    <string name="qr_error_2015">缺少设备类型</string>
+    <string name="qr_error_2016">缺少应用编号</string>
+    <string name="qr_error_2017">缺少应用授权key</string>
+    <string name="qr_error_3001">设备离线</string>
+    <string name="qr_error_3002">设备在线</string>
+    <string name="qr_error_3003">设备状态未知</string>
+    <string name="qr_error_3004">设备已经绑定管理员</string>
+    <string name="qr_error_3005">暂不支持的设备类型</string>
+    <string name="qr_error_3006">二维码已过期</string>
+    <string name="qr_error_unknown">未知错误</string>
+
+    <string name="recipe_tab_bread">面包</string>
+    <string name="recipe_tab_tart">蛋挞</string>
+    <string name="recipe_tab_cookie">饼干</string>
+    <string name="recipe_tab_ribs">排骨</string>
+    <string name="recipe_tab_egg">鸡蛋</string>
+    <string name="recipe_tab_noodle">面条</string>
+    <string name="recipe_tab_bun">馒头</string>
+    <string name="recipe_tab_meat">鱼香肉丝</string>
+    <string name="recipe_tab_meat_braised">红烧肉</string>
+    <string name="recipe_tab_meat_fried">小炒肉</string>
+    <string name="recipe_tab_salad">沙拉</string>
+    <string name="recipe_tab_beef">牛肉</string>
+    <string name="recipe_tab_chicken">宫保鸡丁</string>
+    <string name="recipe_tab_cake">饼</string>
+    <string name="recipe_tab_blood">毛血旺</string>
+    <string name="recipe_tab_meat_double">回锅肉</string>
+    <string name="recipe_tab_meat_boiled">水煮肉</string>
+    <string name="recipe_tab_calcium">补钙</string>
+    <string name="recipe_tab_slimming">美容瘦身</string>
+    <string name="recipe_tab_hypoglycemic">降血糖</string>
+    <string name="recipe_tab_hypotensive">降血压</string>
+    <string name="recipe_tab_anticancer">抗癌</string>
+    <string name="recipe_tab_spleen">健脾养胃</string>
+    <string name="recipe_tab_immunity">提高免疫力</string>
+    <string name="recipe_tab_heat">祛火</string>
+
+
+    <string name="device">设备</string>
+    <string name="device_no">设备编号:</string>
+    <string name="camera_net_failed">当前网络不可用\n请检查网络设置</string>
+    <string name="camera_add_device_no">通过设备编号添加</string>
+    <string name="camera_add_device">二维码/条形码</string>
+    <string name="phone_number_is_null">手机号码为空</string>
+    <string name="phone_number_is_error">手机号码输入有误</string>
+    <string name="phone_number_format_error">手机号码格式错误</string>
+    <string name="email_is_null">邮箱为空</string>
+    <string name="email_is_error">邮箱输入有误</string>
+    <string name="check_code">获取验证码</string>
+    <string name="check_code_get_failed">验证码获取失败</string>
+    <string name="check_code_send_fail">验证码发送失败</string>
+    <string name="check_code_is_null">验证码为空</string>
+    <string name="password_is_null">密码为空</string>
+    <string name="network_error">网络异常</string>
+    <string name="camera_error">启动相机失败, 请检查设备或开放权限</string>
+    <string name="wifi_error">Wi-Fi打开失败, 请检查设备或开放权限</string>
+    <string name="net_changing">正在切换网络</string>
+    <string name="net_connecting">正在连接网络</string>
+    <string name="net_connect_success">网络连接成功</string>
+    <string name="net_connect_failed">网络连接失败</string>
+    <string name="device_error">缺少设备信息</string>
+    <string name="device_unknown">未知设备</string>
+    <string name="send_fail">发布失败</string>
+    <string name="send_success">发布成功</string>
+    <string name="send_success_tip">发布成功,请到发现页面查看哦</string>
+    <string name="bind_phone">绑定手机号</string>
+    <string name="bind_error_not_register">该设备未注册</string>
+    <string name="bind_failed">操作失败</string>
+    <string name="device_id">设备编号</string>
+    <string name="device_name">设备名称</string>
+    <string name="device_alert_affirm">请确认</string>
+    <string name="device_set_shared">已共享%d人</string>
+    <string name="device_set_name">请输入设备名称</string>
+    <string name="device_minute">分钟</string>
+    <string name="device_share">共享给家人</string>
+    <string name="device_shared">已共享</string>
+    <string name="device_delete">删除设备</string>
+
+    <string name="set_clear_cache">清除缓存</string>
+    <string name="set_core">x5内核提供技术支持</string>
+    <string name="set_clear">正在清除</string>
+    <string name="set_clear_success">清除成功</string>
+    <string name="set_clear_success_tip">清除成功,共%dM</string>
+    <string name="set_check_update">正在检查</string>
+    <string name="set_save_success">保存成功</string>
+    <string name="set_save_failed">保存失败</string>
+    <string name="set_update_error">获取服务器更新信息失败</string>
+    <string name="set_download_error">下载新版本失败</string>
+    <string name="set_version">已是最新版本</string>
+    <string name="set_update_ignore">你已忽略本次版本升级</string>
+    <string name="set_update_tip">有新的版本哦，点击确定进行升级</string>
+    <string name="set_update_downloading">正在下载最新版本</string>
+    <string name="set_update">版本升级</string>
+    <string name="set_reply">扫一扫二维码添加厨房日记小助手即可实时交流(长按可保存哦)</string>
+
+
+    <string name="recipe_type">分类</string>
+    <string name="recipe_search">搜索</string>
+    <string name="recipe_collect">收藏</string>
+    <string name="topic_use">最近使用</string>
+    <string name="topic_not_use">最近没有使用</string>
+    <string name="topic_hot">热门话题</string>
+    <string name="crash_info">程序出错啦:</string>
+    <string name="bar_code_no_goods">暂未收录此商品</string>
+    <string name="tip_permission_camera">相机权限未开启，不能使用相机相关功能，如扫码绑定设备、扫描商品条形码等。</string>
+    <string name="tip_permission_storage">手机存储权限未开启，无法访问相册。</string>
+    <string name="tip_permission_cancel">我知道了</string>
+    <string name="tip_permission_confirm">去开启</string>
+    <string name="tip_policy_title">智能厨房用户协议</string>
+    <string name="dialog_is_save">将菜谱保存为草稿?</string>
+    <string name="dialog_recipe_save">保存草稿</string>
+    <string name="dialog_recipe_discard">不保存草稿</string>
+    <string name="dialog_back">返回</string>
+
+
+    <!--	海外邮箱绑定和邮箱接验证码改手机密码-->
+    <string name="codein_vfcode_text">验证码</string>
+    <string name="codein_enterVfcode">请输入验证码</string>
+    <string name="codein_checkbutton">验证</string>
+
+    <string name="bind_BE_text">绑定邮箱</string>
+    <string name="bind_enterEmail">请输入邮箱</string>
+    <string name="bind_bindbutton">绑定</string>
+
+    <string name="facebook_app_id">908496092865073</string>
+    <string name="fb_login_protocol_scheme">fb908496092865073</string>
+
+    <string name="wifi_5g_message">暂不支持5GWifi，请切换到2.4GWifi热点</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_ll_network"
+    android:layout_width="320px"
+    android:layout_height="240px"
+    android:background="@drawable/shape_radiu_bg"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/network"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:gravity="center"
+        android:text="@string/check_network_dialog"
+        android:textColor="#ffffff"
+        android:textSize="20px" />
+</com.zhy.autolayout.AutoLinearLayout>

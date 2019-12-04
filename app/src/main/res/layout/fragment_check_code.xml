@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ver="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="80px">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输入验证码"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+    <com.ebanswers.kitchendiary.widget.VerificationCodeInput
+        android:id="@+id/et_input_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40px"
+        ver:inputType="number"
+        ver:box="6"
+        ver:box_bg_normal="@drawable/shape_bg_code"
+        ver:box_bg_focus="@drawable/shape_bg_code"
+        ver:child_h_padding="5dp"
+        ver:child_width="40dp"
+        ver:child_height="40dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_resend_code"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="40px"
+        android:background="@drawable/login_btn_bg_selector"
+        android:enabled="false"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="重新发送"
+        android:textColor="#ffffff"
+        android:textSize="30px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

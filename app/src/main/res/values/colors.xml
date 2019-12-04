@@ -32,13 +32,22 @@
     <color name="red">#FF0000</color>
 
    <!-- 红紫色 -->
-
+    <color name="divide_line_color">#F7F7F7</color>
+    <color name="main_color">#f35019</color>
+    <color name="main_color_alpha">#88f35019</color>
+    <color name="gray_bg">#F5F7F9</color>
+    <color name="gray_text">#abaaaa</color>
+    <color name="gray_text_transparent">#66abaaaa</color>
+    <color name="read">#ff0000</color>
+    <color name="gray_circle">#b5b5b5</color>
+    <color name="login_gray">#ddffffff</color>
+    <color name="color_blue">#0000FF</color>
     <!-- 灰色 -->
     <color name="gray">#A6A6A6</color>
     <!-- 蓝色 -->
     <color name="blue">#0000FF</color>
     <color name="green">#00cc00</color>
-
+    <color name="pressed_bg_color">#88aaaaaa</color>
     <color name="app_theme">#F34F1A</color>
     <color name="btn_blue_normal">#39CBCB</color>
     <color name="text_gray_normal">#666666</color>
@@ -60,5 +69,21 @@
     <color name="date_picker_text_light">#F76056</color>
     <color name="date_picker_text_dark">#333333</color>
 
+
+    <color name="primary">#FF03A9F4</color>
+    <color name="primary_dark">#FF0288D1</color>
+    <color name="status_bar_color">@color/primary_dark</color>
+    <color name="mainActivityBottomTextColor">#4D4D4D</color>
+    <color name="divideLineColor">#DADADA</color>
+    <color name="white_bg">#F8F8F8</color>
+    <color name="share_bg_color">#E9EFF2</color>
+    <color name="mainActivityBottomBgColor">#F8F8F8</color>
+    <color name="half_transparent">#88000000</color>
+    <color name="text_black">#181818</color>
+    <color name="text_gray">#333333</color>
+    <color name="text_gray_2">#636363</color>
+    <color name="text_blue">#2E6296</color>
+    <color name="hint_color">#A9A9A9</color>
+    <color name="topic_content_color">#0099cc</color>
 
 </resources>

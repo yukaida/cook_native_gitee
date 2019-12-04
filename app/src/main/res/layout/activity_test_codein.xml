@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login">
+
+    <Button
+        android:id="@+id/test_check"
+        android:layout_width="301dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/login_btn_bg_selector"
+        android:enabled="false"
+        android:text="@string/codein_checkbutton"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test_checkcode" />
+
+    <EditText
+        android:id="@+id/test_checkcode"
+        android:layout_width="301dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="258dp"
+        android:background="@drawable/selector_bg_login_input"
+        android:ems="10"
+
+        android:gravity="center"
+        android:hint="@string/codein_enterVfcode"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/codein_vfcode_text"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/test_checkcode"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_login_back" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="54dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/test_checkcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3" />
+</androidx.constraintlayout.widget.ConstraintLayout>

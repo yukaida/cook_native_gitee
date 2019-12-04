@@ -1,68 +1,83 @@
 package com.ebanswers.kitchendiary.mvp.view.base;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.webkit.CookieManager;
 
-import com.hjq.toast.ToastUtils;
-import com.ebanswers.baselibrary.utils.EditTextInputHelper;
+import androidx.annotation.Nullable;
+
 import com.ebanswers.kitchendiary.R;
-import com.ebanswers.kitchendiary.common.CommonActivity;
-import com.ebanswers.kitchendiary.constant.AppConstant;
-import com.ebanswers.kitchendiary.mvp.presenter.LoginPresenter;
-import com.ebanswers.kitchendiary.mvp.contract.BaseView;
-import com.ebanswers.kitchendiary.network.response.LoginResponse;
-import com.ebanswers.kitchendiary.utils.LogUtils;
-import com.ebanswers.kitchendiary.utils.SPUtils;
+import com.ebanswers.kitchendiary.mvp.login.CheckCodeFragment;
+import com.ebanswers.kitchendiary.mvp.login.GetCodeFragment;
+import com.ebanswers.kitchendiary.mvp.login.PasswordLoginFragment;
+import com.ebanswers.kitchendiary.mvp.login.PasswordSetFragment;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
-import butterknife.BindView;
+import org.reactivestreams.Subscription;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
-/**
- * desc   : 登录界面
- */
-public class LoginActivity extends CommonActivity implements View.OnClickListener, BaseView.LoginView {
+public class LoginActivity extends BaseActivity {
+    /**
+     * 手机验证码登录
+     */
+    public static final int TYPE_PHONE_CODE = 791;
+    /**
+     * 邮箱登录
+     */
+    public static final int TYPE_EMAIL_LOGIN = 553;
+    /**
+     * 邮箱注册
+     */
+    public static final int TYPE_EMAIL_REGISTER = 117;
+    /**
+     * 找回手机密码
+     */
+    public static final int TYPE_FIND_PHONE_PWD = 161;
+    /**
+     * 找回邮箱密码
+     */
+    public static final int TYPE_FIND_EMAIL_PWD = 664;
+    /**
+     * 新密码
+     */
+    public static final int TYPE_SET_PWD = 43;
+    /**
+     * 重置密码
+     */
+    public static final int TYPE_RESET_PWD = 584;
 
-    @BindView(R.id.et_login_phone)
-    EditText mPhoneView;
-    @BindView(R.id.et_login_password)
-    EditText mPasswordView;
-    @BindView(R.id.btn_login_commit)
-    Button mCommitView;
-    @BindView(R.id.clear_iv)
-    ImageView clearIv;
-    @BindView(R.id.remenber_pass_iv)
-    ImageView remenberPassIv;
-    @BindView(R.id.tv_login_forget)
-    TextView tvLoginForget;
-    @BindView(R.id.agreement_tv)
-    TextView agreementTv;
-    @BindView(R.id.remenber_show_iv)
-    ImageView remenberShowIv;
-    @BindView(R.id.agreement_iv)
-    ImageView agreementIv;
-    @BindView(R.id.agreement_show_iv)
-    ImageView agreementShowIv;
-    @BindView(R.id.remenber_pass_rl)
-    RelativeLayout remenberPassRl;
-    @BindView(R.id.agreement_rl)
-    RelativeLayout agreementRl;
+    /**
+     * 绑定邮箱
+     */
+    public static final int TYPE_BAND_Email = 182;
 
-    private EditTextInputHelper mEditTextInputHelper;
-    private boolean isChecked = false;
-    private LoginPresenter loginPresenter;
-    private boolean remenberPass;
-    private boolean agreementB;
+    private int loginType;
+    private String account;
+    private QMUITipDialog dialog;
+    private Subscription delayClose;
 
+    public static void openActivity(Context context, int type) {
+        Log.d("LoginActivity", "openActivity: " + type);
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra("type", type);
+        context.startActivity(intent);
+    }
+
+    //打开一个activity 在fragment中
+    public static void openActivity(Context context, int type, String account) {
+        Log.d("LoginActivity", "openActivity: " + type + "," + account);
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("account", account);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -70,167 +85,98 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     }
 
     @Override
-    protected int getTitleBarId() {
-        return 0;
-    }
-
-    @Override
-    protected void initView() {
-        remenberPass = SPUtils.getRemenberPass();
-        agreementB = SPUtils.getAgreement();
-        loginPresenter = new LoginPresenter(this, this);
-        mCommitView.setOnClickListener(this);
-        mEditTextInputHelper = new EditTextInputHelper(mCommitView, false);
-        mEditTextInputHelper.addViews(mPhoneView, mPasswordView);
-        setCheckNetWork(true);
-
-        String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
-        if (!TextUtils.isEmpty(username)) {
-            mPhoneView.setText(username);
-        }
-
-        if (remenberPass) {
-            String pass = (String) SPUtils.get(AppConstant.PASS, "");
-            if (!TextUtils.isEmpty(pass)) {
-                mPasswordView.setText(pass);
-            }
-            remenberShowIv.setVisibility(View.VISIBLE);
-        } else {
-            mPasswordView.setText("");
-            remenberShowIv.setVisibility(View.GONE);
-        }
-
-        if (agreementB) {
-            SPUtils.setAgreement(false);
-            agreementShowIv.setVisibility(View.VISIBLE);
-            LogUtils.d("不同意；");
-        } else {
-            SPUtils.setAgreement(true);
-            agreementShowIv.setVisibility(View.GONE);
-            LogUtils.d("同意；");
-        }
-
-
-        SQLiteStudioService.instance().start(this);
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        mEditTextInputHelper.removeViews();
-        super.onDestroy();
-        SQLiteStudioService.instance().stop();
-    }
-
-    @Override
-    public boolean isSupportSwipeBack() {
-        //不使用侧滑功能
-        return !super.isSupportSwipeBack();
-    }
-
-    /**
-     * {@link View.OnClickListener}
-     */
-    @Override
-    public void onClick(View v) {
-        if (v == mCommitView) {
-            String phone = mPhoneView.getText().toString();
-            String password = mPasswordView.getText().toString();
-            if (agreementB){
-                if (password.length() >= 6){
-                    loginPresenter.login(phone, password, remenberPass);
-                }else {
-                    ToastUtils.show("密码最少6位");
-                }
-
-            }else {
-                ToastUtils.show("请同意用户隐私证劵条款");
-            }
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
+    protected void onCreateNext(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initFields(getIntent());
+        initFragment();
     }
 
-    @OnClick({R.id.clear_iv, R.id.remenber_pass_rl, R.id.agreement_rl, R.id.agreement_tv,R.id.login_forget_tv})
-    public void onViewClicked(View view) {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("LoginActivity", "onNewIntent: ");
+        initFields(intent);
+        initFragment();
+    }
+    //通过判断字段中loginType的值 确定要换上哪个Fragment
+    private void initFragment() {
+        switch (loginType) {
+            case TYPE_PHONE_CODE:
+                replaceFragment(CheckCodeFragment.newInstance(account, CheckCodeFragment.TYPE_PHONE_LOGIN));
+                break;
+            case TYPE_EMAIL_LOGIN:
+                replaceFragment(PasswordLoginFragment.newInstance(PasswordLoginFragment.LOGIN_EMAIL, ""));
+                break;
+            case TYPE_EMAIL_REGISTER:
+                replaceFragment(GetCodeFragment.newInstance(TYPE_EMAIL_REGISTER, account));
+                break;
+            case TYPE_FIND_PHONE_PWD:
+                replaceFragment(GetCodeFragment.newInstance(TYPE_FIND_PHONE_PWD, account));
+                break;
+            case TYPE_FIND_EMAIL_PWD:
+                replaceFragment(GetCodeFragment.newInstance(TYPE_FIND_EMAIL_PWD, account));
+                break;
+            case TYPE_SET_PWD:
+                replaceFragment(PasswordSetFragment.newInstance(account, TYPE_SET_PWD));
+                break;
+            case TYPE_RESET_PWD:
+                replaceFragment(PasswordSetFragment.newInstance(account, TYPE_RESET_PWD));
+                break;
+
+            case TYPE_BAND_Email:
+                replaceFragment(PasswordSetFragment.newInstance(account, TYPE_RESET_PWD));
+            default:
+        }
+    }
+    //获取传过来的intent中的字段
+    private void initFields(Intent intent) {
+        if (intent != null) {
+            loginType = intent.getIntExtra("type", TYPE_PHONE_CODE);
+            account = intent.getStringExtra("account");
+            Log.d("LoginActivity", "initFields: " + loginType + "," + account);
+        }
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        getFragmentManager().beginTransaction().replace(R.id.layout_login_container, fragment).addToBackStack(fragment.getClass().getSimpleName()).commitAllowingStateLoss();
+    }
+
+    @OnClick({R.id.iv_login_back})
+    public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.clear_iv:
-                mPhoneView.setText("");
-                break;
-           /* case R.id.pass_show_iv:
-                if (!isChecked) {
-                    //如果选中，显示密码
-                    mPasswordView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    isChecked = true;
-                    passShowIv.setBackground(getResources().getDrawable(R.mipmap.icon_eye_show));
-                } else {
-                    //否则隐藏密码
-                    mPasswordView.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    isChecked = false;
-                    passShowIv.setBackground(getResources().getDrawable(R.mipmap.icon_close_eye));
-                }
-                break;*/
-
-            case R.id.remenber_pass_rl:
-                if (remenberPass) {
-                    SPUtils.setRemenberPass(false);
-                    remenberPass = false;
-                    SPUtils.put(AppConstant.PASS, "");
-                    remenberShowIv.setVisibility(View.GONE);
-                    LogUtils.d("不记住密码；");
-                } else {
-                    SPUtils.setRemenberPass(true);
-                    remenberPass = true;
-                    remenberShowIv.setVisibility(View.VISIBLE);
-                    LogUtils.d("记住密码；");
-                }
-                break;
-            case R.id.agreement_rl:
-                if (agreementB) {
-                    SPUtils.setAgreement(false);
-                    agreementB = false;
-                    agreementShowIv.setVisibility(View.GONE);
-                    LogUtils.d("不同意；");
-                } else {
-                    SPUtils.setAgreement(true);
-                    agreementB = true;
-                    agreementShowIv.setVisibility(View.VISIBLE);
-                    LogUtils.d("同意；");
-                }
-                break;
-            case R.id.agreement_tv:
-
-                Intent intent = new Intent(this, WebActivity.class);
-                intent.putExtra("url", "file:///android_asset/协议.html");
-                startActivity(intent);
-//                intent.putExtra("url","file:///android_asset/平安付掌柜支付协议.html");
-//                startActivity(AgreementActivity.class);
-                break;
-            case R.id.login_forget_tv:
-                startActivity(ForgetPassActivity.class);
+            case R.id.iv_login_back:
+//                back();
+                finish();
                 break;
         }
     }
 
-    @Override
-    public void setData(LoginResponse data) {
-        SPUtils.setLogin(true);
-        startActivity(HomeActivity.class);
-        finish();
+    public void clearCookie() {
+        CookieManager manager = CookieManager.getInstance();
+        manager.removeAllCookie();
+    }
+
+    private void back() {
+        if(getFragmentManager().getBackStackEntryCount()>1){
+            getFragmentManager().popBackStack();
+        }else {
+            finish();
+        }
     }
 
     @Override
-    public void netWorkError(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("LoginActivity", "onKeyDown: back");
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
     }
 
+
+
+    @Override
+    protected View getWifiLostView() {
+        return null;
+    }
 }

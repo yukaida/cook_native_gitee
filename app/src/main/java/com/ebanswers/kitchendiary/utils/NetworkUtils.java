@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import java.lang.reflect.Method;
+
 /**
  * 网络状态工具
  */
@@ -177,5 +179,56 @@ public class NetworkUtils {
         }
     }
 
+    public static boolean checkNetwork(Context context) {
+        if (context!=null){
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+            return info != null && info.isAvailable();
+        }
+        return false;
+    }
 
+    public static boolean checkIsWifiMode(Context context){
+        if (context!=null){
+            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo info = manager.getActiveNetworkInfo();
+            if (info!=null && info.isAvailable()){
+                if (info.getType()==ConnectivityManager.TYPE_WIFI){
+                    return true;
+                }else {
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            throw new NullPointerException("Context is Null");
+        }
+    }
+
+    public static boolean isGPRSOpen(Context context) {
+        Boolean isOpen = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            Class<?> cmClass = connectivityManager.getClass();
+            Class<?>[] argClasses = null;
+            Method method = cmClass.getMethod("getMobileDataEnabled", argClasses);
+            Object[] argObject = null;
+            isOpen = (Boolean) method.invoke(connectivityManager, argObject);
+        } catch (Exception e) {
+        }
+        return isOpen;
+    }
+
+    public static void setGprsEnable(Context context, boolean isEnable) {
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            Class<?> cmClass = connectivityManager.getClass();
+            Class<?>[] argClasses = new Class[1];
+            argClasses[0] = boolean.class;
+            Method method = cmClass.getMethod("setMobileDataEnabled", argClasses);
+            method.invoke(connectivityManager, isEnable);
+        } catch (Exception e) {
+        }
+    }
 }

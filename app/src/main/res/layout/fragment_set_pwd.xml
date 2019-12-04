@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingLeft="80px"
+    android:paddingRight="80px">
+
+
+    <TextView
+        android:id="@+id/tv_pwd_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_type_password"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_pwd_first"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="40px"
+        android:background="@drawable/selector_bg_login_input"
+        android:hint="@string/login_input_new_pwd"
+        android:inputType="textPassword"
+        android:padding="16px"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="28px" />
+
+    <EditText
+        android:id="@+id/et_pwd_second"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="40px"
+        android:background="@drawable/selector_bg_login_input"
+        android:hint="@string/login_input_confirm_pwd"
+        android:inputType="textPassword"
+        android:padding="16px"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="28px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16px"
+        android:textSize="14sp"
+        android:layout_marginLeft="16px"
+        android:textColor="@color/white"
+        android:text="@string/login_password_hint"/>
+
+    <TextView
+        android:id="@+id/tv_pwd_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="40px"
+        android:background="@drawable/login_btn_bg_selector"
+        android:enabled="false"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/btn_confirm"
+        android:textColor="#ffffff"
+        android:textSize="30px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

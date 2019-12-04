@@ -26,6 +26,7 @@ import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.HelperPresenter;
+import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.utils.SPUtils;
@@ -117,15 +118,19 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SquareInfo.DataBean item = (SquareInfo.DataBean) adapter.getItem(position);
                 if (view.getId() == R.id.focus_status_iv) {
-                    String create_user = item.getCreate_user();
-                    isSimpleClick = true;
-                    currentPosition = position;
-                    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                    if (item.isIs_subscribe()) {
-                        helperPresenter.follower("cancel", userId, create_user);
-                    } else {
-                        helperPresenter.follower("", userId, create_user);
+
+                    if (!HomeActivity.isLoginMethod()){
+                        String create_user = item.getCreate_user();
+                        isSimpleClick = true;
+                        currentPosition = position;
+                        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+                        if (item.isIs_subscribe()) {
+                            helperPresenter.follower("cancel", userId, create_user);
+                        } else {
+                            helperPresenter.follower("", userId, create_user);
+                        }
                     }
+
                 } else if (view.getId() == R.id.goods_builder_iv || view.getId() == R.id.goods_builder_tv) {
                     Intent intent = new Intent(getContext(), WebActivity.class);
                     intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
@@ -244,7 +249,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
 //                helperPresenter.loadSquareInfo("tmp_user");
-                SquareInfo.DataBean item = (SquareInfo.DataBean) moreWonderfulAdapter.getItem(currentPosition);
+                SquareInfo.DataBean item =  moreWonderfulAdapter.getItem(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);
                     item.setMaster_rank(item.getMaster_rank() - 1);
@@ -267,10 +272,10 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
             if (data.getData() != null) {
                 if (data.getData().size() > 0) {
 
-                    if (isSimpleClick) {
-                        moreWonderfulAdapter.setData(currentPosition, data.getData().get(currentPosition));
-                        isSimpleClick = false;
-                    } else {
+//                    if (isSimpleClick) {
+//                        moreWonderfulAdapter.setData(currentPosition, data.getData().get(currentPosition));
+//                        isSimpleClick = false;
+//                    } else {
                         if (isRefresh){
                             if (data.getData().size() < 5) {
                                 moreWonderfulAdapter.loadMoreEnd();
@@ -280,7 +285,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                         }else {
                             moreWonderfulAdapter.addData(data.getData());
                             moreWonderfulAdapter.notifyItemRangeChanged(moreWonderfulAdapter.getData().size() - 6,moreWonderfulAdapter.getData().size());
-                        }
+//                        }
                     }
                 }
             }

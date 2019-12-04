@@ -1,185 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.zhy.autolayout.AutoRelativeLayout android:id="@+id/layout_sliding"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".mvp.view.mine.SettingActivity">
+    android:background="@color/gray_bg"
+    android:fitsSystemWindows="true"
+    >
 
-    <com.hjq.bar.TitleBar
-        android:id="@+id/settiing_title"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:title="@string/setting"
-        app:size_title="@dimen/textsize_16">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.hjq.bar.TitleBar>
+        <include layout="@layout/title_layout"/>
 
-    <LinearLayout
-        android:id="@+id/personal_data_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ten"
-        android:background="@drawable/linearlayout_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
 
-        <ImageView
-            android:layout_width="@dimen/fifty"
-            android:layout_height="@dimen/fifty"
-            android:layout_marginLeft="@dimen/twenty"
-            android:background="@mipmap/icon_acount_head"
-            android:layout_marginTop="@dimen/fifteen"
-            android:layout_marginBottom="@dimen/fifteen"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <!--我的标签-->
+        <TextView
+            android:id="@+id/id_tv_setting_activity_mytag"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="30px"
+            android:background="@drawable/selector_viewgroup_pressed_bg"
+            android:padding="24px"
+            android:text="@string/mytag"
+            android:textColor="@color/text_gray"
+            android:textSize="35px"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
+
+        <!--通知-->
+        <TextView
+            android:id="@+id/id_tv_setting_activity_notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_viewgroup_pressed_bg"
+            android:padding="24px"
+            android:text="@string/notify"
+            android:textColor="@color/text_gray"
+            android:textSize="35px"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
+
+        <!--清除缓存-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/id_ll_setting_activity_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_viewgroup_pressed_bg"
+            android:orientation="horizontal"
+            >
 
             <TextView
-                android:id="@+id/username_tv"
-                style="@style/TextStyle"
-                android:layout_marginLeft="@dimen/ten"
-                android:gravity="left"
-                android:text="姓名"
-                android:textColor="@color/text_black_normal"
-                android:textSize="@dimen/textsize_14"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="24px"
+                android:text="@string/set_clear_cache"
+                android:textColor="@color/text_gray"
+                android:textSize="35px"
+                />
 
             <TextView
-                android:id="@+id/store_name_tv"
-                style="@style/TextStyle"
-                android:layout_marginLeft="@dimen/ten"
-                android:gravity="left"
-                android:text="店名"
-                android:layout_marginTop="3dp"
-                android:textColor="@color/text_gray_normal"
-                android:textSize="@dimen/textsize_12"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:background="@mipmap/go"
-            android:layout_marginRight="15dp"/>
+                android:id="@+id/id_tv_setting_activity_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16px"
+                android:textColor="@color/text_gray"
+                android:textSize="35px"
+                />
+        </com.zhy.autolayout.AutoLinearLayout>
 
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
 
-    <LinearLayout
-        android:id="@+id/message_notice_ll"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
-        android:layout_marginTop="@dimen/ten"
-        android:background="@drawable/linearlayout_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="8dp">
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="14dp"
-            android:layout_marginLeft="@dimen/ten"
-            android:background="@mipmap/icon_notice" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/TextStyle"
-            android:layout_marginLeft="@dimen/ten"
-            android:gravity="left"
-            android:text="@string/message_notice"
-            android:textSize="@dimen/textsize_14"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
+        <!--检查更新-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/id_ll_setting_activity_checkupdate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:background="@mipmap/go" />
+            android:background="@drawable/selector_tv_pressed_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="24px"
+                android:text="@string/check_update"
+                android:textColor="@color/text_gray"
+                android:textSize="35px"
+                />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
-        android:layout_marginTop="@dimen/line_size"
-        android:background="@drawable/linearlayout_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/id_tv_setting_activity_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10px"
+                android:drawableRight="@drawable/back_right"
+                android:gravity="center"
+                android:text="1.0"
+                android:textColor="@color/text_gray"
+                android:textSize="35px"
+                />
+        </com.zhy.autolayout.AutoLinearLayout>
 
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="14dp"
-            android:layout_marginLeft="@dimen/ten"
-            android:background="@mipmap/icon_voice" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
+
+        <!--关于-->
+        <TextView
+            android:id="@+id/id_tv_setting_activity_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_viewgroup_pressed_bg"
+            android:padding="24px"
+            android:text="@string/about_diary"
+            android:textColor="@color/text_gray"
+            android:textSize="35px"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divideLineColor"
+            />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/TextStyle"
-            android:layout_marginLeft="@dimen/ten"
-            android:gravity="left"
-            android:text="@string/keyboard_sound"
-            android:textSize="@dimen/textsize_14"/>
-
-        <com.ebanswers.kitchendiary.widget.SwitchButton
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/twentyfive"
-            app:sb_uncheck_color="@color/gray02"
-            app:sb_checked_color="@color/green"
-            app:sb_checked="true"
-            app:sb_shadow_effect="false"
-            app:sb_show_indicator="false"
-            android:layout_marginRight="15dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/modify_pass_ll"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
-        android:layout_marginTop="@dimen/line_size"
-        android:background="@drawable/linearlayout_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/ten"
-            android:background="@mipmap/icon_modify_pass" />
-
-
+            android:id="@+id/id_tv_setting_activity_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_viewgroup_pressed_bg"
+            android:padding="24px"
+            android:text="@string/reply"
+            android:textColor="@color/text_gray"
+            android:textSize="35px"
+            />
+        <!--退出登录-->
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/TextStyle"
-            android:layout_marginLeft="@dimen/ten"
-            android:gravity="left"
-            android:text="@string/modify_pass"
-            android:textSize="@dimen/textsize_14"/>
-
-        <ImageView
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:background="@mipmap/go"
-            android:layout_marginRight="15dp"/>
+            android:id="@+id/id_tv_setting_activity_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:background="@drawable/selector_tv_pressed_bg"
+            android:gravity="center"
+            android:padding="24px"
+            android:text="@string/exit_login"
+            android:textColor="#ff0000"
+            android:textSize="35px"
+            />
 
 
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
+    <include
+        layout="@layout/network_dialog_view"
+        android:layout_width="160dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
 
-    <Button
-        android:id="@+id/logout_bt"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
-        android:text="@string/logout_text"
-        android:textSize="@dimen/textsize_14"
-        android:background="@color/white"
-        android:layout_marginTop="@dimen/ten"/>
-
-
-</LinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

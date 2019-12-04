@@ -30,6 +30,7 @@
     <output-test url="file://$MODULE_DIR$/build/intermediates/javac/anzhiDebugUnitTest/compileAnzhiDebugUnitTestJavaWithJavac/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/greendao" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/anzhi/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/anzhiDebug/compileAnzhiDebugAidl/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/anzhi/debug" isTestSource="false" generated="true" />
@@ -143,33 +144,41 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.multidex:multidex-instrumentation:2.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.1.0-alpha4@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.1.0-alpha4@aar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/Library/Android/sdk/build-tools/28.0.3/renderscript/lib/androidx-rs.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/SecurityEnvSDK-release-1.1.0.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/SQLiteStudioRemote.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/open_sdk_r5990_lite.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/utdid4all-1.1.5.3_proguard.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-wechat-full-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-core-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-QQ-full-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-sharetool-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/wechat-sdk-android-without-mta-5.1.4.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-shareboard-widget-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-common-2.1.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\androidstudio\component\build-tools\28.0.3\renderscript\lib\androidx-rs.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\open_sdk_r5990_lite.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\SecurityEnvSDK-release-1.1.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\SQLiteStudioRemote.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\tbs_sdk_thirdapp_v3.6.0.1325_43613_sharewithdownload_withoutGame_obfs_20180807_151115.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-common-2.1.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-share-core-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-share-QQ-full-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-share-wechat-full-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-shareboard-widget-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\umeng-sharetool-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\utdid4all-1.1.5.3_proguard.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:F.\sihuo\cook\app\libs\wechat-sdk-android-without-mta-5.1.4.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-annotations:10.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.promeg:tinypinyin:2.0.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:1.1.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.trello.rxlifecycle2:rxlifecycle:2.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:adapter-rxjava2:2.3.0@jar" level="project" />
-    <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxjava:2.2.3@jar" level="project" />
-    <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.2@jar" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxjava:2.2.13@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.3.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.greenrobot:greendao:3.2.2@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.greenrobot:greendao-api:3.2.2@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.picasso:picasso:2.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.9.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.9.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:logging-interceptor:3.10.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:converter-gson:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.retrofit2:converter-scalars:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.retrofit2:adapter-rxjava:2.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:retrofit:2.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.11.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.14.0@jar" level="project" />
@@ -177,19 +186,24 @@
     <orderEntry type="library" name="Gradle: com.google.dagger:dagger:2.11@jar" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.7@jar" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxjava:1.3.4@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.trycatch.android:mysnackbar:1.2.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.qmuiteam:qmui:1.0.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.zhy:autolayout:1.4.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.trello.rxlifecycle2:rxlifecycle-components:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.airbnb.android:lottie:1.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:okhttp3-integration:4.9.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cardview:cardview:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: me.imid.swipebacklayout.lib:library:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-v4:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.palette:palette:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:glide:4.9.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.fragment:fragment:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable-animated:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-utils:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable:1.0.0@aar" level="project" />
@@ -227,6 +241,7 @@
     <orderEntry type="library" name="Gradle: com.hjq:toast:2.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:2.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid:2.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.simple:androideventbus:1.0.5.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.bingoogolapple:bga-banner:2.2.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47@aar" level="project" />
     <orderEntry type="library" name="Gradle: me.jessyan:autosize:1.1.1@aar" level="project" />
@@ -241,6 +256,18 @@
     <orderEntry type="library" name="Gradle: com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.ycjiang:imgepreviewlibrary:1.1.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.makeramen:roundedimageview:2.2.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxandroid:1.2.1@aar" level="project" />
     <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="baselibrary" />
+    <orderEntry type="module" module-name="library" />
   </component>
 </module>

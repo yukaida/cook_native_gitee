@@ -57,7 +57,6 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends CommonLazyFragment implements BaseView.HomeView, OnPermission {
 
-
     @BindView(R.id.home_title)
     TitleBar homeTitle;
     @BindView(R.id.cooking_activity_rv)
@@ -100,7 +99,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     private boolean isSimpleClick = false;
     private boolean isRefresh = false;
     private int currentPosition = 0;
-    private int msg_num;
 
 
     public static HomeFragment newInstance() {
@@ -120,11 +118,10 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
     @Override
     protected void initView() {
-        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
         EventBusUtil.register(this);
         homePresenter = new HomePresenter(this, this);
-
 
 
         cookingActivityRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -156,15 +153,20 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SquareInfo.DataBean item = (SquareInfo.DataBean) adapter.getItem(position);
                 if (view.getId() == R.id.focu_iv) {
-                    isSimpleClick = true;
-                    currentPosition = position;
-                    String create_user = item.getCreate_user();
-                    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                    if (item.isIs_subscribe()) {
-                        homePresenter.follower("cancel", userId, create_user);
-                    } else {
-                        homePresenter.follower("", userId, create_user);
+
+                    if (!HomeActivity.isLoginMethod()){
+                        isSimpleClick = true;
+                        currentPosition = position;
+                        String create_user = item.getCreate_user();
+                        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                        if (item.isIs_subscribe()) {
+                            homePresenter.follower("cancel", userId, create_user);
+                        } else {
+                            homePresenter.follower("", userId, create_user);
+                        }
                     }
+
+
                 } else if (view.getId() == R.id.cooking_username_tv || view.getId() == R.id.cooking_user_iv) {
                     Intent intent = new Intent(getContext(), WebActivity.class);
                     intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
@@ -180,7 +182,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 if (expertStoryAdapter != null) {
                     List<SquareInfo.DataBean> data = expertStoryAdapter.getData();
                     if (data.size() > 0) {
-                        homePresenter.loadSquareInfo(userId, String.valueOf(data.size()),true);
+                        homePresenter.loadSquareInfo(userId, String.valueOf(data.size()), true);
                     }
                 }
             }
@@ -188,7 +190,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 isRefresh = true;
-                homePresenter.loadSquareInfo(userId, "0",true);
+                homePresenter.loadSquareInfo(userId, "0", true);
             }
         });
     }
@@ -197,9 +199,9 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     @Override
     protected void initData() {
         isRefresh = true;
-        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         homePresenter.loadInfo(userId);
-        homePresenter.loadSquareInfo(userId,"0", false);
+        homePresenter.loadSquareInfo(userId, "0", false);
     }
 
     @Override
@@ -283,22 +285,22 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             if (data.getData() != null) {
                 if (data.getData().size() > 0) {
 
-                        if (isSimpleClick) {
-                            expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
-                            isSimpleClick = false;
-                        } else {
-                            if (isRefresh){
-                                if (data.getData().size() < 5) {
-                                    expertStoryAdapter.loadMoreEnd();
-                                }
-                                expertStoryAdapter.setNewData(data.getData());
-                                expertStoryAdapter.notifyDataSetChanged();
-                            }else {
-                                expertStoryAdapter.addData(data.getData());
-//                                expertStoryAdapter.notifyDataSetChanged();
-                                expertStoryAdapter.notifyItemRangeChanged(expertStoryAdapter.getData().size() - 6,expertStoryAdapter.getData().size());
+//                    if (isSimpleClick) {
+//                        expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
+//                        isSimpleClick = false;
+//                    } else {
+                        if (isRefresh) {
+                            if (data.getData().size() < 5) {
+                                expertStoryAdapter.loadMoreEnd();
                             }
+                            expertStoryAdapter.setNewData(data.getData());
+//                            expertStoryAdapter.notifyDataSetChanged();
+                        } else {
+                            expertStoryAdapter.addData(data.getData());
+//                                expertStoryAdapter.notifyDataSetChanged();
+                            expertStoryAdapter.notifyItemRangeChanged(expertStoryAdapter.getData().size() - 6, expertStoryAdapter.getData().size());
                         }
+//                    }
                 }
             }
 
@@ -311,7 +313,9 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
 //                homePresenter.loadSquareInfo("tmp_user");
-                SquareInfo.DataBean item = (SquareInfo.DataBean) expertStoryAdapter.getItem(currentPosition);
+//                SquareInfo.DataBean item = expertStoryAdapter.getItem(currentPosition);
+
+                SquareInfo.DataBean item = expertStoryAdapter.getData().get(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);
                     item.setMaster_rank(item.getMaster_rank() - 1);
@@ -319,7 +323,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                     item.setIs_subscribe(true);
                     item.setMaster_rank(item.getMaster_rank() + 1);
                 }
-                expertStoryAdapter.setData(currentPosition, item);
+//                expertStoryAdapter.setData(currentPosition, item);
                 expertStoryAdapter.notifyItemChanged(currentPosition);
             }
         }
@@ -370,7 +374,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         switch (view.getId()) {
             case R.id.hot_recipe_ll:
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+                String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                 intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/square?code=123&ctg=cookbook&openid=" + userId);
                 startActivity(intent);
                 break;
@@ -425,7 +429,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
     public void scroolTopRefresh() {
 //        ToastUtils.show("首页刷新");
-        if (homeSrv.getScaleY() != 0){
+        if (homeSrv.getScaleY() != 0) {
             homeSrv.fullScroll(ScrollView.FOCUS_UP);
         }
         initData();

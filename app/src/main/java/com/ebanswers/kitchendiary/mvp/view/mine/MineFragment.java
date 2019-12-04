@@ -36,7 +36,9 @@ import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.MinePresenter;
+import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.CookbookResponse;
 import com.ebanswers.kitchendiary.network.response.DiaryResponse;
@@ -140,7 +142,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     private View noDataView;
     private CustomPopWindow.PopupWindowBuilder popupWindowBuilder;
     private CustomPopWindow customPopWindow;
-    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+    String userId;
     UMShareListener umShareListener = new UMShareListener() {
         /**
          * @descrption 分享开始的回调
@@ -193,20 +195,25 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     @Override
     protected void initView() {
 
-
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
         minePresenter = new MinePresenter(this, this);
         mineSrl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 isMore = true;
-                String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                if (isRepice) {
-                    minePresenter.loadCookbookInfo("more", cookBookAdapter.getItemCount() + "", userId, "cookbook", "", true);
+                String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
-                } else {
-                    minePresenter.loadDiaryInfo("more", kitchenDiaryAdapter.getItemCount() + "", userId, "diary-only", "", true);
+                if (!TextUtils.isEmpty(userId)) {
+
+                    if (isRepice) {
+                        minePresenter.loadCookbookInfo("more", cookBookAdapter.getItemCount() + "", userId, "cookbook", "", true);
+
+                    } else {
+                        minePresenter.loadDiaryInfo("more", kitchenDiaryAdapter.getItemCount() + "", userId, "diary-only", "", true);
+                    }
                 }
+
             }
 
             @Override
@@ -224,8 +231,10 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         diaryRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         kitchenDiaryAdapter = new KitchenDiaryAdapter();
         diaryRv.setAdapter(kitchenDiaryAdapter);
-        loadEmpty("请登录后查看日记记录",diaryRv);
-        kitchenDiaryAdapter.setEmptyView(noDataView);
+        loadEmpty("请登录后查看日记记录", diaryRv);
+        if (HomeActivity.isLoginMethod()) {
+            kitchenDiaryAdapter.setEmptyView(noDataView);
+        }
         kitchenDiaryAdapter.notifyDataSetChanged();
         kitchenDiaryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -236,6 +245,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
 
         cookBookAdapter = new CookBookAdapter();
+        loadEmpty("请登录后查看创建的菜谱", repiceRv);
+        if (HomeActivity.isLoginMethod()) {
+            cookBookAdapter.setEmptyView(noDataView);
+        }
+
         repiceRv.setHasFixedSize(true);
         repiceRv.setNestedScrollingEnabled(false);
         repiceRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -249,7 +263,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     isSimpleClick = true;
                     currentPosition = position;
                     String create_user = item.getCreate_user();
-                    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+                    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     if (item.isIs_subscribe()) {
                         minePresenter.islike("like", userId, create_user);
                     } else {
@@ -260,17 +274,18 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             }
         });
 
-        loadEmpty("请登录后查看日记记录",diaryRv);
+        loadEmpty("请登录后查看日记记录", diaryRv);
 
 
     }
 
     @Override
     protected void initData() {
-        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-        minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
-        minePresenter.loadUserInfo("wer", userId);
-
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+        if (!TextUtils.isEmpty(userId)) {
+            minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
+            minePresenter.loadUserInfo("wer", userId);
+        }
     }
 
     @Override
@@ -299,14 +314,17 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     }
 
 
-    @OnClick({R.id.user_icon,R.id.username_tv,R.id.search_tv, R.id.search_bgiv, R.id.share_iv, R.id.setting_iv, R.id.invitation_card_iv, R.id.me_diary_tv, R.id.me_recipe_tv, R.id.me_collection_tv, R.id.me_list_iv, R.id.me_grid_iv, R.id.collection_diary_tv, R.id.collection_repice_tv})
+    @OnClick({R.id.user_icon, R.id.username_tv, R.id.search_tv, R.id.search_bgiv, R.id.share_iv, R.id.setting_iv, R.id.invitation_card_iv, R.id.me_diary_tv, R.id.me_recipe_tv, R.id.me_collection_tv, R.id.me_list_iv, R.id.me_grid_iv, R.id.collection_diary_tv, R.id.collection_repice_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_icon:
-                openCamera(1, PictureConfig.SINGLE);
+                if (!HomeActivity.isLoginMethod()) {
+                    openCamera(1, PictureConfig.SINGLE);
+                }
                 break;
             case R.id.username_tv:
-                popupChangeNameWindow(usernameTv);
+                if (!HomeActivity.isLoginMethod())
+                    popupChangeNameWindow(usernameTv);
                 break;
             case R.id.share_iv:
 
@@ -340,9 +358,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
             case R.id.setting_iv:
 
-                Intent intent4 = new Intent(getContext(), WebActivity.class);
-                intent4.putExtra("url", " https://wechat.53iq.com/tmp/kitchen/setting?code=123");
+//                Intent intent4 = new Intent(getContext(), WebActivity.class);
+//                intent4.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/setting?code=123&openid=" + userId);
+//                startActivity(intent4);
+
+                Intent intent4 = new Intent(getContext(), SettingActivity.class);
                 startActivity(intent4);
+
 
                 break;
             case R.id.invitation_card_iv:
@@ -372,7 +394,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 meGridIv.setBackgroundResource(R.mipmap.icon_grid_unselect);
                 isRepice = false;
                 mineSrl.setEnableLoadMore(true);
-                minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
+                if (!TextUtils.isEmpty(userId))
+                    minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
                 break;
             case R.id.me_recipe_tv:
                 TextPaint tp4 = meDiaryTv.getPaint();
@@ -394,7 +417,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 meGridIv.setBackgroundResource(R.mipmap.icon_grid_select);
                 isRepice = true;
                 mineSrl.setEnableLoadMore(true);
-                minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
+                if (!TextUtils.isEmpty(userId))
+                    minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
                 break;
             case R.id.me_collection_tv:
                /* TextPaint tp7 = meDiaryTv.getPaint();
@@ -507,12 +531,12 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         if (data != null) {
             if (!TextUtils.isEmpty(data.getMy_name())) {
                 usernameTv.setText(data.getMy_name());
-                SPUtils.put(AppConstant.USER_NAME,data.getMy_name());
+                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
             }
 
 
-            if (!TextUtils.isEmpty(data.getOpenid())){
-                SPUtils.put(AppConstant.USER_NAME,data.getOpenid());
+            if (!TextUtils.isEmpty(data.getOpenid())) {
+                SPUtils.put(AppConstant.USER_NAME, data.getOpenid());
             }
 
             if (!TextUtils.isEmpty(data.getHead_url())) {
@@ -561,8 +585,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 }
             } else {
-                loadEmpty("请登录后查看日记记录",diaryRv);
-                kitchenDiaryAdapter.setEmptyView(noDataView);
+
                 kitchenDiaryAdapter.notifyDataSetChanged();
                 mineSrl.setEnableLoadMore(false);
             }
@@ -589,9 +612,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
             } else {
                 mineSrl.setEnableLoadMore(false);
-                loadEmpty("请登录后查看创建的菜谱",repiceRv);
 
-                cookBookAdapter.setEmptyView(noDataView);
                 cookBookAdapter.notifyDataSetChanged();
             }
         }
@@ -605,17 +626,17 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     }
 
     public void scroolTopRefresh() {
-        if (mineSrv.getScaleY()!=0){
+        if (mineSrv.getScaleY() != 0) {
             mineSrv.fullScroll(ScrollView.FOCUS_UP);
         }
 
         initData();
-        if (isRepice){
+        if (isRepice) {
             minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
         }
     }
 
-    public void loadEmpty(String tip,View view){
+    public void loadEmpty(String tip, View view) {
         noDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) view.getParent(), false);
         TextView emptyTv = noDataView.findViewById(R.id.empty_tv);
         ImageView emptyIv = noDataView.findViewById(R.id.empty_iv);
@@ -625,6 +646,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             @Override
             public void onClick(View v) {
 
+//                LoginActivity.openActivity(getActivity(),LoginActivity.TYPE_PHONE_CODE);
+
+                startActivity(new Intent(getActivity(), WelActivity.class));
             }
         });
 
@@ -657,11 +681,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             @Override
             public void onClick(View v) {
                 String trim = nameEt.getText().toString().trim();
-                if (!TextUtils.isEmpty(trim)){
+                if (!TextUtils.isEmpty(trim)) {
                     customPopWindow.dissmiss();
-                    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                    minePresenter.saveName(trim,userId);
-                }else {
+                    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    minePresenter.saveName(trim, userId);
+                } else {
                     ToastUtils.show("请数入用户名");
                 }
 
@@ -671,7 +695,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     }
 
-    public void openCamera(int max,int type){
+    public void openCamera(int max, int type) {
         // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(getSupportActivity())
                 .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -720,44 +744,42 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+        switch (requestCode) {
+            case PictureConfig.CHOOSE_REQUEST:
+                // 图片、视频、音频选择结果回调
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
 //                    adapter.setList(selectList);
 //                    adapter.notifyDataSetChanged();
-                    /*结果回调*/
-                    if (selectList != null && selectList.size() > 0){
+                /*结果回调*/
+                if (selectList != null && selectList.size() > 0) {
 
 
-                        if (!TextUtils.isEmpty(selectList.get(0).getPath())) {
-                            String url = Base64Utils.imageToBase64(selectList.get(0).getPath());
+                    if (!TextUtils.isEmpty(selectList.get(0).getPath())) {
+                        String url = Base64Utils.imageToBase64(selectList.get(0).getPath());
 
-                            GlideApp.with(getContext()).load(selectList.get(0).getPath()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
-                            /**
-                             * 操作图片上传和发出修改头像请求
-                             */
-                            String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                            minePresenter.saveHeadUrl(url,userId);
-                        }
-
-
-
-                    }else {
-                        ToastUtils.show("无图片选中");
+                        GlideApp.with(getContext()).load(selectList.get(0).getPath()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
+                        /**
+                         * 操作图片上传和发出修改头像请求
+                         */
+                        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                        minePresenter.saveHeadUrl(url, userId);
                     }
 
 
-                    break;
-            }
+                } else {
+                    ToastUtils.show("无图片选中");
+                }
+
+
+                break;
+        }
 
     }
-
 
 
 }

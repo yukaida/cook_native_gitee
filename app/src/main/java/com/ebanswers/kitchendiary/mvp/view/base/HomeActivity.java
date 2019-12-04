@@ -30,7 +30,6 @@ import com.ebanswers.kitchendiary.adapter.HomeViewPagerAdapter;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
-import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.found.FoundFragment;
 import com.ebanswers.kitchendiary.mvp.view.helper.HelperFragment;
 import com.ebanswers.kitchendiary.mvp.view.home.HomeFragment;
@@ -49,6 +48,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.hjq.toast.ToastUtils;
 import com.umeng.socialize.UMShareAPI;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -116,10 +116,10 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     private Timer timer;
     private TimerTask task;
 
-    private Handler handler  = new Handler(){
+    private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what == 1){
+            if (msg.what == 1) {
                 loadMessageInfo();
             }
         }
@@ -137,16 +137,20 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @Override
     protected void initView() {
-        EventBusUtil.register(this);
-        if (TextUtils.isEmpty((String)SPUtils.get(AppConstant.USER_NAME,""))){
-            SPUtils.put(AppConstant.USER_NAME,"厨房客人");
+        EventBus.getDefault().register(this);
+        if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
+            SPUtils.put(AppConstant.USER_NAME, "厨房客人");
         }
 
-        if (TextUtils.isEmpty((String)SPUtils.get(AppConstant.USER_ID,""))){
-            SPUtils.put(AppConstant.USER_ID,"oYazTsqC-maRSIlVMXgnG_mcF2Sk");
+        String open_id = getIntent().getStringExtra("open_id");
+        if (!TextUtils.isEmpty(open_id)) {
+            SPUtils.put(AppConstant.USER_ID, open_id);
+        } else {
+            if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_ID, ""))) {
+//                SPUtils.put(AppConstant.USER_ID,"oYazTsqC-maRSIlVMXgnG_mcF2Sk");
+                SPUtils.put(AppConstant.USER_ID, "tmp_user");
+            }
         }
-
-
 
         mViewPager.addOnPageChangeListener(this);
         currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");
@@ -181,32 +185,30 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             @Override
             public void onNext(MessageResponse messageResponse) {
                 msg_num = messageResponse.getMsg_num();
-                SPUtils.put("msg_num",msg_num);
+                SPUtils.put("msg_num", msg_num);
 
                 int currentItem = mViewPager.getCurrentItem();
 
-                if (msg_num>0){
-                    if (currentItem != 2){
+                if (msg_num > 0) {
+                    if (currentItem != 2) {
                         messageNumTv.setVisibility(View.VISIBLE);
-                        if (msg_num < 100){
+                        if (msg_num < 100) {
                             messageNumTv.setText(msg_num + "");
-                        }else {
+                        } else {
                             messageNumTv.setText("···");
                         }
-                    }else {
+                    } else {
                         messageNumTv.setVisibility(View.GONE);
                     }
                     FoundFragment item = (FoundFragment) mAdapter.getItem(2);
-                    if (item != null){
+                    if (item != null) {
                         item.onStart();
                     }
 
 
-                }else {
+                } else {
                     messageNumTv.setVisibility(View.GONE);
                 }
-
-
 
 
             }
@@ -216,7 +218,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
             }
         };
-        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         ApiMethods.messageInfo(new MyObserver<>(this, listener), userId, "False");
     }
 
@@ -280,9 +282,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 mViewPager.setCurrentItem(0);
                 clearStatus();
                 selectIndex(0);
-                if (ButtonUtils.isFastDoubleClick(R.id.home_ll)){
+                if (ButtonUtils.isFastDoubleClick(R.id.home_ll)) {
                     HomeFragment item = (HomeFragment) mAdapter.getItem(0);
-                    if (item !=null){
+                    if (item != null) {
                         item.scroolTopRefresh();
                     }
                 }
@@ -293,20 +295,21 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 mViewPager.setCurrentItem(1);
                 clearStatus();
                 selectIndex(1);
-                if (ButtonUtils.isFastDoubleClick(R.id.helper_ll)){
+                if (ButtonUtils.isFastDoubleClick(R.id.helper_ll)) {
                     HelperFragment item = (HelperFragment) mAdapter.getItem(1);
-                    if (item !=null){
+                    if (item != null) {
                         item.scroolTopRefresh();
                     }
                 }
                 break;
             case R.id.tab_center_ll:
+
                 popupSendRepiceWindow(tabCenterLl);
                 break;
             case R.id.found_ll:
-                if (ButtonUtils.isFastDoubleClick(R.id.found_ll)){
+                if (ButtonUtils.isFastDoubleClick(R.id.found_ll)) {
                     FoundFragment item = (FoundFragment) mAdapter.getItem(2);
-                    if (item !=null){
+                    if (item != null) {
                         item.scroolTopRefresh();
                     }
                 }
@@ -317,9 +320,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 selectIndex(2);
                 break;
             case R.id.me_ll:
-                if (ButtonUtils.isFastDoubleClick(R.id.me_ll)){
+                if (ButtonUtils.isFastDoubleClick(R.id.me_ll)) {
                     MineFragment item = (MineFragment) mAdapter.getItem(3);
-                    if (item !=null){
+                    if (item != null) {
                         item.scroolTopRefresh();
                     }
                 }
@@ -357,7 +360,10 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         repiceLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                if (HomeActivity.isLoginMethod()) {
+                    ToastUtils.show("请先登录");
+                } else
+                    startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
                 customPopWindow.dissmiss();
             }
         });
@@ -418,7 +424,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     public void onBackPressed() {
         if (OnClickUtils.isOnDoubleClick()) {
             //移动到上一个任务栈，避免侧滑引起的不良反应
-            moveTaskToBack(false);
+//            moveTaskToBack(false);
             getWindow().getDecorView().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -430,6 +436,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             ToastUtils.show(getResources().getString(R.string.home_exit_hint));
         }
     }
+
 
     @Override
     public boolean isStatusBarEnabled() {
@@ -460,7 +467,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         mViewPager.removeOnPageChangeListener(this);
         mViewPager.setAdapter(null);
         stopTask();
-        EventBusUtil.unregister(this);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -603,13 +610,12 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     }
 
 
-
     public int getMsg_num() {
         return msg_num;
     }
 
-    public void setMessageNumTv(){
-        SPUtils.put("msg_num",0);
+    public void setMessageNumTv() {
+        SPUtils.put("msg_num", 0);
         messageNumTv.setVisibility(View.GONE);
        /* if (msg_num>0){
             messageNumTv.setVisibility(View.VISIBLE);
@@ -624,13 +630,13 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         }*/
     }
 
-    public void startTask(){
+    public void startTask() {
 
-        if (timer == null){
+        if (timer == null) {
             timer = new Timer(true);
         }
 
-        if (task == null){
+        if (task == null) {
             //任务
             task = new TimerTask() {
                 public void run() {
@@ -642,10 +648,10 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         }
 
         //启动定时器
-        timer.schedule(task, 0, 10*1000);
+        timer.schedule(task, 0, 10 * 1000);
     }
 
-    public void stopTask(){
+    public void stopTask() {
         task.cancel();
         task = null;
         timer.cancel();
@@ -655,15 +661,29 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGetMessage(Event message) {
-        if (message.getType() == Event.EVENT_UPDATE_FOUBND){
+        if (message.getType() == Event.EVENT_UPDATE_FOUBND) {
             mViewPager.setCurrentItem(2);
             clearStatus();
             selectIndex(2);
             FoundFragment item = (FoundFragment) mAdapter.getItem(2);
-            if (item !=null){
+            if (item != null) {
                 item.addData();
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void finishThis(String finishThis) {
+        if ("finishThis".equals(finishThis))
+            finish();
+    }
+
+    /**
+     * @return 判断是否是是自己账号，非空或非默认
+     */
+    public static boolean isLoginMethod() {
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+        return TextUtils.isEmpty(userId) || "tmp_user".equals(userId);
     }
 
 

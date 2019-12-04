@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.database.bean.DBManager;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -17,6 +18,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -74,7 +76,8 @@ public class CommonApplication extends UIApplication {
 
         // 初始化吐司工具类
         ToastUtils.init(getApplicationContext());
-
+        AutoLayoutConifg.getInstance().useDeviceSize();
+        DBManager.getInstance().initDb();
         /**
          * 初始化common库
          * 参数1:上下文，不能为空

@@ -412,6 +412,12 @@ public static final int *;
  rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 
+
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+      public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
 #rxandroid
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
@@ -431,4 +437,5 @@ public static final int *;
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
+
 }
