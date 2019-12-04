@@ -314,7 +314,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 //                ToastUtils.show("关注成功");
 //                homePresenter.loadSquareInfo("tmp_user");
 //                SquareInfo.DataBean item = expertStoryAdapter.getItem(currentPosition);
-
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
                 SquareInfo.DataBean item = expertStoryAdapter.getData().get(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);

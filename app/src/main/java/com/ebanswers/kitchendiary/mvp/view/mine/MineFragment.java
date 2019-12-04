@@ -34,6 +34,8 @@ import com.ebanswers.kitchendiary.bean.DiaryInfo;
 import com.ebanswers.kitchendiary.bean.UserInfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.MinePresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -57,6 +59,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -194,7 +200,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     protected void initView() {
-
+        EventBus.getDefault().register(this);
         userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
         minePresenter = new MinePresenter(this, this);
@@ -269,7 +275,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     } else {
                         minePresenter.islike("unlike", userId, create_user);
                     }
-
                 }
             }
         });
@@ -310,6 +315,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
     }
 
@@ -416,9 +422,10 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 meListIv.setBackgroundResource(R.mipmap.icon_list_unselect);
                 meGridIv.setBackgroundResource(R.mipmap.icon_grid_select);
                 isRepice = true;
-                mineSrl.setEnableLoadMore(true);
-                if (!TextUtils.isEmpty(userId))
+                if (!TextUtils.isEmpty(userId)) {
+                    mineSrl.setEnableLoadMore(true);
                     minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
+                }
                 break;
             case R.id.me_collection_tv:
                /* TextPaint tp7 = meDiaryTv.getPaint();
@@ -499,6 +506,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     public void setFollowerData(BaseResponse data) {
         if (data != null) {
             if (data.getCode() == 0) {
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
                 CookbookInfo item = (CookbookInfo) cookBookAdapter.getItem(currentPosition);
                 if (item.isIs_liked()) {
                     item.setIs_liked(false);
@@ -532,7 +540,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 usernameTv.setText(data.getMy_name());
                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
             }
-
 
             if (!TextUtils.isEmpty(data.getOpenid())) {
                 SPUtils.put(AppConstant.USER_ID, data.getOpenid());
@@ -602,7 +609,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     cookBookAdapter.addData(data1);
-                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - 6,
+                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - 5,
                             cookBookAdapter.getData().size());
                 } else {
                     cookBookAdapter.setNewData(data1);
@@ -610,9 +617,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
 
             } else {
+                isMore = false;
                 mineSrl.setEnableLoadMore(false);
-
-                cookBookAdapter.notifyDataSetChanged();
+//                cookBookAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -687,8 +694,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 } else {
                     ToastUtils.show("请数入用户名");
                 }
-
-
             }
         });
 
@@ -780,5 +785,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetMessage(Event message) {
+        if (message.getType() == Event.EVENT_UPDATE_MINE) {
+            String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+            if (!TextUtils.isEmpty(userId)) {
+//                minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
+                minePresenter.loadUserInfo("wer", userId);
+            }
+        }
+    }
 
 }

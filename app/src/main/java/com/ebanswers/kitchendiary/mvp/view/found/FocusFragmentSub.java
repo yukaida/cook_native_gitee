@@ -35,6 +35,8 @@ import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.FoundTopInfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.FocusPresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -493,7 +495,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
         if (data != null) {
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
-
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
                 AllMsgFound item = (AllMsgFound) foundAdapter.getItem(currentPosition);
                 if (type.equals("subscribe")) {
                     if (item.isIs_subscribe()) {

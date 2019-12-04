@@ -24,6 +24,8 @@ import com.ebanswers.kitchendiary.adapter.MoreWonderfulAdapter;
 import com.ebanswers.kitchendiary.bean.SquareInfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.HelperPresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -249,6 +251,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
 //                helperPresenter.loadSquareInfo("tmp_user");
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
                 SquareInfo.DataBean item =  moreWonderfulAdapter.getItem(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);

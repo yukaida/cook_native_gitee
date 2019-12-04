@@ -41,6 +41,8 @@ import com.ebanswers.kitchendiary.bean.MasterInfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.FoundPresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -625,7 +627,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         if (data != null) {
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
-
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
                 AllMsgFound item = (AllMsgFound) foundAdapter.getItem(currentPosition);
                 if (type.equals("subscribe")) {
                     if (item.isIs_subscribe()) {
@@ -810,7 +812,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 foodStepinfos.add(foodStepinfo);
             }
             allMsgFound.setSteps(foodStepinfos);
-            
+
             if (foundAdapter != null) {
                 foundAdapter.addData(0, allMsgFound);
                 foundAdapter.notifyDataSetChanged();
