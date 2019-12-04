@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.ctiao:ndkbitmap-x86:0.9.24@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d43bec5e3d7f2d6a9ebede18dc0aedf9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d43bec5e3d7f2d6a9ebede18dc0aedf9/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ctiao/ndkbitmap-x86/0.9.24/15f982cb2a9279bbe4f11aa83a544e656db8b7b4/ndkbitmap-x86-0.9.24-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ctiao/ndkbitmap-x86/0.9.24/2e4b120c750000a6d0c989097bb1ce7d86f79de2/ndkbitmap-x86-0.9.24-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
