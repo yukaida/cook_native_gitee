@@ -612,7 +612,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 foundAdapter.addData(data.getData());
 //                foundAdapter.setNewData(data.getData());
 //                foundAdapter.notifyDataSetChanged();
-                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - 6,
+                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - data.getData().size(),
                         foundAdapter.getData().size());
 
             }

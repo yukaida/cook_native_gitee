@@ -584,7 +584,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     kitchenDiaryAdapter.addData(data1);
-                    kitchenDiaryAdapter.notifyItemRangeChanged(kitchenDiaryAdapter.getData().size() - 6,
+                    kitchenDiaryAdapter.notifyItemRangeChanged(kitchenDiaryAdapter.getData().size() - data.getData().size(),
                             kitchenDiaryAdapter.getData().size());
                 } else {
                     kitchenDiaryAdapter.setNewData(data1);
@@ -609,7 +609,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     cookBookAdapter.addData(data1);
-                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - 5,
+                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - data.getData().size(),
                             cookBookAdapter.getData().size());
                 } else {
                     cookBookAdapter.setNewData(data1);
