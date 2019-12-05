@@ -526,18 +526,18 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 if (type.equals("subscribe")) {
                     if (item.isIs_subscribe()) {
                         item.setIs_subscribe(false);
-                        item.setMaster_rank(item.getMaster_rank() - 1);
+//                        item.setMaster_rank(item.getMaster_rank() - 1);
                     } else {
                         item.setIs_subscribe(true);
-                        item.setMaster_rank(item.getMaster_rank() + 1);
+//                        item.setMaster_rank(item.getMaster_rank() + 1);
                     }
                 } else if (type.equals("collection")) {
                     if (item.isIs_collected()) {
                         item.setIs_collected(false);
-                        item.setMaster_rank(item.getMaster_rank() - 1);
+//                        item.setMaster_rank(item.getMaster_rank() - 1);
                     } else {
                         item.setIs_collected(true);
-                        item.setMaster_rank(item.getMaster_rank() + 1);
+//                        item.setMaster_rank(item.getMaster_rank() + 1);
                     }
                 } else if (type.equals("like")){
                     if (item.isIs_liked()) {

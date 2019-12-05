@@ -265,10 +265,10 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                 SquareInfo.DataBean item =  moreWonderfulAdapter.getItem(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);
-                    item.setMaster_rank(item.getMaster_rank() - 1);
+//                    item.setMaster_rank(item.getMaster_rank() - 1);
                 } else {
                     item.setIs_subscribe(true);
-                    item.setMaster_rank(item.getMaster_rank() + 1);
+//                    item.setMaster_rank(item.getMaster_rank() + 1);
                 }
                 moreWonderfulAdapter.setData(currentPosition, item);
                 moreWonderfulAdapter.notifyItemChanged(currentPosition);

@@ -339,7 +339,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             case R.id.more_pic_add_tv:
                 type = "more";
                 requestFilePermission();
-                openCamera(9,PictureConfig.MULTIPLE);
+                openCamera(999,PictureConfig.MULTIPLE);
                 break;
             case R.id.add_food_step_ll:
                 addItemRecycler();

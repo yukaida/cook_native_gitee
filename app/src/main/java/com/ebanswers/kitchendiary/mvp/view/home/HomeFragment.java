@@ -333,10 +333,8 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 SquareInfo.DataBean item = expertStoryAdapter.getData().get(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);
-                    item.setMaster_rank(item.getMaster_rank() - 1);
                 } else {
                     item.setIs_subscribe(true);
-                    item.setMaster_rank(item.getMaster_rank() + 1);
                 }
 //                expertStoryAdapter.setData(currentPosition, item);
                 expertStoryAdapter.notifyItemChanged(currentPosition);

@@ -80,7 +80,7 @@ public class MoreWonderfulAdapter extends BaseQuickAdapter<SquareInfo.DataBean, 
         }
 
         if (!TextUtils.isEmpty(item.getMaster_rank() + "")){
-            helper.setText(R.id.goods_focu_num_tv,item.getMaster_rank() + "");
+//            helper.setText(R.id.goods_focu_num_tv,item.getMaster_rank() + "");
         }
 
       /* if (!TextUtils.isEmpty(item.getNickname())){
