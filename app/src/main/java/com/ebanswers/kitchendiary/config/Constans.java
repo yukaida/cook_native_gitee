@@ -8,8 +8,10 @@ public class Constans {
     //wechat
     public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code";
     public static String GetUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s";
-    public static final String WX_APP_ID = "wxeca9697274e9a75e";
-    public static final String WX_APP_SECRET = "42c9037e54a64bfeaaa1710c56a15204";
+//    public static final String WX_APP_ID = "wxeca9697274e9a75e";
+    public static final String WX_APP_ID = "wxc0c98be669f24f3c";
+//    public static final String WX_APP_SECRET = "42c9037e54a64bfeaaa1710c56a15204";
+    public static final String WX_APP_SECRET = "addeecc5241b3fd5a66a8eb763d1714f";
     public static final String CheckTokenIsUseful = "https://api.weixin.qq.com/sns/auth?access_token=%s&openid=%s";
     public static final String WX_REFRESH_Token = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%s&grant_type=refresh_token&refresh_token=%s";
     public static final String Tag_Title = "https://wechat.53iq.com/tmp/kitchen/user/tag?code=123";

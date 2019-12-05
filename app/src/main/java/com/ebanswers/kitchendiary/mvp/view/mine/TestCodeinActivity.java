@@ -24,6 +24,7 @@ import com.ebanswers.kitchendiary.bean.LoginResultInfo;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ToastCustom;
 
 import org.json.JSONException;
@@ -119,6 +120,15 @@ public class TestCodeinActivity extends AppCompatActivity implements TextWatcher
             public void result(LoginResultInfo loginResultInfo) {
 
                 if (loginResultInfo != null) {
+                    if (loginResultInfo.getCode() == 0){
+                        SPUtils.setLogin(true);
+                                         /*   if (!TextUtils.isEmpty(data.get())) {
+                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
+                                            }
+                                            if (!TextUtils.isEmpty(data.getOpenid())) {
+                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
+                                            }*/
+                    }
                     Log.d("CheckCodeFragment", "user info: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                     Intent intent = new Intent(TestCodeinActivity.this, HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());

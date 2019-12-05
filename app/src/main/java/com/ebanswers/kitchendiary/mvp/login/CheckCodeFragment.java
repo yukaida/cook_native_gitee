@@ -18,6 +18,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.RegisterActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
 import com.ebanswers.kitchendiary.utils.LanguageUtil;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ToastCustom;
 import com.ebanswers.kitchendiary.widget.VerificationCodeInput;
 
@@ -143,6 +144,15 @@ public class CheckCodeFragment extends BaseLoginFragment {
             public void result(LoginResultInfo loginResultInfo) {
                 Log.d(TAG, "result: " + loginResultInfo.getMsg());
                 if (loginResultInfo != null) {
+                    if (loginResultInfo.getCode() == 0){
+                        SPUtils.setLogin(true);
+                                         /*   if (!TextUtils.isEmpty(data.get())) {
+                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
+                                            }
+                                            if (!TextUtils.isEmpty(data.getOpenid())) {
+                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
+                                            }*/
+                    }
                     Log.d("CheckCodeFragment", "user info: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                     EventBus.getDefault().post("finishThis");
                     Intent intent = new Intent(getActivity(), HomeActivity.class);

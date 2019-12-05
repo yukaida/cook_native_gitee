@@ -303,8 +303,12 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 }
                 break;
             case R.id.tab_center_ll:
-
-                popupSendRepiceWindow(tabCenterLl);
+                if (SPUtils.getIsLogin()){
+                    popupSendRepiceWindow(tabCenterLl);
+                }else {
+//                    LoginActivity.openActivity(this);
+                    startActivity(new Intent(this, WelActivity.class));
+                }
                 break;
             case R.id.found_ll:
                 if (ButtonUtils.isFastDoubleClick(R.id.found_ll)) {

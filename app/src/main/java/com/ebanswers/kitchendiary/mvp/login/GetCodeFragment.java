@@ -30,6 +30,7 @@ import com.ebanswers.kitchendiary.mvp.view.mine.TestCodeinActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.PhoneLoginUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ToastCustom;
 import com.sahooz.library.Country;
 import com.sahooz.library.PickActivity;
@@ -537,6 +538,15 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
             @Override
             public void result(LoginResultInfo loginResultInfo) {
                 if (loginResultInfo != null) {
+                    if (loginResultInfo.getCode() == 0){
+                        SPUtils.setLogin(true);
+                                         /*   if (!TextUtils.isEmpty(data.get())) {
+                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
+                                            }
+                                            if (!TextUtils.isEmpty(data.getOpenid())) {
+                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
+                                            }*/
+                    }
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
                     startActivity(intent);

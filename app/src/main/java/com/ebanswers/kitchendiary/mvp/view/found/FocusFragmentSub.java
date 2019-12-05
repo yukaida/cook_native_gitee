@@ -41,6 +41,7 @@ import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.FocusPresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FocusResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
@@ -227,41 +228,65 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                         }).open();
                         break;
                     case R.id.focu_status_iv:
-                        isSimpleClick = true;
-                        currentPosition = position;
-                        type = "subscribe";
-
-                        if (item.isIs_subscribe()) {
-                            focusPresenter.follower("cancel ", userId, item.getCreate_user());
-                        } else {
-                            focusPresenter.follower("", userId, item.getCreate_user());
+                        if (SPUtils.getIsLogin()){
+                            isSimpleClick = true;
+                            currentPosition = position;
+                            type = "subscribe";
+                            if (item.isIs_subscribe()) {
+                                focusPresenter.follower("cancel ", userId, item.getCreate_user());
+                            } else {
+                                focusPresenter.follower("", userId, item.getCreate_user());
+                            }
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
                         }
+
                         break;
                     case R.id.collection_status_iv:
-                        isSimpleClick = true;
-                        currentPosition = position;
-                        type = "collection";
-                        if (item.isIs_collected()) {
-                            focusPresenter.uncollected("cancel_collect", item.getDiary_id());
-                        } else {
-                            focusPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
+                        if (SPUtils.getIsLogin()){
+                            isSimpleClick = true;
+                            currentPosition = position;
+                            type = "collection";
+                            if (item.isIs_collected()) {
+                                focusPresenter.uncollected("cancel_collect", item.getDiary_id());
+                            } else {
+                                focusPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
+                            }
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
                         }
+
                         break;
                     case R.id.message_iv:
-                        isSimpleClick = true;
-                        currentPosition = position;
-                        type = "Comment";
-                        popupCommentWindow(item.getDiary_id(), userId, "游客");
+                        if (SPUtils.getIsLogin()){
+                            type = "Comment";
+                            isSimpleClick = true;
+                            currentPosition = position;
+                            String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
+                            popupCommentWindow(item.getDiary_id(), userId, username);
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
+                        }
                         break;
                     case R.id.like_status_iv:
-                        isSimpleClick = true;
-                        currentPosition = position;
-                        type = "like";
-                        if (item.isIs_liked()) {
-                            focusPresenter.islike("unlike", item.getDiary_id(), userId);
-                        } else {
-                            focusPresenter.islike("like", item.getDiary_id(), userId);
+
+                        if (SPUtils.getIsLogin()){
+                            isSimpleClick = true;
+                            currentPosition = position;
+                            type = "like";
+                            if (item.isIs_liked()) {
+                                focusPresenter.islike("unlike", item.getDiary_id(), userId);
+                            } else {
+                                focusPresenter.islike("like", item.getDiary_id(), userId);
+                            }
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
                         }
+
                         break;
                     case R.id.user_name_tv:
                     case R.id.user_head_iv:

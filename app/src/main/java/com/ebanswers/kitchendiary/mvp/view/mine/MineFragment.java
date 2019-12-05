@@ -280,14 +280,20 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 CookbookInfo item = (CookbookInfo) adapter.getItem(position);
                 if (view.getId() == R.id.focus_status_iv) {
-                    isSimpleClick = true;
-                    currentPosition = position;
-                    String create_user = item.getCreate_user();
-                    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
-                    if (item.isIs_subscribe()) {
-                        minePresenter.islike("like", userId, create_user);
-                    } else {
-                        minePresenter.islike("unlike", userId, create_user);
+
+                    if (SPUtils.getIsLogin()){
+                        isSimpleClick = true;
+                        currentPosition = position;
+                        String create_user = item.getCreate_user();
+                        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                        if (item.isIs_subscribe()) {
+                            minePresenter.islike("like", userId, create_user);
+                        } else {
+                            minePresenter.islike("unlike", userId, create_user);
+                        }
+                    }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                        startActivity(new Intent(getContext(), WelActivity.class));
                     }
                 }
             }
@@ -382,8 +388,15 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 //                intent4.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/setting?code=123&openid=" + userId);
 //                startActivity(intent4);
 
-                Intent intent4 = new Intent(getContext(), SettingActivity.class);
-                startActivity(intent4);
+                if (SPUtils.getIsLogin()){
+                    Intent intent4 = new Intent(getContext(), SettingActivity.class);
+                    startActivity(intent4);
+                }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                    startActivity(new Intent(getContext(), WelActivity.class));
+                }
+
+
 
 
                 break;

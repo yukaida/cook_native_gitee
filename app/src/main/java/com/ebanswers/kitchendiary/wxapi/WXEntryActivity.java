@@ -240,6 +240,15 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                                 public void result(LoginResultInfo loginResultInfo) {
                                     if (loginResultInfo != null) {
                                         closeWaitLoading();
+                                        if (loginResultInfo.getCode() == 0){
+                                            SPUtils.setLogin(true);
+                                         /*   if (!TextUtils.isEmpty(data.get())) {
+                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
+                                            }
+                                            if (!TextUtils.isEmpty(data.getOpenid())) {
+                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
+                                            }*/
+                                        }
 //                                        WechatUserConfig.clear(context.get());
 //                                        setAliasAndTag(loginResultInfo.getMsg());
 //                                        clearCookie();//切换用户后需要清空cookie, 否则我的界面用户名不更新
@@ -268,6 +277,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                             ToastCustom.makeText(QRCodeMap.getMsg(code)).show();
                         }
                     } catch (JSONException e) {
+                        closeWaitLoading();
                         e.printStackTrace();
                     }
                 }

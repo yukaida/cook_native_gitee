@@ -20,11 +20,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"/>
         <activity android:name=".mvp.view.base.FullActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"/>
         <activity android:name=".mvp.view.base.WelActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:theme="@style/LoginTheme"/>
         <activity android:name=".mvp.view.mine.TestCodeinActivity"
             android:screenOrientation="portrait"
@@ -78,7 +79,7 @@
         </activity>
         <activity
             android:name=".mvp.view.base.LoginActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"/>
         <activity
@@ -87,6 +88,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.mine.AboutActivity"
+            android:screenOrientation="portrait"
             android:label="@string/about_text"
             android:launchMode="standard" /> <!-- 启动页面（因为使用了LauncherTheme，所以不要给这个Activity设置screenOrientation属性，会导致崩溃） -->
         <activity
@@ -101,6 +103,7 @@
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/LoginTheme"/> <!-- 注册界面 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"

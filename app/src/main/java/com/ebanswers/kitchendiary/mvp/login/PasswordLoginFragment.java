@@ -27,6 +27,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.PhoneLoginUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ToastCustom;
 import com.sahooz.library.Country;
 import com.sahooz.library.PickActivity;
@@ -214,6 +215,18 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
                                 @Override
                                 public void result(LoginResultInfo loginResultInfo) {
                                     if (loginResultInfo != null) {
+                                        LoginResultInfo.DataBean data = loginResultInfo.getData();
+                                        if (loginResultInfo.getCode() == 0){
+                                            SPUtils.setLogin(true);
+                                         /*   if (!TextUtils.isEmpty(data.get())) {
+                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
+                                            }
+                                            if (!TextUtils.isEmpty(data.getOpenid())) {
+                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
+                                            }*/
+                                        }
+
+
                                         closeWaitLoading();
                                         Log.d("WXEntryActivity", "login result: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);

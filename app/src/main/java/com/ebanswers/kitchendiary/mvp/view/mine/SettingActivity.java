@@ -314,6 +314,8 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void run() {
                         WechatUserConfig.clear(SettingActivity.this);
+//                        SPUtils.setLogin(false);
+                        SPUtils.clearUserInfo();
                         clearCache();
                         runOnUiThread(new Runnable() {
                             @Override

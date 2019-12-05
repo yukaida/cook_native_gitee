@@ -30,6 +30,7 @@ import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.HelperPresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.TitleBar;
@@ -122,15 +123,24 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                 if (view.getId() == R.id.focus_status_iv) {
 
                     if (!HomeActivity.isLoginMethod()){
-                        String create_user = item.getCreate_user();
-                        isSimpleClick = true;
-                        currentPosition = position;
-                        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-                        if (item.isIs_subscribe()) {
-                            helperPresenter.follower("cancel", userId, create_user);
-                        } else {
-                            helperPresenter.follower("", userId, create_user);
+                        if (SPUtils.getIsLogin()){
+                            String create_user = item.getCreate_user();
+                            isSimpleClick = true;
+                            currentPosition = position;
+                            String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+                            if (item.isIs_subscribe()) {
+                                helperPresenter.follower("cancel", userId, create_user);
+                            } else {
+                                helperPresenter.follower("", userId, create_user);
+                            }
+
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
                         }
+                    }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                        startActivity(new Intent(getContext(), WelActivity.class));
                     }
 
                 } else if (view.getId() == R.id.goods_builder_iv || view.getId() == R.id.goods_builder_tv) {
