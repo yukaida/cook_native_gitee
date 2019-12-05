@@ -16,8 +16,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,13 +42,10 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="199" column="31" selection-start-line="199" selection-start-column="31" selection-end-line="199" selection-end-column="31" />
-              <folding>
-                <element signature="e#13958#13986#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="269">
+              <caret line="404" column="110" selection-start-line="404" selection-start-column="110" selection-end-line="404" selection-end-column="110" />
             </state>
           </provider>
         </entry>
@@ -64,7 +61,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>@sub</find>
       <find>launchMode</find>
       <find>Event</find>
       <find>Eventb</find>
@@ -94,6 +90,7 @@
       <find>ivWelAd</find>
       <find>loginType</find>
       <find>dialog</find>
+      <find>picShowRv</find>
     </findStrings>
     <replaceStrings>
       <replace>CommonApplication</replace>
@@ -157,11 +154,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/config/Constans.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/wxapi/WXEntryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java" />
       </list>
     </option>
   </component>
@@ -249,7 +246,7 @@
               <item name="kitchendiary" type="462c0819:PsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="mine" type="462c0819:PsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -450,7 +447,7 @@
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49563318" visible="true" weight="0.18673219" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49563318" visible="true" weight="0.25675675" />
       <window_info id="Structure" order="1" sideWeight="0.50153375" side_tool="true" weight="0.23324397" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -527,14 +524,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_web.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/WebActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
@@ -896,17 +885,43 @@
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="359" column="52" lean-forward="true" selection-start-line="359" selection-start-column="52" selection-end-line="359" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="199" column="28" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
+          <folding>
+            <element signature="e#13958#13986#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_found_sub.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="75" column="44" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6">
-          <caret line="378" column="17" lean-forward="true" selection-start-line="378" selection-start-column="17" selection-end-line="378" selection-end-column="17" />
+        <state relative-caret-position="539">
+          <caret line="176" column="127" selection-start-line="176" selection-start-column="127" selection-end-line="176" selection-end-column="127" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="594" column="110" selection-start-line="594" selection-start-column="94" selection-end-line="594" selection-end-column="110" />
+        <state relative-caret-position="70">
+          <caret line="207" column="127" selection-start-line="207" selection-start-column="109" selection-end-line="207" selection-end-column="127" />
         </state>
       </provider>
     </entry>
@@ -914,30 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
           <caret line="404" column="110" selection-start-line="404" selection-start-column="110" selection-end-line="404" selection-end-column="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="361" column="16" selection-start-line="361" selection-start-column="16" selection-end-line="361" selection-end-column="16" />
-          <folding>
-            <element signature="e#5622#5641#0" expanded="true" />
-            <element signature="e#5684#5703#0" expanded="true" />
-            <element signature="e#6008#6027#0" expanded="true" />
-            <element signature="e#6070#6089#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="199" column="31" selection-start-line="199" selection-start-column="31" selection-end-line="199" selection-end-column="31" />
-          <folding>
-            <element signature="e#13958#13986#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

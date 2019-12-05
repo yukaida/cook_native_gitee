@@ -174,7 +174,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 FoundTopInfo item = (FoundTopInfo) adapter.getItem(position);
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", "https://wechat.53iq.com/tmp/topic/" + item.getTopic_id() + "?code=123");
+                intent.putExtra("url", "https://wechat.53iq.com/tmp/topic/" + item.getTopic_id() + "?code=123&openid=" + userId);
                 startActivity(intent);
             }
         });
