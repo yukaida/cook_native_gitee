@@ -735,6 +735,8 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     public void netWorkError(String result) {
+        foundSwrl.finishLoadMore();
+        foundSwrl.finishRefresh();
         ToastUtils.show(result);
     }
 

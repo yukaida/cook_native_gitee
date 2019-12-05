@@ -135,9 +135,13 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 RecommendForYou item = (RecommendForYou) adapter.getItem(position);
-                Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", item.getUrl());
-                startActivity(intent);
+                if (item.getUrl().startsWith("http") || item.getUrl().startsWith("https")){
+                    Intent intent = new Intent(getContext(), WebActivity.class);
+                    intent.putExtra("url", item.getUrl());
+                    startActivity(intent);
+                }else {
+                    ToastUtils.show("链接路径错误");
+                }
             }
         });
 
@@ -395,7 +399,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 break;
             case R.id.integral_punching_ll:
                 Intent intent2 = new Intent(getContext(), WebActivity.class);
-                intent2.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/point_goods?code=123");
+                intent2.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid="+userId);
                 startActivity(intent2);
                 break;
             case R.id.message_ll:

@@ -592,6 +592,8 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     public void netWorkError(String result) {
+        focusSrl.finishLoadMore();
+        focusSrl.finishRefresh();
         ToastUtils.show(result);
     }
 
