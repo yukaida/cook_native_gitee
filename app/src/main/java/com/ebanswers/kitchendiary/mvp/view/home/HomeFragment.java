@@ -100,6 +100,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     private boolean isSimpleClick = false;
     private boolean isRefresh = false;
     private int currentPosition = 0;
+    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
 
     public static HomeFragment newInstance() {
@@ -384,7 +385,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         switch (view.getId()) {
             case R.id.hot_recipe_ll:
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                 intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/square?code=123&ctg=cookbook&openid=" + userId);
                 startActivity(intent);
                 break;
@@ -402,7 +402,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 SPUtils.put("msg_num", 0);
                 ((HomeActivity) getActivity()).setMessageNumTv();
                 Intent intent3 = new Intent(getContext(), WebActivity.class);
-                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123");
+                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid="+userId);
                 startActivity(intent3);
                 break;
             case R.id.more_wonderful_tv:
@@ -416,7 +416,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 break;
             case R.id.activity_more_tv:
                 Intent intent5 = new Intent(getContext(), WebActivity.class);
-                intent5.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/activity_list?code=123");
+                intent5.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/activity_list?code=123&openid="+ userId);
                 startActivity(intent5);
 
                 break;

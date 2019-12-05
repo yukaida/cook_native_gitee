@@ -386,7 +386,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 SPUtils.put("msg_num", 0);
                 ((HomeActivity) getActivity()).setMessageNumTv();
                 Intent intent3 = new Intent(getContext(), WebActivity.class);
-                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123");
+                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid="+userId);
                 startActivity(intent3);
                 newMsgShowLl.setVisibility(View.GONE);
                 break;
