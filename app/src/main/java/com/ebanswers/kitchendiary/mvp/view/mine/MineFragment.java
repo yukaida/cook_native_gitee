@@ -3,6 +3,7 @@ package com.ebanswers.kitchendiary.mvp.view.mine;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -46,6 +47,7 @@ import com.ebanswers.kitchendiary.network.response.CookbookResponse;
 import com.ebanswers.kitchendiary.network.response.DiaryResponse;
 import com.ebanswers.kitchendiary.utils.Base64Utils;
 import com.ebanswers.kitchendiary.utils.GlideApp;
+import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.hjq.bar.TitleBar;
@@ -57,8 +59,13 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -354,15 +361,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
             case R.id.share_iv:
 
-              /*  UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                UMImage image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
                 image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                 image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
                 image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
-                web.setTitle(item.getTitle());//标题
+                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/"); //切记切记 这里分享的链接必须是http开头
+//                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
+                web.setTitle(getString(R.string.app_name));//标题
                 web.setThumb(image);  //缩略图
-                web.setDescription(item.getDesc());//描述
+                web.setDescription("");//描述
 
                 new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
@@ -380,7 +388,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
                         }
                     }
-                }).open();*/
+                }).open();
                 break;
             case R.id.setting_iv:
 

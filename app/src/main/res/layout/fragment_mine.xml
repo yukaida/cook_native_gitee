@@ -130,16 +130,16 @@
 
                 <ImageView
                     android:id="@+id/share_iv"
-                    android:layout_width="@dimen/twenty"
-                    android:layout_height="@dimen/twenty"
+                    android:layout_width="@dimen/twentyfive"
+                    android:layout_height="@dimen/twentyfive"
                     android:background="@mipmap/icon_me_share"
                     android:layout_toLeftOf="@+id/setting_iv"
                     android:layout_marginRight="@dimen/twentyfive"/>
 
                 <ImageView
                     android:id="@+id/setting_iv"
-                    android:layout_width="@dimen/twenty"
-                    android:layout_height="@dimen/twenty"
+                    android:layout_width="@dimen/twentyfive"
+                    android:layout_height="@dimen/twentyfive"
                     android:background="@mipmap/icon_setting"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/twenty"/>
