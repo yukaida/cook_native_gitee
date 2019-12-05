@@ -298,6 +298,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                         }else {
                             moreWonderfulAdapter.addData(data.getData());
                             moreWonderfulAdapter.notifyItemRangeChanged(moreWonderfulAdapter.getData().size() - data.getData().size(),moreWonderfulAdapter.getData().size());
+                            moreWonderfulAdapter.notifyDataSetChanged();
 //                        }
                     }
                 }

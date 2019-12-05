@@ -309,11 +309,11 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                                 expertStoryAdapter.loadMoreEnd();
                             }
                             expertStoryAdapter.setNewData(data.getData());
-//                            expertStoryAdapter.notifyDataSetChanged();
+                            expertStoryAdapter.notifyDataSetChanged();
                         } else {
                             expertStoryAdapter.addData(data.getData());
-//                                expertStoryAdapter.notifyDataSetChanged();
                             expertStoryAdapter.notifyItemRangeChanged(expertStoryAdapter.getData().size() - data.getData().size(), expertStoryAdapter.getData().size());
+                            expertStoryAdapter.notifyDataSetChanged();
                         }
 //                    }
                 }

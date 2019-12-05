@@ -71,6 +71,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -435,6 +436,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 meGridIv.setBackgroundResource(R.mipmap.icon_grid_unselect);
                 isRepice = false;
                 mineSrl.setEnableLoadMore(true);
+                isMore = false;
                 if (!TextUtils.isEmpty(userId))
                     minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
                 break;
@@ -457,6 +459,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 meListIv.setBackgroundResource(R.mipmap.icon_list_unselect);
                 meGridIv.setBackgroundResource(R.mipmap.icon_grid_select);
                 isRepice = true;
+                isMore = false;
                 if (!TextUtils.isEmpty(userId)) {
                     mineSrl.setEnableLoadMore(true);
                     minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
@@ -626,8 +629,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 }
             } else {
-
-                kitchenDiaryAdapter.notifyDataSetChanged();
+                if (!isMore){
+                    kitchenDiaryAdapter.setNewData(new ArrayList<DiaryInfo>());
+                    kitchenDiaryAdapter.notifyDataSetChanged();
+                }
+                isMore = false;
                 mineSrl.setEnableLoadMore(false);
             }
         }
@@ -652,6 +658,10 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
 
             } else {
+                if (!isMore){
+                    cookBookAdapter.setNewData(new ArrayList<CookbookInfo>());
+                    cookBookAdapter.notifyDataSetChanged();
+                }
                 isMore = false;
                 mineSrl.setEnableLoadMore(false);
 //                cookBookAdapter.notifyDataSetChanged();

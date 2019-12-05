@@ -1,10 +1,12 @@
 package com.ebanswers.kitchendiary.mvp.view.base;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,6 +54,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,7 +66,7 @@ import butterknife.OnClick;
 /**
  * desc   : 主页界面
  */
-public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener, Runnable, ScreenUtils {
+public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener,ScreenUtils {
 
     @BindView(R.id.vp_home_pager)
     ViewPager mViewPager;
@@ -101,6 +104,8 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     TextView currentDateTv;
     @BindView(R.id.message_num_tv)
     TextView messageNumTv;
+    @BindView(R.id.bottom_ll)
+    LinearLayout bottomLl;
 
     private OrientationEventListener mOrientationListener;
     // screen orientation listener
@@ -155,7 +160,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         mViewPager.addOnPageChangeListener(this);
         currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");
         // 修复在 ViewPager 中点击 EditText 弹出软键盘导致 BottomNavigationView 还显示在 ViewPager 下面的问题
-        postDelayed(this, 1000);
+//        postDelayed(this, 1000);
 
         mAdapter = new HomeViewPagerAdapter(this);
         mViewPager.setAdapter(mAdapter);
@@ -222,24 +227,24 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         ApiMethods.messageInfo(new MyObserver<>(this, listener), userId, "False");
     }
 
-    /**
+  /*  *//**
      * {@link Runnable}
-     */
+     *//*
     @Override
     public void run() {
-        /*
+        *//*
          父布局为LinearLayout，因为 ViewPager 使用了权重的问题
          软键盘在弹出的时候会把布局进行收缩，ViewPager 的高度缩小了
          所以 BottomNavigationView 会显示在ViewPager 下面
          解决方法是在 ViewPager 初始化高度后手动进行设置 ViewPager 高度并将权重设置为0
-         */
+         *//*
         if (mViewPager != null) {
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mViewPager.getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
             layoutParams.height = mViewPager.getHeight();
-            layoutParams.weight = 0;
+            layoutParams.width = mViewPager.getWidth();
             mViewPager.setLayoutParams(layoutParams);
         }
-    }
+    }*/
 
     /**
      * {@link ViewPager.OnPageChangeListener}
@@ -303,9 +308,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 }
                 break;
             case R.id.tab_center_ll:
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     popupSendRepiceWindow(tabCenterLl);
-                }else {
+                } else {
 //                    LoginActivity.openActivity(this);
                     startActivity(new Intent(this, WelActivity.class));
                 }
@@ -351,13 +356,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         if (popupWindowBuilder == null) {
             popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(this);
         }
-        popupWindowBuilder
-                .setView(inflate)
-                .size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .setBgDarkAlpha(0.7f)
-                .enableBackgroundDark(true)
-                .setOutsideTouchable(true)
-                .setAnimationStyle(R.style.RtcPopupAnimation);
+        popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).setBgDarkAlpha(0.7f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
         customPopWindow = popupWindowBuilder.create();
         customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
 
@@ -366,8 +365,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             public void onClick(View v) {
                 if (HomeActivity.isLoginMethod()) {
                     ToastUtils.show("请先登录");
-                } else
-                    startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                } else startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
                 customPopWindow.dissmiss();
             }
         });
@@ -458,6 +456,11 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         super.onResume();
     }
 
+    @Override
+    protected void onStart() {
+        checkDeviceHasNavigationBar(this);
+        super.onStart();
+    }
 
     @Override
     protected void onPause() {
@@ -678,8 +681,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void finishThis(String finishThis) {
-        if ("finishThis".equals(finishThis))
-            finish();
+        if ("finishThis".equals(finishThis)) finish();
     }
 
     /**
@@ -690,6 +692,54 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         return TextUtils.isEmpty(userId) || "tmp_user".equals(userId);
     }
 
+    /**
+     * 判断是否存在NavigationBar
+     *
+     * @param context：上下文环境
+     * @return：返回是否存在(true/false)
+     */
+    public boolean checkDeviceHasNavigationBar(Context context) {
+        boolean hasNavigationBar = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                //不存在虚拟按键
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                //存在虚拟按键
+                hasNavigationBar = true;
+                //手动设置控件的margin
+                //linebutton是一个linearlayout,里面包含了两个Button
+                LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) bottomLl.getLayoutParams();
+                //setMargins：顺序是左、上、右、下
+                layout.setMargins(0, 0, 0, getNavigationBarHeight(this) + 10);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hasNavigationBar;
+    }
+
+
+    /**
+     * 测量底部导航栏的高度
+     *
+     * @param mActivity:上下文环境
+     * @return：返回测量出的底部导航栏高度
+     */
+    private int getNavigationBarHeight(Activity mActivity) {
+        Resources resources = mActivity.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        return height;
+    }
 
 
 }

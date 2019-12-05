@@ -10,6 +10,7 @@ import java.util.List;
 public class FoundHomeInfo {
 
 
+
     /**
      * current_user_img : https://storage.53iq.com/group1/M00/00/0B/CgoKRFcgbrWAaxrrAAA1rVOF8Gk753.jpg
      * app :
@@ -47,7 +48,7 @@ public class FoundHomeInfo {
     private String latest_yueFanPa;
     private boolean is_target_user;
     private String appid;
-    private int reminder_gen_poster;
+    private String reminder_gen_poster;
     private String activity_text;
     private String scope;
     private String lang;
@@ -142,11 +143,11 @@ public class FoundHomeInfo {
         this.appid = appid;
     }
 
-    public int getReminder_gen_poster() {
+    public String getReminder_gen_poster() {
         return reminder_gen_poster;
     }
 
-    public void setReminder_gen_poster(int reminder_gen_poster) {
+    public void setReminder_gen_poster(String reminder_gen_poster) {
         this.reminder_gen_poster = reminder_gen_poster;
     }
 

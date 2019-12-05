@@ -65,6 +65,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.HomeActivity"
+            android:theme="@style/LoginTheme"
             android:configChanges="orientation|screenSize"
             android:launchMode="standard"
             android:windowSoftInputMode="adjustPan|stateHidden">

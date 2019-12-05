@@ -510,6 +510,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 //                foundAdapter.setNewData(allMsgFounds);
                 foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - data.getData().size(),
                         foundAdapter.getData().size());
+                foundAdapter.notifyDataSetChanged();
             }
         }
     }

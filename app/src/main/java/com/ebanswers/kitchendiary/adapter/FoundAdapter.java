@@ -472,6 +472,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         //将尾部tag字符用ImageSpan替换
         ssb.setSpan(imageSpan, title.length(), content.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         target.setText(ssb);
+
+        notifyDataSetChanged();
     }
 
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -245,7 +246,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
         foundAdapter = new FoundAdapter();
         foundRv.setAdapter(foundAdapter);
-        foundRv.getLayoutManager().setAutoMeasureEnabled(false);
         foundAdapter.openLoadAnimation();
         foundAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -639,9 +639,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 }
                 foundAdapter.addData(data.getData());
 //                foundAdapter.setNewData(data.getData());
-//                foundAdapter.notifyDataSetChanged();
-                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - data.getData().size(),
+                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - 6,
                         foundAdapter.getData().size());
+
+                foundAdapter.notifyDataSetChanged();
 
             }
         }
@@ -694,6 +695,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     }
                     comment.add(commentInfo);
                     item.setComment(comment);
+                    item.setComment_count(item.getComment_count() +1);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("ReplyComment")) {
@@ -703,6 +705,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     }
                     comment.add(commentInfo1);
                     item.setComment(comment);
+                    item.setComment_count(item.getComment_count() +1);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("CommentDelete")) {
@@ -712,6 +715,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     }
                     comment.remove(deletePosition);
                     item.setComment(comment);
+                    item.setComment_count(item.getComment_count() - 1);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("recommend")) {
@@ -816,38 +820,47 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     }
 
     public void addData() {
-        boolean success = (boolean) SPUtils.get("success", false);
+        /*boolean success = (boolean) SPUtils.get("success", false);
         if (success) {
             initData();
 //            foundSwrl.autoRefresh();
-        } else {
-            String repice = (String) SPUtils.get(AppConstant.repice2, "");
-            String pic = (String) SPUtils.get(AppConstant.pic2, "");
-            Gson gson = new Gson();
-            AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
-            List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
-            }.getType());
-            String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
-            ArrayList<String> img_url = new ArrayList<String>();
-            ArrayList<String> thumbnail_url = new ArrayList<String>();
-            img_url.add(userImage);
-            thumbnail_url.add(userImage);
-            allMsgFound.setImg_url(img_url);
-            allMsgFound.setThumbnail_url(thumbnail_url);
-            for (int i = 0; i < stepinfos.size(); i++) {
-                FoodStepinfo foodStepinfo = new FoodStepinfo();
-                foodStepinfo.setImg(stepinfos.get(i).getImg());
-                foodStepinfo.setThumbnail(stepinfos.get(i).getThumbnail());
-                foodStepinfo.setDesc(stepinfos.get(i).getDesc());
-                foodStepinfos.add(foodStepinfo);
-            }
-            allMsgFound.setSteps(foodStepinfos);
+        } else {*/
 
-            if (foundAdapter != null) {
-                foundAdapter.addData(0, allMsgFound);
-                foundAdapter.notifyDataSetChanged();
-            }
-        }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    String repice = (String) SPUtils.get(AppConstant.repice2, "");
+                    String pic = (String) SPUtils.get(AppConstant.pic2, "");
+                    Gson gson = new Gson();
+                    AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+                    List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
+                    }.getType());
+                    String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
+                    ArrayList<String> img_url = new ArrayList<String>();
+                    ArrayList<String> thumbnail_url = new ArrayList<String>();
+                    img_url.add(userImage);
+                    thumbnail_url.add(userImage);
+                    allMsgFound.setImg_url(img_url);
+                    allMsgFound.setThumbnail_url(thumbnail_url);
+                    for (int i = 0; i < stepinfos.size(); i++) {
+                        FoodStepinfo foodStepinfo = new FoodStepinfo();
+                        foodStepinfo.setImg(stepinfos.get(i).getImg());
+                        foodStepinfo.setThumbnail(stepinfos.get(i).getThumbnail());
+                        foodStepinfo.setDesc(stepinfos.get(i).getDesc());
+                        foodStepinfos.add(foodStepinfo);
+                    }
+                    allMsgFound.setSteps(foodStepinfos);
+
+                    if (foundAdapter != null) {
+                        foundAdapter.addData(0, allMsgFound);
+                        foundAdapter.notifyDataSetChanged();
+                    }
+                }
+            },500);
+
+
+//        }
     }
 
 

@@ -32,9 +32,9 @@ import com.ebanswers.kitchendiary.database.bean.WechatConfig;
 import com.ebanswers.kitchendiary.database.bean.WechatRefreshConfig;
 import com.ebanswers.kitchendiary.mvp.login.GetCodeFragment;
 import com.ebanswers.kitchendiary.mvp.login.PasswordLoginFragment;
-import com.ebanswers.kitchendiary.mvp.view.base.FullActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
 import com.ebanswers.kitchendiary.utils.LanguageUtil;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
@@ -144,19 +144,28 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Intent intent1 = new Intent(WXEntryActivity.this, FullActivity.class);
+              /*  Intent intent1 = new Intent(WXEntryActivity.this, FullActivity.class);
                 intent1.putExtra("type", FullActivity.TYPE_LOGIN_POLICY);
                 intent1.putExtra("url", Constans.URL_PROTOCOL);
-                startActivity(intent1);
+                startActivity(intent1);*/
+                Intent intent = new Intent(WXEntryActivity.this, WebActivity.class);
+                intent.putExtra("url", Constans.URL_PROTOCOL);
+                startActivity(intent);
+
             }
         }, agreementStart, agreementEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Intent intent1 = new Intent(WXEntryActivity.this, FullActivity.class);
+                /*Intent intent1 = new Intent(WXEntryActivity.this, FullActivity.class);
                 intent1.putExtra("type", FullActivity.TYPE_LOGIN_POLICY);
                 intent1.putExtra("url", Constans.URL_PRIVACY);
-                startActivity(intent1);
+                startActivity(intent1);*/
+
+                Intent intent = new Intent(WXEntryActivity.this, WebActivity.class);
+                intent.putExtra("url", Constans.URL_PRIVACY);
+                startActivity(intent);
+
             }
         }, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvLoginPhoneRead.setMovementMethod(LinkMovementMethod.getInstance());
