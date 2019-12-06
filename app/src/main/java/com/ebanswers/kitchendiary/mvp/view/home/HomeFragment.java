@@ -34,7 +34,9 @@ import com.ebanswers.kitchendiary.mvp.presenter.HomePresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
+import com.ebanswers.kitchendiary.network.Deployment;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
+import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.TitleBar;
 import com.hjq.permissions.OnPermission;
@@ -135,13 +137,13 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 RecommendForYou item = (RecommendForYou) adapter.getItem(position);
-                if (item.getUrl().startsWith("http") || item.getUrl().startsWith("https")){
+//                if (item.getUrl().startsWith("http") || item.getUrl().startsWith("https")){
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    intent.putExtra("url", item.getUrl());
+                    intent.putExtra("url", Deployment.BASE_URL_WORK + item.getUrl().substring(1) + "&openid=" + userId);
                     startActivity(intent);
-                }else {
-                    ToastUtils.show("链接路径错误");
-                }
+//                }else {
+//                    ToastUtils.show("链接路径错误");
+//                }
             }
         });
 
@@ -152,7 +154,16 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         moreWonderfulRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         moreWonderfulRv.setAdapter(expertStoryAdapter);
-
+        moreWonderfulRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
+                }else {
+                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
+                }
+            }
+        });
         expertStoryAdapter.notifyDataSetChanged();
         expertStoryAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -312,8 +323,8 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                             expertStoryAdapter.notifyDataSetChanged();
                         } else {
                             expertStoryAdapter.addData(data.getData());
-                            expertStoryAdapter.notifyItemRangeChanged(expertStoryAdapter.getData().size() - data.getData().size(), expertStoryAdapter.getData().size());
-                            expertStoryAdapter.notifyDataSetChanged();
+                            expertStoryAdapter.notifyItemRangeInserted(expertStoryAdapter.getData().size() - data.getData().size(), data.getData().size());
+//                            expertStoryAdapter.notifyDataSetChanged();
                         }
 //                    }
                 }

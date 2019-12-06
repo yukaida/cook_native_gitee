@@ -243,7 +243,7 @@
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.simple:androideventbus:1.0.5.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.bingoogolapple:bga-banner:2.2.5@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47@aar" level="project" />
     <orderEntry type="library" name="Gradle: me.jessyan:autosize:1.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ctiao:ndkbitmap-x86:0.9.24@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.LuckSiege.PictureSelector:picture_library:v2.2.9@aar" level="project" />

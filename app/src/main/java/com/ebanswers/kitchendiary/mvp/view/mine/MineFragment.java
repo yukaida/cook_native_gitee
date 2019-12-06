@@ -240,6 +240,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         TextPaint tp10 = collectionDiaryTv.getPaint();
         tp10.setFakeBoldText(true);
 
+        diaryRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
+                }else {
+                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
+                }
+            }
+        });
         diaryRv.setHasFixedSize(true);
         diaryRv.setNestedScrollingEnabled(false);
         diaryRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -267,7 +277,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         if (HomeActivity.isLoginMethod()) {
             cookBookAdapter.setEmptyView(noDataView);
         }
-
+        repiceRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
+                }else {
+                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
+                }
+            }
+        });
         repiceRv.setHasFixedSize(true);
         repiceRv.setNestedScrollingEnabled(false);
         repiceRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -622,8 +641,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     kitchenDiaryAdapter.addData(data1);
-                    kitchenDiaryAdapter.notifyItemRangeChanged(kitchenDiaryAdapter.getData().size() - data.getData().size(),
-                            kitchenDiaryAdapter.getData().size());
+                    kitchenDiaryAdapter.notifyItemRangeInserted(kitchenDiaryAdapter.getData().size() - data.getData().size(),
+                            data.getData().size());
                 } else {
                     kitchenDiaryAdapter.setNewData(data1);
                     kitchenDiaryAdapter.notifyDataSetChanged();
@@ -650,8 +669,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     cookBookAdapter.addData(data1);
-                    cookBookAdapter.notifyItemRangeChanged(cookBookAdapter.getData().size() - data.getData().size(),
-                            cookBookAdapter.getData().size());
+                    cookBookAdapter.notifyItemRangeInserted(cookBookAdapter.getData().size() - data.getData().size(),
+                            data.getData().size());
                 } else {
                     cookBookAdapter.setNewData(data1);
                     cookBookAdapter.notifyDataSetChanged();

@@ -45,6 +45,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FocusResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
+import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.Utils;
@@ -181,7 +182,16 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
         focusRv.setLayoutManager(new LinearLayoutManager(getContext()));
         focusRv.addItemDecoration(new VerticalltemDecoration(10));
-
+        focusRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
+                }else {
+                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
+                }
+            }
+        });
         foundAdapter = new FoundAdapter();
         focusRv.setAdapter(foundAdapter);
         foundAdapter.notifyDataSetChanged();
@@ -508,8 +518,8 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 }
                 foundAdapter.addData(data.getData());
 //                foundAdapter.setNewData(allMsgFounds);
-                foundAdapter.notifyItemRangeChanged(foundAdapter.getData().size() - data.getData().size(),
-                        foundAdapter.getData().size());
+                foundAdapter.notifyItemRangeInserted(foundAdapter.getData().size() - data.getData().size(),
+                        data.getData().size());
                 foundAdapter.notifyDataSetChanged();
             }
         }

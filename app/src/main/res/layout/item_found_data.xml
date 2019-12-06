@@ -124,7 +124,6 @@
                 android:id="@+id/collection_status_iv"
                 android:layout_width="@dimen/twenty"
                 android:layout_height="@dimen/twenty"
-                android:visibility="gone"
                 android:background="@mipmap/icon_collection_off" />
 
             <TextView
@@ -132,8 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/twenty"
-                android:text="收藏"
-                android:visibility="gone"
+                android:text=""
                 android:textSize="12dp" />
 
 

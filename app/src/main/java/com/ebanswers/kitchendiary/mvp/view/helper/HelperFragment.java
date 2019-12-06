@@ -32,6 +32,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
+import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
@@ -110,6 +111,16 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
         }
         moreWonderfulAdapter = new MoreWonderfulAdapter();
         moreWonderfulAdapter.notifyDataSetChanged();
+        orderRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
+                }else {
+                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
+                }
+            }
+        });
         orderRv.setLayoutManager(new LinearLayoutManager(getContext()));
         orderRv.setHasFixedSize(true);
         orderRv.setNestedScrollingEnabled(false);
@@ -297,8 +308,8 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                             moreWonderfulAdapter.notifyDataSetChanged();
                         }else {
                             moreWonderfulAdapter.addData(data.getData());
-                            moreWonderfulAdapter.notifyItemRangeChanged(moreWonderfulAdapter.getData().size() - data.getData().size(),moreWonderfulAdapter.getData().size());
-                            moreWonderfulAdapter.notifyDataSetChanged();
+                            moreWonderfulAdapter.notifyItemRangeInserted(moreWonderfulAdapter.getData().size() - data.getData().size(),data.getData().size());
+//                            moreWonderfulAdapter.notifyDataSetChanged();
 //                        }
                     }
                 }
