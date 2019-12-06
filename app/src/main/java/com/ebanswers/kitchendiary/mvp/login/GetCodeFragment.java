@@ -428,10 +428,10 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        Log.d("GetCodeFragment", "onTextChanged: " + etCodeAccount.length() + "," + etCodeAccount.getText());
-        tvGetCode.setEnabled(!TextUtils.isEmpty(etCodeAccount.getText()));
-        layoutCodeAccount.setSelected(!TextUtils.isEmpty(etCodeAccount.getText()));
-        etCodeAccount.setSelection(etCodeAccount.length());
+//        Log.d("GetCodeFragment", "onTextChanged: " + etCodeAccount.length() + "," + etCodeAccount.getText());
+//        tvGetCode.setEnabled(!TextUtils.isEmpty(etCodeAccount.getText()));
+//        layoutCodeAccount.setSelected(!TextUtils.isEmpty(etCodeAccount.getText()));
+//        etCodeAccount.setSelection(etCodeAccount.length());
     }
 
     @Override

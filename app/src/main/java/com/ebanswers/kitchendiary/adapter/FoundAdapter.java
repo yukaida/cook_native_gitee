@@ -31,9 +31,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.view.base.ImageLookActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.utils.GlideApp;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.SpannableStringUtils;
 import com.ebanswers.kitchendiary.widget.CircleImageView;
 import com.ebanswers.kitchendiary.widget.VerticalImageSpan;
@@ -62,6 +64,11 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         CircleImageView userHeadIv = helper.getView(R.id.user_head_iv);
         ImageView isTopShowIv = helper.getView(R.id.is_top_show_iv);
+        String userid = (String) SPUtils.get(AppConstant.USER_ID, "");
+
+        if (userid.equals(item.getCreate_user())){
+            helper.getView(R.id.focu_status_iv).setVisibility(View.GONE);
+        }
 
         if (item.isIs_master()){
             helper.getView(R.id.is_master_iv).setVisibility(View.VISIBLE);
@@ -106,14 +113,12 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         }
 
         if (!TextUtils.isEmpty(item.getHead_url())){
-
             GlideApp.with(mContext)
                     .load(item.getHead_url())
-                    .skipMemoryCache(false)
+                    .skipMemoryCache(true)
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(userHeadIv);
-
         }
 
         if (item.isIs_subscribe()){

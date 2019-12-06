@@ -24,8 +24,7 @@
             <com.ebanswers.kitchendiary.widget.CircleImageView
                 android:id="@+id/user_head_iv"
                 android:layout_width="@dimen/forty"
-                android:layout_height="@dimen/forty"
-                android:background="@mipmap/icon_user_head"/>
+                android:layout_height="@dimen/forty"/>
 
             <TextView
                 android:id="@+id/user_name_tv"

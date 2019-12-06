@@ -157,6 +157,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             }
         }
 
+
+
+
         mViewPager.addOnPageChangeListener(this);
         currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");
         // 修复在 ViewPager 中点击 EditText 弹出软键盘导致 BottomNavigationView 还显示在 ViewPager 下面的问题
@@ -170,6 +173,11 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         mViewPager.setOffscreenPageLimit(mAdapter.getCount());
 //        mViewPager.setOffscreenPageLimit(2);
 
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("position")) && getIntent().getStringExtra("position").equals("3")){
+            mViewPager.setCurrentItem(3);
+            clearStatus();
+            selectIndex(3);
+        }
         /*
          * Generate a new EC key pair entry in the Android Keystore by
          * using the KeyPairGenerator API. The private key can only be
@@ -177,6 +185,10 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
          * SHA-512 as the message digest.
          */
         startTask();
+
+
+
+
 
     }
 
@@ -676,6 +688,10 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             if (item != null) {
                 item.addData();
             }
+        }else if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
+            mViewPager.setCurrentItem(3);
+            clearStatus();
+            selectIndex(3);
         }
     }
 

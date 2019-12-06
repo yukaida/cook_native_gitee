@@ -8,6 +8,7 @@ public class Event {
 
     public static final int EVENT_APPSCT_INVALID= 1;    //被别人登录了
     public static final int EVENT_UPDATE_FOUBND= 2; // 刷新待处理
+    public static final int EVENT_UPDATE_TOMINE= 5; // 刷新待处理
     public static final int EVENT_UPDATE_MINE= 4; // 刷新我的界面
     public static final int EVENT_NET= 3; // 刷新待处理
 

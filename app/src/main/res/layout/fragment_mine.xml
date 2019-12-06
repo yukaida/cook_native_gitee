@@ -16,8 +16,7 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mine_srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableRefresh="false">
+        android:layout_height="match_parent">
 
 
     <androidx.core.widget.NestedScrollView
@@ -151,7 +150,8 @@
                     android:background="@mipmap/icon_invitation_card"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/forty"
-                    android:layout_marginRight="@dimen/fifty" />
+                    android:layout_marginRight="@dimen/fifty"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

@@ -205,9 +205,9 @@ public class PasswordSetFragment extends BaseLoginFragment implements TextWatche
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        etPwdFirst.setSelected(!TextUtils.isEmpty(etPwdFirst.getText()));
-        etPwdSecond.setSelected(!TextUtils.isEmpty(etPwdSecond.getText()));
-        tvPwdConfirm.setEnabled(!TextUtils.isEmpty(etPwdFirst.getText()) && !TextUtils.isEmpty(etPwdSecond.getText()));
+//        etPwdFirst.setSelected(!TextUtils.isEmpty(etPwdFirst.getText()));
+//        etPwdSecond.setSelected(!TextUtils.isEmpty(etPwdSecond.getText()));
+//        tvPwdConfirm.setEnabled(!TextUtils.isEmpty(etPwdFirst.getText()) && !TextUtils.isEmpty(etPwdSecond.getText()));
     }
 
     @Override

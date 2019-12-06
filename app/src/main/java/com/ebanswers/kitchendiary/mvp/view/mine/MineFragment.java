@@ -180,7 +180,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
          */
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-
+            Toast.makeText(getContext(), "分享成功", Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -188,7 +188,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
          */
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            Toast.makeText(getContext(), "失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -196,7 +196,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
          */
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-            Toast.makeText(getContext(), "取消了", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "分享取消了", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -240,8 +240,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mineSrl.finishRefresh();
-                mineSrl.finishLoadMore();
+                String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                if (!TextUtils.isEmpty(userId)) {
+                    minePresenter.loadUserInfo("wer", userId);
+                    if (isRepice) {
+                        minePresenter.loadCookbookInfo("more", 0 + "", userId, "cookbook", "", true);
+
+                    } else {
+                        minePresenter.loadDiaryInfo("more", 0 + "", userId, "diary-only", "", true);
+                    }
+                }
             }
         });
 
@@ -268,6 +276,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 startActivity(intent1);
             }
         });
+
+
+        if (SPUtils.getIsLogin()){
+            invitationCardIv.setVisibility(View.VISIBLE);
+        }else {
+            invitationCardIv.setVisibility(View.GONE);
+        }
 
 
         cookBookAdapter = new CookBookAdapter();
@@ -370,50 +385,47 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 if (!HomeActivity.isLoginMethod()) popupChangeNameWindow(usernameTv);
                 break;
             case R.id.share_iv:
-
-                UMImage image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
-                image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
-                image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-//                        压缩格式设置
-                image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/"); //切记切记 这里分享的链接必须是http开头
-//                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
-                web.setTitle(getString(R.string.app_name));//标题
-                web.setThumb(image);  //缩略图
-                web.setDescription("");//描述
-
-                new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
-                    @Override
-                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                        if (share_media == SHARE_MEDIA.QQ) {
-                            LogUtils.e("点击QQ");
-                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
-                        } else if (share_media == SHARE_MEDIA.WEIXIN) {
-                            LogUtils.e("点击微信");
-                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
-                        } else if (share_media == SHARE_MEDIA.QZONE) {
-                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
-                        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
-                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
-
-                        }
-                    }
-                }).open();
-                break;
-            case R.id.setting_iv:
-
-//                Intent intent4 = new Intent(getContext(), WebActivity.class);
-//                intent4.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/setting?code=123&openid=" + userId);
-//                startActivity(intent4);
-
                 if (SPUtils.getIsLogin()) {
-                    Intent intent4 = new Intent(getContext(), SettingActivity.class);
-                    startActivity(intent4);
+                    UMImage image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+                    image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+                    image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+//                        压缩格式设置
+                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                    final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/"); //切记切记 这里分享的链接必须是http开头
+//                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
+                    web.setTitle(getString(R.string.app_name));//标题
+                    web.setThumb(image);  //缩略图
+                    web.setDescription("");//描述
+
+                    new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
+                        @Override
+                        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                            if (share_media == SHARE_MEDIA.QQ) {
+                                LogUtils.e("点击QQ");
+                                new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
+                            } else if (share_media == SHARE_MEDIA.WEIXIN) {
+                                LogUtils.e("点击微信");
+                                new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
+                            } else if (share_media == SHARE_MEDIA.QZONE) {
+                                new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
+                            } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                                new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
+
+                            }
+                        }
+                    }).open();
                 } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                     startActivity(new Intent(getContext(), WelActivity.class));
                 }
 
+                break;
+            case R.id.setting_iv:
+//                Intent intent4 = new Intent(getContext(), WebActivity.class);
+//                intent4.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/setting?code=123&openid=" + userId);
+//                startActivity(intent4);
+                Intent intent4 = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent4);
 
                 break;
             case R.id.invitation_card_iv:

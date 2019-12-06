@@ -169,7 +169,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
              */
             @Override
             public void onResult(SHARE_MEDIA share_media) {
-
+                Toast.makeText(getContext(), "分享成功", Toast.LENGTH_LONG).show();
             }
 
             /**
@@ -177,7 +177,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
              */
             @Override
             public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                Toast.makeText(getContext(), "失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             /**
@@ -185,7 +185,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
              */
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
-                Toast.makeText(getContext(), "取消了", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "分享取消了", Toast.LENGTH_LONG).show();
             }
         };
 
@@ -258,35 +258,42 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 AllMsgFound item = (AllMsgFound) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.share_iv:
-//                        showShare(item.getDesc(),item.getHead_url());
-                        UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
-                        image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
-                        image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+
+                        if (SPUtils.getIsLogin()){
+                            UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                            image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+                            image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
-                        image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                        String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
-                        final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
-                        web.setTitle(item.getTitle());//标题
-                        web.setThumb(image);  //缩略图
-                        web.setDescription(item.getDesc());//描述
+                            image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                            String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+                            final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
+                            web.setTitle(item.getTitle());//标题
+                            web.setThumb(image);  //缩略图
+                            web.setDescription(item.getDesc());//描述
 
-                        new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
-                            @Override
-                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                if (share_media == SHARE_MEDIA.QQ) {
-                                    LogUtils.e("点击QQ");
-                                    new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
-                                } else if (share_media == SHARE_MEDIA.WEIXIN) {
-                                    LogUtils.e("点击微信");
-                                    new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
-                                } else if (share_media == SHARE_MEDIA.QZONE) {
-                                    new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
-                                } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
-                                    new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
+                            new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
+                                @Override
+                                public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                    if (share_media == SHARE_MEDIA.QQ) {
+                                        LogUtils.e("点击QQ");
+                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
+                                    } else if (share_media == SHARE_MEDIA.WEIXIN) {
+                                        LogUtils.e("点击微信");
+                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
+                                    } else if (share_media == SHARE_MEDIA.QZONE) {
+                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
+                                    } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
 
+                                    }
                                 }
-                            }
-                        }).open();
+                            }).open();
+                        }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                            startActivity(new Intent(getContext(), WelActivity.class));
+                        }
+//                        showShare(item.getDesc(),item.getHead_url());
+
                         break;
                     case R.id.focu_status_iv:
 
@@ -383,8 +390,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
             @Override
             public void replyComment(CommentInfo commentInfo, String diary_id) {
-                type = "ReplyComment";
-                popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
+                if (!commentInfo.getOpenid().equals(userId)){
+                    type = "ReplyComment";
+                    popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
+                }
             }
         });
 

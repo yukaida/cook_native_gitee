@@ -255,6 +255,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                 if (!TextUtils.isEmpty(search)) {
                     Intent intent6 = new Intent(getContext(), WebActivity.class);
                     intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search);
+//                    intent6.putExtra("url", "https://wechat.53iq.com/tmp/search?action=search&content=" + search);
                     startActivity(intent6);
                 }
 

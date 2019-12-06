@@ -376,16 +376,14 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 String repiceName1 = repiceNameEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(repiceName1) && !TextUtils.isEmpty(titlePath)){
                     if (foodStepAdapter.getData().size() > 0) {
-                        for (int i = 0; i < foodStepAdapter.getData().size(); i++) {
-                            if (!TextUtils.isEmpty(foodStepAdapter.getData().get(0).getDesc()) || !TextUtils.isEmpty(foodStepAdapter.getData().get(0).getImg())){
-                                SPUtils.put("success",false);
-                                repiceCreate();
-                                startService(new Intent(SendRepiceActivity.this, CreateRepiceService.class));
-                                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUBND,"发现页"));
-                                finish();
-                            }else {
-                                ToastUtils.show("发布菜谱必须包含:封面图 菜谱名 有一条步骤或步骤图");
-                            }
+                        if (!TextUtils.isEmpty(foodStepAdapter.getData().get(0).getDesc()) || !TextUtils.isEmpty(foodStepAdapter.getData().get(0).getImg())){
+                            SPUtils.put("success",false);
+                            repiceCreate();
+                            startService(new Intent(SendRepiceActivity.this, CreateRepiceService.class));
+                            EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUBND,"发现页"));
+                            finish();
+                        }else {
+                            ToastUtils.show("发布菜谱必须包含:封面图 菜谱名 有一条步骤或步骤图");
                         }
                     }
                 }else {

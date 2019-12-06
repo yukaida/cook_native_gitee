@@ -23,8 +23,12 @@ import com.ebanswers.kitchendiary.config.Constans;
 import com.ebanswers.kitchendiary.config.WechatUserConfig;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.constant.FileUtils;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.BaseActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.utils.CheckUpdateTask;
 import com.ebanswers.kitchendiary.utils.DialogUtils;
 import com.ebanswers.kitchendiary.utils.LanguageUtil;
@@ -105,6 +109,12 @@ public class SettingActivity extends BaseActivity {
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
         initViews();
         initListener();
+
+        if (SPUtils.getIsLogin()) {
+            idTvSettingActivityExit.setText(getString(R.string.exit_login));
+        } else {
+            idTvSettingActivityExit.setText(getString(R.string.login_text));
+        }
 
         scheduledExecutorService = new ScheduledExecutorService() {
             @NonNull
@@ -310,31 +320,49 @@ public class SettingActivity extends BaseActivity {
                 });
                 break;
             case R.id.id_tv_setting_activity_exit:
-                ThreadUtils.exeMore(new Runnable() {
-                    @Override
-                    public void run() {
-                        WechatUserConfig.clear(SettingActivity.this);
+
+                if (SPUtils.getIsLogin()) {
+                    ThreadUtils.exeMore(new Runnable() {
+                        @Override
+                        public void run() {
+                            WechatUserConfig.clear(SettingActivity.this);
 //                        SPUtils.setLogin(false);
-                        SPUtils.clearUserInfo();
-                        clearCache();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                SPUtils.put(AppConstant.USER_ID, "");
-                                org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
-                                Intent intent = new Intent(SettingActivity.this, WXEntryActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
+                            SPUtils.clearUserInfo();
+                            clearCache();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SPUtils.put(AppConstant.USER_ID, "");
+//                                org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                                    Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
+                                    intent.putExtra("position","3");
+                                    startActivity(intent);
+                                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
+                                    finish();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    SPUtils.put(AppConstant.USER_ID, "");
+                    org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                    Intent intent = new Intent(SettingActivity.this, WXEntryActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.id_ll_setting_activity_checkupdate:
                 update(Constans.SETTING_UPDATE);
                 break;
             case R.id.id_tv_setting_activity_mytag:
-                gowWeb("https://wechat.53iq.com/tmp/kitchen/" + SPUtils.get(AppConstant.USER_ID, "") + "/tag");
+                if (SPUtils.getIsLogin()) {
+                    gowWeb("https://wechat.53iq.com/tmp/kitchen/" + SPUtils.get(AppConstant.USER_ID, "") + "/tag");
+                } else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                    startActivity(new Intent(this, WelActivity.class));
+                }
+
                 break;
             case R.id.id_tv_setting_activity_notify:
 //                gowWeb(String.format(Constans.Notify, WechatUserConfig.getWechatPublicOpenId(CommonApplication.getInstance())));

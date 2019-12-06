@@ -413,7 +413,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 break;
             case R.id.expert_story_tv:
                 Intent intent4 = new Intent(getContext(), WebActivity.class);
-                intent4.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/rec_articles?code=123&types=user_story");
+                intent4.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/rec_articles?code=123&types=user_story&openid="+ userId);
                 startActivity(intent4);
 
                 break;
@@ -427,7 +427,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 String search = searchEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(search)) {
                     Intent intent6 = new Intent(getContext(), WebActivity.class);
-                    intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search);
+                    intent6.putExtra("url", "https://wechat.53iq.com/tmp/search?action=search&content=" + search);
                     startActivity(intent6);
                 }
 
