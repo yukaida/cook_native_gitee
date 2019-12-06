@@ -145,6 +145,14 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     SmartRefreshLayout mineSrl;
     @BindView(R.id.mine_srv)
     NestedScrollView mineSrv;
+    @BindView(R.id.focus_ll)
+    LinearLayout focusLl;
+    @BindView(R.id.fans_ll)
+    LinearLayout fansLl;
+    @BindView(R.id.integral_ll)
+    LinearLayout integralLl;
+    @BindView(R.id.clock_ll)
+    LinearLayout clockLl;
     private KitchenDiaryAdapter kitchenDiaryAdapter;
     private CookBookAdapter cookBookAdapter;
     private MinePresenter minePresenter;
@@ -240,16 +248,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         TextPaint tp10 = collectionDiaryTv.getPaint();
         tp10.setFakeBoldText(true);
 
-        diaryRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
-                }else {
-                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
-                }
-            }
-        });
         diaryRv.setHasFixedSize(true);
         diaryRv.setNestedScrollingEnabled(false);
         diaryRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -266,7 +264,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 DiaryInfo item = (DiaryInfo) adapter.getItem(position);
                 Intent intent1 = new Intent(getContext(), WebActivity.class);
                 String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
-                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid1);
                 startActivity(intent1);
             }
         });
@@ -277,16 +275,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         if (HomeActivity.isLoginMethod()) {
             cookBookAdapter.setEmptyView(noDataView);
         }
-        repiceRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
-                }else {
-                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
-                }
-            }
-        });
         repiceRv.setHasFixedSize(true);
         repiceRv.setNestedScrollingEnabled(false);
         repiceRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -298,7 +286,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 CookbookInfo item = (CookbookInfo) adapter.getItem(position);
                 Intent intent1 = new Intent(getContext(), WebActivity.class);
                 String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
-                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid1);
                 startActivity(intent1);
             }
         });
@@ -308,7 +296,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 CookbookInfo item = (CookbookInfo) adapter.getItem(position);
                 if (view.getId() == R.id.focus_status_iv) {
 
-                    if (SPUtils.getIsLogin()){
+                    if (SPUtils.getIsLogin()) {
                         isSimpleClick = true;
                         currentPosition = position;
                         String create_user = item.getCreate_user();
@@ -318,7 +306,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                         } else {
                             minePresenter.islike("unlike", userId, create_user);
                         }
-                    }else {
+                    } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                         startActivity(new Intent(getContext(), WelActivity.class));
                     }
@@ -367,7 +355,10 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     }
 
 
-    @OnClick({R.id.user_icon, R.id.username_tv, R.id.search_tv, R.id.search_bgiv, R.id.share_iv, R.id.setting_iv, R.id.invitation_card_iv, R.id.me_diary_tv, R.id.me_recipe_tv, R.id.me_collection_tv, R.id.me_list_iv, R.id.me_grid_iv, R.id.collection_diary_tv, R.id.collection_repice_tv})
+    @OnClick({R.id.user_icon, R.id.username_tv, R.id.search_tv, R.id.search_bgiv, R.id.share_iv,
+            R.id.setting_iv, R.id.invitation_card_iv, R.id.me_diary_tv, R.id.me_recipe_tv,
+            R.id.me_collection_tv, R.id.me_list_iv, R.id.me_grid_iv, R.id.collection_diary_tv,
+            R.id.collection_repice_tv,R.id.focus_ll, R.id.fans_ll, R.id.integral_ll, R.id.clock_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_icon:
@@ -376,8 +367,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
                 break;
             case R.id.username_tv:
-                if (!HomeActivity.isLoginMethod())
-                    popupChangeNameWindow(usernameTv);
+                if (!HomeActivity.isLoginMethod()) popupChangeNameWindow(usernameTv);
                 break;
             case R.id.share_iv:
 
@@ -416,15 +406,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 //                intent4.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/setting?code=123&openid=" + userId);
 //                startActivity(intent4);
 
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     Intent intent4 = new Intent(getContext(), SettingActivity.class);
                     startActivity(intent4);
-                }else {
+                } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                     startActivity(new Intent(getContext(), WelActivity.class));
                 }
-
-
 
 
                 break;
@@ -556,6 +544,19 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
 //                minePresenter.loadCookbookInfo("more", "0", "tmp_user", "cookbook", "first", false);
                 break;
+
+            case R.id.focus_ll:
+
+                break;
+            case R.id.fans_ll:
+
+                break;
+            case R.id.integral_ll:
+
+                break;
+            case R.id.clock_ll:
+
+                break;
         }
     }
 
@@ -563,7 +564,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     public void setFollowerData(BaseResponse data) {
         if (data != null) {
             if (data.getCode() == 0) {
-                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE, "刷新我的界面"));
                 CookbookInfo item = (CookbookInfo) cookBookAdapter.getItem(currentPosition);
                 if (item.isIs_liked()) {
                     item.setIs_liked(false);
@@ -641,14 +642,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     kitchenDiaryAdapter.addData(data1);
-                    kitchenDiaryAdapter.notifyItemRangeInserted(kitchenDiaryAdapter.getData().size() - data.getData().size(),
-                            data.getData().size());
+                    kitchenDiaryAdapter.notifyItemRangeInserted(kitchenDiaryAdapter.getData().size() - data.getData().size(), data.getData().size());
                 } else {
                     kitchenDiaryAdapter.setNewData(data1);
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 }
             } else {
-                if (!isMore){
+                if (!isMore) {
                     kitchenDiaryAdapter.setNewData(new ArrayList<DiaryInfo>());
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 }
@@ -669,15 +669,14 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             if (data1 != null && data1.size() > 0) {
                 if (isMore) {
                     cookBookAdapter.addData(data1);
-                    cookBookAdapter.notifyItemRangeInserted(cookBookAdapter.getData().size() - data.getData().size(),
-                            data.getData().size());
+                    cookBookAdapter.notifyItemRangeInserted(cookBookAdapter.getData().size() - data.getData().size(), data.getData().size());
                 } else {
                     cookBookAdapter.setNewData(data1);
                     cookBookAdapter.notifyDataSetChanged();
                 }
 
             } else {
-                if (!isMore){
+                if (!isMore) {
                     cookBookAdapter.setNewData(new ArrayList<CookbookInfo>());
                     cookBookAdapter.notifyDataSetChanged();
                 }
@@ -737,13 +736,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         if (popupWindowBuilder == null) {
             popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(getContext());
         }
-        popupWindowBuilder
-                .setView(inflate)
-                .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .setBgDarkAlpha(0.7f)
-                .enableBackgroundDark(true)
-                .setOutsideTouchable(true)
-                .setAnimationStyle(R.style.RtcPopupAnimation);
+        popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).setBgDarkAlpha(0.7f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
         customPopWindow = popupWindowBuilder.create();
         customPopWindow.showAtLocation(tabCenterLl.getRootView(), Gravity.CENTER, 0, 0);
 
@@ -765,8 +758,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     public void openCamera(int max, int type) {
         // 进入相册 以下是例子：用不到的api可以不写
-        PictureSelector.create(getSupportActivity())
-                .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+        PictureSelector.create(getSupportActivity()).openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 .theme(R.style.picture_default_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(max)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int

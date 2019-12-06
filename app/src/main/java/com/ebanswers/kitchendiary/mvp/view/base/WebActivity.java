@@ -93,10 +93,6 @@ public class WebActivity extends CommonActivity {
 
     }
 
-    @Override
-    public void onLeftClick(View v) {
-        finish();
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

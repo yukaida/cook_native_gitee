@@ -322,7 +322,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             helper.setBackgroundRes(R.id.collection_status_iv,R.mipmap.icon_collection_off);
         }
 
-        if (!TextUtils.isEmpty(item.getMaster_rank() + "")){
+       /* if (!TextUtils.isEmpty(item.getMaster_rank() + "")){
             if (item.getMaster_rank() < 999){
                 helper.setText(R.id.collection_tv,item.getMaster_rank() + "");
             }else if (item.getLike_count() < 9999){
@@ -330,7 +330,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }else {
                 helper.setText(R.id.collection_tv,item.getMaster_rank()/10000 + "w");
             }
-        }
+        }*/
 
         if (!TextUtils.isEmpty(item.getComment_count() + "")){
 

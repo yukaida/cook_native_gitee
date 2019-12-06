@@ -251,6 +251,9 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.4.0'
     api 'org.simple:androideventbus:1.0.5.1'
     api 'com.trycatch.android:mysnackbar:1.2.2'
+
+//    implementation 'com.squareup.leakcanary:leakcanary-android:1.3'
+//    implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 }
 
 repositories {
@@ -258,3 +261,5 @@ repositories {
         dirs 'libs' //就是你放aar的目录地址
     }
 }
+
+

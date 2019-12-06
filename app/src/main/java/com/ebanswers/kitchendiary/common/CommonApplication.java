@@ -38,6 +38,14 @@ public class CommonApplication extends UIApplication {
     //运用list来保存们每一个activity是关键
     public  List<Activity> activityList = new LinkedList<Activity>();
 
+/*    public static RefWatcher getRefWatcher(Context context) {
+        CommonApplication application = (CommonApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
+    private RefWatcher refWatcher;*/
+
+
     //static 代码段可以防止内存泄露
     static {
         //设置全局的Header构建器
@@ -71,6 +79,7 @@ public class CommonApplication extends UIApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+//        refWatcher = LeakCanary.install(this);
 
         AutoSizeConfig.getInstance().setCustomFragment(true);
         AutoSize.initCompatMultiProcess(this);

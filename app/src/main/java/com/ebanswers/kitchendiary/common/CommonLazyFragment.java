@@ -24,6 +24,8 @@ public abstract class CommonLazyFragment extends UILazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mButterKnife = ButterKnife.bind(this, view);
+//        RefWatcher refWatcher = CommonApplication.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
         return view;
     }
 

@@ -94,7 +94,7 @@
             android:launchMode="standard" /> <!-- 启动页面（因为使用了LauncherTheme，所以不要给这个Activity设置screenOrientation属性，会导致崩溃） -->
         <activity
             android:name=".mvp.view.base.WebActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/> <!-- 主页界面 -->
         <activity
             android:name=".mvp.view.base.SendRepiceActivity"

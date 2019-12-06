@@ -36,7 +36,6 @@ import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.Deployment;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
-import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.TitleBar;
 import com.hjq.permissions.OnPermission;
@@ -154,16 +153,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         moreWonderfulRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         moreWonderfulRv.setAdapter(expertStoryAdapter);
-        moreWonderfulRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
-                }else {
-                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
-                }
-            }
-        });
+
         expertStoryAdapter.notifyDataSetChanged();
         expertStoryAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -323,8 +313,8 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                             expertStoryAdapter.notifyDataSetChanged();
                         } else {
                             expertStoryAdapter.addData(data.getData());
-                            expertStoryAdapter.notifyItemRangeInserted(expertStoryAdapter.getData().size() - data.getData().size(), data.getData().size());
-//                            expertStoryAdapter.notifyDataSetChanged();
+//                            expertStoryAdapter.notifyItemRangeInserted(expertStoryAdapter.getData().size() - data.getData().size(), data.getData().size());
+                            expertStoryAdapter.notifyDataSetChanged();
                         }
 //                    }
                 }

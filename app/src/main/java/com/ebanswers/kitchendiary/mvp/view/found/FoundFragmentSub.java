@@ -51,7 +51,6 @@ import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
-import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.ImageLoader;
 import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
@@ -244,16 +243,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         foundRv.setNestedScrollingEnabled(false);
         foundRv.setLayoutManager(new LinearLayoutManager(getContext()));
         foundRv.addItemDecoration(new VerticalltemDecoration(10));
-        foundRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    GlideApp.with(getContext()).resumeRequests();//恢复Glide加载图片
-                }else {
-                    GlideApp.with(getContext()).pauseRequests();//禁止Glide加载图片
-                }
-            }
-        });
         foundAdapter = new FoundAdapter();
         foundRv.setAdapter(foundAdapter);
         foundAdapter.openLoadAnimation();
@@ -652,7 +641,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 foundAdapter.notifyItemRangeInserted(foundAdapter.getData().size() - data.getData().size(),
                         data.getData().size());
 
-//                foundAdapter.notifyDataSetChanged();
+                foundAdapter.notifyDataSetChanged();
 
             }
         }
