@@ -80,6 +80,8 @@
         <activity
             android:name=".mvp.view.base.ImageLookActivity"
             android:theme="@style/LauncherTheme"
+
+
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.LauncherActivity"

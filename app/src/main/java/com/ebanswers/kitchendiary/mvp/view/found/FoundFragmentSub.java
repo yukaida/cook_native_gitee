@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -360,12 +361,14 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
                         break;
                     case R.id.user_name_tv:
+
                     case R.id.user_head_iv:
                         Intent intent = new Intent(getContext(), WebActivity.class);
                         intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
                         startActivity(intent);
                         break;
                     case R.id.user_descrbe_tv:
+
                     case R.id.share_pic_rv:
                         Intent intent1 = new Intent(getContext(), WebActivity.class);
                         String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
