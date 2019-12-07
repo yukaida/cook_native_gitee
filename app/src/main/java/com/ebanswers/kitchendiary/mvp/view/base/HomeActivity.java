@@ -320,12 +320,14 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 }
                 break;
             case R.id.tab_center_ll:
-                if (SPUtils.getIsLogin()) {
+//                if (SPUtils.getIsLogin()) {
                     popupSendRepiceWindow(tabCenterLl);
-                } else {
+//                } else {
+//                todo  暂时开放方便测试 待测试完毕后修复
+//
 //                    LoginActivity.openActivity(this);
-                    startActivity(new Intent(this, WelActivity.class));
-                }
+//                    startActivity(new Intent(this, WelActivity.class));
+////                }
                 break;
             case R.id.found_ll:
                 if (ButtonUtils.isFastDoubleClick(R.id.found_ll)) {
@@ -375,9 +377,23 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         repiceLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HomeActivity.isLoginMethod()) {
-                    ToastUtils.show("请先登录");
-                } else startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                //todo 暂时开放方便测试 待测试完毕后修复
+//                if (HomeActivity.isLoginMethod()) {
+//                    ToastUtils.show("请先登录");
+//                } else
+                startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                customPopWindow.dissmiss();
+            }
+        });
+
+        diaryLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 暂时开放方便测试 待测试完毕后修复
+//                if (HomeActivity.isLoginMethod()) {
+//                    ToastUtils.show("请先登录");
+//                } else
+                startActivity(new Intent(HomeActivity.this, SendDiaryActivity.class));
                 customPopWindow.dissmiss();
             }
         });

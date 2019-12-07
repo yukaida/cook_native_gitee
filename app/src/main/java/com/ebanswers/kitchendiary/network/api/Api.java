@@ -59,4 +59,22 @@ public class Api {
     //发现顶部
     public static final String topic = "tmp/kitchen/rank/topic";
 
+
+    //获取草稿箱数据----------------------------
+    public static final String draftdata = "tmp/kitchen/food/draft";
+
+    //删除草稿箱子项数据
+    public static final String draftdelete = "tmp/kitchen/food/draft";
+
+
+    //获取草稿箱子项 详细数据
+    public static final String draftdetail = "tmp/kitchen/food/draft";
+
+
+    //发布日记---------------------
+
+    public static final String postDiary = "tmp/kitchen/api/publish/diary";
+    //查看话题接口
+    public static final String topics = "tmp/kitchen/hot/topic";
+
 }

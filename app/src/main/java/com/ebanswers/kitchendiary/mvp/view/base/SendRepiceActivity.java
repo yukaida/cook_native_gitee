@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,9 @@ import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.FoodMaterialinfo;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
+import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
+import com.ebanswers.kitchendiary.bean.draftsDetail.Material;
+import com.ebanswers.kitchendiary.bean.draftsDetail.Steps;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
@@ -171,9 +175,9 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
 
             @Override
             public void onRightClick(View v) {
-                Intent intent = new Intent(SendRepiceActivity.this, WebActivity.class);
-                intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/draft?code=123");
-                startActivity(intent);
+                //跳转到草稿箱界面
+                Intent intent = new Intent(SendRepiceActivity.this, DraftsActivity.class);
+                startActivityForResult(intent, 56);
             }
         });
 
@@ -495,6 +499,23 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         sortViewItem();
     }
 
+    private void loadAndAddMaterialView(List<Material> list) {//从草稿箱获取到的数据中的材料List
+        for (int i = 0; i < list.size(); i++) {
+
+            View inflate = View.inflate(this, R.layout.item_view_food, null);
+
+            EditText editText_name = inflate.findViewById(R.id.food_name_et);//材料名称
+            editText_name.setText(list.get(i).getName());
+
+            EditText editText_amount = inflate.findViewById(R.id.food_use_num_et);//材料数量
+            editText_amount.setText(list.get(i).getAmount());
+
+            foodMaterialLl.addView(inflate);
+            sortViewItem();
+        }
+
+    }
+
     private void sortViewItem() {
         for (int i = 0; i < foodMaterialLl.getChildCount(); i++) {
             View childAt = foodMaterialLl.getChildAt(i);
@@ -635,6 +656,64 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     }else {
                         ToastUtils.show("无图片选中");
                     }
+
+                    break;
+
+                case 56://草稿箱返回数据
+                    String json_draftsDetail = data.getStringExtra("json_draftsDetail");
+                    Log.d("testneed", "onActivityResult: " + json_draftsDetail);
+                    DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
+
+
+                    List img_url = draftsDetail.getData().getImg_url();//封面
+//                    repiceCoverIv
+                    if (img_url.size() > 0) {
+                        GlideApp.with(this)
+                                .load(img_url.get(0))
+//                    .skipMemoryCache(true)
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(repiceCoverIv);
+
+                        addLl.setVisibility(View.GONE);
+                        addDescTv.setVisibility(View.GONE);
+                    }
+
+
+                    String msg_content = draftsDetail.getData().getMsg_content();//菜谱名称
+                    repiceNameEt.setText(msg_content);
+
+                    String desc = draftsDetail.getData().getDesc();//菜谱说明
+                    repiceDescEt.setText(desc);
+
+                    String cookbook_type = draftsDetail.getData().getCookbook_type();//菜谱类型（蒸烤/普通）
+                    if ("蒸烤菜谱".equals(cookbook_type)) {
+                        repiceSteamingRoastRb.setChecked(true);
+                    } else {
+                        repiceNormalRb.setChecked(true);
+                    }
+
+                    List<Material> material_list = draftsDetail.getData().getMaterial();//材料list
+                    loadAndAddMaterialView(material_list);
+
+                    List<Steps> steps_lsit = draftsDetail.getData().getSteps();//步骤list
+                    List<Stepinfo> data_temp = new ArrayList<>();//添加进rv的list
+                    for (int i = 0; i < steps_lsit.size(); i++) {//将获取到的数据添加到界面原来的数组结构中，Edit属性默认全置为flase
+                        Stepinfo stepinfo = new Stepinfo();
+                        stepinfo.setDesc(steps_lsit.get(i).getDesc());
+                        stepinfo.setEdit(false);
+                        stepinfo.setImg(steps_lsit.get(i).getImg());
+                        stepinfo.setThumbnail(steps_lsit.get(i).getThumbnail());
+                        data_temp.add(stepinfo);
+                    }
+//                    foodStepAdapter.setNewData(stepinfos);
+//                    List<Stepinfo> data = foodStepAdapter.getData();
+//                    data.remove(position);
+                    foodStepAdapter.setNewData(data_temp);
+                    foodStepAdapter.notifyDataSetChanged();
+
+                    String tips = draftsDetail.getData().getTips();//小贴士
+                    repiceTipEt.setText(tips);
 
                     break;
             }

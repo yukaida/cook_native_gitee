@@ -16,6 +16,28 @@
         android:roundIcon="@mipmap/icon_acount_head"
         android:smallScreens="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".mvp.view.mine.TagActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme">
+
+        </activity>
+
+        <service
+            android:name=".service.CreateDiaryService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".mvp.view.base.DraftsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+
+        <activity
+            android:name=".mvp.view.base.SendDiaryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"/>
+
         <activity android:name=".mvp.view.base.ForgetPassActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"/>
@@ -217,7 +239,6 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 </manifest>

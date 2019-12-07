@@ -1,11 +1,16 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
+import com.ebanswers.kitchendiary.bean.Drafts;
+import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.HomePageInfo;
+import com.ebanswers.kitchendiary.bean.PostDiaryBack;
 import com.ebanswers.kitchendiary.bean.SquareInfo;
+import com.ebanswers.kitchendiary.bean.Topics.Topics;
 import com.ebanswers.kitchendiary.bean.UserInfo;
+import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.network.NetworkManager;
 import com.ebanswers.kitchendiary.network.function.HttpResultFunction;
 import com.ebanswers.kitchendiary.network.function.ServerResultFunction;
@@ -19,12 +24,15 @@ import com.ebanswers.kitchendiary.network.response.LoginResponse;
 import com.ebanswers.kitchendiary.network.response.MessageResponse;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
+import java.util.HashMap;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * 开始网络请求的步骤
@@ -79,6 +87,39 @@ public class ApiMethods {
     public static void square(Observer<SquareInfo> observer, String action, String total, String openid, String types) {
         ApiSubscribe(NetworkManager.getLoginApi().square(action, total,openid,types), observer);
     }
+
+
+    //发布日记------------
+    public static void postDiary(Observer<PostDiaryBack> observer, HashMap<String, String> map) {
+        ApiSubscribe(NetworkManager.getLoginApi().postDiary(map), observer);
+    }
+
+    // 草稿箱 加载更多--------------------------------------------------------------------------------
+    public static void draftsloadmore(Observer<Drafts> observer, String result, String openid, String code) {
+        ApiSubscribe(NetworkManager.getLoginApi().draft(result, openid,code), observer);
+    }
+
+    //草稿箱 删除子项--------------------------------------------------
+    public static void draftsdelete(Observer<DraftsDeleteBack> observer, String action, String draft_id, String openid) {
+        ApiSubscribe(NetworkManager.getLoginApi().draftsdelete(action, draft_id,openid), observer);
+    }
+
+    //草稿箱 点击子项加载 详细数据------------------------------------------
+    public static void draftsGetDetail(Observer<DraftsDetail> observer, String action, String draft_id, String openid) {
+        ApiSubscribe(NetworkManager.getLoginApi().draftsDetail(action, draft_id,openid), observer);
+    }
+
+    //删除动态------------------------------------------------------------
+    public static void FoundtDelete(Observer<BaseResponse> observer, String action, String diary_id, String from_openid) {
+        ApiSubscribe(NetworkManager.getLoginApi().FoundDelete(action, diary_id,from_openid), observer);
+    }
+
+    //获取话题列表---------------------------------------------------------
+    public static void getTopic(Observer<Topics> observer, String openid) {
+        ApiSubscribe(NetworkManager.getLoginApi().getTopic(openid), observer);
+    }
+
+
 
     //更多发现
     public static void foundinfoLoadMore(Observer<FoundLoadMoreInfo> observer, String action, String total, String openid, String types,
@@ -179,10 +220,17 @@ public class ApiMethods {
         ApiSubscribe(NetworkManager.getLoginApi().uploadImg(image,watermark), observer);
     }
 
+    //发布日记上传图片
+
+    public static void uploadImg_diary(Observer<ResponseBody> observer, RequestBody requestBody) {
+        ApiSubscribe(NetworkManager.getLoginApi().upLoad_diary(requestBody), observer);
+    }
 
     public static void topic(Observer<FoundTopResponse> observer) {
         ApiSubscribe(NetworkManager.getLoginApi().topic(), observer);
     }
+
+
 
 
 

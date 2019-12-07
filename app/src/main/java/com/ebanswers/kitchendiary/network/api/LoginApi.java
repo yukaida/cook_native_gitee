@@ -1,11 +1,16 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
+import com.ebanswers.kitchendiary.bean.Drafts;
+import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.HomePageInfo;
+import com.ebanswers.kitchendiary.bean.PostDiaryBack;
 import com.ebanswers.kitchendiary.bean.SquareInfo;
+import com.ebanswers.kitchendiary.bean.Topics.Topics;
 import com.ebanswers.kitchendiary.bean.UserInfo;
+import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.CookbookResponse;
 import com.ebanswers.kitchendiary.network.response.DiaryResponse;
@@ -15,10 +20,15 @@ import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.network.response.LoginResponse;
 import com.ebanswers.kitchendiary.network.response.MessageResponse;
 
+import java.util.HashMap;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -88,6 +98,45 @@ public interface LoginApi {
                                        @Query("openid") String openid);
 
 
+    //草稿箱------------------------------------
+    @GET(Api.draftdata)
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Observable<Drafts> draft(@Query("result") String result,
+                             @Query("openid") String openid,
+                             @Query("code") String code);
+
+    //删除草稿箱子项----------------------------------
+    @FormUrlEncoded
+    @POST(Api.draftdelete)
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    Observable<DraftsDeleteBack> draftsdelete(@Field("action") String action,
+                                              @Field("draft_id") String draft_id,
+                                              @Field("openid") String openid);
+
+
+    //获取草稿箱子项细节
+    @FormUrlEncoded
+    @POST(Api.draftdetail)
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    Observable<DraftsDetail> draftsDetail(@Field("action") String action,
+                                          @Field("draft_id") String draft_id,
+                                          @Field("openid") String openid);
+
+    // 删除动态--------------------------------------------------------
+    @FormUrlEncoded
+    @POST(Api.Square)
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    Observable<BaseResponse> FoundDelete(@Field("action") String action,
+                                         @Field("diary_id") String diary_id,
+                                         @Field("'openid'") String from_openid);
+
+
+    // 获取话题--------------------------------------------------------
+    @FormUrlEncoded
+    @POST(Api.topics)
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    Observable<Topics> getTopic(@Field("openid") String openid);
+
 
     @FormUrlEncoded
     @POST(Api.Square)
@@ -100,6 +149,8 @@ public interface LoginApi {
                                                     @Field("ctg") String ctg,
                                                     @Field("scope") String scope,
                                                     @Field("lang") String lang);
+
+
 
     //2.点赞/取消点赞
     @FormUrlEncoded
@@ -227,6 +278,16 @@ public interface LoginApi {
     @POST(Api.upload_img)
     Observable<ImageResponse> uploadImg(@Part MultipartBody.Part image,
                                         @Part("watermark") RequestBody watermark);
+    //发布日记
+    @FormUrlEncoded
+    @POST(Api.postDiary)
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Observable<PostDiaryBack> postDiary(@FieldMap HashMap<String, String> map);
+
+
+    //发布日记图片上传
+    @POST(Api.upload_img)
+    Observable<ResponseBody> upLoad_diary(@Body RequestBody Body);
 
     //  消息
     @GET(Api.topic)
