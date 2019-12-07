@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -88,6 +89,9 @@ public class CommonApplication extends UIApplication {
         ToastUtils.init(getApplicationContext());
         AutoLayoutConifg.getInstance().useDeviceSize();
         DBManager.getInstance().initDb();
+
+        //初始化Bugly
+        CrashReport.initCrashReport(getApplicationContext(), "dfeb6246ee", true);
         /**
          * 初始化common库
          * 参数1:上下文，不能为空

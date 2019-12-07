@@ -500,6 +500,11 @@
     <string name="wifi_5g_message">暂不支持5GWifi，请切换到2.4GWifi热点</string>
 
 
+    <!--我的标签-->
+    <string name="tag_mytag">我的标签</string>
+    <string name="tag_leastOne">至少选择一个标签</string>
+    <string name="tag_create_tag">生成一个标签</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
