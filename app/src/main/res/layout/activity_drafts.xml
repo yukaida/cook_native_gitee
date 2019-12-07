@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="草稿箱">
+        app:title="@string/drafts_title_drafts">
 
     </com.hjq.bar.TitleBar>
 

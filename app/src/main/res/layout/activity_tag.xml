@@ -169,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="选择我的标签，找到兴趣相同的小伙伴"
+        android:text="@string/tag_choicemytag"
         android:textColor="#666666"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

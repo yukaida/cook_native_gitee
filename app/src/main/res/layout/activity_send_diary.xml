@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="创建日记" />
+        app:title="@string/send_diary_title_creatediary" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -41,7 +41,7 @@
                 android:layout_marginEnd="8dp"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="你此刻想说些什么…"
+                android:hint="@string/send_diary_saysomething"
                 android:minHeight="150dp"
                 android:textSize="@dimen/textsize_14"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="283dp"
-                android:text="(在内容区输入#话题#即可参加对应话题)"
+                android:text="@string/send_diary_seetopic_righthint"
                 android:textColor="#999999"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/edit_background"
-                android:hint="  在这里粘贴文章链接http:"
+                android:hint="@string/send_diary_inputHTTP"
                 android:textSize="12sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/diary_rv_add"
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
-                android:text="查看话题"
+                android:text="@string/send_diary_seetopic"
                 app:layout_constraintBottom_toBottomOf="@+id/diary_textView_inputjiontopic"
                 app:layout_constraintStart_toEndOf="@+id/diary_imageView_topic"
                 app:layout_constraintTop_toTopOf="@+id/diary_textView_inputjiontopic" />
@@ -121,7 +121,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
-                android:text="发布"
+                android:text="@string/send_diary_push"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

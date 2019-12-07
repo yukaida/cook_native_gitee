@@ -505,6 +505,32 @@
     <string name="tag_leastOne">至少选择一个标签</string>
     <string name="tag_create_tag">生成一个标签</string>
 
+
+
+    <!--我的-->
+    <string name="mine_name">姓名</string>
+    <string name="mine_slogan">做菜是我热爱生活的一种表现~</string>
+    <string name="mine_focus">关注</string>
+    <string name="mine_fans">粉丝</string>
+    <string name="mine_integral">积分</string>
+    <string name="mine_clock">打卡</string>
+    <string name="mine_diary">日记</string>
+    <string name="mine_recipe">菜谱</string>
+    <string name="mine_collect">收藏</string>
+    <string name="mine_search_diaryandrepice">搜索达人和日记</string>
+    <string name="mine_search">搜索</string>
+    <string name="drafts_title_drafts">草稿箱</string>
+    <string name="send_diary_title_creatediary">创建日记</string>
+    <string name="send_diary_saysomething">你此刻想说些什么…</string>
+    <string name="send_diary_seetopic_righthint">(在内容区输入#话题#即可参加对应话题)</string>
+    <string name="send_diary_inputHTTP">在这里粘贴文章链接http:</string>
+    <string name="send_diary_seetopic">查看话题</string>
+    <string name="send_diary_push">发布</string>
+    <string name="tag_choicemytag">选择我的标签，找到兴趣相同的小伙伴</string>
+    <string name="item_drafts_delete">删除</string>
+    <string name="item_drafts_repicename">菜谱名称</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

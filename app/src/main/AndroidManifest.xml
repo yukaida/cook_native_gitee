@@ -80,8 +80,6 @@
         <activity
             android:name=".mvp.view.base.ImageLookActivity"
             android:theme="@style/LauncherTheme"
-
-
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.LauncherActivity"
@@ -93,7 +91,6 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="standard"
             android:windowSoftInputMode="adjustPan|stateHidden">
-
             <!-- 程序入口 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -142,10 +139,8 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="tencent1105879955" />
             </intent-filter>
         </activity> <!-- 关于界面 -->
