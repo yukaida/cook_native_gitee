@@ -270,8 +270,8 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        /*tvPwdLogin.setEnabled(!TextUtils.isEmpty(etPwdAccount.getText()) && !TextUtils.isEmpty(etPwdPassword.getText()));
-        layoutPwdAccount.setSelected(!TextUtils.isEmpty(etPwdAccount.getText()));
+       tvPwdLogin.setEnabled(!TextUtils.isEmpty(etPwdAccount.getText()) && !TextUtils.isEmpty(etPwdPassword.getText()));
+        /* layoutPwdAccount.setSelected(!TextUtils.isEmpty(etPwdAccount.getText()));
         layoutPwdPassword.setSelected(!TextUtils.isEmpty(etPwdPassword.getText()));
         etPwdAccount.setSelection(etPwdAccount.length());*/
     }

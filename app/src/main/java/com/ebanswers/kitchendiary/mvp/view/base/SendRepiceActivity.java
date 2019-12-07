@@ -451,6 +451,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         allMsgFound.setMsg_content(repiceDesc);
         allMsgFound.setMaterial(foodMaterialinfos);
         allMsgFound.setDesc(repiceTip);
+        allMsgFound.setCreate_date("");
 
         Gson gson = new Gson();
 
