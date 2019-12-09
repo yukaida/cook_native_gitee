@@ -30,6 +30,8 @@ import com.ebanswers.kitchendiary.config.QRCodeMap;
 import com.ebanswers.kitchendiary.config.WechatUserConfig;
 import com.ebanswers.kitchendiary.database.bean.WechatConfig;
 import com.ebanswers.kitchendiary.database.bean.WechatRefreshConfig;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.login.GetCodeFragment;
 import com.ebanswers.kitchendiary.mvp.login.PasswordLoginFragment;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -267,6 +269,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                                         Log.d("WXEntryActivity", "login result: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                                         Intent intent = new Intent(context.get(), HomeActivity.class);
                                         EventBus.getDefault().post("finishThis");
+                                        EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                                         if (context != null && context.get() != null) {
                                             intent.putExtra("open_id", loginResultInfo.getMsg());
                                             startActivity(intent);

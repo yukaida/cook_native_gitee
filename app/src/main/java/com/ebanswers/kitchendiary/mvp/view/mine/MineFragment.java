@@ -265,6 +265,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         if (HomeActivity.isLoginMethod()) {
             kitchenDiaryAdapter.setEmptyView(noDataView);
         }
+
         kitchenDiaryAdapter.notifyDataSetChanged();
         kitchenDiaryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -286,10 +287,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
 
         cookBookAdapter = new CookBookAdapter();
-        loadEmpty("请登录后查看创建的菜谱", repiceRv);
-        if (HomeActivity.isLoginMethod()) {
-            cookBookAdapter.setEmptyView(noDataView);
-        }
         repiceRv.setHasFixedSize(true);
         repiceRv.setNestedScrollingEnabled(false);
         repiceRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -328,15 +325,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
             }
         });
-
-        loadEmpty("请登录后查看日记记录", diaryRv);
-
-
     }
 
     @Override
     protected void initData() {
-        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         if (!TextUtils.isEmpty(userId)) {
             minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
             minePresenter.loadUserInfo("wer", userId);
@@ -558,18 +551,43 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
 
             case R.id.focus_ll:
+                if (SPUtils.getIsLogin()){
+                    userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    Intent intent2 = new Intent(getContext(), WebActivity.class);
+                    intent2.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=follower");
+                    startActivity(intent2);
+                }
 
                 break;
             case R.id.fans_ll:
+                if (SPUtils.getIsLogin()){
+                    userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    Intent intent3 = new Intent(getContext(), WebActivity.class);
+                    intent3.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/"+ userId + "/follower/list?types=following");
+                    startActivity(intent3);
+                }
 
                 break;
             case R.id.integral_ll:
+                if (SPUtils.getIsLogin()){
+                    userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    Intent intent8 = new Intent(getContext(), WebActivity.class);
+                    intent8.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid="+userId);
+                    startActivity(intent8);
+                }
 
                 break;
             case R.id.clock_ll:
+                if (SPUtils.getIsLogin()){
+                    userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    Intent intent5 = new Intent(getContext(), WebActivity.class);
+                    intent5.putExtra("url", "https://mp.weixin.qq.com/s/0usP-wgrFdFoIseGsciJPQ");
+                    startActivity(intent5);
+                }
 
                 break;
         }
+
     }
 
     @Override
@@ -593,11 +611,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void changeName(BaseResponse data) {
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         minePresenter.loadUserInfo("wer", userId);
     }
 
     @Override
     public void changeHeadUrl(BaseResponse data) {
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         minePresenter.loadUserInfo("wer", userId);
     }
 
@@ -616,7 +636,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             }
 
             if (!TextUtils.isEmpty(data.getHead_url())) {
-
+                SPUtils.put(AppConstant.USER_ICON,data.getHead_url());
                 GlideApp.with(getContext()).load(data.getHead_url()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
             }
 
@@ -661,7 +681,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
             } else {
                 if (!isMore) {
-                    kitchenDiaryAdapter.setNewData(new ArrayList<DiaryInfo>());
+                    if (HomeActivity.isLoginMethod()) {
+                        loadEmpty("请登录后查看日记记录", diaryRv);
+                        kitchenDiaryAdapter.setEmptyView(noDataView);
+                    }else {
+//                        kitchenDiaryAdapter.getEmptyView().setVisibility(View.GONE);
+                        kitchenDiaryAdapter.setNewData(new ArrayList<DiaryInfo>());
+                    }
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 }
                 isMore = false;
@@ -689,7 +715,13 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
             } else {
                 if (!isMore) {
-                    cookBookAdapter.setNewData(new ArrayList<CookbookInfo>());
+                    if (HomeActivity.isLoginMethod()) {
+                        loadEmpty("请登录后查看菜谱记录", repiceRv);
+                        cookBookAdapter.setEmptyView(noDataView);
+                    }else {
+//                        cookBookAdapter.getEmptyView().setVisibility(View.GONE);
+                        cookBookAdapter.setNewData(new ArrayList<CookbookInfo>());
+                    }
                     cookBookAdapter.notifyDataSetChanged();
                 }
                 isMore = false;

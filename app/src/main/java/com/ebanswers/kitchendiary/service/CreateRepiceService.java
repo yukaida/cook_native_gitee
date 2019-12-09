@@ -73,59 +73,66 @@ public class CreateRepiceService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand: ");
-        String repice = (String) SPUtils.get(AppConstant.repice, "");
-        String pic = (String) SPUtils.get(AppConstant.pic, "");
-        Gson gson = new Gson();
-        allMsgFound = gson.fromJson(repice, AllMsgFound.class);
-        stepinfos = gson.fromJson(pic,new TypeToken<List<Stepinfo>>(){}.getType());
+
 
         success = (boolean) SPUtils.get("success",false);
 
-        String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE, "");
-        if (!TextUtils.isEmpty(userImage)){
-            File file = new File(userImage);
-            RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-            RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-            MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-            uploadHeadImg(part, watermark);
-        }
+        if (success){
+            stopSelf();
+        }else {
+            String repice = (String) SPUtils.get(AppConstant.repice, "");
+            String pic = (String) SPUtils.get(AppConstant.pic, "");
+            Gson gson = new Gson();
+            allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+            stepinfos = gson.fromJson(pic,new TypeToken<List<Stepinfo>>(){}.getType());
+            String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE, "");
+            if (!TextUtils.isEmpty(userImage)){
+                File file = new File(userImage);
+                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+                uploadHeadImg(part, watermark);
+            }
 
-        //每3秒打印一次日志
-        pollingUtil = new PollingUtil(new Handler(getMainLooper()));
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (uploadHeadImage){
-                    if (stepinfos != null){
-                        if (!uploadStep){
-                            uploadStep = true;
-                            if (currentcount < stepinfos.size()) {
-                                File file = new File(stepinfos.get(currentcount).getThumbnail());
-                                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                                uploadImg(part, watermark);
-                            }else {
-                                uploadStepImage = true;
-                                allMsgFound.setSteps(foodStepinfos);
-                                loadCookbook("cookbook",new Gson().toJson(allMsgFound));
+            //每3秒打印一次日志
+            pollingUtil = new PollingUtil(new Handler(getMainLooper()));
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (uploadHeadImage){
+                        if (stepinfos != null){
+                            if (!uploadStep){
+                                uploadStep = true;
+                                if (currentcount < stepinfos.size()) {
+                                    File file = new File(stepinfos.get(currentcount).getThumbnail());
+                                    RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+                                    RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+                                    MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+                                    uploadImg(part, watermark);
+                                }else {
+                                    uploadStepImage = true;
+                                    allMsgFound.setSteps(foodStepinfos);
+                                    loadCookbook("cookbook",new Gson().toJson(allMsgFound));
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        pollingUtil.startPolling(runnable, 2000, true);
+            pollingUtil.startPolling(runnable, 2000, true);
 
-        runnable1 = new Runnable() {
-            @Override
-            public void run() {
+            runnable1 = new Runnable() {
+                @Override
+                public void run() {
 
-            }
-        };
+                }
+            };
 
-        pollingUtil.startPolling(runnable1, 10000, true);
+            pollingUtil.startPolling(runnable1, 10000, true);
+
+        }
+
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -146,8 +153,10 @@ public class CreateRepiceService extends Service {
                     }
                     allMsgFound.setImg_url(img_url);
                     allMsgFound.setThumbnail_url(thumbnail_url);
+              /*      Gson gson = new Gson();
+                    SPUtils.put(AppConstant.repice, gson.toJson(allMsgFound));
+                    SPUtils.put(AppConstant.USER_IMAGE, "");*/
                     uploadHeadImage = true;
-
                 }
             }
 

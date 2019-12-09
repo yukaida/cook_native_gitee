@@ -67,7 +67,7 @@
             android:name=".mvp.view.base.HomeActivity"
             android:theme="@style/LoginTheme"
             android:configChanges="orientation|screenSize"
-            android:launchMode="standard"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
             <!-- 程序入口 -->

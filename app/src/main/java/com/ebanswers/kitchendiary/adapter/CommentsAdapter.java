@@ -149,4 +149,8 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
     public void setOnCommentClickListener(CommentsAdapter.onCommentClickListener onCommentClickListener) {
         this.onCommentClickListener = onCommentClickListener;
     }
+
+
+
+
 }

@@ -23,6 +23,9 @@ import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.LoginResultInfo;
 import com.ebanswers.kitchendiary.config.PhoneUserConfig;
 import com.ebanswers.kitchendiary.config.QRCodeMap;
+import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.TestBindActivity;
@@ -540,6 +543,7 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
                 if (loginResultInfo != null) {
                     if (loginResultInfo.getCode() == 0){
                         SPUtils.setLogin(true);
+                        SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
                                          /*   if (!TextUtils.isEmpty(data.get())) {
                                                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
                                             }
@@ -550,6 +554,7 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
                     startActivity(intent);
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                     closeWaitLoading();
                 }
             }

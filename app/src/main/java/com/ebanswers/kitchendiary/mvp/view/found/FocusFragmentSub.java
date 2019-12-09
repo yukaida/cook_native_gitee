@@ -33,6 +33,7 @@ import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.FoundTopInfo;
+import com.ebanswers.kitchendiary.bean.LikedInfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
@@ -108,7 +109,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     private FoundAdapter foundAdapter;
     private CustomPopWindow customPopWindow;
     private Bundle bundle;
-    String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+    String userId ;
     private CommentInfo commentInfo;
     private CommentInfo commentInfo1;
     private int deletePosition;
@@ -129,6 +130,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     protected void initView() {
+        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
         focusPresenter = new FocusPresenter(this, this);
         UMShareListener umShareListener = new UMShareListener() {
             /**
@@ -312,18 +314,23 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
         foundAdapter.setCommentDeleteLisenter(new FoundAdapter.CommentDeleteLisenter() {
             @Override
-            public void deleteComment(CommentInfo commentInfo, String diary_id, int position) {
-                if (userId.equals(commentInfo.getFrom_openid())) {
+            public void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition) {
+                if (userId.equals(commentInfo.getOpenid())) {
                     type = "CommentDelete";
+                    currentPosition = foundPosition;
                     deletePosition = position;
-                    popupCommentDeleteWindow(diary_id, commentInfo.getFrom_openid(), commentInfo.getNickname(), commentInfo.getComment());
+                    popupCommentDeleteWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname(), commentInfo.getComment());
                 }
+
             }
 
             @Override
-            public void replyComment(CommentInfo commentInfo, String diary_id) {
-                type = "ReplyComment";
-                popupReplyCommentWindow(diary_id, commentInfo.getFrom_openid(), commentInfo.getNickname());
+            public void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition) {
+                if (!commentInfo.getOpenid().equals(userId)){
+                    currentPosition = foundPosition;
+                    type = "ReplyComment";
+                    popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
+                }
             }
         });
 
@@ -545,13 +552,24 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 //                        item.setMaster_rank(item.getMaster_rank() + 1);
                     }
                 } else if (type.equals("like")){
+                    List<LikedInfo> liked = item.getLiked();
                     if (item.isIs_liked()) {
                         item.setIs_liked(false);
                         item.setLike_count(item.getLike_count() - 1);
+                        for (int i = 0; i < liked.size(); i++) {
+                            if (liked.get(i).getOpenid().equals(userId)){
+                                liked.remove(i);
+                            }
+                        }
                     } else {
                         item.setIs_liked(true);
                         item.setLike_count(item.getLike_count() + 1);
+                        LikedInfo likedInfo = new LikedInfo();
+                        likedInfo.setOpenid(userId);
+                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
+                        liked.add(likedInfo);
                     }
+                    item.setLiked(liked);
                 }else if (type.equals("Comment")){
                     List<CommentInfo> comment = item.getComment();
                     if (comment == null){
@@ -637,6 +655,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     @Override
     public void onResume() {
         super.onResume();
+        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
         int msg_num = (int) SPUtils.get("msg_num", 0);
         if (msg_num > 0) {
             newMsgShowLl.setVisibility(View.VISIBLE);

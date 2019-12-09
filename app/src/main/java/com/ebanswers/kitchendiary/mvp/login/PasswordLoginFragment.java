@@ -22,6 +22,9 @@ import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.LoginResultInfo;
 import com.ebanswers.kitchendiary.config.PhoneUserConfig;
 import com.ebanswers.kitchendiary.config.QRCodeMap;
+import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
@@ -230,8 +233,11 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
                                         closeWaitLoading();
                                         Log.d("WXEntryActivity", "login result: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
+                                        EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                                         if (getActivity() != null) {
                                             intent.putExtra("open_id", loginResultInfo.getMsg());
+                                            SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
+                                            EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                                             startActivity(intent);
                                             getActivity().finish();
                                         }

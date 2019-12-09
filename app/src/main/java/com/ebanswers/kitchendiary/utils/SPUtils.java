@@ -358,7 +358,7 @@ public class SPUtils {
         put(AppConstant.USER_ID, "tmp_user");
         put(AppConstant.USER_NAME, "厨房客人");
         put(AppConstant.USER_ROLE, "");
-        put(AppConstant.USER_IMAGE, "");
+        put(AppConstant.USER_ICON, "");
         put(AppConstant.MOBILE,"");
 
     }

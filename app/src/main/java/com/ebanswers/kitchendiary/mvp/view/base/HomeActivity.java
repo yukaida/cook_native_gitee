@@ -40,6 +40,7 @@ import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.MessageResponse;
+import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.service.UpdateService;
 import com.ebanswers.kitchendiary.utils.AppUtils;
 import com.ebanswers.kitchendiary.utils.ButtonUtils;
@@ -143,6 +144,8 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+
+
         if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
             SPUtils.put(AppConstant.USER_NAME, "厨房客人");
         }
@@ -152,13 +155,11 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             SPUtils.put(AppConstant.USER_ID, open_id);
         } else {
             if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_ID, ""))) {
-//                SPUtils.put(AppConstant.USER_ID,"oYazTsqC-maRSIlVMXgnG_mcF2Sk");
                 SPUtils.put(AppConstant.USER_ID, "tmp_user");
             }
         }
 
-
-
+        startService(new Intent(HomeActivity.this, CreateRepiceService.class));
 
         mViewPager.addOnPageChangeListener(this);
         currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");

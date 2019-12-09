@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.common.CommonApplication;
 import com.ebanswers.kitchendiary.config.Constans;
 import com.ebanswers.kitchendiary.config.WechatUserConfig;
 import com.ebanswers.kitchendiary.constant.AppConstant;
@@ -332,8 +333,9 @@ public class SettingActivity extends BaseActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    SPUtils.put(AppConstant.USER_ID, "");
-//                                org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                                    SPUtils.put(AppConstant.USER_ID, "tmp_user");
+                                    org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                                    CommonApplication.getInstance().removeAllActivity(SettingActivity.this);
                                     Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
                                     intent.putExtra("position","3");
                                     startActivity(intent);
@@ -344,11 +346,14 @@ public class SettingActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    SPUtils.put(AppConstant.USER_ID, "");
-                    org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                    SPUtils.put(AppConstant.USER_ID, "tmp_user");
+                    SPUtils.put(AppConstant.USER_NAME, "厨房客人");
+//                    org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                     Intent intent = new Intent(SettingActivity.this, WXEntryActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                    finish();
                 }
 
                 break;
