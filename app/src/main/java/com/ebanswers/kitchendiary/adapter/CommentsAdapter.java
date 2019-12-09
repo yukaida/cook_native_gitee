@@ -18,7 +18,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.utils.SpannableStringUtils;
 
 /**
- * Create by dongli
+ * Create by dongli----------评论适配器------------
  * Create date 2019-10-30
  * desc：
  */

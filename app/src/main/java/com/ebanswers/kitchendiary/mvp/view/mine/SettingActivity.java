@@ -366,7 +366,13 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.id_tv_setting_activity_notify:
 //                gowWeb(String.format(Constans.Notify, WechatUserConfig.getWechatPublicOpenId(CommonApplication.getInstance())));
-                gowWeb("https://wechat.53iq.com/tmp/kitchen/setting?types=notify_setting&code=123&openid=" + SPUtils.get(AppConstant.USER_ID, ""));
+                if (SPUtils.getIsLogin()) {
+                    gowWeb("https://wechat.53iq.com/tmp/kitchen/setting?types=notify_setting&code=123&openid=" + SPUtils.get(AppConstant.USER_ID, ""));
+                } else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                    startActivity(new Intent(this, WelActivity.class));
+                }
+
                 break;
             case R.id.id_tv_setting_activity_about:
                 gowWeb("https://mp.weixin.qq.com/s?__biz=MzAwMDIxNjY3Mw==&mid=502137091&idx=1&sn=7e202f0fb2f4b89ef5ae3d02bd6d283f#wechat_redirect");

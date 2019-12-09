@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -234,16 +235,21 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         commentsRv.setHasFixedSize(true);
         commentsRv.setLayoutManager(new LinearLayoutManager(mContext));
         CommentsAdapter commentsAdapter = new CommentsAdapter();
+
+        //-------------------查看更多--------------------
         TextView lookMoreTv = helper.getView(R.id.look_more_tv);
 
         if (item.getComment() != null && item.getComment().size() > 0){
             commentsRv.setAdapter(commentsAdapter);
+            Log.d(TAG, "convert: yukaida" + item.getComment().size());
             if (item.getComment().size()>3){
                 lookMoreTv.setVisibility(View.VISIBLE);
                 for (int i = 0; i < 3; i++) {
                     commentsAdapter.addData(item.getComment().get(i));
                 }
-            }else {
+            }
+
+            else {
                 lookMoreTv.setVisibility(View.GONE);
                 commentsAdapter.setNewData(item.getComment());
             }
@@ -318,7 +324,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }else {
                 helper.setText(R.id.like_tv,item.getLike_count()/10000 + "w");
             }
-
         }
 
         if (item.isIs_collected()){
@@ -337,15 +342,24 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
         }*/
 
+
+
         if (!TextUtils.isEmpty(item.getComment_count() + "")){
 
             if (item.getComment_count() < 999){
                 helper.setText(R.id.message_tv,item.getComment_count() + "");
+                Log.d(TAG, "convert: yukaida catch"+item.getComment_count());
+                if (item.getComment_count() > 0) {
+                    Log.d(TAG, "convert: yukaida catch-----"+item.getComment().size());
+                }
+
             }else if (item.getLike_count() < 9999){
                 helper.setText(R.id.message_tv,item.getComment_count()/1000 + "k");
             }else {
                 helper.setText(R.id.message_tv,item.getComment_count()/10000 + "w");
             }
+
+
         }
 
         if (item.getLiked() != null && item.getLiked().size() > 0 ){
@@ -397,7 +411,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             helper.getView(R.id.liked_rl).setVisibility(View.GONE);
         }
 
-
         helper.addOnClickListener(R.id.focu_status_iv);
         helper.addOnClickListener(R.id.collection_status_iv);
         helper.addOnClickListener(R.id.like_status_iv);
@@ -427,7 +440,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         }
 
         String content = title + tag;
-
 
         /**
          * 创建TextView对象，设置drawable背景，设置字体样式，设置间距，设置文本等

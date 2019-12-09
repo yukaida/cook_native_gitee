@@ -88,8 +88,10 @@ public class Constans {
     public static final String URL_CONNECTION_RECIPE = "https://wechat.53iq.ctions&code=123";//收藏菜谱
     public static final String URL_SEARCH_GOODS = "https://oven.53iq.com/s=%s&goods=%s&standard=%s";//搜索商品
     public static final String URL_SEARCH_ACP = "http://oven.53iq.com/staarch_key=%s";//搜索ACP
-    public static final String URL_PRIVACY = "http://53iq.com/stf.html";//隐私政策
-    public static final String URL_PROTOCOL = "http://53iq.com/l_zncf.html";//用户协议
+
+    public static final String URL_PRIVACY = "file:////android_asset/KitchenDiary_read_privacy2.html";//隐私政策
+    public static final String URL_PROTOCOL = "file:////android_asset/KitchenDiary_read_privacy.html";//用户协议
+
     public static final String SEARCH_RECIPE = "http://wechapish/act_cookbook";//用户关联菜谱
     public static final String WIFI_CONFIG = "http://192.1ttp-config.json";//AP配网
     public static final String URL_AD_SERVER = "http://ad.53iq.com/ad";//广告正式环境
