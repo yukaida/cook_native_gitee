@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -39,6 +38,7 @@ import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.bean.FoundTopInfo;
+import com.ebanswers.kitchendiary.bean.LikedInfo;
 import com.ebanswers.kitchendiary.bean.MasterInfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
@@ -133,7 +133,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     CommentInfo commentInfo;
     List<FoodStepinfo> foodStepinfos = new ArrayList<>();
 
-    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+    String userId ;
     private int deletePosition;
     private CommentInfo commentInfo1;
 
@@ -153,6 +153,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     protected void initView() {
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         ZoomMediaLoader.getInstance().init(new ImageLoader());
         foundPresenter = new FoundPresenter(this, this);
         UMShareListener umShareListener = new UMShareListener() {
@@ -382,9 +383,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
         foundAdapter.setCommentDeleteLisenter(new FoundAdapter.CommentDeleteLisenter() {
             @Override
-            public void deleteComment(CommentInfo commentInfo, String diary_id, int position) {
-                if (userId.equals(commentInfo.getFrom_openid())) {
+            public void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition) {
+                if (userId.equals(commentInfo.getOpenid())) {
                     type = "CommentDelete";
+                    currentPosition = foundPosition;
                     deletePosition = position;
                     popupCommentDeleteWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname(), commentInfo.getComment());
                 }
@@ -392,8 +394,9 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             }
 
             @Override
-            public void replyComment(CommentInfo commentInfo, String diary_id) {
+            public void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition) {
                 if (!commentInfo.getOpenid().equals(userId)){
+                    currentPosition = foundPosition;
                     type = "ReplyComment";
                     popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
                 }
@@ -686,13 +689,24 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("like")) {
+                    List<LikedInfo> liked = item.getLiked();
                     if (item.isIs_liked()) {
                         item.setIs_liked(false);
                         item.setLike_count(item.getLike_count() - 1);
+                        for (int i = 0; i < liked.size(); i++) {
+                            if (liked.get(i).getOpenid().equals(userId)){
+                                liked.remove(i);
+                            }
+                        }
                     } else {
                         item.setIs_liked(true);
                         item.setLike_count(item.getLike_count() + 1);
+                        LikedInfo likedInfo = new LikedInfo();
+                        likedInfo.setOpenid(userId);
+                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
+                        liked.add(likedInfo);
                     }
+                    item.setLiked(liked);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("Comment")) {
@@ -804,6 +818,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     @Override
     public void onResume() {
         super.onResume();
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         int msg_num = (int) SPUtils.get("msg_num", 0);
         if (msg_num > 0) {
             newMsgShowLl.setVisibility(View.VISIBLE);

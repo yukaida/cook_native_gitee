@@ -33,6 +33,7 @@ public class AppConstant {
     public static final String USER_ITCODE = "userItcode";
 
     public static final String USER_NAME = "userName";
+    public static final String USER_ICON = "userIcon";
 
     public static final String USER_IMAGE = "userImage";
     public static final String USER_IMAGE2 = "userImage2";

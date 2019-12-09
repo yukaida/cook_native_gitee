@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray_normal"
                 android:textSize="@dimen/textsize_12"
-                android:text="12:00"
+                android:text=""
                 android:layout_marginLeft="@dimen/five"/>
 
             <ImageView

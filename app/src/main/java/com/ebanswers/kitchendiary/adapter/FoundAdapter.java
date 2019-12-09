@@ -34,11 +34,8 @@ import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
-import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.constant.AppConstant;
-import com.ebanswers.kitchendiary.mvp.view.base.DraftsActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.ImageLookActivity;
-import com.ebanswers.kitchendiary.mvp.view.base.SendRepiceActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
@@ -48,7 +45,6 @@ import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.SpannableStringUtils;
 import com.ebanswers.kitchendiary.widget.CircleImageView;
 import com.ebanswers.kitchendiary.widget.VerticalImageSpan;
-import com.google.gson.Gson;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.previewlibrary.GPreviewBuilder;
 import com.previewlibrary.enitity.ThumbViewInfo;
@@ -131,6 +127,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(userHeadIv);
+        }else {
+            GlideApp.with(mContext)
+                    .load(R.mipmap.icon_user_head)
+                    .skipMemoryCache(true)
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(userHeadIv);
         }
 
         if (item.isIs_subscribe()){
@@ -143,6 +146,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         if (!TextUtils.isEmpty(item.getNickname())){
             helper.setText(R.id.user_name_tv,item.getNickname());
+        }else {
+            helper.setText(R.id.user_name_tv,"");
         }
 
         if (!TextUtils.isEmpty(item.getMsg_content())){
@@ -249,6 +254,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         //-------------------查看更多--------------------
         TextView lookMoreTv = helper.getView(R.id.look_more_tv);
+        commentsRv.setAdapter(commentsAdapter);
 
         if (item.getComment() != null && item.getComment().size() > 0){
             commentsRv.setAdapter(commentsAdapter);
@@ -266,22 +272,29 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
 
             commentsAdapter.notifyDataSetChanged();
-            commentsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+         /*   commentsAdapter.setOnCommentClickListener(new () {
                 @Override
                 public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                     if (commentDeleteLisenter != null){
                         commentDeleteLisenter.deleteComment((CommentInfo) adapter.getItem(position),item.getDiary_id(),position);
                     }
 
-                    return false;
+                    return true;
                 }
-            });
+            });*/
 
             commentsAdapter.setOnCommentClickListener(new CommentsAdapter.onCommentClickListener() {
                 @Override
                 public void click(int position) {
-                    if (commentDeleteLisenter != null){
-                        commentDeleteLisenter.replyComment((CommentInfo) commentsAdapter.getItem(position),item.getDiary_id());
+                    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    if (userId.equals(((CommentInfo) commentsAdapter.getItem(position)).getOpenid())){
+                        if (commentDeleteLisenter != null){
+                            commentDeleteLisenter.deleteComment((CommentInfo) commentsAdapter.getItem(position),item.getDiary_id(),position,helper.getAdapterPosition());
+                        }
+                    }else {
+                        if (commentDeleteLisenter != null) {
+                            commentDeleteLisenter.replyComment((CommentInfo) commentsAdapter.getItem(position), item.getDiary_id(),helper.getAdapterPosition());
+                        }
                     }
                 }
             });
@@ -322,6 +335,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             });
         }else {
             lookMoreTv.setVisibility(View.GONE);
+            commentsAdapter.setNewData(new ArrayList<CommentInfo>());
+            commentsAdapter.notifyDataSetChanged();
         }
 
         if (!TextUtils.isEmpty(item.getCreate_date())){
@@ -444,8 +459,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
     }
 
     public interface CommentDeleteLisenter{
-        void deleteComment(CommentInfo commentInfo, String diary_id, int position);
-        void replyComment(CommentInfo commentInfo, String diary_id);
+        void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition);
+        void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition);
     }
 
     public void setCommentDeleteLisenter(CommentDeleteLisenter commentDeleteLisenter) {

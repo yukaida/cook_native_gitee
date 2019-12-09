@@ -22,6 +22,9 @@ import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.LoginResultInfo;
 import com.ebanswers.kitchendiary.config.PhoneUserConfig;
 import com.ebanswers.kitchendiary.config.QRCodeMap;
+import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
@@ -232,6 +235,8 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         if (getActivity() != null) {
                                             intent.putExtra("open_id", loginResultInfo.getMsg());
+                                            SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
+                                            EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                                             startActivity(intent);
                                             getActivity().finish();
                                         }
@@ -270,8 +275,8 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        /*tvPwdLogin.setEnabled(!TextUtils.isEmpty(etPwdAccount.getText()) && !TextUtils.isEmpty(etPwdPassword.getText()));
-        layoutPwdAccount.setSelected(!TextUtils.isEmpty(etPwdAccount.getText()));
+       tvPwdLogin.setEnabled(!TextUtils.isEmpty(etPwdAccount.getText()) && !TextUtils.isEmpty(etPwdPassword.getText()));
+        /* layoutPwdAccount.setSelected(!TextUtils.isEmpty(etPwdAccount.getText()));
         layoutPwdPassword.setSelected(!TextUtils.isEmpty(etPwdPassword.getText()));
         etPwdAccount.setSelection(etPwdAccount.length());*/
     }

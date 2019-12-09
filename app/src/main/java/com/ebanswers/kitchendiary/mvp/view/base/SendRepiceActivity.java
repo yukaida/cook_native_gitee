@@ -29,6 +29,7 @@ import com.ebanswers.kitchendiary.adapter.FoodStepAdapter;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.FoodMaterialinfo;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
+import com.ebanswers.kitchendiary.bean.LikedInfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
 import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.bean.draftsDetail.Material;
@@ -433,11 +434,12 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         }
 
         AllMsgFound allMsgFound = new AllMsgFound();
-        allMsgFound.setHead_url("");
+        allMsgFound.setHead_url((String) SPUtils.get(AppConstant.USER_ICON,""));
         allMsgFound.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
         allMsgFound.setCreate_user((String) SPUtils.get(AppConstant.USER_ID,""));
         allMsgFound.setLike_count(0);
         allMsgFound.setIs_liked(false);
+        allMsgFound.setLiked(new ArrayList<LikedInfo>());
         allMsgFound.setIs_collected(false);
         allMsgFound.setIs_recommend("");
         allMsgFound.setMaster_rank(0);
@@ -455,6 +457,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         allMsgFound.setMsg_content(repiceDesc);
         allMsgFound.setMaterial(foodMaterialinfos);
         allMsgFound.setDesc(repiceTip);
+        allMsgFound.setCreate_date("刚刚");
 
         Gson gson = new Gson();
 
@@ -590,9 +593,9 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
 //                .selectionMedia()// 是否传入已选图片 List<LocalMedia> list
                 .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
                 .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
-                .minimumCompressSize(100)// 小于100kb的图片不压缩
+                .minimumCompressSize(300)// 小于300kb的图片不压缩
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
-                .cropWH(360,200)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
+                .cropWH(2000,2000)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
 //                .scaleEnabled()// 裁剪是否可放大缩小图片 true or false
 //                .videoQuality()// 视频录制质量 0 or 1 int

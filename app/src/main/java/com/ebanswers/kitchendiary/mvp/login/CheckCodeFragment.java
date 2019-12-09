@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.LoginResultInfo;
+import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.RegisterActivity;
@@ -157,6 +160,8 @@ public class CheckCodeFragment extends BaseLoginFragment {
                     EventBus.getDefault().post("finishThis");
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
+                    SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
                     startActivity(intent);
                     closeWaitLoading();
                     etInputCode.postDelayed(new Runnable() {
