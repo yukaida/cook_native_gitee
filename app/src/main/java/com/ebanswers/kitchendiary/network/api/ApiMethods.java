@@ -1,6 +1,7 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
+import com.ebanswers.kitchendiary.bean.CommentInfoMore;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -119,6 +120,10 @@ public class ApiMethods {
         ApiSubscribe(NetworkManager.getLoginApi().getTopic(openid), observer);
     }
 
+    //获取更多评论
+    public static void getMoreComment(Observer<CommentInfoMore> observer, String action, String draft_id, String total) {
+        ApiSubscribe(NetworkManager.getLoginApi().getMoreComment(action, draft_id,total), observer);
+    }
 
 
     //更多发现

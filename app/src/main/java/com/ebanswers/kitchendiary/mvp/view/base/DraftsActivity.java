@@ -210,7 +210,7 @@ public class DraftsActivity extends CommonActivity {
     public void deleteDraftsItem( String openid,String draft_id,int position) {//删除草稿箱子项-----------------------
         ObserverOnNextListener<DraftsDeleteBack, Throwable> listener = new ObserverOnNextListener<DraftsDeleteBack, Throwable>() {
             @Override
-            public void onNext(DraftsDeleteBack draftsDeleteBack) {//从网络上获取的草稿箱信息
+            public void onNext(DraftsDeleteBack draftsDeleteBack) {
 //                getView().setMoreData(squareInfo);
                 if (draftsDeleteBack.getCode() == 0) {
                     Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();

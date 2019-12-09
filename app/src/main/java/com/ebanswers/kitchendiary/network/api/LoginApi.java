@@ -1,6 +1,7 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
+import com.ebanswers.kitchendiary.bean.CommentInfoMore;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -121,6 +122,15 @@ public interface LoginApi {
     Observable<DraftsDetail> draftsDetail(@Field("action") String action,
                                           @Field("draft_id") String draft_id,
                                           @Field("openid") String openid);
+
+
+    //获取草稿箱子项细节
+    @FormUrlEncoded
+    @POST(Api.getMoreComment)
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    Observable<CommentInfoMore> getMoreComment(@Field("action") String action,
+                                             @Field("diary_id") String diary_id,
+                                             @Field("total") String total);
 
     // 删除动态--------------------------------------------------------
     @FormUrlEncoded

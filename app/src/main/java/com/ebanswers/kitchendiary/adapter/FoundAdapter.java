@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,14 +33,22 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
+import com.ebanswers.kitchendiary.bean.CommentInfoMore;
+import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.mvp.view.base.DraftsActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.ImageLookActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.SendRepiceActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
+import com.ebanswers.kitchendiary.network.api.ApiMethods;
+import com.ebanswers.kitchendiary.network.observer.MyObserver;
+import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.SpannableStringUtils;
 import com.ebanswers.kitchendiary.widget.CircleImageView;
 import com.ebanswers.kitchendiary.widget.VerticalImageSpan;
+import com.google.gson.Gson;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.previewlibrary.GPreviewBuilder;
 import com.previewlibrary.enitity.ThumbViewInfo;
@@ -53,6 +62,8 @@ import java.util.List;
  * desc：
  */
 public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> {
+
+
 
     public FoundAdapter() {
         super(R.layout.item_found_data);
@@ -241,8 +252,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         if (item.getComment() != null && item.getComment().size() > 0){
             commentsRv.setAdapter(commentsAdapter);
-            Log.d(TAG, "convert: yukaida" + item.getComment().size());
-            if (item.getComment().size()>3){
+
+            if (item.getComment_count()>3){
                 lookMoreTv.setVisibility(View.VISIBLE);
                 for (int i = 0; i < 3; i++) {
                     commentsAdapter.addData(item.getComment().get(i));
@@ -253,6 +264,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 lookMoreTv.setVisibility(View.GONE);
                 commentsAdapter.setNewData(item.getComment());
             }
+
             commentsAdapter.notifyDataSetChanged();
             commentsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
                 @Override
@@ -282,23 +294,29 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 }
             });
 
+
             lookMoreTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int size = item.getComment().size();
-                    List<CommentInfo> data = commentsAdapter.getData();
+
+                    int size = item.getComment_count();//评论数
+                    List<CommentInfo> data = commentsAdapter.getData();//在展示的评论数
                     if (data.size() < size){
-                        if (size - data.size() > 0 && size - data.size() < 5){
-                            for (int i = data.size(); i < size; i++) {
-                                commentsAdapter.addData(item.getComment().get(i));
-                            }
-                            lookMoreTv.setVisibility(View.GONE);
+//                        if (size - data.size() > 0 && size - data.size() < 5){
+//                            for (int i = 0; i < commentInfoMore_get.getData().size(); i++) {
+                                //todo 在这添加获取剩余评论的方法 并添加进去
+
+                        Log.d(TAG, "onClick: yukaida__"+item.getDiary_id());
+                                getMoreComment(commentsAdapter,item.getDiary_id(),lookMoreTv);
+//                                lookMoreTv.setVisibility(View.GONE);
+//                            }
+
                         }else {
-                            for (int i = data.size(); i < data.size() +5; i++) {
-                                commentsAdapter.addData(item.getComment().get(i));
-                            }
-                            lookMoreTv.setVisibility(View.VISIBLE);
-                        }
+//                            for (int i = data.size(); i < data.size() +5; i++) {
+//                                commentsAdapter.addData(item.getComment().get(i));
+//                            }
+//                            lookMoreTv.setVisibility(View.VISIBLE);
+//                        }
                     }
                 }
             });
@@ -493,5 +511,32 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void getMoreComment(CommentsAdapter commentsAdapter,String draft_id,TextView lookMoreTv) {//获取更多评论信息-----------------------
+        ObserverOnNextListener<CommentInfoMore, Throwable> listener = new ObserverOnNextListener<CommentInfoMore, Throwable>() {
+            @Override
+            public void onNext(CommentInfoMore commentInfoMore) {//从网络上获取的草稿箱信息
+                if (commentInfoMore.getCode() == 0) {
+
+
+                    List<CommentInfo> data = commentsAdapter.getData();
+
+                    for (int i = 0; i < commentInfoMore.getData().size(); i++) {
+                        data.add(commentInfoMore.getData().get(i));
+
+                    }
+                    commentsAdapter.setNewData(data);
+                    lookMoreTv.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(mContext, "未获取到正确数据，请重试", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Toast.makeText(mContext, "后台网络异常", Toast.LENGTH_SHORT).show();
+            }
+        };
+        ApiMethods.getMoreComment(new MyObserver<CommentInfoMore>(mContext, listener), "allcomment", draft_id, "3");
+    }
 
 }

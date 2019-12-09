@@ -70,6 +70,9 @@ public class Api {
     //获取草稿箱子项 详细数据
     public static final String draftdetail = "tmp/kitchen/food/draft";
 
+    //获取更多评论----------
+public static final String getMoreComment = "tmp/kitchen/food/square";
+
 
     //发布日记---------------------
 

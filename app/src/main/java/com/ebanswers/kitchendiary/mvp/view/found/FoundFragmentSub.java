@@ -833,7 +833,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 //            foundSwrl.autoRefresh();
         } else {*/
 
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -841,6 +840,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     String pic = (String) SPUtils.get(AppConstant.pic2, "");
                     Gson gson = new Gson();
                     AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+
                     List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
                     }.getType());
                     String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
