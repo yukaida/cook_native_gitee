@@ -3,14 +3,13 @@ package com.ebanswers.kitchendiary.service;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
@@ -22,8 +21,10 @@ import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.receiver.AlarmReceiver;
+import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.PollingUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
+import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hjq.toast.ToastUtils;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -56,6 +58,7 @@ public class CreateRepiceService extends Service {
     private PollingUtil pollingUtil;
     private Runnable runnable;
     private Runnable runnable1;
+    private DialogBackTip.Builder builder;
 
 
     @Nullable
@@ -80,61 +83,65 @@ public class CreateRepiceService extends Service {
         if (success){
             stopSelf();
         }else {
-            String repice = (String) SPUtils.get(AppConstant.repice, "");
-            String pic = (String) SPUtils.get(AppConstant.pic, "");
-            Gson gson = new Gson();
-            allMsgFound = gson.fromJson(repice, AllMsgFound.class);
-            stepinfos = gson.fromJson(pic,new TypeToken<List<Stepinfo>>(){}.getType());
-            String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE, "");
-            if (!TextUtils.isEmpty(userImage)){
-                File file = new File(userImage);
-                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                uploadHeadImg(part, watermark);
-            }
-
-            //每3秒打印一次日志
-            pollingUtil = new PollingUtil(new Handler(getMainLooper()));
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (uploadHeadImage){
-                        if (stepinfos != null){
-                            if (!uploadStep){
-                                uploadStep = true;
-                                if (currentcount < stepinfos.size()) {
-                                    File file = new File(stepinfos.get(currentcount).getThumbnail());
-                                    RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                                    RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                                    MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                                    uploadImg(part, watermark);
-                                }else {
-                                    uploadStepImage = true;
-                                    allMsgFound.setSteps(foodStepinfos);
-                                    loadCookbook("cookbook",new Gson().toJson(allMsgFound));
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            pollingUtil.startPolling(runnable, 2000, true);
-
-            runnable1 = new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            };
-
-            pollingUtil.startPolling(runnable1, 10000, true);
+            send();
 
         }
 
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void send() {
+        String repice = (String) SPUtils.get(AppConstant.repice, "");
+        String pic = (String) SPUtils.get(AppConstant.pic, "");
+        Gson gson = new Gson();
+        allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+        stepinfos = gson.fromJson(pic,new TypeToken<List<Stepinfo>>(){}.getType());
+        String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE, "");
+        if (!TextUtils.isEmpty(userImage)){
+            File file = new File(userImage);
+            RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+            RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+            MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+            uploadHeadImg(part, watermark);
+        }
+
+        //每3秒打印一次日志
+        pollingUtil = new PollingUtil(new Handler(getMainLooper()));
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (uploadHeadImage){
+                    if (stepinfos != null){
+                        if (!uploadStep){
+                            uploadStep = true;
+                            if (currentcount < stepinfos.size()) {
+                                File file = new File(stepinfos.get(currentcount).getThumbnail());
+                                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+                                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+                                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+                                uploadImg(part, watermark);
+                            }else {
+                                uploadStepImage = true;
+                                allMsgFound.setSteps(foodStepinfos);
+                                loadCookbook("cookbook",new Gson().toJson(allMsgFound));
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        pollingUtil.startPolling(runnable, 2000, true);
+
+        runnable1 = new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+
+        pollingUtil.startPolling(runnable1, 10000, true);
     }
 
     private void uploadHeadImg(MultipartBody.Part part, RequestBody body) {
@@ -186,6 +193,7 @@ public class CreateRepiceService extends Service {
                     }
                     stopSelf();
                 }else {
+                    count ++;
                     manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     int anHour = 60 * 1000; // 这是8小时的毫秒数
                     long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
@@ -197,7 +205,7 @@ public class CreateRepiceService extends Service {
 
             @Override
             public void onError(Throwable throwable) {
-                ToastUtils.show("菜谱创建失败");
+                LogUtils.d("菜谱创建失败，重新提交中");
                 count ++;
                 manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 int anHour = 60 * 1000; // 这是8小时的毫秒数
@@ -205,7 +213,10 @@ public class CreateRepiceService extends Service {
                 Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
                 mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
                 manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+                if (count == 6){
+                    ToastUtils.show("菜谱创建失败，重新提交中");
 
+                }
             }
         };
 
@@ -237,6 +248,33 @@ public class CreateRepiceService extends Service {
 
 
     }
+
+    public void popupOpenRepice() {
+        if (builder == null){
+            builder = new DialogBackTip.Builder(this);
+        }
+
+        builder.setTitle("发布失败，是否重新发布？")
+                .setLeftText("暂存至草稿箱")
+                .setRightText("重新发布")
+                .setRightClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        send();
+
+                    }
+                }).setLeftClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Gson gson = new Gson();
+                AllMsgFound draft =gson.fromJson(String.valueOf(SPUtils.get("draft", "")),AllMsgFound.class) ;
+//                initAllMsgFound(draft);
+                stopSelf();
+            }
+        }).create().show();
+
+    }
+
 
     @Override
     public void onDestroy() {
