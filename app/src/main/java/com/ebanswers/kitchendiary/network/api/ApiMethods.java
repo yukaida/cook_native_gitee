@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.network.api;
 
 
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
+import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -111,7 +112,7 @@ public class ApiMethods {
     }
 
     //删除动态------------------------------------------------------------
-    public static void FoundtDelete(Observer<BaseResponse> observer, String action, String diary_id, String from_openid) {
+    public static void FoundDelete(Observer<DeleteDRBack> observer, String action, String diary_id, String from_openid) {
         ApiSubscribe(NetworkManager.getLoginApi().FoundDelete(action, diary_id,from_openid), observer);
     }
 

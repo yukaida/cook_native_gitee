@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.network.api;
 
 
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
+import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -136,7 +137,7 @@ public interface LoginApi {
     @FormUrlEncoded
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
-    Observable<BaseResponse> FoundDelete(@Field("action") String action,
+    Observable<DeleteDRBack> FoundDelete(@Field("action") String action,
                                          @Field("diary_id") String diary_id,
                                          @Field("'openid'") String from_openid);
 

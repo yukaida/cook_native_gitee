@@ -2,14 +2,17 @@ package com.ebanswers.kitchendiary.mvp.view.found;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +38,7 @@ import com.ebanswers.kitchendiary.adapter.FoundTabAdapter;
 import com.ebanswers.kitchendiary.adapter.RecommendFocusAdapter;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
+import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
@@ -41,15 +46,21 @@ import com.ebanswers.kitchendiary.bean.FoundTopInfo;
 import com.ebanswers.kitchendiary.bean.LikedInfo;
 import com.ebanswers.kitchendiary.bean.MasterInfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
+import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
 import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.FoundPresenter;
+import com.ebanswers.kitchendiary.mvp.view.base.DraftsActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.SendRepiceActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
+import com.ebanswers.kitchendiary.network.api.ApiMethods;
+import com.ebanswers.kitchendiary.network.observer.MyObserver;
+import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
 import com.ebanswers.kitchendiary.utils.ImageLoader;
@@ -57,6 +68,7 @@ import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.Utils;
 import com.ebanswers.kitchendiary.widget.decorator.VerticalltemDecoration;
+import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -137,10 +149,16 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     private int deletePosition;
     private CommentInfo commentInfo1;
 
+    private DialogBackTip.Builder builder;
+
     public static FoundFragmentSub newInstance() {
         return new FoundFragmentSub();
     }
 
+
+    private String diary_id_fordelete = "";
+    private String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+    private int position_fordelete = 0;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_found_sub;
@@ -376,6 +394,17 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
                         startActivity(intent1);
                         break;
+                    case R.id.found_button_delete:
+                        diary_id_fordelete = item.getDiary_id();
+                        position_fordelete = position;
+
+                        if (item.getCreate_user().equals(openid)) {
+                            showPopupMenu(view);
+                        } else {
+                            Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
+                        } 
+
+                        break;
                 }
 
             }
@@ -419,8 +448,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 foundPresenter.loadInfo(userId, true);
             }
         });
-
-
     }
 
     private void popupCommentWindow(String diary_id, String tmp_user, String name) {
@@ -523,12 +550,9 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 if (!customPopWindow1.getPopupWindow().isShowing()){
                     replyCommentEt.setFocusable(false);
                     Utils.hideSoftInput(getContext(), replyCommentEt);
-
                 }
             }
         });
-
-
     }
 
     private void popupCommentDeleteWindow(String diary_id, String tmp_user, String name, String comment) {
@@ -885,6 +909,75 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 //        }
     }
 
+    private void showPopupMenu(View view) {//删除pop
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                popupDialog();
+
+                //点击之后执行的逻辑
+                return false;
+            }
+        });
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+
+            }
+        });
+        popupMenu.show();
+    }
+
+    public void popupDialog() {
+        if (builder == null) {
+            builder = new DialogBackTip.Builder(getContext());
+        }
+
+        builder.setTitle("确认删除吗？删除后将不可恢复")
+                .setLeftText("取消")
+                .setRightText("确认")
+                .setRightClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteMyDiaryOrRepice(position_fordelete, diary_id_fordelete, openid);
+                        Toast.makeText(getContext(), "删除", Toast.LENGTH_SHORT).show();
+                        //todo 执行删除动态
 
 
+                    }
+                }).setLeftClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create().show();
+    }
+
+
+
+    public void deleteMyDiaryOrRepice(int position,String draft_id,String openid) {
+        ObserverOnNextListener<DeleteDRBack, Throwable> listener = new ObserverOnNextListener<DeleteDRBack, Throwable>() {
+            @Override
+            public void onNext(DeleteDRBack deleteDRBack) {
+                if (deleteDRBack.getCode() == 0) {
+                    foundAdapter.remove(position);
+                    Toast.makeText(mActivity, "删除成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "请重试", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onError(Throwable throwable) {
+                Toast.makeText(getContext(), "后台网络异常", Toast.LENGTH_SHORT).show();
+            }
+        };
+        ApiMethods.FoundDelete(new MyObserver<DeleteDRBack>(getContext(), listener), "delete", draft_id, openid);
+    }
 }
