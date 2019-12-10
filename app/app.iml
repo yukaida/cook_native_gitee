@@ -145,18 +145,18 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.1.0-alpha4@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.1.0-alpha4@aar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/Library/Android/sdk/build-tools/28.0.3/renderscript/lib/androidx-rs.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/SecurityEnvSDK-release-1.1.0.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/tbs_sdk_thirdapp_v3.6.0.1325_43613_sharewithdownload_withoutGame_obfs_20180807_151115.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/SQLiteStudioRemote.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/open_sdk_r5990_lite.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/utdid4all-1.1.5.3_proguard.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-share-wechat-full-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-share-core-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-share-QQ-full-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-sharetool-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/wechat-sdk-android-without-mta-5.1.4.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-shareboard-widget-6.9.6.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/cook/app/libs/umeng-common-2.1.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/SecurityEnvSDK-release-1.1.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/tbs_sdk_thirdapp_v3.6.0.1325_43613_sharewithdownload_withoutGame_obfs_20180807_151115.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/SQLiteStudioRemote.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/open_sdk_r5990_lite.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/utdid4all-1.1.5.3_proguard.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-wechat-full-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-core-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-share-QQ-full-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-sharetool-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/wechat-sdk-android-without-mta-5.1.4.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-shareboard-widget-6.9.6.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/dongli/workspace/cook/app/libs/umeng-common-2.1.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-annotations:10.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0@jar" level="project" />
