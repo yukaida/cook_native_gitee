@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -48,10 +51,6 @@ import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 /**
  * Create by dongli
  * Create date 2019-10-30
@@ -73,6 +72,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         CircleImageView userHeadIv = helper.getView(R.id.user_head_iv);
         ImageView isTopShowIv = helper.getView(R.id.is_top_show_iv);
         String userid = (String) SPUtils.get(AppConstant.USER_ID, "");
+
+
+
+        if (userid.equals(item.getCreate_user())) {
+            ImageView imageView_delete= helper.getView(R.id.found_button_delete);
+            imageView_delete.setVisibility(View.VISIBLE);
+        }
 
         if (userid.equals(item.getCreate_user())){
             helper.getView(R.id.focu_status_iv).setVisibility(View.GONE);
@@ -160,20 +166,23 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 helper.setText(R.id.user_descrbe_tv,spannableString);
 
             }else {
+                //todo 检测是否携带话题------------------------------------------------
                 helper.setText(R.id.user_descrbe_tv,item.getMsg_content());
             }
 
         }else {
             if (!TextUtils.isEmpty(item.getDiary_type()) && item.getDiary_type().equals("cookbook")){
 
-                SpannableString spannableString = new SpannableString(" " + item.getMsg_content());
+                SpannableString spannableString = new SpannableString("  ");
                 Drawable drawable = mContext.getResources().getDrawable(R.mipmap.icon_repice);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 spannableString.setSpan(new VerticalImageSpan(drawable), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 helper.setText(R.id.user_descrbe_tv,spannableString);
+
             }else {
-                helper.setText(R.id.user_descrbe_tv,"");
+                helper.setText(R.id.user_descrbe_tv,"   ");
             }
+
         }
 
         RecyclerView sharePicRv = helper.getView(R.id.share_pic_rv);
@@ -305,7 +314,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-
                 }
             });
 
@@ -313,26 +321,11 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             lookMoreTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int size = item.getComment_count();//评论数
                     List<CommentInfo> data = commentsAdapter.getData();//在展示的评论数
                     if (data.size() < size){
-//                        if (size - data.size() > 0 && size - data.size() < 5){
-//                            for (int i = 0; i < commentInfoMore_get.getData().size(); i++) {
-                                //todo 在这添加获取剩余评论的方法 并添加进去
-
-                        Log.d(TAG, "onClick: yukaida__"+item.getDiary_id());
                                 getMoreComment(commentsAdapter,item.getDiary_id(),lookMoreTv);
-//                                lookMoreTv.setVisibility(View.GONE);
-//                            }
-
-                        }else {
-//                            for (int i = data.size(); i < data.size() +5; i++) {
-//                                commentsAdapter.addData(item.getComment().get(i));
-//                            }
-//                            lookMoreTv.setVisibility(View.VISIBLE);
-//                        }
-                    }
+                        }
                 }
             });
         }else {
@@ -377,15 +370,10 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
         }*/
 
-
-
         if (!TextUtils.isEmpty(item.getComment_count() + "")){
-
             if (item.getComment_count() < 999){
                 helper.setText(R.id.message_tv,item.getComment_count() + "");
-                Log.d(TAG, "convert: yukaida catch"+item.getComment_count());
                 if (item.getComment_count() > 0) {
-                    Log.d(TAG, "convert: yukaida catch-----"+item.getComment().size());
                 }
 
             }else if (item.getLike_count() < 9999){
@@ -393,12 +381,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }else {
                 helper.setText(R.id.message_tv,item.getComment_count()/10000 + "w");
             }
-
-
         }
 
         if (item.getLiked() != null && item.getLiked().size() > 0 ){
             helper.getView(R.id.liked_rl).setVisibility(View.VISIBLE);
+
+
+            //todo 参考这个地方----------------------------------------------------
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
             for (int i = 0; i < item.getLiked().size(); i++) {
                 int currentPosition = i;
@@ -446,6 +435,9 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             helper.getView(R.id.liked_rl).setVisibility(View.GONE);
         }
 
+
+
+
         helper.addOnClickListener(R.id.focu_status_iv);
         helper.addOnClickListener(R.id.collection_status_iv);
         helper.addOnClickListener(R.id.like_status_iv);
@@ -455,6 +447,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         helper.addOnClickListener(R.id.user_name_tv);
         helper.addOnClickListener(R.id.user_descrbe_tv);
         helper.addOnClickListener(R.id.share_pic_rv);
+        helper.addOnClickListener(R.id.found_button_delete);
+
 //        helper.addOnClickListener(R.id.liked_username_tv);
 //        helper.addOnClickListener(R.id.liked_user_all_tv);
 
@@ -475,7 +469,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         }
 
         String content = title + tag;
-
         /**
          * 创建TextView对象，设置drawable背景，设置字体样式，设置间距，设置文本等
          * 这里我们为了给TextView设置margin，给其添加了一个父容器LinearLayout。不过他俩都只是new出来的，不会添加进任何布局
@@ -515,7 +508,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
          * 第三步，通过bitmap生成我们需要的ImageSpan对象
          */
         ImageSpan imageSpan = new ImageSpan(mContext, bitmap);
-
 
         /**
          * 第四步将ImageSpan对象设置到SpannableStringBuilder的对应位置

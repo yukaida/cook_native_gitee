@@ -12,6 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ebanswers.baselibrary.widget.ClearEditText;
 import com.ebanswers.kitchendiary.R;
@@ -46,10 +51,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -204,9 +205,11 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
                 searchEt.setText("");
                 searchLl.setVisibility(View.GONE);
                 searchBgiv.setVisibility(View.VISIBLE);
+
                 isRefresh = true;
                 homePresenter.loadSquareInfo(userId, "0", true);
             }

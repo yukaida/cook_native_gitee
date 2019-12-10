@@ -134,12 +134,12 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     //用户协议 隐私政策 富文本
     private void showPolicy() {
         SpannableString spannableString = new SpannableString(tvLoginPhoneRead.getText());
-//        int agreementStart = LanguageUtil.getInstance().isEnglish() ? 8 : 9;
-//        int agreementEnd = LanguageUtil.getInstance().isEnglish() ? 25 : 13;
-//        int privacyStart = LanguageUtil.getInstance().isEnglish() ? 30 : 14;
-        int agreementStart = LanguageUtil.getInstance().isChinease() ? 9 : 8;
-        int agreementEnd = LanguageUtil.getInstance().isChinease() ? 13 : 25;
-        int privacyStart = LanguageUtil.getInstance().isChinease() ? 14 : 30;
+        int agreementStart = LanguageUtil.getInstance().isChinease() ? 8 : 9;
+        int agreementEnd = LanguageUtil.getInstance().isChinease() ? 25 : 13;
+        int privacyStart = LanguageUtil.getInstance().isChinease() ? 30 : 14;
+//        int agreementStart = LanguageUtil.getInstance().isChinease() ? 9 : 8;
+//        int agreementEnd = LanguageUtil.getInstance().isChinease() ? 13 : 25;
+//        int privacyStart = LanguageUtil.getInstance().isChinease() ? 14 : 30;
         int privacyEnd = tvLoginPhoneRead.getText().length();
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.primary_dark)), agreementStart, agreementEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.primary_dark)), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -119,7 +119,6 @@ public class TagActivity extends CommonActivity {
 
         //如果sp中存有用户选择的标签信息，则取出将12个状态位重新赋值
         //注意：该项目的基类activity中 启动顺序为initView->initData 不可将数据获取与渲染分别写在initData和initView中，否则会造成渲染界面时为执行获取数据步骤
-        Log.d("tag_catch", "initData: "+ SPUtils.get("ischecked0", ischecked0));
         //todo  may NPE 待完善
         if ((Boolean) SPUtils.get("ischecked0", ischecked0)) {
             ischecked0 = (Boolean) SPUtils.get("ischecked0", ischecked0);
@@ -136,7 +135,6 @@ public class TagActivity extends CommonActivity {
             ischecked11 = (Boolean) SPUtils.get("ischecked11", ischecked0);
         }
 
-        Log.d("tag_catch", "initView: "+ischecked0);
         if (ischecked0) {
             tagImageView.setImageResource(R.drawable.tag_fore);
         }

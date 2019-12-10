@@ -11,6 +11,8 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
@@ -21,7 +23,6 @@ import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.receiver.AlarmReceiver;
-import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.PollingUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
@@ -33,7 +34,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -84,7 +84,6 @@ public class CreateRepiceService extends Service {
             stopSelf();
         }else {
             send();
-
         }
 
 
@@ -142,6 +141,7 @@ public class CreateRepiceService extends Service {
         };
 
         pollingUtil.startPolling(runnable1, 10000, true);
+
     }
 
     private void uploadHeadImg(MultipartBody.Part part, RequestBody body) {
@@ -205,7 +205,7 @@ public class CreateRepiceService extends Service {
 
             @Override
             public void onError(Throwable throwable) {
-                LogUtils.d("菜谱创建失败，重新提交中");
+                ToastUtils.show("菜谱创建失败");
                 count ++;
                 manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 int anHour = 60 * 1000; // 这是8小时的毫秒数
@@ -213,10 +213,12 @@ public class CreateRepiceService extends Service {
                 Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
                 mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
                 manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+
                 if (count == 6){
                     ToastUtils.show("菜谱创建失败，重新提交中");
 
                 }
+
             }
         };
 
@@ -249,6 +251,7 @@ public class CreateRepiceService extends Service {
 
     }
 
+
     public void popupOpenRepice() {
         if (builder == null){
             builder = new DialogBackTip.Builder(this);
@@ -274,6 +277,7 @@ public class CreateRepiceService extends Service {
         }).create().show();
 
     }
+
 
 
     @Override

@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.network.api;
 
 
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
+import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -136,7 +137,7 @@ public interface LoginApi {
     @FormUrlEncoded
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
-    Observable<BaseResponse> FoundDelete(@Field("action") String action,
+    Observable<DeleteDRBack> FoundDelete(@Field("action") String action,
                                          @Field("diary_id") String diary_id,
                                          @Field("'openid'") String from_openid);
 
@@ -173,10 +174,11 @@ public interface LoginApi {
     //收藏
     @FormUrlEncoded
     @POST(Api.collect)
-    @Headers("Content-Type:application/form-data;arset=utf-8")
+    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> collect(@Field("action") String action,
                                                     @Field("diary_id") String diary_id,
                                                     @Field("diary_openid") String diary_openid);
+
     //取消收藏
     @FormUrlEncoded
     @POST(Api.collect)
@@ -228,6 +230,7 @@ public interface LoginApi {
     Observable<UserInfo> mineinfo(@Query("v") String v,
                                   @Query("openid") String openid,
                                   @Query("return_type") String return_type);
+
     //  日记
     @FormUrlEncoded
     @POST(Api.mine)

@@ -1,5 +1,7 @@
 package com.ebanswers.kitchendiary.mvp.presenter;
 
+import android.util.Log;
+
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
@@ -107,7 +109,6 @@ public class FoundPresenter extends BasePresenter<BaseView.FoundView, FoundFragm
 
     //收藏
     public void collected(String action, String diary_id, String diary_openid){
-
         ObserverOnNextListener<BaseResponse,Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
             @Override
             public void onNext(BaseResponse baseResponse) {
