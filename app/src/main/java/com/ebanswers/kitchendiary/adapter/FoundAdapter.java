@@ -310,7 +310,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-
                 }
             });
 
@@ -318,26 +317,11 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             lookMoreTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int size = item.getComment_count();//评论数
                     List<CommentInfo> data = commentsAdapter.getData();//在展示的评论数
                     if (data.size() < size){
-//                        if (size - data.size() > 0 && size - data.size() < 5){
-//                            for (int i = 0; i < commentInfoMore_get.getData().size(); i++) {
-                                //todo 在这添加获取剩余评论的方法 并添加进去
-
-                        Log.d(TAG, "onClick: yukaida__"+item.getDiary_id());
                                 getMoreComment(commentsAdapter,item.getDiary_id(),lookMoreTv);
-//                                lookMoreTv.setVisibility(View.GONE);
-//                            }
-
-                        }else {
-//                            for (int i = data.size(); i < data.size() +5; i++) {
-//                                commentsAdapter.addData(item.getComment().get(i));
-//                            }
-//                            lookMoreTv.setVisibility(View.VISIBLE);
-//                        }
-                    }
+                        }
                 }
             });
         }else {
@@ -388,9 +372,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
             if (item.getComment_count() < 999){
                 helper.setText(R.id.message_tv,item.getComment_count() + "");
-                Log.d(TAG, "convert: yukaida catch"+item.getComment_count());
                 if (item.getComment_count() > 0) {
-                    Log.d(TAG, "convert: yukaida catch-----"+item.getComment().size());
                 }
 
             }else if (item.getLike_count() < 9999){
