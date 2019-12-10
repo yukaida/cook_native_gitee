@@ -18,7 +18,9 @@ import android.widget.ProgressBar;
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 
 import butterknife.BindView;
 
@@ -158,8 +160,9 @@ public class WebActivity extends CommonActivity {
             if (scheme != null) {
                 scheme = scheme.toLowerCase();
             }
+
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
-                mWebView.loadUrl(url);
+                mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, ""));
             }
             // 已经处理该链接请求
             return true;

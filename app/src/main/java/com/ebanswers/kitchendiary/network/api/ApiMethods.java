@@ -1,6 +1,8 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
+import android.util.Log;
+
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
 import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
@@ -147,6 +149,7 @@ public class ApiMethods {
 
     //收藏
     public static void collect(Observer<BaseResponse> observer, String action, String diary_id, String diary_openid) {
+
         ApiSubscribe(NetworkManager.getLoginApi().collect(action, diary_id,diary_openid), observer);
     }
 

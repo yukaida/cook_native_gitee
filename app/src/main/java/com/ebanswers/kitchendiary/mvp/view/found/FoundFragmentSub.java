@@ -278,7 +278,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 AllMsgFound item = (AllMsgFound) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.share_iv:
-
                         if (SPUtils.getIsLogin()){
                             UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                             image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
@@ -333,7 +332,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
                         break;
                     case R.id.collection_status_iv:
-
                         if (SPUtils.getIsLogin()){
                             isSimpleClick = true;
                             currentPosition = position;
@@ -341,7 +339,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             if (item.isIs_collected()) {
                                 foundPresenter.uncollected("cancel_collect", item.getDiary_id());
                             } else {
-                                foundPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
+                                foundPresenter.collected("collect", item.getDiary_id(), (String) SPUtils.get(AppConstant.USER_ID, ""));
                             }
                         }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
@@ -397,7 +395,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     case R.id.found_button_delete:
                         diary_id_fordelete = item.getDiary_id();
                         position_fordelete = position;
-
                         if (item.getCreate_user().equals(openid)) {
                             showPopupMenu(view);
                         } else {
@@ -450,7 +447,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         });
     }
 
-    private void popupCommentWindow(String diary_id, String tmp_user, String name) {
+    private void popupCommentWindow(String diary_id, String tmp_user, String name) {//评论输入弹窗
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment, null);
         customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext())

@@ -167,6 +167,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 helper.setText(R.id.user_descrbe_tv,spannableString);
 
             }else {
+                //todo 检测是否携带话题------------------------------------------------
                 helper.setText(R.id.user_descrbe_tv,item.getMsg_content());
             }
 
@@ -366,10 +367,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
         }*/
 
-
-
         if (!TextUtils.isEmpty(item.getComment_count() + "")){
-
             if (item.getComment_count() < 999){
                 helper.setText(R.id.message_tv,item.getComment_count() + "");
                 if (item.getComment_count() > 0) {
@@ -380,12 +378,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }else {
                 helper.setText(R.id.message_tv,item.getComment_count()/10000 + "w");
             }
-
-
         }
 
         if (item.getLiked() != null && item.getLiked().size() > 0 ){
             helper.getView(R.id.liked_rl).setVisibility(View.VISIBLE);
+
+
+            //todo 参考这个地方----------------------------------------------------
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
             for (int i = 0; i < item.getLiked().size(); i++) {
                 int currentPosition = i;
@@ -433,6 +432,9 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             helper.getView(R.id.liked_rl).setVisibility(View.GONE);
         }
 
+
+
+
         helper.addOnClickListener(R.id.focu_status_iv);
         helper.addOnClickListener(R.id.collection_status_iv);
         helper.addOnClickListener(R.id.like_status_iv);
@@ -464,7 +466,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         }
 
         String content = title + tag;
-
         /**
          * 创建TextView对象，设置drawable背景，设置字体样式，设置间距，设置文本等
          * 这里我们为了给TextView设置margin，给其添加了一个父容器LinearLayout。不过他俩都只是new出来的，不会添加进任何布局
@@ -504,7 +505,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
          * 第三步，通过bitmap生成我们需要的ImageSpan对象
          */
         ImageSpan imageSpan = new ImageSpan(mContext, bitmap);
-
 
         /**
          * 第四步将ImageSpan对象设置到SpannableStringBuilder的对应位置
