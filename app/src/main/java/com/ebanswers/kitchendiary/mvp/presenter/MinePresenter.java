@@ -38,7 +38,7 @@ public class MinePresenter extends BasePresenter<BaseView.MineView, MineFragment
             }
         };
 
-        ApiMethods.mineinfo(new ProgressObserver<UserInfo>(getActivity().getSupportActivity(),listener),v,openid);
+        ApiMethods.mineinfo(new ProgressObserver<UserInfo>(getActivity().getSupportActivity(),listener),v,openid,"json");
     }
 
     public void loadDiaryInfo( String action, String total,String openid, String types, String is_first,boolean isRefresh){

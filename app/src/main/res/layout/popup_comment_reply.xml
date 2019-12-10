@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/ten"
-    android:background="@drawable/shadow2">
+    android:background="@drawable/shadow">
 
     <EditText
         android:id="@+id/reply_comment_et"

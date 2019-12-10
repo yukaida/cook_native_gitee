@@ -214,7 +214,6 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
                         int code = json.getInt("code");
                         Log.d("WXEntryActivity", "login:  mark" + s);
                         if (code == 0) {
-
                             RetrofitTask.postPhoneUserInfo(phoneNumberStr, new RetrofitTask.CallBack<LoginResultInfo>() {
                                 @Override
                                 public void result(LoginResultInfo loginResultInfo) {

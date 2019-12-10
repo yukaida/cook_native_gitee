@@ -2,7 +2,6 @@ package com.ebanswers.kitchendiary.network.api;
 
 
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
-import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -37,7 +36,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -138,7 +136,7 @@ public interface LoginApi {
     @FormUrlEncoded
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
-    Observable<DeleteDRBack> FoundDelete(@Field("action") String action,
+    Observable<BaseResponse> FoundDelete(@Field("action") String action,
                                          @Field("diary_id") String diary_id,
                                          @Field("'openid'") String from_openid);
 
@@ -175,11 +173,10 @@ public interface LoginApi {
     //收藏
     @FormUrlEncoded
     @POST(Api.collect)
-    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+    @Headers("Content-Type:application/form-data;arset=utf-8")
     Observable<BaseResponse> collect(@Field("action") String action,
                                                     @Field("diary_id") String diary_id,
                                                     @Field("diary_openid") String diary_openid);
-
     //取消收藏
     @FormUrlEncoded
     @POST(Api.collect)
@@ -226,10 +223,11 @@ public interface LoginApi {
 
 //    我的信息
     //    @FormUrlEncoded
-    @GET(Api.mineinfo)
+    @GET(Api.mine)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<UserInfo> mineinfo(@Query("v") String v,
-                                  @Query("openid") String openid);
+                                  @Query("openid") String openid,
+                                  @Query("return_type") String return_type);
     //  日记
     @FormUrlEncoded
     @POST(Api.mine)

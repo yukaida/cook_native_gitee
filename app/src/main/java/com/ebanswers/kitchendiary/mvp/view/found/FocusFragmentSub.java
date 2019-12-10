@@ -19,11 +19,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ebanswers.baselibrary.widget.ClearEditText;
 import com.ebanswers.kitchendiary.R;
@@ -68,6 +63,10 @@ import com.umeng.socialize.utils.ShareBoardlistener;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -258,7 +257,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                             if (item.isIs_collected()) {
                                 focusPresenter.uncollected("cancel_collect", item.getDiary_id());
                             } else {
-                                focusPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
+                                focusPresenter.collected("collect", item.getDiary_id(),userId);
                             }
                         }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
@@ -352,6 +351,9 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                searchEt.setText("");
+                searchLl.setVisibility(View.GONE);
+                searchBgiv.setVisibility(View.VISIBLE);
                 focusPresenter.loadInfo(userId, true);
             }
         });

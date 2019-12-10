@@ -1,10 +1,7 @@
 package com.ebanswers.kitchendiary.network.api;
 
 
-import android.util.Log;
-
 import com.ebanswers.kitchendiary.bean.CommentInfoMore;
-import com.ebanswers.kitchendiary.bean.DeleteDRBack;
 import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
@@ -114,7 +111,7 @@ public class ApiMethods {
     }
 
     //删除动态------------------------------------------------------------
-    public static void FoundDelete(Observer<DeleteDRBack> observer, String action, String diary_id, String from_openid) {
+    public static void FoundtDelete(Observer<BaseResponse> observer, String action, String diary_id, String from_openid) {
         ApiSubscribe(NetworkManager.getLoginApi().FoundDelete(action, diary_id,from_openid), observer);
     }
 
@@ -149,7 +146,6 @@ public class ApiMethods {
 
     //收藏
     public static void collect(Observer<BaseResponse> observer, String action, String diary_id, String diary_openid) {
-
         ApiSubscribe(NetworkManager.getLoginApi().collect(action, diary_id,diary_openid), observer);
     }
 
@@ -180,8 +176,8 @@ public class ApiMethods {
     }
 
     //我的日记
-    public static void mineinfo(Observer<UserInfo> observer, String v, String openid) {
-        ApiSubscribe(NetworkManager.getLoginApi().mineinfo(v, openid), observer);
+    public static void mineinfo(Observer<UserInfo> observer, String v, String openid, String return_type) {
+        ApiSubscribe(NetworkManager.getLoginApi().mineinfo(v, openid,return_type), observer);
     }
 
     //我的日记

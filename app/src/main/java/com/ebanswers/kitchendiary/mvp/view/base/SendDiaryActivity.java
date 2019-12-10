@@ -433,9 +433,11 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                         topic_list.add(builder.toString());
                     }
 
+                    Log.d(TAG, "onNext: topicCatch" + topic_list);
 
                     diaryRecyclerViewTopiclist.setLayoutManager(new LinearLayoutManager(SendDiaryActivity.this));
                     TopicListAdapter topicListAdapter = new TopicListAdapter(R.layout.item_topic, topic_list);
+                    Log.d(TAG, "onNext: topicCatch2");
                     diaryRecyclerViewTopiclist.setAdapter(topicListAdapter);
 
 

@@ -65,9 +65,7 @@ public class Constans {
 
     public static final String INTERNATIONAL_PHONE_CHECK_CODE = "https://api.53iq.com/1/telephone/intl_code";//国外手机号验证码
     //    public static final String PHONE_CHECK_CODE = "https://oven.53iq.com/webapp/jump";//获取手机验证码
-
     public static final String ACCOUNT_MANAGER = "https://oven.53iq.com/api/account";//账号注册和密码修改
-
     public static final String ACCOUNT_LOGIN = "https://api.53iq.com/v1/user/login";//新接口
     public static final String ACCOUNT_LOGOUT = "https://api.53iq.com/v1/user/logout";
     public static final String ACCOUNT_REGISTER = "https://oven.53iq.com/v1/user/register";//账号注册
