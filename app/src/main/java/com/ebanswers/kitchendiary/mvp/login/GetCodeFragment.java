@@ -543,7 +543,9 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
                 if (loginResultInfo != null) {
                     if (loginResultInfo.getCode() == 0){
                         SPUtils.setLogin(true);
-                        SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
+                        if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
+                            SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                        }
                                          /*   if (!TextUtils.isEmpty(data.get())) {
                                                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
                                             }
@@ -553,8 +555,8 @@ public class GetCodeFragment extends BaseLoginFragment implements TextWatcher {
                     }
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
-                    startActivity(intent);
                     EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
+                    startActivity(intent);
                     closeWaitLoading();
                 }
             }

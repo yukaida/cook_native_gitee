@@ -149,6 +149,9 @@ public class CheckCodeFragment extends BaseLoginFragment {
                 if (loginResultInfo != null) {
                     if (loginResultInfo.getCode() == 0){
                         SPUtils.setLogin(true);
+                        if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
+                            SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                        }
                                          /*   if (!TextUtils.isEmpty(data.get())) {
                                                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
                                             }
@@ -161,7 +164,6 @@ public class CheckCodeFragment extends BaseLoginFragment {
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
                     EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
-                    SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
                     startActivity(intent);
                     closeWaitLoading();
                     etInputCode.postDelayed(new Runnable() {

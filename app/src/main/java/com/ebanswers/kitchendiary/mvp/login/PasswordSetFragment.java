@@ -172,6 +172,9 @@ public class PasswordSetFragment extends BaseLoginFragment implements TextWatche
                     closeWaitLoading();
                     if (loginResultInfo.getCode() == 0){
                         SPUtils.setLogin(true);
+                        if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
+                            SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                        }
                                          /*   if (!TextUtils.isEmpty(data.get())) {
                                                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
                                             }
@@ -188,7 +191,6 @@ public class PasswordSetFragment extends BaseLoginFragment implements TextWatche
                     Log.d("RegisterActivity", "user info: token:" + loginResultInfo.getData().getToken() + ",openid:" + loginResultInfo.getMsg());
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("open_id", loginResultInfo.getMsg());
-                    SPUtils.put(AppConstant.USER_ID,loginResultInfo.getMsg());
                     EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                     startActivity(intent);
                     getActivity().finish();

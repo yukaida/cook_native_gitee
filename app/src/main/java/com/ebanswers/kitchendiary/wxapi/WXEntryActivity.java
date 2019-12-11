@@ -28,6 +28,7 @@ import com.ebanswers.kitchendiary.config.Constans;
 import com.ebanswers.kitchendiary.config.PhoneUserConfig;
 import com.ebanswers.kitchendiary.config.QRCodeMap;
 import com.ebanswers.kitchendiary.config.WechatUserConfig;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.database.bean.WechatConfig;
 import com.ebanswers.kitchendiary.database.bean.WechatRefreshConfig;
 import com.ebanswers.kitchendiary.eventbus.Event;
@@ -253,6 +254,9 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                                         closeWaitLoading();
                                         if (loginResultInfo.getCode() == 0){
                                             SPUtils.setLogin(true);
+                                            if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
+                                                SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                                            }
 //                                            if (!TextUtils.isEmpty(loginResultInfo.getData().getMosquitto_sub_user())) {
 //                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
 //                                            }
@@ -485,6 +489,8 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                         if (loginResultInfo != null) {
                             if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
                                 mLoginResultInfo = loginResultInfo;
+                                    SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+
                                 clearCookie();
                                 Log.d("Snail", "result: " + loginResultInfo.getData().getNeed_bind_phone());
                                 if (1 == loginResultInfo.getData().getNeed_bind_phone()) {

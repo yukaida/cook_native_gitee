@@ -643,7 +643,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
         if (data != null) {
             if (!TextUtils.isEmpty(data.getMy_name())) {
-                usernameTv.setText(data.getMy_name());
+                if (usernameTv != null){
+                    usernameTv.setText(data.getMy_name());
+                }
                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
             }
 
@@ -658,23 +660,37 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
 
             if (!TextUtils.isEmpty(data.getFollower_number() + "")) {
-                fansTv.setText(data.getFollower_number() + "");
+                if (fansTv != null){
+                    fansTv.setText(data.getFollower_number() + "");
+                }
+
             }
 
             if (!TextUtils.isEmpty(data.getFollowing_number() + "")) {
-                focusTv.setText(data.getFollowing_number() + "");
+                if (focusTv != null){
+                    focusTv.setText(data.getFollowing_number() + "");
+                }
+
             }
 
             if (!TextUtils.isEmpty(data.getDays() + "")) {
-                clockTv.setText(data.getDays() + "");
+                if (clockTv != null){
+                    clockTv.setText(data.getDays() + "");
+                }
             }
 
             if (!TextUtils.isEmpty(data.getPoints() + "")) {
-                integralTv.setText(data.getPoints() + "");
+                if (integralTv != null){
+                    integralTv.setText(data.getPoints() + "");
+                }
+
             }
 
             if (!TextUtils.isEmpty(data.getSignature())) {
-                individualitySignatureTv.setText(data.getSignature());
+                if (individualitySignatureTv != null){
+                    individualitySignatureTv.setText(data.getSignature());
+                }
+
             }
 
         }

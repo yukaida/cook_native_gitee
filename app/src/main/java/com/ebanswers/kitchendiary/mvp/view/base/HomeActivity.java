@@ -216,8 +216,11 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             public void onNext(MessageResponse messageResponse) {
                 msg_num = messageResponse.getMsg_num();
                 SPUtils.put("msg_num", msg_num);
+                int currentItem = 0;
+                if (mViewPager != null){
+                    currentItem = mViewPager.getCurrentItem();
+                }
 
-                int currentItem = mViewPager.getCurrentItem();
 
                 if (msg_num > 0) {
                     if (currentItem != 2) {

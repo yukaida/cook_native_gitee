@@ -222,6 +222,9 @@ public class PasswordLoginFragment extends BaseLoginFragment implements TextWatc
                                         LoginResultInfo.DataBean data = loginResultInfo.getData();
                                         if (loginResultInfo.getCode() == 0){
                                             SPUtils.setLogin(true);
+                                            if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
+                                                SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                                            }
                                          /*   if (!TextUtils.isEmpty(data.get())) {
                                                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
                                             }
