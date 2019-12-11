@@ -618,14 +618,23 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void changeName(BaseResponse data) {
-        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
-        minePresenter.loadUserInfo("wer", userId);
+        if (data.getCode() == 0){
+            userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+            minePresenter.loadUserInfo("wer", userId);
+        }else {
+            ToastUtils.show(data.getMsg());
+        }
+
     }
 
     @Override
     public void changeHeadUrl(BaseResponse data) {
-        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
-        minePresenter.loadUserInfo("wer", userId);
+        if (data.getCode() == 0){
+            userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+            minePresenter.loadUserInfo("wer", userId);
+        }else {
+            ToastUtils.show(data.getMsg());
+        }
     }
 
     @Override
