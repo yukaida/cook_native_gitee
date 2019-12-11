@@ -1,15 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.qmuiteam:qmui:1.0.4@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/786ea76f244cf227ae6e8a294dde7dae/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d24e373f1b0306432ac7d1c9f535d730/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/786ea76f244cf227ae6e8a294dde7dae/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/786ea76f244cf227ae6e8a294dde7dae/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d24e373f1b0306432ac7d1c9f535d730/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d24e373f1b0306432ac7d1c9f535d730/res" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qmuiteam/qmui/1.0.4/66da59f94fd33957edcdd6c3613025efd8246e05/qmui-1.0.4-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qmuiteam/qmui/1.0.4/d2db14300ea20339815334be2f874211aaa0babb/qmui-1.0.4-sources.jar!/" />
     </SOURCES>

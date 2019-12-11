@@ -46,6 +46,7 @@ import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
@@ -668,7 +669,8 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
 
 
-                    List img_url = draftsDetail.getData().getImg_url();//封面
+                    List<String> img_url = draftsDetail.getData().getImg_url();//封面
+                    titlePath = img_url.get(0);
 //                    repiceCoverIv
                     if (img_url.size() > 0) {
                         GlideApp.with(this)
@@ -805,7 +807,11 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
 
     @Override
     public void netWorkError(String result) {
-        ToastUtils.show(result);
+        if (NetworkUtils.isNetworkAvailable(this)){
+            ToastUtils.show(result);
+        }else {
+            ToastUtils.show("无可用网络！");
+        }
     }
 
     public void popupBackTip() {

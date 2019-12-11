@@ -36,6 +36,7 @@ import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.network.Deployment;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.TitleBar;
 import com.hjq.permissions.OnPermission;
@@ -350,7 +351,12 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
     @Override
     public void netWorkError(String result) {
-        ToastUtils.show(result);
+        if (NetworkUtils.isNetworkAvailable(getContext())){
+            ToastUtils.show(result);
+        }else {
+            ToastUtils.show("无可用网络！");
+        }
+
         homeSwrl.finishRefresh();
     }
 

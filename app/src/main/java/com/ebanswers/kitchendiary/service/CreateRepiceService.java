@@ -3,7 +3,6 @@ package com.ebanswers.kitchendiary.service;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
@@ -17,18 +16,25 @@ import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.Stepinfo;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.receiver.AlarmReceiver;
+import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.PollingUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hjq.toast.ToastUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,7 +49,7 @@ public class CreateRepiceService extends Service {
 
     public static final String TAG = "CreateRepiceService";
     private static boolean control = false;
-//    private TokenBean mTokenBean;
+    //    private TokenBean mTokenBean;
     private AlarmManager manager;
     private PendingIntent mPi;
     private int count = 0;
@@ -71,6 +77,7 @@ public class CreateRepiceService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate: ");
         super.onCreate();
+        EventBusUtil.register(this);
     }
 
     @Override
@@ -160,6 +167,7 @@ public class CreateRepiceService extends Service {
                     }
                     allMsgFound.setImg_url(img_url);
                     allMsgFound.setThumbnail_url(thumbnail_url);
+                    SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
               /*      Gson gson = new Gson();
                     SPUtils.put(AppConstant.repice, gson.toJson(allMsgFound));
                     SPUtils.put(AppConstant.USER_IMAGE, "");*/
@@ -194,30 +202,41 @@ public class CreateRepiceService extends Service {
                     stopSelf();
                 }else {
                     count ++;
-                    manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                    int anHour = 60 * 1000; // 这是8小时的毫秒数
-                    long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-                    Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
-                    mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-                    manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+                    if (count == 6){
+//                    ToastUtils.show("菜谱创建失败，重新提交中");
+                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                    }else {
+                        manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        int anHour = 60 * 1000; // 这是8小时的毫秒数
+                        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+                        Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+                        mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+
+                    }
                 }
             }
 
             @Override
             public void onError(Throwable throwable) {
-                ToastUtils.show("菜谱创建失败");
                 count ++;
-                manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                int anHour = 60 * 1000; // 这是8小时的毫秒数
-                long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-                Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
-                mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-                manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
+                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
+                    if (count == 6){
+//                    ToastUtils.show("菜谱创建失败，重新提交中");
+                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                    }else {
+                        manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        int anHour = 60 * 1000; // 这是8小时的毫秒数
+                        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+                        Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+                        mPi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
 
-                if (count == 6){
-                    ToastUtils.show("菜谱创建失败，重新提交中");
-
+                    }
+                }else {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
                 }
+
 
             }
         };
@@ -230,19 +249,25 @@ public class CreateRepiceService extends Service {
             @Override
             public void onNext(ImageResponse imageResponse) {
                 if (imageResponse != null && imageResponse.getData() != null){
-                        FoodStepinfo foodStepinfo = new FoodStepinfo();
-                        foodStepinfo.setImg(imageResponse.getData().getImg_url());
-                        foodStepinfo.setThumbnail(imageResponse.getData().getThumbnail_url());
-                        foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
-                        foodStepinfos.add(foodStepinfo);
-                        currentcount ++ ;
-                        uploadStep = false;
+                    FoodStepinfo foodStepinfo = new FoodStepinfo();
+                    foodStepinfo.setImg(imageResponse.getData().getImg_url());
+                    foodStepinfo.setThumbnail(imageResponse.getData().getThumbnail_url());
+                    foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
+                    foodStepinfos.add(foodStepinfo);
+                    allMsgFound.setSteps(foodStepinfos);
+                    SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
+                    currentcount ++ ;
+                    uploadStep = false;
                 }
             }
 
             @Override
             public void onError(Throwable throwable) {
-                ToastUtils.show("图片上传失败");
+                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                }else {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                }
             }
         };
 
@@ -252,32 +277,22 @@ public class CreateRepiceService extends Service {
     }
 
 
-    public void popupOpenRepice() {
-        if (builder == null){
-            builder = new DialogBackTip.Builder(this);
-        }
 
-        builder.setTitle("发布失败，是否重新发布？")
-                .setLeftText("暂存至草稿箱")
-                .setRightText("重新发布")
-                .setRightClickListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        send();
-
-                    }
-                }).setLeftClickListener(new DialogInterface.OnClickListener() {
+    public void draffCookbook(String action, String allMsgFound){
+        ObserverOnNextListener<BaseResponse,Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Gson gson = new Gson();
-                AllMsgFound draft =gson.fromJson(String.valueOf(SPUtils.get("draft", "")),AllMsgFound.class) ;
-//                initAllMsgFound(draft);
-                stopSelf();
+            public void onNext(BaseResponse baseResponse) {
+
             }
-        }).create().show();
 
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        };
+
+        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(this,listener),allMsgFound,action);
     }
-
 
 
     @Override
@@ -286,7 +301,20 @@ public class CreateRepiceService extends Service {
         if (manager != null) {
             manager.cancel(mPi);//关闭的服务的时候同时关闭广播注册者
         }
+        EventBusUtil.unregister(this);
         super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetMessage(Event message) {
+        if (message.getType() == Event.EVENT_NET) {
+            if (message.equals("false")){
+//                popupOpenRepice();
+                LogUtils.d("网络状态==="+  message.getParam());
+
+            }
+
+        }
     }
 
 }

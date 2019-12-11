@@ -44,7 +44,9 @@ import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.service.UpdateService;
 import com.ebanswers.kitchendiary.utils.AppUtils;
 import com.ebanswers.kitchendiary.utils.ButtonUtils;
+import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
+import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.ebanswers.kitchendiary.widget.viewpager_animator.ZoomOutPageTransformer;
 import com.gyf.barlibrary.ImmersionBar;
@@ -130,6 +132,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             }
         }
     };
+    private DialogBackTip.Builder builder;
 
     @Override
     protected int getLayoutId() {
@@ -709,6 +712,8 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             mViewPager.setCurrentItem(3);
             clearStatus();
             selectIndex(3);
+        }else if (message.getType() == Event.EVENT_NET) {
+            LogUtils.d("网络状态==="+  message.getParam());
         }
     }
 
@@ -774,5 +779,32 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         return height;
     }
 
+
+    public void popupOpenRepice() {
+        if (builder == null){
+            builder = new DialogBackTip.Builder(this);
+        }
+
+        builder.setTitle("发布失败，是否重新发布？")
+                .setLeftText("暂存至草稿箱")
+                .setRightText("重新发布")
+                .setRightClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setLeftClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               /* allMsgFound.setSteps(foodStepinfos);
+                Gson gson = new Gson();
+                draffCookbook("draft", gson.toJson(allMsgFound));*/
+
+
+
+            }
+        }).create().show();
+
+    }
 
 }

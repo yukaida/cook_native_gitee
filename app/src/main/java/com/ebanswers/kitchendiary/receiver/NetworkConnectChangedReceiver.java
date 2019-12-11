@@ -19,7 +19,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
         //**判断当前的网络连接状态是否可用*/
         boolean isConnected = NetworkUtils.isNetworkAvailable(context);
         Log.d(TAG, "onReceive: 当前网络 " + isConnected);
-        EventBus.getDefault().post(new Event(Event.EVENT_NET,"当前网络不可用！"));
+        EventBus.getDefault().post(new Event(Event.EVENT_NET,isConnected + ""));
     }
 
 }

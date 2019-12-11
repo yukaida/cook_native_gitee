@@ -48,6 +48,7 @@ import com.ebanswers.kitchendiary.network.response.DiaryResponse;
 import com.ebanswers.kitchendiary.utils.Base64Utils;
 import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.hjq.bar.TitleBar;
@@ -789,7 +790,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void netWorkError(String result) {
-        ToastUtils.show(result);
+        if (NetworkUtils.isNetworkAvailable(getContext())){
+            ToastUtils.show(result);
+        }else {
+            ToastUtils.show("无可用网络！");
+        }
         mineSrl.finishRefresh();
         mineSrl.finishLoadMore();
     }

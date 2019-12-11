@@ -61,6 +61,7 @@ import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
 import com.ebanswers.kitchendiary.utils.ImageLoader;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.Utils;
 import com.ebanswers.kitchendiary.widget.decorator.VerticalltemDecoration;
@@ -781,9 +782,13 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     public void netWorkError(String result) {
+        if (NetworkUtils.isNetworkAvailable(getContext())){
+            ToastUtils.show(result);
+        }else {
+            ToastUtils.show("无可用网络！");
+        }
         foundSwrl.finishLoadMore();
         foundSwrl.finishRefresh();
-        ToastUtils.show(result);
     }
 
     @Override
