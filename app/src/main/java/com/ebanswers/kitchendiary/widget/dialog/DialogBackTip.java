@@ -69,7 +69,8 @@ public class DialogBackTip extends Dialog {
             dialog.getWindow().setBackgroundDrawable(null);
             View layout = inflater.inflate(R.layout.popup_back, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
 
             textView = ((TextView) layout.findViewById(R.id.text_view));
             left_btn = ((TextView) layout.findViewById(R.id.no_save_tv));

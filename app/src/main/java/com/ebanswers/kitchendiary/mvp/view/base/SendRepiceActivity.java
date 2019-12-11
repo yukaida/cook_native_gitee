@@ -1,5 +1,6 @@
 package com.ebanswers.kitchendiary.mvp.view.base;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -41,8 +43,10 @@ import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.SendRepicePresenter;
 import com.ebanswers.kitchendiary.network.api.DrufNumResponse;
+import com.ebanswers.kitchendiary.network.progress.DialogCircleProgress;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
+import com.ebanswers.kitchendiary.service.CreateRepiceDraftService;
 import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.ebanswers.kitchendiary.utils.LogUtils;
@@ -61,6 +65,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -144,6 +151,8 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
     private long DISPLAY_LENGHT = 1000;
     private int currentLocalMedia = 0;
     List<FoodStepinfo> foodStepinfos = new ArrayList<>();
+    private ProgressBar progressBar;
+    private DialogCircleProgress.Builder builder3;
 
     @Override
     protected int getLayoutId() {
@@ -159,7 +168,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
     protected void initView() {
 
         sendRepicePresenter = new SendRepicePresenter(this,this);
-
+        EventBusUtil.register(this);
         repiceTitle.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -259,6 +268,12 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(this);
     }
 
     @Override
@@ -376,6 +391,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 break;
             case R.id.release_bt:
                 submitType = "release";
+                SPUtils.put("type","release");
                 /**
                  * 发布和保存都是需要获取所有的item的值，保存在info中，
                  */
@@ -399,14 +415,22 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 break;
             case R.id.save_draft_tv:
                 submitType = "draft";
-                type = "draft"   ;
+                type = "draft";
+                SPUtils.put("type","draft");
                 String repiceName = repiceNameEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(repiceName) && !TextUtils.isEmpty(titlePath)){
-                    File file = new File(titleThumbPath);
+                /*    File file = new File(titleThumbPath);
                     RequestBody image = RequestBody.create(MediaType.parse("*"), file);
                     RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
                     MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                    sendRepicePresenter.uploadImg(part, watermark);
+                    sendRepicePresenter.uploadImg(part, watermark);*/
+
+                    SPUtils.put("draftsuccess",false);
+                    repiceCreate();
+                    initProgressDialog(this);
+
+                    startService(new Intent(SendRepiceActivity.this, CreateRepiceDraftService.class));
+
                 }else {
                     ToastUtils.show("保存草稿必须包含封面图和菜谱名");
                 }
@@ -463,10 +487,11 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         Gson gson = new Gson();
 
         SPUtils.put(AppConstant.USER_IMAGE,titleThumbPath);
-        SPUtils.put(AppConstant.USER_IMAGE2,titleThumbPath);
         SPUtils.put(AppConstant.pic,gson.toJson(data));
-        SPUtils.put(AppConstant.pic2,gson.toJson(data));
         SPUtils.put(AppConstant.repice,gson.toJson(allMsgFound));
+
+        SPUtils.put(AppConstant.USER_IMAGE2,titleThumbPath);
+        SPUtils.put(AppConstant.pic2,gson.toJson(data));
         SPUtils.put(AppConstant.repice2,gson.toJson(allMsgFound));
 
         LogUtils.d("步骤信息：" + gson.toJson(data));
@@ -762,6 +787,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     }
                     allMsgFound.setImg_url(img_url);
                     allMsgFound.setThumbnail_url(thumbnail_url);
+
                     type= "step";
                     List<Stepinfo> data1 = foodStepAdapter.getData();
                     if (currentLocalMedia < data1.size()){
@@ -785,6 +811,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     foodStepinfo.setThumbnail(data.getData().getThumbnail_url());
                     foodStepinfo.setDesc(data1.get(currentLocalMedia).getDesc());
                     foodStepinfos.add(foodStepinfo);
+
                     currentLocalMedia++;
                     if (currentLocalMedia < data1.size()){
                         if (!TextUtils.isEmpty(data1.get(currentLocalMedia).getThumbnail())) {
@@ -989,4 +1016,37 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             }, 2000);
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void GetEvent(Event event){
+        if (event.getType() == Event.EVENT_SAVE_SUCCESS){
+            if (builder3 != null){
+                builder3.dismiss();
+            }
+            finish();
+        }
+    }
+
+    private void initProgressDialog(Context context) {
+        if (builder3 == null) {
+            builder3 = new DialogCircleProgress.Builder(context);
+//            pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
+            builder3.setCancelable(true);
+            builder3.setDialogSize(120,context);
+            if (true) {
+                builder3.setListener(new DialogCircleProgress.Builder.CircleProgressListener() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
+            builder3.create().show();
+            if (!builder3.isShowing()) {
+                builder3.dismiss();
+            }
+        }
+    }
+
+
 }

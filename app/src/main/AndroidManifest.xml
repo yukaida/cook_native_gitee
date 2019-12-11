@@ -207,6 +207,10 @@
             android:name=".service.CreateRepiceService"
             android:enabled="true"
             android:exported="true" /> <!-- 友盟统计 -->
+
+        <service android:name=".service.CreateRepiceDraftService"
+            android:enabled="true"
+            android:exported="true" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

@@ -40,6 +40,7 @@ import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.MessageResponse;
+import com.ebanswers.kitchendiary.service.CreateRepiceDraftService;
 import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.service.UpdateService;
 import com.ebanswers.kitchendiary.utils.AppUtils;
@@ -133,6 +134,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         }
     };
     private DialogBackTip.Builder builder;
+    private DialogBackTip.Builder builder2;
 
     @Override
     protected int getLayoutId() {
@@ -162,7 +164,14 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             }
         }
 
-        startService(new Intent(HomeActivity.this, CreateRepiceService.class));
+        if (!TextUtils.isEmpty((String)SPUtils.get("type",""))&&
+                ((String)SPUtils.get("type","")).equals("draft")){
+            Intent i = new Intent(this, CreateRepiceDraftService.class);
+            startService(i);
+        }else {
+            Intent i = new Intent(this, CreateRepiceService.class);
+            startService(i);
+        }
 
         mViewPager.addOnPageChangeListener(this);
         currentDateTv.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "");
@@ -714,6 +723,21 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             selectIndex(3);
         }else if (message.getType() == Event.EVENT_NET) {
             LogUtils.d("网络状态==="+  message.getParam());
+            if (message.getParam().equals("false")){
+                if (!TextUtils.isEmpty((String)SPUtils.get("type",""))&&
+                        ((String)SPUtils.get("type","")).equals("draft")){
+                    popupBackTip();
+                }else {
+                    popupOpenRepice();
+                }
+            }else {
+                startService(new Intent(HomeActivity.this, CreateRepiceService.class));
+            }
+
+        }else if (message.getType() == Event.EVENT_SEND_FAIL) {
+            popupOpenRepice();
+        }else if (message.getType() == Event.EVENT_SAVE_FAIL) {
+            popupBackTip();
         }
     }
 
@@ -791,19 +815,44 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 .setRightClickListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        SPUtils.put("type","release");
+                        startService(new Intent(HomeActivity.this, CreateRepiceService.class));
                     }
                 }).setLeftClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               /* allMsgFound.setSteps(foodStepinfos);
-                Gson gson = new Gson();
-                draffCookbook("draft", gson.toJson(allMsgFound));*/
-
-
-
+                SPUtils.put("type","draft");
+                startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
             }
         }).create().show();
+
+    }
+
+
+    public void popupBackTip() {
+        if (builder2 == null){
+            builder2 = new DialogBackTip.Builder(this);
+        }
+
+        builder2.setTitle("是否将菜谱保存为草稿？")
+                .setLeftText("不保存草稿")
+                .setRightText("保存草稿")
+                .setRightClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
+                    }
+                }).setLeftClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SPUtils.put("draft","");
+                SPUtils.put("draftsuccess",true);
+                SPUtils.put(AppConstant.repice,"");
+                SPUtils.put(AppConstant.pic,"");
+                SPUtils.put(AppConstant.USER_IMAGE,"");
+            }
+        }).create().show();
+
 
     }
 

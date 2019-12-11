@@ -90,6 +90,7 @@ public class CreateRepiceService extends Service {
         if (success){
             stopSelf();
         }else {
+
             send();
         }
 
@@ -177,7 +178,11 @@ public class CreateRepiceService extends Service {
 
             @Override
             public void onError(Throwable throwable) {
-                ToastUtils.show("图片上传失败");
+                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                }else {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                }
             }
         };
 
@@ -276,25 +281,6 @@ public class CreateRepiceService extends Service {
 
     }
 
-
-
-    public void draffCookbook(String action, String allMsgFound){
-        ObserverOnNextListener<BaseResponse,Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
-            @Override
-            public void onNext(BaseResponse baseResponse) {
-
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-
-            }
-        };
-
-        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(this,listener),allMsgFound,action);
-    }
-
-
     @Override
     public void onDestroy() {
         Log.e(TAG, "onDestroy: 关闭广播注册者");
@@ -309,7 +295,8 @@ public class CreateRepiceService extends Service {
     public void onGetMessage(Event message) {
         if (message.getType() == Event.EVENT_NET) {
             if (message.equals("false")){
-//                popupOpenRepice();
+                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                stopSelf();
                 LogUtils.d("网络状态==="+  message.getParam());
 
             }

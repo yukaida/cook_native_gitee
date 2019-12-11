@@ -903,6 +903,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     if (foundAdapter != null) {
                         foundAdapter.addData(0, allMsgFound);
                         foundAdapter.notifyDataSetChanged();
+
+                        SPUtils.put(AppConstant.USER_IMAGE2,"");
+                        SPUtils.put(AppConstant.pic2,"");
+                        SPUtils.put(AppConstant.repice2,"");
                     }
                 }
             },500);

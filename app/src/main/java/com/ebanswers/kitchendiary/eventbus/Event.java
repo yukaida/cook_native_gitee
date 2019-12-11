@@ -12,6 +12,8 @@ public class Event {
     public static final int EVENT_UPDATE_MINE= 4; // 刷新我的界面
     public static final int EVENT_NET= 3; // 刷新待处理
     public static final int EVENT_SEND_FAIL= 6; // 发布失败
+    public static final int EVENT_SAVE_FAIL= 7; // 保存失败
+    public static final int EVENT_SAVE_SUCCESS= 8; // 保存成功
 
     private int mType = 0;
 
