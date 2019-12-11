@@ -166,7 +166,7 @@ public interface LoginApi {
     //2.点赞/取消点赞
     @FormUrlEncoded
     @POST(Api.Square)
-    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
+//    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> islike(@Field("action") String action,
                                                     @Field("diary_id") String diary_id,
                                                     @Field("nickname") String nickname);

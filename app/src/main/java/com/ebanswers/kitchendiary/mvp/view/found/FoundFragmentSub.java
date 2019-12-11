@@ -363,10 +363,11 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             isSimpleClick = true;
                             currentPosition = position;
                             type = "like";
+                            String  userName = (String) SPUtils.get(AppConstant.USER_NAME,"");
                             if (item.isIs_liked()) {
-                                foundPresenter.islike("unlike", item.getDiary_id(), userId);
+                                foundPresenter.islike("unlike", item.getDiary_id(), userName);
                             } else {
-                                foundPresenter.islike("like", item.getDiary_id(), userId);
+                                foundPresenter.islike("like", item.getDiary_id(), userName);
                             }
                         }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);

@@ -168,9 +168,6 @@ public class ApiMethods {
         ApiSubscribe(NetworkManager.getLoginApi().commentReply(action, diary_id,comment,to_openid, to_user,from_openid,from_user), observer);
     }
 
-
-
-
     //删除评论
     public static void commentDelete(Observer<BaseResponse> observer, String action, String diary_id,String comment,
                                      String from_openid, String to_user) {
