@@ -272,12 +272,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         }else {
             loadEmpty("你还未发布日记记录", diaryRv);
         }
-
-
-        if (HomeActivity.isLoginMethod()) {
-            kitchenDiaryAdapter.setEmptyView(noDataView);
-        }
-
+        kitchenDiaryAdapter.setEmptyView(noDataView);
         kitchenDiaryAdapter.notifyDataSetChanged();
         kitchenDiaryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -655,7 +650,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
             if (!TextUtils.isEmpty(data.getHead_url())) {
                 SPUtils.put(AppConstant.USER_ICON,data.getHead_url());
+                if (getContext() != null){
                 GlideApp.with(getContext()).load(data.getHead_url()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
+                }
             }
 
 
@@ -748,7 +745,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         cookBookAdapter.notifyDataSetChanged();
         }
 
-        }
+    }
 
     @Override
     public void setCookBookData(CookbookResponse data) {
@@ -981,10 +978,12 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             if (!TextUtils.isEmpty(userId)) {
                 minePresenter.loadUserInfo("wer", userId);
-                if (isRepice) {
-                    minePresenter.loadCookbookInfo("more", cookBookAdapter.getItemCount() + "", userId, "cookbook", "", true);
-                } else {
-                    minePresenter.loadDiaryInfo("more", kitchenDiaryAdapter.getItemCount() + "", userId, "diary-only", "", true);
+                if (isVisibleToUser()){
+                    if (isRepice) {
+                        minePresenter.loadCookbookInfo("more", cookBookAdapter.getItemCount() + "", userId, "cookbook", "", true);
+                    } else {
+                        minePresenter.loadDiaryInfo("more", kitchenDiaryAdapter.getItemCount() + "", userId, "diary-only", "", true);
+                    }
                 }
             }
         }

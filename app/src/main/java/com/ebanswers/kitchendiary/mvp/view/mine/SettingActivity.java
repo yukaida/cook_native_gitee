@@ -25,7 +25,6 @@ import com.ebanswers.kitchendiary.config.WechatUserConfig;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.constant.FileUtils;
 import com.ebanswers.kitchendiary.eventbus.Event;
-import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.base.BaseActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
@@ -334,12 +333,12 @@ public class SettingActivity extends BaseActivity {
                                 @Override
                                 public void run() {
                                     SPUtils.put(AppConstant.USER_ID, "tmp_user");
+                                    SPUtils.put(AppConstant.USER_NAME, "厨房客人");
                                     org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
                                     CommonApplication.getInstance().removeAllActivity(SettingActivity.this);
                                     Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
                                     intent.putExtra("position","3");
                                     startActivity(intent);
-                                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                                     finish();
                                 }
                             });
@@ -349,11 +348,10 @@ public class SettingActivity extends BaseActivity {
                     SPUtils.put(AppConstant.USER_ID, "tmp_user");
                     SPUtils.put(AppConstant.USER_NAME, "厨房客人");
 //                    org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
+//                    EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_TOMINE,"我的"));
                     Intent intent = new Intent(SettingActivity.this, WXEntryActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    finish();
                 }
 
                 break;
@@ -509,5 +507,13 @@ public class SettingActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         org.greenrobot.eventbus.EventBus.getDefault().unregister(this);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetMessage(Event message) {
+        if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
+            finish();
+        }
     }
 }

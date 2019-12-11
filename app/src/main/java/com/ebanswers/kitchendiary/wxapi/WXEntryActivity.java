@@ -257,12 +257,6 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                                             if (!TextUtils.isEmpty(loginResultInfo.getMsg())) {
                                                 SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
                                             }
-//                                            if (!TextUtils.isEmpty(loginResultInfo.getData().getMosquitto_sub_user())) {
-//                                                SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
-//                                            }
-//                                            if (!TextUtils.isEmpty(data.getOpenid())) {
-//                                                SPUtils.put(AppConstant.USER_ID, data.getOpenid());
-//                                            }
                                         }
 //                                        WechatUserConfig.clear(context.get());
 //                                        setAliasAndTag(loginResultInfo.getMsg());
