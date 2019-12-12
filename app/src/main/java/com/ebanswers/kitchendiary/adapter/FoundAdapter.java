@@ -437,7 +437,6 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
 
 
-
         helper.addOnClickListener(R.id.focu_status_iv);
         helper.addOnClickListener(R.id.collection_status_iv);
         helper.addOnClickListener(R.id.like_status_iv);

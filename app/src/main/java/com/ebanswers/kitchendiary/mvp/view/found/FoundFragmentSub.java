@@ -59,6 +59,7 @@ import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.network.response.BaseResponse;
 import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
+import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.utils.ImageLoader;
 import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
@@ -82,6 +83,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +151,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     private CommentInfo commentInfo1;
 
     private DialogBackTip.Builder builder;
+    private DialogBackTip dialogBackTip;
 
     public static FoundFragmentSub newInstance() {
         return new FoundFragmentSub();
@@ -171,6 +176,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         ZoomMediaLoader.getInstance().init(new ImageLoader());
         foundPresenter = new FoundPresenter(this, this);
+        EventBusUtil.register(this);
         UMShareListener umShareListener = new UMShareListener() {
             /**
              * @descrption 分享开始的回调
@@ -273,135 +279,136 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 AllMsgFound item = (AllMsgFound) adapter.getItem(position);
-                switch (view.getId()) {
-                    case R.id.share_iv:
-                        if (SPUtils.getIsLogin()){
-                            UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
-                            image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
-                            image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+                if (!TextUtils.isEmpty(item.getDiary_id())){
+                    switch (view.getId()) {
+                        case R.id.share_iv:
+                            if (SPUtils.getIsLogin()){
+                                UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                                image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+                                image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
-                            image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                            String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
-                            final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
-                            web.setTitle(item.getTitle());//标题
-                            web.setThumb(image);  //缩略图
-                            web.setDescription(item.getDesc());//描述
+                                image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                                String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+                                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
+                                web.setTitle(item.getTitle());//标题
+                                web.setThumb(image);  //缩略图
+                                web.setDescription(item.getDesc());//描述
 
-                            new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
-                                @Override
-                                public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                    if (share_media == SHARE_MEDIA.QQ) {
-                                        LogUtils.e("点击QQ");
-                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
-                                    } else if (share_media == SHARE_MEDIA.WEIXIN) {
-                                        LogUtils.e("点击微信");
-                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
-                                    } else if (share_media == SHARE_MEDIA.QZONE) {
-                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
-                                    } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
-                                        new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
+                                new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
+                                    @Override
+                                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                        if (share_media == SHARE_MEDIA.QQ) {
+                                            LogUtils.e("点击QQ");
+                                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QQ).withMedia(web).setCallback(umShareListener).share();
+                                        } else if (share_media == SHARE_MEDIA.WEIXIN) {
+                                            LogUtils.e("点击微信");
+                                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web).setCallback(umShareListener).share();
+                                        } else if (share_media == SHARE_MEDIA.QZONE) {
+                                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
+                                        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                                            new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
 
+                                        }
                                     }
-                                }
-                            }).open();
-                        }else {
+                                }).open();
+                            }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
-                            startActivity(new Intent(getContext(), WelActivity.class));
-                        }
+                                startActivity(new Intent(getContext(), WelActivity.class));
+                            }
 //                        showShare(item.getDesc(),item.getHead_url());
 
-                        break;
-                    case R.id.focu_status_iv:
+                            break;
+                        case R.id.focu_status_iv:
 
-                        if (SPUtils.getIsLogin()){
-                            isSimpleClick = true;
-                            currentPosition = position;
-                            type = "subscribe";
-                            if (item.isIs_subscribe()) {
-                                foundPresenter.follower("cancel ", userId, item.getCreate_user());
-                            } else {
-                                foundPresenter.follower("", userId, item.getCreate_user());
+                            if (SPUtils.getIsLogin()){
+                                isSimpleClick = true;
+                                currentPosition = position;
+                                type = "subscribe";
+                                if (item.isIs_subscribe()) {
+                                    foundPresenter.follower("cancel ", userId, item.getCreate_user());
+                                } else {
+                                    foundPresenter.follower("", userId, item.getCreate_user());
+                                }
+                            }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                                startActivity(new Intent(getContext(), WelActivity.class));
                             }
-                        }else {
-//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
-                            startActivity(new Intent(getContext(), WelActivity.class));
-                        }
 
-                        break;
-                    case R.id.collection_status_iv:
-                        if (SPUtils.getIsLogin()){
-                            isSimpleClick = true;
-                            currentPosition = position;
-                            type = "collection";
-                            if (item.isIs_collected()) {
-                                foundPresenter.uncollected("cancel_collect", item.getDiary_id());
-                            } else {
-                                foundPresenter.collected("collect", item.getDiary_id(), (String) SPUtils.get(AppConstant.USER_ID, ""));
+                            break;
+                        case R.id.collection_status_iv:
+                            if (SPUtils.getIsLogin()){
+                                isSimpleClick = true;
+                                currentPosition = position;
+                                type = "collection";
+                                if (item.isIs_collected()) {
+                                    foundPresenter.uncollected("cancel_collect", item.getDiary_id());
+                                } else {
+                                    foundPresenter.collected("collect", item.getDiary_id(), (String) SPUtils.get(AppConstant.USER_ID, ""));
+                                }
+                            }else {
+//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
+                                startActivity(new Intent(getContext(), WelActivity.class));
                             }
-                        }else {
+
+                            break;
+                        case R.id.message_iv:
+                            if (SPUtils.getIsLogin()){
+                                type = "Comment";
+                                isSimpleClick = true;
+                                currentPosition = position;
+                                String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
+                                popupCommentWindow(item.getDiary_id(), userId, username);
+                            }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
-                            startActivity(new Intent(getContext(), WelActivity.class));
-                        }
-
-                        break;
-                    case R.id.message_iv:
-                        if (SPUtils.getIsLogin()){
-                            type = "Comment";
-                            isSimpleClick = true;
-                            currentPosition = position;
-                            String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
-                            popupCommentWindow(item.getDiary_id(), userId, username);
-                        }else {
-//                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
-                            startActivity(new Intent(getContext(), WelActivity.class));
-                        }
-
-                        break;
-                    case R.id.like_status_iv:
-
-                        if (SPUtils.getIsLogin()){
-                            isSimpleClick = true;
-                            currentPosition = position;
-                            type = "like";
-                            String  userName = (String) SPUtils.get(AppConstant.USER_NAME,"");
-                            if (item.isIs_liked()) {
-                                foundPresenter.islike("unlike", item.getDiary_id(), userName);
-                            } else {
-                                foundPresenter.islike("like", item.getDiary_id(), userName);
+                                startActivity(new Intent(getContext(), WelActivity.class));
                             }
-                        }else {
+
+                            break;
+                        case R.id.like_status_iv:
+
+                            if (SPUtils.getIsLogin()){
+                                isSimpleClick = true;
+                                currentPosition = position;
+                                type = "like";
+                                String  userName = (String) SPUtils.get(AppConstant.USER_NAME,"");
+                                if (item.isIs_liked()) {
+                                    foundPresenter.islike("unlike", item.getDiary_id(), userName);
+                                } else {
+                                    foundPresenter.islike("like", item.getDiary_id(), userName);
+                                }
+                            }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
-                            startActivity(new Intent(getContext(), WelActivity.class));
-                        }
+                                startActivity(new Intent(getContext(), WelActivity.class));
+                            }
 
-                        break;
-                    case R.id.user_name_tv:
+                            break;
+                        case R.id.user_name_tv:
 
-                    case R.id.user_head_iv:
-                        Intent intent = new Intent(getContext(), WebActivity.class);
-                        intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
-                        startActivity(intent);
-                        break;
-                    case R.id.user_descrbe_tv:
+                        case R.id.user_head_iv:
+                            Intent intent = new Intent(getContext(), WebActivity.class);
+                            intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
+                            startActivity(intent);
+                            break;
+                        case R.id.user_descrbe_tv:
 
-                    case R.id.share_pic_rv:
-                        Intent intent1 = new Intent(getContext(), WebActivity.class);
-                        String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
-                        intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
-                        startActivity(intent1);
-                        break;
-                    case R.id.found_button_delete:
-                        diary_id_fordelete = item.getDiary_id();
-                        position_fordelete = position;
-                        if (item.getCreate_user().equals(openid)) {
-                            showPopupMenu(view);
-                        } else {
-                            Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
-                        } 
+                        case R.id.share_pic_rv:
+                            Intent intent1 = new Intent(getContext(), WebActivity.class);
+                            String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
+                            intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                            startActivity(intent1);
+                            break;
+                        case R.id.found_button_delete:
+                            diary_id_fordelete = item.getDiary_id();
+                            position_fordelete = position;
+                            if (item.getCreate_user().equals(openid)) {
+                                showPopupMenu(view);
+                            } else {
+                                Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
+                            }
 
-                        break;
+                            break;
+                    }
                 }
-
             }
         });
 
@@ -583,7 +590,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     protected void initData() {
-//        String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
         foundPresenter.loadInfo(userId, false);
         foundPresenter.topic();
     }
@@ -860,6 +867,12 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(this);
+    }
+
     public void scroolTopRefresh() {
         if (foundSrv.getScaleY() != 0) {
             foundSrv.fullScroll(ScrollView.FOCUS_UP);
@@ -869,6 +882,33 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     }
 
     public void addData() {
+
+        boolean success = (boolean) SPUtils.get("success", false);
+        if (success) {
+            initData();
+        } else {
+            ToastUtils.show("菜谱正在发送中...");
+            if (dialogBackTip == null) {
+                dialogBackTip = new DialogBackTip.Builder(getContext()).setTitle("菜谱正在发送中...")
+                    .setLeftText("取消")
+                    .setRightText("继续")
+                    .setRightClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setLeftClickListener(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getActivity().stopService(new Intent(getContext(), CreateRepiceService.class));
+                    dialog.dismiss();
+                }
+                }).create();
+            }
+//            dialogBackTip.show();
+        }
+
+
         /*boolean success = (boolean) SPUtils.get("success", false);
         if (success) {
             initData();
@@ -945,6 +985,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     public void popupDialog() {
         if (builder == null) {
             builder = new DialogBackTip.Builder(getContext());
+
         }
 
         builder.setTitle("确认删除吗？删除后将不可恢复")
@@ -987,4 +1028,22 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         };
         ApiMethods.FoundDelete(new MyObserver<DeleteDRBack>(getContext(), listener), "delete", draft_id, openid);
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetMessage(Event message) {
+        if (message.getType() == Event.EVENT_SEND_SUCCESS) {
+            String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+            if (!TextUtils.isEmpty(userId)) {
+                if (foundSwrl!= null){
+                    foundSwrl.autoRefresh();
+                    if (dialogBackTip != null) {
+                        dialogBackTip.dismiss();
+                    }
+                }
+            }
+        }
+
+    }
+
 }

@@ -162,7 +162,12 @@ public class WebActivity extends CommonActivity {
             }
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
-                mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, ""));
+                if (!url.contains("&openid=")){
+                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, ""));
+                }else {
+                    mWebView.loadUrl(url);
+                }
+
             }
             // 已经处理该链接请求
             return true;

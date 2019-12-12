@@ -336,14 +336,32 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 }
                 break;
             case R.id.tab_center_ll:
-//                if (SPUtils.getIsLogin()) {
-                    popupSendRepiceWindow(tabCenterLl);
-//                } else {
-//                todo  暂时开放方便测试 待测试完毕后修复
-//
+                if (SPUtils.getIsLogin()) {
+                    String type = (String) SPUtils.get("type", "draft");
+                    if (!TextUtils.isEmpty(type)){
+                        if (type.equals("draft")){
+                           boolean draftsuccess = (boolean) SPUtils.get("draftsuccess", false);
+                           if (draftsuccess){
+                               popupSendRepiceWindow(tabCenterLl);
+                           }else {
+                               ToastUtils.show("有待完成菜谱存在，请稍后重试");
+                           }
+                        }else {
+                            boolean success = (boolean) SPUtils.get("success", false);
+                            if (success){
+                                popupSendRepiceWindow(tabCenterLl);
+                            }else {
+                                ToastUtils.show("有待完成菜谱存在，请稍后重试");
+                            }
+                        }
+                    }else {
+                        popupSendRepiceWindow(tabCenterLl);
+                    }
+
+                } else {
 //                    LoginActivity.openActivity(this);
-//                    startActivity(new Intent(this, WelActivity.class));
-////                }
+                    startActivity(new Intent(this, WelActivity.class));
+                }
                 break;
             case R.id.found_ll:
                 if (ButtonUtils.isFastDoubleClick(R.id.found_ll)) {

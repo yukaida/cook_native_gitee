@@ -644,7 +644,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             mineSrl.finishLoadMore();
         }
 
-
         if (data != null) {
             if (!TextUtils.isEmpty(data.getMy_name())) {
                 if (usernameTv != null){

@@ -204,6 +204,7 @@ public class CreateRepiceService extends Service {
                         pollingUtil.endPolling(runnable);
                         pollingUtil.endPolling(runnable1);
                     }
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_SUCCESS,"发布成功"));
                     stopSelf();
                 }else {
                     count ++;
