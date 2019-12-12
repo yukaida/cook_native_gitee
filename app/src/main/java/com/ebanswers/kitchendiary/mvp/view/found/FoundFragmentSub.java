@@ -1036,7 +1036,14 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             if (!TextUtils.isEmpty(userId)) {
                 if (foundSwrl!= null){
-                    foundSwrl.autoRefresh();
+//                    foundSwrl.autoRefresh();
+
+                    searchEt.setText("");
+                    searchLl.setVisibility(View.GONE);
+                    searchBgiv.setVisibility(View.VISIBLE);
+
+                    foundPresenter.loadInfo(userId, true);
+
                     if (dialogBackTip != null) {
                         dialogBackTip.dismiss();
                     }

@@ -132,7 +132,7 @@ public class MinePresenter extends BasePresenter<BaseView.MineView, MineFragment
             }
         };
 
-        ApiMethods.changeName(new MyObserver<BaseResponse>(getActivity().getSupportActivity(),listener),openid, headUrl,"head_url");
+        ApiMethods.changeHeadUrl(new MyObserver<BaseResponse>(getActivity().getSupportActivity(),listener),openid, headUrl,"head_url");
     }
 
 }

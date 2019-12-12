@@ -32,6 +32,7 @@ import com.ebanswers.kitchendiary.adapter.HomeViewPagerAdapter;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.ShowSearchEvent;
 import com.ebanswers.kitchendiary.mvp.view.found.FoundFragment;
 import com.ebanswers.kitchendiary.mvp.view.helper.HelperFragment;
 import com.ebanswers.kitchendiary.mvp.view.home.HomeFragment;
@@ -70,7 +71,7 @@ import butterknife.OnClick;
 /**
  * desc   : 主页界面
  */
-public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener,ScreenUtils {
+public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener, ScreenUtils {
 
     @BindView(R.id.vp_home_pager)
     ViewPager mViewPager;
@@ -150,6 +151,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     protected void initView() {
         EventBus.getDefault().register(this);
 
+        popupSendRepiceWindow(tabCenterLl);
 
         if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
             SPUtils.put(AppConstant.USER_NAME, "厨房客人");
@@ -164,11 +166,11 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             }
         }
 
-        if (!TextUtils.isEmpty((String)SPUtils.get("type",""))&&
-                ((String)SPUtils.get("type","")).equals("draft")){
+        if (!TextUtils.isEmpty((String) SPUtils.get("type", "")) &&
+                ((String) SPUtils.get("type", "")).equals("draft")) {
             Intent i = new Intent(this, CreateRepiceDraftService.class);
             startService(i);
-        }else {
+        } else {
             Intent i = new Intent(this, CreateRepiceService.class);
             startService(i);
         }
@@ -186,7 +188,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         mViewPager.setOffscreenPageLimit(mAdapter.getCount());
 //        mViewPager.setOffscreenPageLimit(2);
 
-        if (!TextUtils.isEmpty(getIntent().getStringExtra("position")) && getIntent().getStringExtra("position").equals("3")){
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("position")) && getIntent().getStringExtra("position").equals("3")) {
             mViewPager.setCurrentItem(3);
             clearStatus();
             selectIndex(3);
@@ -198,9 +200,6 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
          * SHA-512 as the message digest.
          */
         startTask();
-
-
-
 
 
     }
@@ -217,7 +216,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 msg_num = messageResponse.getMsg_num();
                 SPUtils.put("msg_num", msg_num);
                 int currentItem = 0;
-                if (mViewPager != null){
+                if (mViewPager != null) {
                     currentItem = mViewPager.getCurrentItem();
                 }
 
@@ -255,7 +254,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         ApiMethods.messageInfo(new MyObserver<>(this, listener), userId, "False");
     }
 
-  /*  *//**
+    /*  *//**
      * {@link Runnable}
      *//*
     @Override
@@ -308,6 +307,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @OnClick({R.id.home_ll, R.id.helper_ll, R.id.tab_center_ll, R.id.found_ll, R.id.me_ll})
     public void onViewClicked(View view) {
+        EventBus.getDefault().post(new ShowSearchEvent());
         switch (view.getId()) {
             case R.id.home_ll:
                 currentDateTv.setVisibility(View.VISIBLE);
@@ -337,27 +337,28 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 break;
             case R.id.tab_center_ll:
                 if (SPUtils.getIsLogin()) {
-                    String type = (String) SPUtils.get("type", "draft");
-                    if (!TextUtils.isEmpty(type)){
-                        if (type.equals("draft")){
-                           boolean draftsuccess = (boolean) SPUtils.get("draftsuccess", false);
-                           if (draftsuccess){
-                               popupSendRepiceWindow(tabCenterLl);
-                           }else {
-                               ToastUtils.show("有待完成菜谱存在，请稍后重试");
-                           }
-                        }else {
-                            boolean success = (boolean) SPUtils.get("success", false);
-                            if (success){
-                                popupSendRepiceWindow(tabCenterLl);
-                            }else {
-                                ToastUtils.show("有待完成菜谱存在，请稍后重试");
-                            }
-                        }
-                    }else {
-                        popupSendRepiceWindow(tabCenterLl);
-                    }
+//                    String type = (String) SPUtils.get("type", "draft");
+//                    if (!TextUtils.isEmpty(type)){
+//                        if (type.equals("draft")){
+//                           boolean draftsuccess = (boolean) SPUtils.get("draftsuccess", false);
+//                           if (draftsuccess){
+//                               popupSendRepiceWindow(tabCenterLl);
+//                           }else {
+//                               ToastUtils.show("有待完成菜谱存在，请稍后重试");
+//                           }
+//                        }else {
+//                            boolean success = (boolean) SPUtils.get("success", false);
+//                            if (success){
+//                                popupSendRepiceWindow(tabCenterLl);
+//                            }else {
+//                                ToastUtils.show("有待完成菜谱存在，请稍后重试");
+//                            }
+//                        }
+//                    }else {
+//                        popupSendRepiceWindow(tabCenterLl);
+//                    }
 
+                    customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
                 } else {
 //                    LoginActivity.openActivity(this);
                     startActivity(new Intent(this, WelActivity.class));
@@ -394,6 +395,8 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @SuppressLint("NewApi")
     private void popupSendRepiceWindow(LinearLayout tabCenterLl) {
+
+
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View inflate = layoutInflater.inflate(R.layout.popup_send_repice_diary, null);
         TextView closeTv = inflate.findViewById(R.id.close_tv);
@@ -404,31 +407,31 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         if (popupWindowBuilder == null) {
             popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(this);
         }
-        popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).setBgDarkAlpha(0.7f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
+        popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setBgDarkAlpha(0.7f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
         customPopWindow = popupWindowBuilder.create();
-        customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
 
         repiceLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 暂时开放方便测试 待测试完毕后修复
-//                if (HomeActivity.isLoginMethod()) {
-//                    ToastUtils.show("请先登录");
-//                } else
-                startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
-                customPopWindow.dissmiss();
+                if (HomeActivity.isLoginMethod()) {
+                    ToastUtils.show("请先登录");
+                } else {
+                    startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                    customPopWindow.dissmiss();
+                }
             }
         });
 
         diaryLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 暂时开放方便测试 待测试完毕后修复
-//                if (HomeActivity.isLoginMethod()) {
-//                    ToastUtils.show("请先登录");
-//                } else
-                startActivity(new Intent(HomeActivity.this, SendDiaryActivity.class));
-                customPopWindow.dissmiss();
+                if (HomeActivity.isLoginMethod()) {
+                    ToastUtils.show("请先登录");
+                } else {
+                    startActivity(new Intent(HomeActivity.this, SendDiaryActivity.class));
+                    customPopWindow.dissmiss();
+                }
             }
         });
 
@@ -738,26 +741,26 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             if (item != null) {
                 item.addData();
             }
-        }else if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
+        } else if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
             mViewPager.setCurrentItem(3);
             clearStatus();
             selectIndex(3);
-        }else if (message.getType() == Event.EVENT_NET) {
-            LogUtils.d("网络状态==="+  message.getParam());
-            if (message.getParam().equals("false")){
-                if (!TextUtils.isEmpty((String)SPUtils.get("type",""))&&
-                        ((String)SPUtils.get("type","")).equals("draft")){
+        } else if (message.getType() == Event.EVENT_NET) {
+            LogUtils.d("网络状态===" + message.getParam());
+            if (message.getParam().equals("false")) {
+                if (!TextUtils.isEmpty((String) SPUtils.get("type", "")) &&
+                        ((String) SPUtils.get("type", "")).equals("draft")) {
                     popupBackTip();
-                }else {
+                } else {
                     popupOpenRepice();
                 }
-            }else {
+            } else {
                 startService(new Intent(HomeActivity.this, CreateRepiceService.class));
             }
 
-        }else if (message.getType() == Event.EVENT_SEND_FAIL) {
+        } else if (message.getType() == Event.EVENT_SEND_FAIL) {
             popupOpenRepice();
-        }else if (message.getType() == Event.EVENT_SAVE_FAIL) {
+        } else if (message.getType() == Event.EVENT_SAVE_FAIL) {
             popupBackTip();
         }
     }
@@ -826,32 +829,36 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
 
     public void popupOpenRepice() {
-        if (builder == null){
+        if (builder == null) {
             builder = new DialogBackTip.Builder(this);
         }
 
-        builder.setTitle("发布失败，是否重新发布？")
-                .setLeftText("暂存至草稿箱")
-                .setRightText("重新发布")
-                .setRightClickListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SPUtils.put("type","release");
-                        startService(new Intent(HomeActivity.this, CreateRepiceService.class));
-                    }
-                }).setLeftClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SPUtils.put("type","draft");
-                startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
-            }
-        }).create().show();
+        if (!builder.create().isShowing()){
+
+            builder.setTitle("发布失败，是否重新发布？")
+                    .setLeftText("暂存至草稿箱")
+                    .setRightText("重新发布")
+                    .setRightClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SPUtils.put("type", "release");
+                            startService(new Intent(HomeActivity.this, CreateRepiceService.class));
+                        }
+                    }).setLeftClickListener(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SPUtils.put("type", "draft");
+                    startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
+                }
+            }).create().show();
+        }
+
 
     }
 
 
     public void popupBackTip() {
-        if (builder2 == null){
+        if (builder2 == null) {
             builder2 = new DialogBackTip.Builder(this);
         }
 
@@ -861,16 +868,16 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
                 .setRightClickListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
+                        startService(new Intent(HomeActivity.this, CreateRepiceDraftService.class));
                     }
                 }).setLeftClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SPUtils.put("draft","");
-                SPUtils.put("draftsuccess",true);
-                SPUtils.put(AppConstant.repice,"");
-                SPUtils.put(AppConstant.pic,"");
-                SPUtils.put(AppConstant.USER_IMAGE,"");
+                SPUtils.put("draft", "");
+                SPUtils.put("draftsuccess", true);
+                SPUtils.put(AppConstant.repice, "");
+                SPUtils.put(AppConstant.pic, "");
+                SPUtils.put(AppConstant.USER_IMAGE, "");
             }
         }).create().show();
 

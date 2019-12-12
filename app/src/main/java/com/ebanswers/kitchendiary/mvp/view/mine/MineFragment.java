@@ -37,6 +37,7 @@ import com.ebanswers.kitchendiary.common.CommonLazyFragment;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
 import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
+import com.ebanswers.kitchendiary.eventbus.ShowSearchEvent;
 import com.ebanswers.kitchendiary.mvp.contract.BaseView;
 import com.ebanswers.kitchendiary.mvp.presenter.MinePresenter;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
@@ -267,9 +268,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         kitchenDiaryAdapter = new KitchenDiaryAdapter();
         diaryRv.setAdapter(kitchenDiaryAdapter);
 
-        if (!SPUtils.getIsLogin()){
+        if (!SPUtils.getIsLogin()) {
             loadEmpty("请登录后查看日记记录", diaryRv);
-        }else {
+        } else {
             loadEmpty("你还未发布日记记录", diaryRv);
         }
         kitchenDiaryAdapter.setEmptyView(noDataView);
@@ -286,9 +287,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         });
 
 
-        if (SPUtils.getIsLogin()){
+        if (SPUtils.getIsLogin()) {
             invitationCardIv.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             invitationCardIv.setVisibility(View.GONE);
         }
 
@@ -373,8 +374,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     @OnClick({R.id.user_icon, R.id.username_tv, R.id.search_tv, R.id.search_bgiv, R.id.share_iv,
             R.id.setting_iv, R.id.invitation_card_iv, R.id.me_diary_tv, R.id.me_recipe_tv,
             R.id.me_collection_tv, R.id.me_list_iv, R.id.me_grid_iv, R.id.collection_diary_tv,
-            R.id.collection_repice_tv,R.id.focus_ll, R.id.fans_ll, R.id.integral_ll, R.id.clock_ll})
+            R.id.collection_repice_tv, R.id.focus_ll, R.id.fans_ll, R.id.integral_ll, R.id.clock_ll})
     public void onViewClicked(View view) {
+        showSearchEvent(null);
         switch (view.getId()) {
             case R.id.user_icon:
                 if (!HomeActivity.isLoginMethod()) {
@@ -558,34 +560,34 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
 
             case R.id.focus_ll:
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent2 = new Intent(getContext(), WebActivity.class);
-                    intent2.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/"+ userId + "/follower/list?types=following");
+                    intent2.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=follower");
                     startActivity(intent2);
                 }
 
                 break;
             case R.id.fans_ll:
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent3 = new Intent(getContext(), WebActivity.class);
-                    intent3.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=follower");
+                    intent3.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=following");
                     startActivity(intent3);
                 }
 
                 break;
             case R.id.integral_ll:
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent8 = new Intent(getContext(), WebActivity.class);
-                    intent8.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid="+userId);
+                    intent8.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid=" + userId);
                     startActivity(intent8);
                 }
 
                 break;
             case R.id.clock_ll:
-                if (SPUtils.getIsLogin()){
+                if (SPUtils.getIsLogin()) {
                     userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent5 = new Intent(getContext(), WebActivity.class);
                     intent5.putExtra("url", "https://mp.weixin.qq.com/s/0usP-wgrFdFoIseGsciJPQ");
@@ -618,10 +620,10 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void changeName(BaseResponse data) {
-        if (data.getCode() == 0){
+        if (data.getCode() == 0) {
             userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             minePresenter.loadUserInfo("wer", userId);
-        }else {
+        } else {
             ToastUtils.show(data.getMsg());
         }
 
@@ -629,24 +631,24 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void changeHeadUrl(BaseResponse data) {
-        if (data.getCode() == 0){
+        if (data.getCode() == 0) {
             userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             minePresenter.loadUserInfo("wer", userId);
-        }else {
+        } else {
             ToastUtils.show(data.getMsg());
         }
     }
 
     @Override
     public void setData(UserInfo data) {
-        if (mineSrl != null){
+        if (mineSrl != null) {
             mineSrl.finishRefresh();
             mineSrl.finishLoadMore();
         }
 
         if (data != null) {
             if (!TextUtils.isEmpty(data.getMy_name())) {
-                if (usernameTv != null){
+                if (usernameTv != null) {
                     usernameTv.setText(data.getMy_name());
                 }
                 SPUtils.put(AppConstant.USER_NAME, data.getMy_name());
@@ -657,42 +659,42 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             }
 
             if (!TextUtils.isEmpty(data.getHead_url())) {
-                SPUtils.put(AppConstant.USER_ICON,data.getHead_url());
-                if (getContext() != null){
-                GlideApp.with(getContext()).load(data.getHead_url()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
+                SPUtils.put(AppConstant.USER_ICON, data.getHead_url());
+                if (getContext() != null) {
+                    GlideApp.with(getContext()).load(data.getHead_url()).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userIcon);
                 }
             }
 
 
             if (!TextUtils.isEmpty(data.getFollower_number() + "")) {
-                if (fansTv != null){
-                    fansTv.setText(data.getFollower_number() + "");
+                if (fansTv != null) {
+                    fansTv.setText(data.getFollowing_number() + "");
                 }
 
             }
 
             if (!TextUtils.isEmpty(data.getFollowing_number() + "")) {
-                if (focusTv != null){
-                    focusTv.setText(data.getFollowing_number() + "");
+                if (focusTv != null) {
+                    focusTv.setText(data.getFollower_number() + "");
                 }
 
             }
 
             if (!TextUtils.isEmpty(data.getDays() + "")) {
-                if (clockTv != null){
+                if (clockTv != null) {
                     clockTv.setText(data.getDays() + "");
                 }
             }
 
             if (!TextUtils.isEmpty(data.getPoints() + "")) {
-                if (integralTv != null){
+                if (integralTv != null) {
                     integralTv.setText(data.getPoints() + "");
                 }
 
             }
 
             if (!TextUtils.isEmpty(data.getSignature())) {
-                if (individualitySignatureTv != null){
+                if (individualitySignatureTv != null) {
                     individualitySignatureTv.setText(data.getSignature());
                 }
 
@@ -705,14 +707,14 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void setDiaryData(DiaryResponse data) {
-        if (mineSrl != null){
+        if (mineSrl != null) {
             mineSrl.finishRefresh();
             mineSrl.finishLoadMore();
         }
-        if (diaryRv != null){
+        if (diaryRv != null) {
             diaryRv.setVisibility(View.VISIBLE);
         }
-        if (repiceRv != null){
+        if (repiceRv != null) {
             repiceRv.setVisibility(View.GONE);
         }
 
@@ -731,40 +733,40 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     if (HomeActivity.isLoginMethod()) {
                         loadEmpty("请登录后查看日记记录", diaryRv);
                         kitchenDiaryAdapter.setEmptyView(noDataView);
-                    }else {
+                    } else {
 //                        kitchenDiaryAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布日记哦", diaryRv);
                         kitchenDiaryAdapter.setEmptyView(noDataView);
 
                     }
                     kitchenDiaryAdapter.notifyDataSetChanged();
-                }                else {
-                loadEmpty("你还未发布日记哦", repiceRv);
-                kitchenDiaryAdapter.setEmptyView(noDataView);
-                cookBookAdapter.notifyDataSetChanged();
-            }
+                } else {
+                    loadEmpty("你还未发布日记哦", repiceRv);
+                    kitchenDiaryAdapter.setEmptyView(noDataView);
+                    cookBookAdapter.notifyDataSetChanged();
+                }
 
-            isMore = false;
+                isMore = false;
                 mineSrl.setEnableLoadMore(false);
             }
-        }                else {
-        loadEmpty("你还未发布日记哦", repiceRv);
-        kitchenDiaryAdapter.setEmptyView(noDataView);
-        cookBookAdapter.notifyDataSetChanged();
+        } else {
+            loadEmpty("你还未发布日记哦", repiceRv);
+            kitchenDiaryAdapter.setEmptyView(noDataView);
+            cookBookAdapter.notifyDataSetChanged();
         }
 
     }
 
     @Override
     public void setCookBookData(CookbookResponse data) {
-        if (mineSrl != null){
+        if (mineSrl != null) {
             mineSrl.finishRefresh();
             mineSrl.finishLoadMore();
         }
-        if (diaryRv != null){
+        if (diaryRv != null) {
             diaryRv.setVisibility(View.GONE);
         }
-        if (repiceRv != null){
+        if (repiceRv != null) {
             repiceRv.setVisibility(View.VISIBLE);
         }
 
@@ -784,14 +786,14 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     if (HomeActivity.isLoginMethod()) {
                         loadEmpty("请登录后查看菜谱记录", repiceRv);
                         cookBookAdapter.setEmptyView(noDataView);
-                    }else {
+                    } else {
 //                        cookBookAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布菜谱记录", repiceRv);
                         cookBookAdapter.setEmptyView(noDataView);
 
                     }
                     cookBookAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     loadEmpty("你还未发布菜谱记录", repiceRv);
                     cookBookAdapter.setEmptyView(noDataView);
                     cookBookAdapter.notifyDataSetChanged();
@@ -801,7 +803,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 mineSrl.setEnableLoadMore(false);
 //                cookBookAdapter.notifyDataSetChanged();
             }
-        }else {
+        } else {
             loadEmpty("你还未发布菜谱记录", repiceRv);
             cookBookAdapter.setEmptyView(noDataView);
             cookBookAdapter.notifyDataSetChanged();
@@ -811,9 +813,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
     @Override
     public void netWorkError(String result) {
-        if (NetworkUtils.isNetworkAvailable(getContext())){
+        if (NetworkUtils.isNetworkAvailable(getContext())) {
             ToastUtils.show(result);
-        }else {
+        } else {
             ToastUtils.show("无可用网络！");
         }
         mineSrl.finishRefresh();
@@ -837,9 +839,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         ImageView emptyIv = noDataView.findViewById(R.id.empty_iv);
         ImageView loginIv = noDataView.findViewById(R.id.login_iv);
         emptyTv.setText(tip);
-        if(tip.startsWith("你还未发布")){
+        if (tip.startsWith("你还未发布")) {
             loginIv.setVisibility(View.GONE);
-        }else {
+        } else {
             loginIv.setVisibility(View.VISIBLE);
         }
 
@@ -982,11 +984,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 //                minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
                 minePresenter.loadUserInfo("wer", userId);
             }
-        }else if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
+        } else if (message.getType() == Event.EVENT_UPDATE_TOMINE) {
             String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             if (!TextUtils.isEmpty(userId)) {
                 minePresenter.loadUserInfo("wer", userId);
-                if (isVisibleToUser()){
+                if (isVisibleToUser()) {
                     if (isRepice) {
                         minePresenter.loadCookbookInfo("more", cookBookAdapter.getItemCount() + "", userId, "cookbook", "", true);
                     } else {
@@ -996,6 +998,18 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             }
         }
 
+    }
+
+
+    /**
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showSearchEvent(ShowSearchEvent event) {
+        if (searchLl != null && searchBgiv != null) {
+            searchLl.setVisibility(View.GONE);
+            searchBgiv.setVisibility(View.VISIBLE);
+        }
     }
 
 }

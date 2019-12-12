@@ -228,7 +228,7 @@ public interface LoginApi {
     @GET(Api.mine)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<UserInfo> mineinfo(@Query("v") String v,
-                                  @Query("openid") String openid,
+                                  @Query("my_openid") String openid,
                                   @Query("return_type") String return_type);
 
     //  日记
