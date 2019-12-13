@@ -343,7 +343,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                 if (item.isIs_collected()) {
                                     foundPresenter.uncollected("cancel_collect", item.getDiary_id());
                                 } else {
-                                    foundPresenter.collected("collect", item.getDiary_id(), (String) SPUtils.get(AppConstant.USER_ID, ""));
+                                    foundPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
                                 }
                             }else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);

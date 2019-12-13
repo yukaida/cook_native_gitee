@@ -64,8 +64,11 @@ public class DialogCircleProgress extends Dialog {
         public Builder dismiss() {
             if (mDialog != null) {
                 SystemClock.sleep(200);
-                mDialog.dismiss();
-                if (listener != null){
+                try {
+                    mDialog.dismiss();
+                } catch (Exception e) {
+                }
+                if (listener != null) {
                     listener.onCancel();
                 }
                 isShowing = false;
@@ -77,13 +80,14 @@ public class DialogCircleProgress extends Dialog {
             return isShowing;
         }
 
-        public Builder setDialogSize(int dialogSize,Context context) {
+        public Builder setDialogSize(int dialogSize, Context context) {
             if (context != null) {
                 float scale = context.getResources().getDisplayMetrics().density;
                 this.dialogSize = (int) (dialogSize * scale + 0.5f);
             }
             return this;
         }
+
         public Builder setProgressColor(int progressColor) {
             this.progressColor = progressColor;
             return this;

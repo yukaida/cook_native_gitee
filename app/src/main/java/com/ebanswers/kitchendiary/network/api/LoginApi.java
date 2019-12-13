@@ -55,16 +55,16 @@ public interface LoginApi {
     @POST(Api.MODIFY_PASS)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<BaseResponse> modifyPass(@Field("username") String username,
-                                         @Field("password") String password,
-                                         @Field("confirmpassword") String confirmpassword,
-                                         @Field("session") String session);
-//    @FormUrlEncoded
+                                        @Field("password") String password,
+                                        @Field("confirmpassword") String confirmpassword,
+                                        @Field("session") String session);
+
+    //    @FormUrlEncoded
     @GET(Api.HOME_INFO)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<HomePageInfo> userinfo(@Query("code") String code,
                                       @Query("result") String result,
                                       @Query("openid") String openid);
-
 
 
     @FormUrlEncoded
@@ -80,8 +80,8 @@ public interface LoginApi {
     @POST(Api.follower)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<BaseResponse> follower(@Field("action") String action,
-                                  @Field("follower_id") String follower_id,
-                                  @Field("openid") String openid);
+                                      @Field("openid") String follower_id,// 狗比后台把这两个字段写反了，
+                                      @Field("follower_id") String openid);// 狗比后台把这两个字段写反了，
 
 
     //    @FormUrlEncoded
@@ -130,8 +130,8 @@ public interface LoginApi {
     @POST(Api.getMoreComment)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<CommentInfoMore> getMoreComment(@Field("action") String action,
-                                             @Field("diary_id") String diary_id,
-                                             @Field("total") String total);
+                                               @Field("diary_id") String diary_id,
+                                               @Field("total") String total);
 
     // 删除动态--------------------------------------------------------
     @FormUrlEncoded
@@ -162,29 +162,30 @@ public interface LoginApi {
                                                     @Field("lang") String lang);
 
 
-
     //2.点赞/取消点赞
     @FormUrlEncoded
     @POST(Api.Square)
 //    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> islike(@Field("action") String action,
-                                                    @Field("diary_id") String diary_id,
-                                                    @Field("nickname") String nickname);
+                                    @Field("diary_id") String diary_id,
+                                    @Field("nickname") String nickname);
 
     //收藏
     @FormUrlEncoded
     @POST(Api.collect)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> collect(@Field("action") String action,
-                                                    @Field("diary_id") String diary_id,
-                                                    @Field("diary_openid") String diary_openid);
+                                     @Field("diary_id") String diary_id,
+                                     @Field("diary_openid") String diary_openid,
+                                     @Field("openid") String openid);
+
 
     //取消收藏
     @FormUrlEncoded
     @POST(Api.collect)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> uncollect(@Field("action") String action,
-                                                    @Field("diary_id") String diary_id);
+                                       @Field("diary_id") String diary_id);
 
 
     // 评论
@@ -192,10 +193,10 @@ public interface LoginApi {
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> comment(@Field("action") String action,
-                                    @Field("diary_id") String diary_id,
-                                    @Field("comment") String comment,
-                                    @Field("to_openid") String to_openid,
-                                    @Field("to_user") String to_user);
+                                     @Field("diary_id") String diary_id,
+                                     @Field("comment") String comment,
+                                     @Field("to_openid") String to_openid,
+                                     @Field("to_user") String to_user);
 
 
     // 评论
@@ -203,14 +204,12 @@ public interface LoginApi {
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> commentReply(@Field("action") String action,
-                                     @Field("diary_id") String diary_id,
-                                     @Field("comment") String comment,
-                                     @Field("to_openid") String to_openid,
-                                     @Field("to_user") String to_user ,
-                                     @Field("from_openid") String from_openid,
-                                     @Field("from_user") String from_user);
-
-
+                                          @Field("diary_id") String diary_id,
+                                          @Field("comment") String comment,
+                                          @Field("to_openid") String to_openid,
+                                          @Field("to_user") String to_user,
+                                          @Field("from_openid") String from_openid,
+                                          @Field("from_user") String from_user);
 
 
     // 删除评论
@@ -218,12 +217,12 @@ public interface LoginApi {
     @POST(Api.Square)
     @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> commentDelete(@Field("action") String action,
-                                    @Field("diary_id") String diary_id,
-                                    @Field("comment") String comment,
-                                    @Field("from_openid") String from_openid,
-                                    @Field("to_user") String to_user);
+                                           @Field("diary_id") String diary_id,
+                                           @Field("comment") String comment,
+                                           @Field("from_openid") String from_openid,
+                                           @Field("to_user") String to_user);
 
-//    我的信息
+    //    我的信息
     //    @FormUrlEncoded
     @GET(Api.mine)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
@@ -251,6 +250,7 @@ public interface LoginApi {
                                           @Field("openid") String openid,
                                           @Field("types") String types,
                                           @Field("is_first") String is_first);
+
     //  消息
     @FormUrlEncoded
     @POST(Api.messageInfo)
@@ -271,8 +271,9 @@ public interface LoginApi {
     @POST(Api.changemsg)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<BaseResponse> changeHeadUrl(@Field("openid") String openid,
-                                        @Field("head_url") String head_url,
-                                        @Field("types") String types);
+                                           @Field("head_url") String head_url,
+                                           @Field("types") String types);
+
     //  消息
 //    @FormUrlEncoded
     @GET(Api.draftnum)
@@ -284,7 +285,7 @@ public interface LoginApi {
     @POST(Api.cookbook)
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<BaseResponse> sendcookbook(@Field("data") String data,
-                                      @Field("action") String action);
+                                          @Field("action") String action);
 
 
     // 图片上传
@@ -292,6 +293,7 @@ public interface LoginApi {
     @POST(Api.upload_img)
     Observable<ImageResponse> uploadImg(@Part MultipartBody.Part image,
                                         @Part("watermark") RequestBody watermark);
+
     //发布日记
     @FormUrlEncoded
     @POST(Api.postDiary)

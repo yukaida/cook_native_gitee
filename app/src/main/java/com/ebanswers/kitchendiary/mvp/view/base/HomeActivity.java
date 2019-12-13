@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.mvp.view.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -151,7 +152,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     protected void initView() {
         EventBus.getDefault().register(this);
 
-        popupSendRepiceWindow(tabCenterLl);
+//        popupSendRepiceWindow(tabCenterLl);
 
         if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
             SPUtils.put(AppConstant.USER_NAME, "厨房客人");
@@ -358,7 +359,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 //                        popupSendRepiceWindow(tabCenterLl);
 //                    }
 
-                    customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
+//                    customPopWindow.showAtLocation(tabCenterLl, Gravity.CENTER_HORIZONTAL, 0, 400);
+
+                    showBottomDialog();
                 } else {
 //                    LoginActivity.openActivity(this);
                     startActivity(new Intent(this, WelActivity.class));
@@ -393,12 +396,64 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         }
     }
 
+
+
+
+    /**
+     * 选择图片
+     */
+    private Dialog bottomDialog;
+
+    private void showBottomDialog() {
+
+        bottomDialog = new Dialog(this, R.style.CustomDialog);
+        bottomDialog.show();
+        if (bottomDialog.getWindow() != null)
+            bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.setContentView(R.layout.popup_send_repice_diary);
+        LinearLayout diaryLl = bottomDialog.findViewById(R.id.diary_ll);
+        TextView closeTv = bottomDialog.findViewById(R.id.close_tv);
+        LinearLayout repiceLl = bottomDialog.findViewById(R.id.repice_ll);
+        repiceLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HomeActivity.isLoginMethod()) {
+                    ToastUtils.show("请先登录");
+                } else {
+                    startActivity(new Intent(HomeActivity.this, SendRepiceActivity.class));
+                    bottomDialog.dismiss();
+                }
+            }
+        });
+
+        diaryLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HomeActivity.isLoginMethod()) {
+                    ToastUtils.show("请先登录");
+                } else {
+                    startActivity(new Intent(HomeActivity.this, SendDiaryActivity.class));
+                    bottomDialog.dismiss();
+                }
+            }
+        });
+
+        closeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+            }
+        });
+    }
+
+
+
     @SuppressLint("NewApi")
     private void popupSendRepiceWindow(LinearLayout tabCenterLl) {
 
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View inflate = layoutInflater.inflate(R.layout.popup_send_repice_diary, null);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.popup_send_repice_diary, null);
         TextView closeTv = inflate.findViewById(R.id.close_tv);
         LinearLayout diaryLl = inflate.findViewById(R.id.diary_ll);
         LinearLayout repiceLl = inflate.findViewById(R.id.repice_ll);
@@ -408,7 +463,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(this);
         }
         popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .setBgDarkAlpha(0.7f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
+               .setBgDarkAlpha(0.5f) .enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
         customPopWindow = popupWindowBuilder.create();
 
         repiceLl.setOnClickListener(new View.OnClickListener() {

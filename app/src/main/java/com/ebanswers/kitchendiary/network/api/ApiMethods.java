@@ -13,6 +13,7 @@ import com.ebanswers.kitchendiary.bean.SquareInfo;
 import com.ebanswers.kitchendiary.bean.Topics.Topics;
 import com.ebanswers.kitchendiary.bean.UserInfo;
 import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.network.NetworkManager;
 import com.ebanswers.kitchendiary.network.function.HttpResultFunction;
 import com.ebanswers.kitchendiary.network.function.ServerResultFunction;
@@ -24,6 +25,7 @@ import com.ebanswers.kitchendiary.network.response.FoundTopResponse;
 import com.ebanswers.kitchendiary.network.response.ImageResponse;
 import com.ebanswers.kitchendiary.network.response.LoginResponse;
 import com.ebanswers.kitchendiary.network.response.MessageResponse;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.util.HashMap;
@@ -142,13 +144,13 @@ public class ApiMethods {
 
     //点赞
     public static void islike(Observer<BaseResponse> observer, String action, String diary_id, String nickname) {
-        ApiSubscribe(NetworkManager.getLoginApi().islike(action, diary_id,nickname), observer);
+         ApiSubscribe(NetworkManager.getLoginApi().islike(action, diary_id,nickname), observer);
     }
 
     //收藏
     public static void collect(Observer<BaseResponse> observer, String action, String diary_id, String diary_openid) {
-
-        ApiSubscribe(NetworkManager.getLoginApi().collect(action, diary_id,diary_openid), observer);
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+        ApiSubscribe(NetworkManager.getLoginApi().collect(action, diary_id,diary_openid,userId), observer);
     }
 
     //收藏取消

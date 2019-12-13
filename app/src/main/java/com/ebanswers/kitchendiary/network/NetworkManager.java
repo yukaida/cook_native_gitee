@@ -1,10 +1,10 @@
 // (c)2016 Flipboard Inc, All Rights Reserved.
 package com.ebanswers.kitchendiary.network;
 
-import com.google.gson.Gson;
 import com.ebanswers.kitchendiary.network.api.ImageApi;
 import com.ebanswers.kitchendiary.network.api.LoginApi;
 import com.ebanswers.kitchendiary.network.api.WorkingLogApi;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkManager {
 
-//    private static final String baseUrl = Deployment.BASE_URL;
+    //    private static final String baseUrl = Deployment.BASE_URL;
     private static final String baseUrlLogin = Deployment.BASE_URL_LOGIN;
     private static final String baseUrlWork = Deployment.BASE_URL_WORK;
 
@@ -42,37 +42,46 @@ public class NetworkManager {
      */
     private static OkHttpClient okHttpClient() {
         //开启Log
-        HttpLoggingInterceptor logging =new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(logging)
+//                .addInterceptor(new ReceivedCookiesInterceptor())
+//        .addInterceptor(chain -> {
+//            Request request = chain.request()
+//                    .newBuilder()
+//                    .addHeader("openid",userId)
+//                    .build();
+//            return chain.proceed(request);
+//        })
                 .build();
         return client;
     }
 
 
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create(new Gson());
-//    private static Converter.Factory xmlConverterFactory = SimpleXmlConverterFactory.create();
+    //    private static Converter.Factory xmlConverterFactory = SimpleXmlConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJava2CallAdapterFactory.create();
 
-    public static LoginApi getLoginApi(){
-        if (loginApi == null){
+    public static LoginApi getLoginApi() {
+        if (loginApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient())
                     .baseUrl(baseUrlLogin)
                     .addConverterFactory(gsonConverterFactory)
 //                    .addConverterFactory(xmlConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
+
                     .build();
             loginApi = retrofit.create(LoginApi.class);
         }
         return loginApi;
     }
 
-    public static WorkingLogApi getWorkingLogApi(){
-        if (workingLogApi == null){
+    public static WorkingLogApi getWorkingLogApi() {
+        if (workingLogApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient())
                     .baseUrl(baseUrlWork)
@@ -86,8 +95,8 @@ public class NetworkManager {
     }
 
 
-    public static ImageApi getImageApi(){
-        if (imageApi == null){
+    public static ImageApi getImageApi() {
+        if (imageApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient())
                     .baseUrl(baseUrlLogin + "acl/")
