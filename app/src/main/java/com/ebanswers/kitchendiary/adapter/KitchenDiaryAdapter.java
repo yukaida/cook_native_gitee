@@ -36,9 +36,8 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
                     .load(item.getHead_url())
                     .skipMemoryCache(true)
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(cookingUserIv);
-
         }
 
         RoundedImageView goodsShowIv = helper.getView(R.id.goods_show_iv);
@@ -55,7 +54,7 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
                     .load(item.getThumbnail_url())
                     .skipMemoryCache(true)
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.empty)
                     .into(goodsShowIv);
 
