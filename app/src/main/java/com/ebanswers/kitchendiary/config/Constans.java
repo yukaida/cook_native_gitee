@@ -83,7 +83,8 @@ public class Constans {
     public static final String UPDATE_DEVICE_NAME = "https://oven.53iq.com/api/device/update";
     public static final String COMMON_DEVICE_CONTROL = "https://ovdevice/control";//设备通用控制接口
     public static final String SETTING_DEVICE = "https://oven.53iq.com/static/list/index.html#/setting";
-    public static final String SETTING_UPDATE = "http://ota.53iq.com/static/file/meida.txt";//app检查新版本
+//    public static final String SETTING_UPDATE = "http://ota.53iq.com/static/file/meida.txt";//app检查新版本
+    public static final String SETTING_UPDATE = "http://ota.53iq.com/static/file/kitchendiary.txt";//app检查新版本
     public static final String SETTING_UPDATE_DEBUG = "http://ota.53iq.com/static/file/smartkitchentest.txt";
     //zncf: 通用版智能厨房  md:美大版  sjt: 司杰特版  arda:安德版  kinde:金帝版 daogrs:道格斯版  xx_ios:对应ios版
     public static final String URL_HOT_RECIPE = "wechat.53iq.com/tmp/kiook";//热门菜谱

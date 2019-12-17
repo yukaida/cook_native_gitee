@@ -144,7 +144,8 @@ public class ApiMethods {
 
     //点赞
     public static void islike(Observer<BaseResponse> observer, String action, String diary_id, String nickname) {
-         ApiSubscribe(NetworkManager.getLoginApi().islike(action, diary_id,nickname), observer);
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+         ApiSubscribe(NetworkManager.getLoginApi().islike(action, diary_id,nickname,userId), observer);
     }
 
     //收藏

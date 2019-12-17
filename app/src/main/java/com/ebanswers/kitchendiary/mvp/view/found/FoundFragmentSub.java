@@ -386,7 +386,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
                         case R.id.user_head_iv:
                             Intent intent = new Intent(getContext(), WebActivity.class);
-                            intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user());
+                            intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user() + "&my_openid=" + HomeActivity.isLoginMethod());
                             startActivity(intent);
                             break;
                         case R.id.user_descrbe_tv:

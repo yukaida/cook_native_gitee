@@ -168,7 +168,8 @@ public interface LoginApi {
 //    @Headers("Content-Type:application/x-www-form-urlencoded;arset=utf-8")
     Observable<BaseResponse> islike(@Field("action") String action,
                                     @Field("diary_id") String diary_id,
-                                    @Field("nickname") String nickname);
+                                    @Field("nickname") String nickname,
+                                    @Field("openid") String openid);
 
     //收藏
     @FormUrlEncoded

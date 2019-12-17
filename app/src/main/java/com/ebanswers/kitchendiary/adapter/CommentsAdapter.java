@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
+import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.utils.SpannableStringUtils;
 
@@ -44,7 +45,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid() + "&my_openid=" + HomeActivity.isLoginMethod());
                     mContext.startActivity(intent);
                 }
             });
@@ -81,7 +82,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid()+ "&my_openid=" + HomeActivity.isLoginMethod());
                     mContext.startActivity(intent);
                 }
             });
@@ -112,7 +113,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid()+ "&my_openid=" + HomeActivity.isLoginMethod());
                     mContext.startActivity(intent);
                 }
             });

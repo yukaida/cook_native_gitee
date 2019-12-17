@@ -56,7 +56,6 @@ public class CheckUpdateAsycTask extends AsyncTask<String, Integer, File> {
                     //打印你所需要的网速值，单位默认为kb/s
                     Log.d("speed", "handleMessage: "+speed);
                     break;
-
                 default:
                     break;
             }
@@ -79,11 +78,7 @@ public class CheckUpdateAsycTask extends AsyncTask<String, Integer, File> {
     @Override
     protected void onPreExecute() {
 
-
         super.onPreExecute();
-
-
-
 
         pd = new AlertDialog.Builder(mContext).create();
         pd.setCanceledOnTouchOutside(false);
@@ -233,13 +228,17 @@ public class CheckUpdateAsycTask extends AsyncTask<String, Integer, File> {
 
     //安装apk
     private void installApk(File file) {
+
+        Log.i("qqqqqq", "installApk: " + file.toString());
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri data;
         //7.0引入" StrictMode API 政策" , 禁止向应用外公开 file:// URI
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            data = FileProvider.getUriForFile(mContext, "com.ebanswers.smartkitchen.fileprovider", file);
+            data = FileProvider.getUriForFile(mContext, "com.ebanswers.kitchendiary.fileprovider", file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             data = Uri.fromFile(file);
@@ -251,4 +250,8 @@ public class CheckUpdateAsycTask extends AsyncTask<String, Integer, File> {
             mContext.getApplicationContext().startActivity(intent);
         }
     }
+
+
+
+
 }

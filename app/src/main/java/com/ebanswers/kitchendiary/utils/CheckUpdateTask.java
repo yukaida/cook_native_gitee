@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -15,10 +17,18 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.download.library.DownloadImpl;
+import com.download.library.DownloadListenerAdapter;
+import com.download.library.DownloadingListener;
+import com.download.library.Extra;
+import com.download.library.Runtime;
 import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.common.CommonApplication;
+import com.hjq.toast.ToastUtils;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -150,6 +160,50 @@ public class CheckUpdateTask {
         }
     }
 
+    private void downLoadApk() {
+        final File file = new File(Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera");
+        if (!file.exists()){
+            boolean mkdir = file.mkdir();
+        }
+        DownloadImpl.getInstance()
+                .with(CommonApplication.getInstance())
+                .target(new File(Runtime.getInstance().getDir(mContext, true).getAbsolutePath() + "/" + "chufang.apk"), "com.ebanswers.kitchendiary.fileprovider")//自定义路径需指定目录和authority(FileContentProvide),需要相对应匹配才能启动通知，和自动打开文件)
+                .setUniquePath(false)//是否唯一路径
+                .setForceDownload(true)//不管网络类型
+                .setRetry(4)//下载异常，自动重试,最多重试4次
+                .setBlockMaxTime(60000L) //以8KB位单位，默认60s ，如果60s内无法从网络流中读满8KB数据，则抛出异常 。
+                .setConnectTimeOut(10000L)//连接10超时
+                .addHeader("xx","cookie")//添加请求头
+                .setDownloadTimeOut(Long.MAX_VALUE)//下载最大时长
+                .setOpenBreakPointDownload(true)//打开断点续传
+                .setParallelDownload(true)//打开多线程下载
+                .autoOpenWithMD5("93d1695d87df5a0c0002058afc0361f1")//校验md5通过后自动打开该文件,校验失败会回调异常
+                .autoOpenIgnoreMD5()
+                .closeAutoOpen()
+                .quickProgress()//快速连续回调进度，默认1.2s回调一次
+                .url("http://storage.56iq.net/group1/M00/16/98/CgoKTl3Cq5OAIo-WAH-b0ub501I676.apk")
+                .enqueue(new DownloadListenerAdapter() {
+                    @Override
+                    public void onStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength, Extra extra) {
+                        super.onStart(url, userAgent, contentDisposition, mimetype, contentLength, extra);
+                        ToastUtils.show("已开启后台下载");
+                    }
+
+                    @DownloadingListener.MainThread //加上该注解，自动回调到主线程
+                    @Override
+                    public void onProgress(String url, long downloaded, long length, long usedTime) {
+                        super.onProgress(url, downloaded, length, usedTime);
+                        Log.i("qqqqq", " downloaded:" + downloaded + " length:" + length);
+                    }
+
+                    @Override
+                    public boolean onResult(Throwable throwable, Uri path, String url, Extra extra) {
+                        Log.i("qqqqq", " 下载完成" );
+                        return super.onResult(throwable, path, url, extra);
+                    }
+                });
+
+    }
 
     /*
      *
@@ -184,6 +238,7 @@ public class CheckUpdateTask {
             public void onClick(View v) {
                 dialog.dismiss();
                 downLoadApk(false);//下载apk
+//                downLoadApk();
             }
         });
         ignore.setOnClickListener(new View.OnClickListener() {

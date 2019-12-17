@@ -1,5 +1,6 @@
 package com.ebanswers.kitchendiary.mvp.view.mine;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,7 +40,9 @@ import com.ebanswers.kitchendiary.utils.SavePictureUtils;
 import com.ebanswers.kitchendiary.utils.ThreadUtils;
 import com.ebanswers.kitchendiary.utils.ToastCustom;
 import com.ebanswers.kitchendiary.wxapi.WXEntryActivity;
+import com.hjq.toast.ToastUtils;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trycatch.mysnackbar.Prompt;
 import com.trycatch.mysnackbar.TSnackbar;
 
@@ -337,7 +340,7 @@ public class SettingActivity extends BaseActivity {
                                     org.greenrobot.eventbus.EventBus.getDefault().post("finishThis");
                                     CommonApplication.getInstance().removeAllActivity(SettingActivity.this);
                                     Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
-                                    intent.putExtra("position","3");
+                                    intent.putExtra("position", "3");
                                     startActivity(intent);
                                     finish();
                                 }
@@ -356,7 +359,16 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.id_ll_setting_activity_checkupdate:
-                update(Constans.SETTING_UPDATE);
+                RxPermissions rxPermissions = new RxPermissions(this);
+                rxPermissions .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .subscribe(granted -> {
+                            if (granted) {
+                                update(Constans.SETTING_UPDATE);
+                            } else {
+                                ToastUtils.show("请开启手机存储权限");
+                            }
+                        });
+
                 break;
             case R.id.id_tv_setting_activity_mytag:
                 if (SPUtils.getIsLogin()) {
@@ -415,16 +427,14 @@ public class SettingActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void finishThis(String finishThis) {
-        if ("finishThis".equals(finishThis))
+        if ("finishThis" .equals(finishThis))
             finish();
     }
 
     private void update(final String updateUrl) {//检查更新方法
         Log.d("SettingActivity", "update: " + updateUrl);
         if (NetworkUtils.checkNetwork(this)) {
-
             QMUITipDialog.Builder builder1 = new QMUITipDialog.Builder(this);
-
             builder1.setIconType(ICON_TYPE_LOADING);
             builder1.setTipWord(getResources().getString(R.string.set_check_update));
             final QMUITipDialog ck_dialog = builder1.create();
@@ -432,7 +442,7 @@ public class SettingActivity extends BaseActivity {
             myHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    new CheckUpdateTask(context, updateUrl).run(true, new CheckUpdateTask.CallBack() {
+                    new CheckUpdateTask(SettingActivity.this, updateUrl).run(true, new CheckUpdateTask.CallBack() {
                         @Override
                         public void success() {
                             if (isFinishing()) {

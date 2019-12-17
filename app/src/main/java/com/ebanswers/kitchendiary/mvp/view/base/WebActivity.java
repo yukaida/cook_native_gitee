@@ -163,9 +163,9 @@ public class WebActivity extends CommonActivity {
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
                 if (!url.contains("&openid=")){
-                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, ""));
+                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, "") +"&my_openid=" + HomeActivity.isLoginMethod());
                 }else {
-                    mWebView.loadUrl(url);
+                    mWebView.loadUrl(url+"&my_openid=" + HomeActivity.isLoginMethod());
                 }
 
             }
