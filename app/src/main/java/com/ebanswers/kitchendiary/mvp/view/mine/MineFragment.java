@@ -733,19 +733,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 if (!isMore) {
                     if (HomeActivity.isLoginMethod()) {
                         loadEmpty("请登录后查看日记记录", diaryRv);
-                        kitchenDiaryAdapter.setNewData(new ArrayList<>());
                         kitchenDiaryAdapter.setEmptyView(noDataView);
                     } else {
 //                        kitchenDiaryAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布日记哦", diaryRv);
-                        kitchenDiaryAdapter.setNewData(new ArrayList<>());
                         kitchenDiaryAdapter.setEmptyView(noDataView);
 
                     }
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 } else {
                     loadEmpty("你还未发布日记哦", repiceRv);
-                    kitchenDiaryAdapter.setNewData(new ArrayList<>());
                     kitchenDiaryAdapter.setEmptyView(noDataView);
                     cookBookAdapter.notifyDataSetChanged();
                 }
@@ -789,19 +786,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 if (!isMore) {
                     if (HomeActivity.isLoginMethod()) {
                         loadEmpty("请登录后查看菜谱记录", repiceRv);
-                        cookBookAdapter.setNewData(new ArrayList<>());
                         cookBookAdapter.setEmptyView(noDataView);
                     } else {
 //                        cookBookAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布菜谱记录", repiceRv);
                         cookBookAdapter.setEmptyView(noDataView);
-                        cookBookAdapter.setNewData(new ArrayList<>());
                     }
                     cookBookAdapter.notifyDataSetChanged();
                 } else {
                     loadEmpty("你还未发布菜谱记录", repiceRv);
                     cookBookAdapter.setEmptyView(noDataView);
-                    cookBookAdapter.setNewData(new ArrayList<>());
                     cookBookAdapter.notifyDataSetChanged();
                 }
 

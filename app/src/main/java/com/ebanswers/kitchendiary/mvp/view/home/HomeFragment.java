@@ -139,7 +139,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 RecommendForYou item = (RecommendForYou) adapter.getItem(position);
 //                if (item.getUrl().startsWith("http") || item.getUrl().startsWith("https")){
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    intent.putExtra("url", Deployment.BASE_URL_WORK + item.getUrl().substring(1) + "&openid=" + userId);
+                    intent.putExtra("url", Deployment.BASE_URL_WORK + item.getUrl().substring(1) + "&openid=" + HomeActivity.getOpenId());
                     startActivity(intent);
 //                }else {
 //                    ToastUtils.show("链接路径错误");

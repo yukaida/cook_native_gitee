@@ -73,7 +73,7 @@ public class WebActivity extends CommonActivity {
         }
 
         // 加快HTML网页加载完成的速度，等页面finish再加载图片
-        if(Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT >= 19) {
             settings.setLoadsImagesAutomatically(true);
         } else {
             settings.setLoadsImagesAutomatically(false);
@@ -89,7 +89,7 @@ public class WebActivity extends CommonActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
         LogUtils.d("url====" + url);
-        if (!TextUtils.isEmpty(url)){
+        if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
 
@@ -162,12 +162,11 @@ public class WebActivity extends CommonActivity {
             }
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
-                if (!url.contains("&openid=")){
-                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, "") +"&my_openid=" + HomeActivity.getOpenId());
-                }else {
+                if (!url.contains("&openid=")) {
+                    mWebView.loadUrl(url + "&openid=" + SPUtils.get(AppConstant.USER_ID, "") + "&my_openid=" + HomeActivity.getOpenId());
+                } else {
                     mWebView.loadUrl(url);
                 }
-
             }
             // 已经处理该链接请求
             return true;

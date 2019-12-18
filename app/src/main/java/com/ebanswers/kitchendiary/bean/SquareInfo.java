@@ -16,17 +16,8 @@ public class SquareInfo {
      * code : 0
      */
 
-    private String ad;
     private int code;
     private List<DataBean> data;
-
-    public String getAd() {
-        return ad;
-    }
-
-    public void setAd(String ad) {
-        this.ad = ad;
-    }
 
     public int getCode() {
         return code;
@@ -64,6 +55,34 @@ public class SquareInfo {
         private boolean is_subscribe;
         private String create_user;
         private List<DiaryBean> diary;
+
+        private String diary_id;
+        private String title;
+        private List<String> thumbnail_url;
+
+        public List<String> getThumbnail_url() {
+            return thumbnail_url;
+        }
+
+        public void setThumbnail_url(List<String> thumbnail_url) {
+            this.thumbnail_url = thumbnail_url;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDiary_id() {
+            return diary_id;
+        }
+
+        public void setDiary_id(String diary_id) {
+            this.diary_id = diary_id;
+        }
 
         public String getType() {
             return type;

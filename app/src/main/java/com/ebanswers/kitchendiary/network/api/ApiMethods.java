@@ -92,6 +92,11 @@ public class ApiMethods {
         ApiSubscribe(NetworkManager.getLoginApi().square(action, total,openid,types), observer);
     }
 
+    //助手
+    public static void help(Observer<SquareInfo> observer, String action, String total, String openid, String types,String diary_id) {
+        ApiSubscribe(NetworkManager.getLoginApi().help(action, total,openid,types,"cookbook","sp",diary_id), observer);
+    }
+
 
     //发布日记------------
     public static void postDiary(Observer<PostDiaryBack> observer, HashMap<String, String> map) {

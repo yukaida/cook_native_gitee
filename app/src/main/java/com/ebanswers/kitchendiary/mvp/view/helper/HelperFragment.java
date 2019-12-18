@@ -162,7 +162,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                 }else {
                     Intent intent = new Intent(getContext(), WebActivity.class);
                     String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
-                    String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary().get(0).getDiary_id() + "/detail?code=123&openid=" + openid;
+                    String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid;
                     intent.putExtra("url",url);
                     startActivity(intent);
                 }
@@ -182,7 +182,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                 if (moreWonderfulAdapter != null) {
                     List<SquareInfo.DataBean> data = moreWonderfulAdapter.getData();
                     if (data.size() > 0) {
-                        helperPresenter.loadSquareInfo(userId, String.valueOf(data.size()),true);
+                        helperPresenter.loadSquareInfo(userId, String.valueOf(data.size()),true,data.get(data.size()-1).getDiary_id());
                     }
                 }
 
@@ -196,7 +196,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
 
                 isRefresh  = true;
                 String userId =  (String) SPUtils.get(AppConstant.USER_ID, "");
-                helperPresenter.loadSquareInfo(userId, "0",true);
+                helperPresenter.loadSquareInfo(userId, "0",true,"");
             }
         });
 
@@ -207,7 +207,7 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
     protected void initData() {
         isRefresh  = true;
         String userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
-        helperPresenter.loadSquareInfo(userId, "0",true);
+        helperPresenter.loadSquareInfo(userId, "0",true,"");
     }
 
 
@@ -314,8 +314,8 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
                             moreWonderfulAdapter.notifyDataSetChanged();
                         }else {
                             moreWonderfulAdapter.addData(data.getData());
-                            moreWonderfulAdapter.notifyItemRangeInserted(moreWonderfulAdapter.getData().size() - data.getData().size(),data.getData().size());
-//                            moreWonderfulAdapter.notifyDataSetChanged();
+//                            moreWonderfulAdapter.notifyItemRangeInserted(moreWonderfulAdapter.getData().size() - data.getData().size(),data.getData().size());
+                            moreWonderfulAdapter.notifyDataSetChanged();
 //                        }
                     }
                 }

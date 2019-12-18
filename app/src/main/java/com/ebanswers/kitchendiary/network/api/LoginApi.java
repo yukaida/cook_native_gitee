@@ -75,6 +75,17 @@ public interface LoginApi {
                                   @Field("openid") String openid,
                                   @Field("types") String types);
 
+    @FormUrlEncoded
+    @POST(Api.Square)
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Observable<SquareInfo> help(@Field("action") String action,
+                                @Field("total") String total,
+                                @Field("openid") String openid,
+                                @Field("types") String types,
+                                @Field("ctg") String ctg,
+                                @Field("scope") String scope,
+                                @Field("diary") String diary);
+
 
     @FormUrlEncoded
     @POST(Api.follower)
