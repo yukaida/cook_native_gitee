@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -182,7 +181,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
          */
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-            Toast.makeText(getContext(), "分享成功", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "分享成功", Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -190,15 +189,14 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
          */
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
         }
-
         /**
          * @descrption 分享取消的回调
          */
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-            Toast.makeText(getContext(), "分享取消了", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "分享取消了", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -400,7 +398,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     web.setThumb(image);  //缩略图
                     web.setDescription("");//描述
 
-                    new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
+                    new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                            SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
                         @Override
                         public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                             if (share_media == SHARE_MEDIA.QQ) {
@@ -521,7 +520,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 String search = searchEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(search)) {
                     Intent intent6 = new Intent(getContext(), WebActivity.class);
-                    intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search);
+                    intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search );
                     startActivity(intent6);
                 }
 

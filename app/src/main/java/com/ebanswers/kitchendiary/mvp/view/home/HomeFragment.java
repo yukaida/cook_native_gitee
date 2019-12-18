@@ -185,8 +185,9 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
 
                 } else if (view.getId() == R.id.cooking_username_tv || view.getId() == R.id.cooking_user_iv) {
+                    String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user()+ "&my_openid=" + HomeActivity.isLoginMethod());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user()+ "&my_openid=" + userId);
                     startActivity(intent);
                 }
             }

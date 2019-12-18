@@ -163,9 +163,9 @@ public class WebActivity extends CommonActivity {
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
                 if (!url.contains("&openid=")){
-                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, "") +"&my_openid=" + HomeActivity.isLoginMethod());
+                    mWebView.loadUrl(url+"&openid="+ SPUtils.get(AppConstant.USER_ID, "") +"&my_openid=" + HomeActivity.getOpenId());
                 }else {
-                    mWebView.loadUrl(url+"&my_openid=" + HomeActivity.isLoginMethod());
+                    mWebView.loadUrl(url);
                 }
 
             }
@@ -180,7 +180,7 @@ public class WebActivity extends CommonActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             if (title != null) {
-                setTitle(title);
+//                setTitle(title);
             }
         }
 

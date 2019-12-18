@@ -397,8 +397,6 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     }
 
 
-
-
     /**
      * 选择图片
      */
@@ -447,7 +445,6 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     }
 
 
-
     @SuppressLint("NewApi")
     private void popupSendRepiceWindow(LinearLayout tabCenterLl) {
 
@@ -463,7 +460,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             popupWindowBuilder = new CustomPopWindow.PopupWindowBuilder(this);
         }
         popupWindowBuilder.setView(inflate).size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-               .setBgDarkAlpha(0.5f) .enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
+                .setBgDarkAlpha(0.5f).enableBackgroundDark(true).setOutsideTouchable(true).setAnimationStyle(R.style.RtcPopupAnimation);
         customPopWindow = popupWindowBuilder.create();
 
         repiceLl.setOnClickListener(new View.OnClickListener() {
@@ -833,6 +830,14 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         return TextUtils.isEmpty(userId) || "tmp_user".equals(userId);
     }
 
+    public static String getOpenId() {
+        String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+        if (TextUtils.isEmpty(userId)) {
+            return "tmp_user";
+        }
+        return userId;
+    }
+
     /**
      * 判断是否存在NavigationBar
      *
@@ -888,7 +893,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             builder = new DialogBackTip.Builder(this);
         }
 
-        if (!builder.create().isShowing()){
+        if (!builder.create().isShowing()) {
 
             builder.setTitle("发布失败，是否重新发布？")
                     .setLeftText("暂存至草稿箱")

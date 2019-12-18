@@ -45,7 +45,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid() + "&my_openid=" + HomeActivity.isLoginMethod());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid() + "&my_openid=" + HomeActivity.getOpenId());
                     mContext.startActivity(intent);
                 }
             });
@@ -82,7 +82,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid()+ "&my_openid=" + HomeActivity.isLoginMethod());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid()+ "&my_openid=" + HomeActivity.getOpenId());
                     mContext.startActivity(intent);
                 }
             });
@@ -113,7 +113,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid()+ "&my_openid=" + HomeActivity.isLoginMethod());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid()+ "&my_openid=" + HomeActivity.getOpenId());
                     mContext.startActivity(intent);
                 }
             });
