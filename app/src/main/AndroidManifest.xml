@@ -144,7 +144,12 @@
                 <data android:scheme="tencent1105879955" />
             </intent-filter>
         </activity> <!-- 关于界面 -->
-
+        <activity
+            android:name=".mvp.view.base.BindPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

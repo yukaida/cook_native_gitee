@@ -347,8 +347,8 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                             dialog = builder.create();
                             dialog.show();
                             delayCloseLoading();
-                            String accessToken = WechatUserConfig.getAccessToken(CommonApplication.getInstance());
-                            String openid = WechatUserConfig.getWechatOpenId(CommonApplication.getInstance());
+                            String accessToken = WechatUserConfig.getAccessToken(getApplicationContext());
+                            String openid = WechatUserConfig.getWechatOpenId(getApplicationContext());
                             if (NetworkUtils.checkNetwork(context.get())) {
                                 if (!TextUtils.isEmpty(accessToken) && !TextUtils.isEmpty(openid)) {
                                     // 有access_token，判断是否过期有效
@@ -488,16 +488,25 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                                 clearCookie();
                                 Log.d("Snail", "result: " + loginResultInfo.getData().getNeed_bind_phone());
                                 if (1 == loginResultInfo.getData().getNeed_bind_phone()) {
-//                                    Intent intent = new Intent(context.get(), BindPhoneActivity.class);
-//                                    intent.putExtra("open_id", loginResultInfo.getMsg());
-//                                    startActivity(intent);
-//                                    closeWaitLoading();
-//                                    finish();
+                                    EventBus.getDefault().post("finishThis");
+                                    bindPhoneSuccess(true);
+                                    PhoneUserConfig.removePhoneNumber();
+                                    SPUtils.setLogin(true);
+                                    SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
+                                    Intent intent = new Intent(context.get(), HomeActivity.class);
+                                    intent.putExtra("open_id", loginResultInfo.getMsg());
+                                    startActivity(intent);
+                                    closeWaitLoading();
+                                    finish();
+
                                 } else {
                                     if (context != null && context.get() != null) {
                                         EventBus.getDefault().post("finishThis");
                                         bindPhoneSuccess(true);
                                         PhoneUserConfig.removePhoneNumber();
+                                        SPUtils.setLogin(true);
+
+                                        SPUtils.put(AppConstant.USER_ID, loginResultInfo.getMsg());
                                         Intent intent = new Intent(context.get(), HomeActivity.class);
                                         intent.putExtra("open_id", loginResultInfo.getMsg());
                                         startActivity(intent);

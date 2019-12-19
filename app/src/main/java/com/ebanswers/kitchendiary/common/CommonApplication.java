@@ -68,12 +68,13 @@ public class CommonApplication extends UIApplication {
     }
 
     {
+
         //微信
-        PlatformConfig.setWeixin("wxc0c98be669f24f3c", "addeecc5241b3fd5a66a8eb763d1714f");
-//        PlatformConfig.setWeixin("wxc0c98be669f24f3c", "794c685413551d3a89d33c4cec307bf0");
+        PlatformConfig.setWeixin("wxc0c98be669f24f3c", "794c685413551d3a89d33c4cec307bf0");
         //新浪微博
 //        PlatformConfig.setSinaWeibo("2974250008", "f0ed38a6119295284c2e4960ad74679c");
         PlatformConfig.setQQZone("1105879955", "HaFPUO3O5E3FaHbR");
+
     }
 
     @Override
