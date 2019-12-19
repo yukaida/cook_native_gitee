@@ -77,6 +77,7 @@ import static com.ebanswers.kitchendiary.config.Constans.GetUserInfo;
 import static com.qmuiteam.qmui.widget.dialog.QMUITipDialog.Builder.ICON_TYPE_LOADING;
 
 public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHandler {
+    private static final String TAG = WXEntryActivity.class.getSimpleName();
     @BindView(R.id.tv_login_type)
     TextView tvLoginType;
     @BindView(R.id.layout_login_container)
@@ -347,8 +348,9 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                             dialog = builder.create();
                             dialog.show();
                             delayCloseLoading();
-                            String accessToken = WechatUserConfig.getAccessToken(CommonApplication.getInstance());
-                            String openid = WechatUserConfig.getWechatOpenId(CommonApplication.getInstance());
+                            String accessToken = WechatUserConfig.getAccessToken(getApplicationContext());
+                            String openid = WechatUserConfig.getWechatOpenId(getApplicationContext());
+                            Log.d(TAG, "onResp: accessToken = " + accessToken + " , openid = " + openid);
                             if (NetworkUtils.checkNetwork(context.get())) {
                                 if (!TextUtils.isEmpty(accessToken) && !TextUtils.isEmpty(openid)) {
                                     // 有access_token，判断是否过期有效
@@ -404,6 +406,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
         RetrofitTask.getAccessToken(get_access_token, new RetrofitTask.CallBack<WechatConfig>() {
             @Override
             public void result(WechatConfig wechatConfig) {
+                Log.d(TAG, "result: wechatconfig = " + wechatConfig.toString());
                 if (wechatConfig != null) {
                     String access_token = wechatConfig.getAccess_token();
                     String refresh_access_token = wechatConfig.getRefresh_token();
@@ -424,6 +427,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
 
             @Override
             public void onError() {
+                Log.d(TAG, "result: error");
                 ToastCustom.makeText(R.string.login_failed).show();
             }
         });
