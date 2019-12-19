@@ -407,7 +407,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
         bottomDialog = new Dialog(this, R.style.CustomDialog);
         bottomDialog.show();
         if (bottomDialog.getWindow() != null)
-            bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+            bottomDialog.getWindow().setGravity(Gravity.CENTER);
         bottomDialog.setContentView(R.layout.popup_send_repice_diary);
         LinearLayout diaryLl = bottomDialog.findViewById(R.id.diary_ll);
         TextView closeTv = bottomDialog.findViewById(R.id.close_tv);
