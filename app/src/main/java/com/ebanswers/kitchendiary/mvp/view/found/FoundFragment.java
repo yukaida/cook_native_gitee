@@ -158,4 +158,14 @@ public class FoundFragment extends CommonLazyFragment implements ViewPager.OnPag
         }
 
     }
+
+    public void addData3() {//发布日记预展示
+        focuFoundVp.setCurrentItem(0);
+        FoundFragmentSub item = (FoundFragmentSub) foundViewPagerAdapter.getItem(0);
+        if (item != null){
+            item.addDiary();
+        }
+
+    }
+
 }

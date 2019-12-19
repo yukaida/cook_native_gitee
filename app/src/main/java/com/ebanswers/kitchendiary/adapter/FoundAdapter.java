@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,12 @@ import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.ebanswers.kitchendiary.utils.Utils.getContext;
 
 /**
  * Create by dongli
@@ -166,8 +173,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 helper.setText(R.id.user_descrbe_tv,spannableString);
 
             }else {
-                //todo 检测是否携带话题------------------------------------------------
-                helper.setText(R.id.user_descrbe_tv,item.getMsg_content());
+                TextView textView_comment = helper.getView(R.id.user_descrbe_tv);
+                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment,item));
             }
 
         }else {
@@ -180,7 +187,8 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 helper.setText(R.id.user_descrbe_tv,spannableString);
 
             }else {
-                helper.setText(R.id.user_descrbe_tv,"   ");
+                TextView textView_comment = helper.getView(R.id.user_descrbe_tv);
+                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment,item));
             }
 
         }
@@ -545,6 +553,69 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
         };
         ApiMethods.getMoreComment(new MyObserver<CommentInfoMore>(mContext, listener), "allcomment", draft_id, "3");
+    }
+
+    private CharSequence analysisTextView(String desc, TextView tv,AllMsgFound item) {
+        /*正则表达式  取出 两个#之间的内容 （不包含#） */
+        Pattern p = Pattern.compile("#([^\\#|.]+)#");
+        /*android 提供的 具有强大的CharSequence 处理能力 各种区域处理*/
+        SpannableString ss = new SpannableString(desc);
+        Matcher m = p.matcher(desc);
+        /*由于@昵称、#话题#、http://等这些关键字是可以点击的，所以我们需要对TextView做一些处理，需要去设置它的MovementMethod*/
+        if (m.find()) {
+            // 要实现文字的点击效果，这里需要做特殊处理
+            tv.setMovementMethod(LinkMovementMethod.getInstance());
+            // 重置正则位置
+            m.reset();
+        }
+        /*循环找出每个复合正则的字符串，逐个处理*/
+        while (m.find()) {
+            /*取出 字符串 前后添加#*/
+            final String s = m.group(1);
+            int startIndex = m.start(1) - 1;
+            int endIndex = startIndex + s.length()+2;
+            /*区域处理*/
+
+            ss.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Log.e("MyClickSpan", "onClick-----" + s);
+
+//                    https://wechat.53iq.com/tmp/kitchen/food/square/topic/2009699135487?code=123
+
+                    String url_head = "https://wechat.53iq.com/tmp/kitchen/food/square/topic/";
+                    String url_end = "?code=123";
+                    String url_middle = "";
+                    String url_openid = "&openid=" + (String) SPUtils.get(AppConstant.USER_ID, "");
+
+                    for (int i = 0; i < item.getTopic_list().size(); i++) {
+                        if (item.getTopic_list().get(i).getTopic_content().equals(s)) {
+                            url_middle = item.getTopic_list().get(i).getTopic_id();
+                        }
+                    }
+
+                    StringBuilder url = new StringBuilder();
+                    url.append(url_head);
+                    url.append(url_middle);
+                    url.append(url_end);
+                    url.append(url_openid);
+                    Intent intent = new Intent(mContext, WebActivity.class);
+                    intent.putExtra("url", url.toString());
+                    mContext.startActivity(intent);
+                }
+
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    //        super.updateDrawState(ds);
+                    //    按自己需求    重写 父类方法.
+                    //        字体变色
+                    ds.setColor(Color.parseColor("#507daf"));
+                    //            设置下划线
+                    ds.setUnderlineText(false);
+                }
+            }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return ss;
     }
 
 }

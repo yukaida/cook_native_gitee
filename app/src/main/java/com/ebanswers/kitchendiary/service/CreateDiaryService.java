@@ -11,6 +11,8 @@ import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.ContentBean;
 import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.PiclistBean;
 import com.ebanswers.kitchendiary.bean.PictureBean;
 import com.ebanswers.kitchendiary.bean.PostDiaryBack;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
@@ -88,6 +90,7 @@ public class CreateDiaryService extends Service {
             public void onNext(PostDiaryBack postDiaryBack) {
                 Toast.makeText(CreateDiaryService.this, "发布成功", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onNext: 发布成功");
+                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_SUCCESS,"发布成功"));
                 stopSelf();
             }
 
@@ -107,6 +110,7 @@ public class CreateDiaryService extends Service {
                 Toast.makeText(CreateDiaryService.this, "发布成功", Toast.LENGTH_SHORT).show();
                 list_yun_pictures_path.clear();
 
+                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_SUCCESS,"发布成功"));
                 stopSelf();
             }
 

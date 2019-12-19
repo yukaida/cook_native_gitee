@@ -28,6 +28,7 @@ import com.ebanswers.kitchendiary.constant.FileUtils;
 import com.ebanswers.kitchendiary.eventbus.Event;
 import com.ebanswers.kitchendiary.mvp.view.base.BaseActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.HomeActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.SendDiaryActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.utils.CheckUpdateTask;
@@ -372,7 +373,8 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.id_tv_setting_activity_mytag:
                 if (SPUtils.getIsLogin()) {
-                    gowWeb("https://wechat.53iq.com/tmp/kitchen/" + SPUtils.get(AppConstant.USER_ID, "") + "/tag");
+                    Intent intent = new Intent(SettingActivity.this, TagActivity.class);
+                    startActivity(intent);
                 } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                     startActivity(new Intent(this, WelActivity.class));

@@ -16,6 +16,10 @@ public class Event {
     public static final int EVENT_SAVE_SUCCESS= 8; // 保存成功
     public static final int EVENT_SEND_SUCCESS= 9; // 发布失败
 
+    public static final int EVENT_UPDATE_FOUND= 10; // 发布日记
+
+
+
     private int mType = 0;
 
     private String mParam;

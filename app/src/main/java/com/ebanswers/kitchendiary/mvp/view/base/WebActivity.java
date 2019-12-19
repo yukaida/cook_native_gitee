@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,10 +20,15 @@ import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.js.JsApi;
 import com.ebanswers.kitchendiary.utils.LogUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.BindView;
+
+import static android.webkit.WebView.setWebContentsDebuggingEnabled;
 
 /*
  *    desc   : 浏览器界面
@@ -34,6 +40,7 @@ public class WebActivity extends CommonActivity {
     @BindView(R.id.wv_web_view)
     WebView mWebView;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_web;
@@ -42,6 +49,15 @@ public class WebActivity extends CommonActivity {
     @Override
     protected int getTitleBarId() {
         return R.id.tb_web_title;
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 19) {
+            setWebContentsDebuggingEnabled(true);
+        }
     }
 
     @Override
@@ -56,6 +72,19 @@ public class WebActivity extends CommonActivity {
         settings.setAllowFileAccess(true);
         // 支持javaScript
         settings.setJavaScriptEnabled(true);
+
+        //js调用android原生方法
+//        mWebView.addJavascriptInterface(new JsApi(),"jsapi");
+
+        WeakReference<WebView> weakReference = new WeakReference(this);
+
+
+
+
+
+
+
+
         // 允许网页定位
         settings.setGeolocationEnabled(true);
         // 允许保存密码
@@ -73,7 +102,7 @@ public class WebActivity extends CommonActivity {
         }
 
         // 加快HTML网页加载完成的速度，等页面finish再加载图片
-        if (Build.VERSION.SDK_INT >= 19) {
+        if(Build.VERSION.SDK_INT >= 19) {
             settings.setLoadsImagesAutomatically(true);
         } else {
             settings.setLoadsImagesAutomatically(false);

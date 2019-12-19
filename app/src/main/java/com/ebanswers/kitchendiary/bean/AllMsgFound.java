@@ -1,5 +1,7 @@
 package com.ebanswers.kitchendiary.bean;
 
+import com.ebanswers.kitchendiary.bean.Topics.NormalTopics;
+
 import java.util.List;
 
 /**
@@ -67,7 +69,7 @@ public class AllMsgFound  {
     private boolean is_liked;
     private String article_link;
     private boolean is_class;
-    private List<?> topic_list;
+    private List<NormalTopics> topic_list;
     private List<LikedInfo> liked;
     private List<CommentInfo> comment;
     private List<String> thumbnail_url;
@@ -320,11 +322,11 @@ public class AllMsgFound  {
         this.is_class = is_class;
     }
 
-    public List<?> getTopic_list() {
+    public List<NormalTopics> getTopic_list() {
         return topic_list;
     }
 
-    public void setTopic_list(List<?> topic_list) {
+    public void setTopic_list(List<NormalTopics> topic_list) {
         this.topic_list = topic_list;
     }
 

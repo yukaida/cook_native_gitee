@@ -19,9 +19,11 @@ import com.ebanswers.kitchendiary.bean.Drafts;
 import com.ebanswers.kitchendiary.bean.DraftsDeleteBack;
 import com.ebanswers.kitchendiary.bean.draftsDetail.DraftsDetail;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.google.gson.Gson;
 import com.hjq.bar.OnTitleBarListener;
@@ -42,6 +44,7 @@ import static com.chad.library.adapter.base.BaseQuickAdapter.SCALEIN;
 public class DraftsActivity extends CommonActivity {
     private static final String TAG = "DraftsActivity";
     private Context context;
+    private String openid_dre = (String) SPUtils.get(AppConstant.USER_ID, "");
     @BindView(R.id.drafts_title)
     TitleBar draftsTitle;
     @BindView(R.id.drafts_rv)
@@ -142,7 +145,7 @@ public class DraftsActivity extends CommonActivity {
                         //todo 将子项草稿重新添加到编辑界面
                         Toast.makeText(context, "添加回编辑界面", Toast.LENGTH_SHORT).show();
 
-                        getDraftsDetail(draftsItem.getDraft_id(), "oixkIuM2YmeYND1q67WdUrOqza3I");
+                        getDraftsDetail(draftsItem.getDraft_id(), openid_dre);
 
                         break;
                 }
@@ -165,7 +168,7 @@ public class DraftsActivity extends CommonActivity {
                         Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
                         //todo 删除这条草稿
                         Log.d(TAG, "onClick: delete draftsitem"+draftsItem.getDraft_id());
-                        deleteDraftsItem("oixkIuM2YmeYND1q67WdUrOqza3I",draftsItem.getDraft_id(),position);
+                        deleteDraftsItem(openid_dre,draftsItem.getDraft_id(),position);
 
                     }
                 }).setLeftClickListener(new DialogInterface.OnClickListener() {
@@ -180,7 +183,7 @@ public class DraftsActivity extends CommonActivity {
 
     @Override
     protected void initData() {//初始化数据
-        loadDraftsData("oixkIuM2YmeYND1q67WdUrOqza3I");
+        loadDraftsData(openid_dre);
     }
 
     public void loadDraftsData( String openid) {//草稿箱加载数据---------------
@@ -216,8 +219,7 @@ public class DraftsActivity extends CommonActivity {
                     Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onNext:delete " + draftsDeleteBack.getCode() + draftsDeleteBack.getData());
                     //刷新草稿箱
-                    //todo 加入删除动画
-                    draftsAdapter.notifyItemRemoved(position);
+                    draftsAdapter.remove(position);
 
                 }
             }
@@ -247,7 +249,6 @@ public class DraftsActivity extends CommonActivity {
                     intent_toSendRepiceActivity.putExtra("json_draftsDetail", json_draftsDetail);
                     setResult(RESULT_OK, intent_toSendRepiceActivity);
                     finish();
-
                 } else {
                     Toast.makeText(context, "未获取到正确数据，请重试", Toast.LENGTH_SHORT).show();
                 }

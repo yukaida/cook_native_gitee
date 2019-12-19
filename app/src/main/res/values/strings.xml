@@ -103,25 +103,6 @@
     <string name="login_resend_code">重新发送</string>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <string name="home">智能厨房</string>
     <string name="community">厨房社区</string>
     <string name="acp">烹饪程序</string>
@@ -503,9 +484,8 @@
     <!--我的标签-->
     <string name="tag_mytag">我的标签</string>
     <string name="tag_leastOne">至少选择一个标签</string>
-    <string name="tag_create_tag">生成一个标签</string>
-
-
+    <string name="tag_create_tag">生成我的标签</string>
+    <string name="tag_create_resettag">重置标签</string>
 
     <!--我的-->
     <string name="mine_name">姓名</string>

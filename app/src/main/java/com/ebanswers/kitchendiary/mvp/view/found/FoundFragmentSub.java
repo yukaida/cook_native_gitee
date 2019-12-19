@@ -38,6 +38,9 @@ import com.ebanswers.kitchendiary.adapter.RecommendFocusAdapter;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
 import com.ebanswers.kitchendiary.bean.DeleteDRBack;
+import com.ebanswers.kitchendiary.bean.DiaryPicinfo;
+import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.ContentBean;
+import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.PiclistBean;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
@@ -400,11 +403,11 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         case R.id.found_button_delete:
                             diary_id_fordelete = item.getDiary_id();
                             position_fordelete = position;
-                            if (item.getCreate_user().equals(openid)) {
+//                            if (item.getCreate_user().equals(openid)) {
                                 showPopupMenu(view);
-                            } else {
-                                Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
-                            }
+//                            } else {
+//                                Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
+//                            }
 
                             break;
                     }
@@ -955,6 +958,59 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
 //        }
     }
+
+    public void addDiary(){
+
+//        //todo  取一个日记信息 添加到待展示界面
+//
+//        String ContentBean_str = "";
+//        ContentBean_str= (String) SPUtils.get("ContentBean",ContentBean_str);
+//        ContentBean contentBean = new Gson().fromJson(ContentBean_str, ContentBean.class);
+//
+//        HashMap<String, String> map = new HashMap<>();
+//        map = contentBean.getMap();
+//        String PiclistBean_str = "";
+//
+//        List<DiaryPicinfo> image_list = new ArrayList<>();
+//
+//
+//        PiclistBean_str=(String) SPUtils.get("PiclistBean",PiclistBean_str);
+//        PiclistBean piclistBean = new Gson().fromJson(PiclistBean_str, PiclistBean.class);
+//        image_list = piclistBean.getList();
+//
+//
+//        AllMsgFound allMsgFound = new AllMsgFound();
+//        allMsgFound.setMsg_content(map.get("msg"));//获取文字内容
+//
+//        List<String> img_url = new ArrayList<>();
+//
+//        for (int i = 0; i < image_list.size(); i++) {
+//            img_url.add(image_list.get(i).getImagePath());//获取图片列表
+//        }
+//
+//        allMsgFound.setImg_url(img_url);
+//
+//
+//
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (foundAdapter != null) {
+//                    foundAdapter.addData(0, allMsgFound);
+//                    Log.d("yukaida1", "addDiary: " + allMsgFound.getMsg_content() + "\n"+allMsgFound.getImg_url().get(0));
+//                    foundAdapter.notifyDataSetChanged();
+//
+//                }
+//            }
+//        },500);
+//
+//
+
+
+
+    }
+
 
     private void showPopupMenu(View view) {//删除pop
         // View当前PopupMenu显示的相对View的位置

@@ -12,16 +12,27 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:normalScreens="true"
         android:resizeableActivity="true"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/icon_acount_head"
         android:smallScreens="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".mvp.view.base.SplashActivity"
+            android:theme="@style/SplashTheme">
 
-        <activity android:name=".mvp.view.mine.TagActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme">
+
+            <!-- 程序入口 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
+        <activity
+            android:name=".mvp.view.mine.TagActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"></activity>
 
         <service
             android:name=".service.CreateDiaryService"
@@ -87,18 +98,12 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.base.HomeActivity"
-            android:theme="@style/LoginTheme"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-            <!-- 程序入口 -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
         <activity
             android:name=".mvp.view.base.LoginActivity"
             android:launchMode="singleTop"

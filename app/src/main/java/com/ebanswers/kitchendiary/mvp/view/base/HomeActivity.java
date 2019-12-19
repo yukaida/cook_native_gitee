@@ -814,6 +814,18 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
             popupOpenRepice();
         } else if (message.getType() == Event.EVENT_SAVE_FAIL) {
             popupBackTip();
+        } else if (message.getType() == Event.EVENT_UPDATE_FOUND) {//发布日记成功后，先处理一组本地数据给用户看
+            mViewPager.setCurrentItem(2);
+            clearStatus();
+            selectIndex(2);
+            FoundFragment item = (FoundFragment) mAdapter.getItem(2);
+            if (item != null) {
+                item.addData3();
+            }
+
+
+        } else {
+
         }
     }
 

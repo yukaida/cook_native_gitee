@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +35,14 @@ import com.ebanswers.kitchendiary.bean.Topics.NormalTopics;
 import com.ebanswers.kitchendiary.bean.Topics.Topics;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.eventbus.Event;
+import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.mine.TagActivity;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
 import com.ebanswers.kitchendiary.service.CreateDiaryService;
+import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.google.gson.Gson;
 import com.hjq.bar.OnTitleBarListener;
@@ -84,7 +90,7 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     ImageView diaryImageviewAdd;
 
     @BindView(R.id.diary_textView_fabu)
-    TextView diaryTextViewFabu;
+    Button diaryTextViewFabu;
     @BindView(R.id.diary_textView_recommand)
     TextView diaryTextViewRecommand;
 
@@ -93,7 +99,6 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
 
     private List<DiaryPicinfo> piclist = new ArrayList<>();
     private SendDiaryPicAdapter sendDiaryPicAdapter;
-
 
     @Override
 
@@ -125,14 +130,10 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
 
             @Override
             public void onTitleClick(View v) {
-                Intent intent = new Intent(SendDiaryActivity.this, TagActivity.class);
-                startActivity(intent);
-
             }
 
             @Override
             public void onRightClick(View v) {
-
             }
         });
 
@@ -173,9 +174,16 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                         Log.d(TAG, "onItemChildClick: delete");
                         piclist.remove(position);
                         sendDiaryPicAdapter.notifyDataSetChanged();
+                        diaryImageviewAdd.setVisibility(View.VISIBLE);
                         break;
                 }
 
+            }
+        });
+
+        diaryTextViewFabu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
@@ -185,7 +193,6 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     protected void initData() {
 
     }
-
 
     @Override
     public void hasPermission(List<String> granted, boolean isAll) {
@@ -232,46 +239,74 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                 break;
 
             case R.id.diary_textView_fabu://发布
-                HashMap<String, String> map = new HashMap<>();
-                map.put("topic_id", "");
-                map.put("msg", diaryEditText.getText().toString().trim());//主要文字内容
-                map.put("article_link", diaryTextViewLink.getText().toString().trim());//超链接
-                map.put("nickname", "");//昵称（空）
-                map.put("head_url", "");//（空）
-                map.put("openid", "0_p18170402901");//用户id
-                map.put("msg_type", "diary");//发布类型（diary）
+                if (diaryTextViewLink.getVisibility() == View.VISIBLE) {
+                    String url_link = diaryTextViewLink.getText().toString().trim();
 
-                Log.d(TAG, "onViewClicked: ");
+                    if (url_link.length() > 1) {
+                        if (Patterns.WEB_URL.matcher(url_link).matches() || URLUtil.isValidUrl(url_link)) {
+                        } else {
+                            Toast.makeText(this, "请输入合法的网址", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
 
-                List<DiaryPicinfo> imagelist =  sendDiaryPicAdapter.getData();
-
-                //构建intent 把数据传递过去
-                Intent intent_toDiaryService = new Intent(SendDiaryActivity.this, CreateDiaryService.class);
-
-                ContentBean contentBean = new ContentBean();
-                contentBean.setMap(map);
-
-                PiclistBean piclistBean = new PiclistBean();
-                piclistBean.setList(imagelist);
+                }
 
 
-                intent_toDiaryService.putExtra("ContentBean", new Gson().toJson(contentBean));//文本信息
+                if (NetworkUtils.checkNetwork(this)) {
+                    if (diaryEditText.getText().length() > 1) {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("topic_id", "");
+                        map.put("msg", diaryEditText.getText().toString().trim());//主要文字内容
+                        map.put("article_link", diaryTextViewLink.getText().toString().trim());//超链接
+                        map.put("nickname", "");//昵称（空）
+                        map.put("head_url", "");//（空）
+                        map.put("openid", (String) SPUtils.get(AppConstant.USER_ID, ""));//用户id
+                        map.put("msg_type", "diary");//发布类型（diary）
+
+                        Log.d(TAG, "onViewClicked: ");
+
+                        List<DiaryPicinfo> imagelist = sendDiaryPicAdapter.getData();
+
+                        //构建intent 把数据传递过去
+                        Intent intent_toDiaryService = new Intent(SendDiaryActivity.this, CreateDiaryService.class);
+
+                        ContentBean contentBean = new ContentBean();
+                        contentBean.setMap(map);
+
+                        PiclistBean piclistBean = new PiclistBean();
+                        piclistBean.setList(imagelist);
+
+                        intent_toDiaryService.putExtra("ContentBean", new Gson().toJson(contentBean));//文本信息-发送
 
 //                intent_toDiaryService.putExtra("map", map);//文本信息
-                intent_toDiaryService.putExtra("PiclistBean", new Gson().toJson(piclistBean));//图片列表
+                        intent_toDiaryService.putExtra("PiclistBean", new Gson().toJson(piclistBean));//图片列表-发送
 
-                startService(intent_toDiaryService);
-//                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUBND, "发现页"));
-//                finish();
-                break;
+                        SPUtils.put("ContentBean", new Gson().toJson(contentBean));//文本信息-展示
+                        SPUtils.put("PiclistBean", new Gson().toJson(piclistBean));//图片信息-展示
+
+                        Log.d(TAG, "yukaida1: "+SPUtils.get("PiclistBean",new String()));
+
+                        startService(intent_toDiaryService);
+                        EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUND, "发现页"));
+
+                        finish();
+                        break;
+                    } else {
+                        ToastUtils.show("请输入日记内容");
+                        break;
+                    }
+                } else {
+                    Toast.makeText(this, "请检查网络连接", Toast.LENGTH_SHORT).show();
+                    break;
+                }
 
             case R.id.diary_textView_topic:
                 String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
                 getTopic(openid);//获取话题列表
                 Log.d(TAG, "onViewClicked: " + openid);
                 break;
-            default:
-                break;
+
         }
     }
 
@@ -399,6 +434,14 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                                 String url = selectList.get(i).getCompressPath();
                                 Log.d("testneed", "onActivityResult: " + url);
                                 piclist.add(new DiaryPicinfo(url));
+
+
+                                if (sendDiaryPicAdapter.getData().size() == 9) {
+                                    diaryImageviewAdd.setVisibility(View.GONE);
+                                } else {
+                                    diaryImageviewAdd.setVisibility(View.VISIBLE);
+                                }
+
                             }
                             Log.d("testneed", "onActivityResult: " + piclist.size());
                             sendDiaryPicAdapter.notifyDataSetChanged();
@@ -409,7 +452,6 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                 } else {
                     ToastUtils.show("无图片选中");
                 }
-
 
                 break;
         }
@@ -433,11 +475,9 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                         topic_list.add(builder.toString());
                     }
 
-
                     diaryRecyclerViewTopiclist.setLayoutManager(new LinearLayoutManager(SendDiaryActivity.this));
                     TopicListAdapter topicListAdapter = new TopicListAdapter(R.layout.item_topic, topic_list);
                     diaryRecyclerViewTopiclist.setAdapter(topicListAdapter);
-
 
                     topicListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                         @Override
