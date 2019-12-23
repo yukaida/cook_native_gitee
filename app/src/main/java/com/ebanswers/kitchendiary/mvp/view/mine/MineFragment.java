@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -192,6 +193,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
 //            Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
         }
+
         /**
          * @descrption 分享取消的回调
          */
@@ -380,25 +382,33 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         switch (view.getId()) {
             case R.id.user_icon:
                 if (!HomeActivity.isLoginMethod()) {
-                    openCamera(1, PictureConfig.SINGLE);
+                    //todo  这里暂时屏蔽修改头像 待后台修复后继续完善
+//                    openCamera(1, PictureConfig.SINGLE);
+                } else {
+                    startActivity(new Intent(getContext(), WelActivity.class));
                 }
                 break;
             case R.id.username_tv:
-                if (!HomeActivity.isLoginMethod()) popupChangeNameWindow(usernameTv);
+                if (!HomeActivity.isLoginMethod()) {
+                    //todo  这里暂时屏蔽修改昵称 待后台修复后继续完善
+//                    popupChangeNameWindow(usernameTv);
+                } else {
+                    startActivity(new Intent(getContext(), WelActivity.class));
+                }
                 break;
             case R.id.share_iv:
                 if (SPUtils.getIsLogin()) {
-                    UMImage image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+                    UMImage image = new UMImage(getContext(), ((BitmapDrawable)userIcon.getDrawable()).getBitmap());//分享图标
                     image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                     image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
-                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/"); //切记切记 这里分享的链接必须是http开头
+//                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                    final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/food/diary?openid="+userId);
+                            //切记切记 这里分享的链接必须是http开头
 //                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
-                    web.setTitle(getString(R.string.app_name));//标题
+                    web.setTitle(getContext().getString(R.string.share_title_new));//标题
                     web.setThumb(image);  //缩略图
-                    web.setDescription("");//描述
-
+                    web.setDescription(getContext().getString(R.string.share_des_new));//描述
                     new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                             SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
                         @Override
@@ -413,7 +423,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                                 new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.QZONE).withMedia(web).setCallback(umShareListener).share();
                             } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
                                 new ShareAction(getSupportActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(web).setCallback(umShareListener).share();
-
                             }
                         }
                     }).open();
@@ -429,14 +438,11 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 //                startActivity(intent4);
                 Intent intent4 = new Intent(getContext(), SettingActivity.class);
                 startActivity(intent4);
-
                 break;
             case R.id.invitation_card_iv:
-
                 Intent intent1 = new Intent(getContext(), WebActivity.class);
                 intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/share/edit2?code=123&openid=" + userId);
                 startActivity(intent1);
-
                 break;
             case R.id.me_diary_tv:
                 meDiaryTv.setTextColor(getResources().getColor(R.color.text_black_normal));
@@ -505,9 +511,15 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 repiceRv.setVisibility(View.GONE);
                 collectionLl.setVisibility(View.VISIBLE);*/
 
-                Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", "  https://wechat.53iq.com/tmp/kitchen/food/diary?types=collections&code=123");
-                startActivity(intent);
+
+                if (!HomeActivity.isLoginMethod()) {
+                    userId = (String) SPUtils.get(AppConstant.USER_ID, "");
+                    Intent intent = new Intent(getContext(), WebActivity.class);
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?types=collections&code=123&openid=" + userId);
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(getContext(), WelActivity.class));
+                }
 
                 break;
             case R.id.me_list_iv:
@@ -521,7 +533,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 String search = searchEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(search)) {
                     Intent intent6 = new Intent(getContext(), WebActivity.class);
-                    intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search );
+                    intent6.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/cookbook/" + search);
                     startActivity(intent6);
                 }
 
@@ -541,7 +553,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 TextPaint tp11 = collectionRepiceTv.getPaint();
                 tp10.setFakeBoldText(true);
                 tp11.setFakeBoldText(false);
-
 
                 break;
             case R.id.collection_repice_tv:
@@ -856,8 +867,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 startActivity(new Intent(getActivity(), WelActivity.class));
             }
         });
-
-
     }
 
     @SuppressLint("NewApi")

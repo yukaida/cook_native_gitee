@@ -22,7 +22,6 @@ import java.util.Random;
  */
 public class MoreWonderfulAdapter extends BaseQuickAdapter<SquareInfo.DataBean, BaseViewHolder> {
 
-
     public MoreWonderfulAdapter() {
         super(R.layout.item_more_wonderful);
     }

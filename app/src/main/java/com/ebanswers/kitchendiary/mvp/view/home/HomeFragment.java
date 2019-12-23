@@ -296,7 +296,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                     cookingActivityAdapter.notifyDataSetChanged();
                 }
             }
-
         }
     }
 
@@ -307,7 +306,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         if (data != null) {
             if (data.getData() != null) {
                 if (data.getData().size() > 0) {
-
 //                    if (isSimpleClick) {
 //                        expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
 //                        isSimpleClick = false;
@@ -357,7 +355,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         }else {
             ToastUtils.show("无可用网络！");
         }
-
         homeSwrl.finishRefresh();
     }
 

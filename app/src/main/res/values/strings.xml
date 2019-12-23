@@ -509,6 +509,8 @@
     <string name="tag_choicemytag">选择我的标签，找到兴趣相同的小伙伴</string>
     <string name="item_drafts_delete">删除</string>
     <string name="item_drafts_repicename">菜谱名称</string>
+    <string name="share_title_new">我再「厨房日记」分享了很多美食,生活,快来看看~</string>
+    <string name="share_des_new">加入「厨房日记」，和我一起分享厨房生活和欢乐吧！</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
