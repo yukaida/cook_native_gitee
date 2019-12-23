@@ -546,6 +546,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
     private void addViewItem() {
         View inflate = View.inflate(this, R.layout.item_view_food, null);
         foodMaterialLl.addView(inflate);
+
         sortViewItem();
     }
 
@@ -905,7 +906,9 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             public void onClick(DialogInterface dialog, int which) {
 
                 //todo 点击确认之后清空当前编辑的数据
+                foodMaterialLl.removeAllViews();
 
+                foodStepAdapter.removeAllFooterView();
 
 
                 Intent intent = new Intent(SendRepiceActivity.this, DraftsActivity.class);
