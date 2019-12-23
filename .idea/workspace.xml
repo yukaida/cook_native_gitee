@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="onActivityResult" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -14,28 +15,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc0dc6c1-9c6e-4ff1-beca-e4e8e86bf2fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/MoreWonderfulAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/MoreWonderfulAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/icon_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/icon_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/icon_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/icon_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,84 +47,109 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="414" column="95" lean-forward="true" selection-start-line="414" selection-start-column="95" selection-end-line="414" selection-end-column="95" />
+            <state relative-caret-position="486">
+              <caret line="100" column="23" selection-start-line="100" selection-start-column="23" selection-end-line="100" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="864">
+              <caret line="141" column="25" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="908" selection-start-line="908" selection-end-line="908" />
               <folding>
-                <element signature="e#15829#15877#0" expanded="true" />
-                <element signature="e#15971#16017#0" expanded="true" />
+                <element signature="e#22393#22394#0" expanded="true" />
+                <element signature="e#22467#22468#0" expanded="true" />
+                <element signature="e#39049#39050#0" expanded="true" />
+                <element signature="e#39089#39090#0" expanded="true" />
+                <element signature="e#42749#42750#0" expanded="true" />
+                <element signature="e#42812#42813#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fe267a1dca20a93fd94a1020416956de/res/values/values.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundTabAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+            <state relative-caret-position="162">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f8b863a589ae02106b68e5cf499c298/res/values/values.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+            <state relative-caret-position="234">
+              <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_found_data.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="514" selection-start-line="514" selection-end-line="514" />
+            <state relative-caret-position="336">
+              <caret line="76" column="52" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="406" column="104" selection-start-line="406" selection-start-column="104" selection-end-line="406" selection-end-column="104" />
+              <folding>
+                <element signature="e#28377#28378#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/ids.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/app/libs/umeng-share-core-6.9.6.jar!/com/umeng/socialize/media/UMImage.class">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_send_repice.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+            <state relative-caret-position="162">
+              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            <state relative-caret-position="210">
+              <caret line="217" column="28" selection-start-line="217" selection-start-column="28" selection-end-line="217" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_focus_sub.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-144" />
+            <state relative-caret-position="18">
+              <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+            </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/config_arrays.xml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -158,6 +173,10 @@
       <find>share_iv</find>
       <find>这里是描述</find>
       <find>hot_recipe_ll</find>
+      <find>清空</find>
+      <find>cover</find>
+      <find>save_draft_tv</find>
+      <find>found_button_delete</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -187,7 +206,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/service/CreateRepiceDraffService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/receiver/AlarmReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/service/CreateRepiceDraftService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/login/PasswordLoginFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/login/PasswordSetFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/login/CheckCodeFragment.java" />
@@ -196,15 +214,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/SettingActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/api/LoginApi.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/api/ApiMethods.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/eventbus/Event.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/MoreWonderfulAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/wxapi/WXEntryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_mine.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/common/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" />
       </list>
     </option>
   </component>
@@ -299,6 +318,13 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="kitchendiary" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="adapter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cook1219810end" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="kitchendiary" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -317,15 +343,6 @@
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
               <item name="home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cook1219810end" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="kitchendiary" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="mvp" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="mine" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cook1219810end" type="1abcf292:AndroidViewProjectNode" />
@@ -510,7 +527,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576759595846</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1首页 热门菜谱 替换链接&#10;2未登录状态下 多个按钮禁止响应改为 弹出登录界面&#10;3未登录状态下“收藏”按钮改禁用为跳转登录界面，登录后修复“收藏”页面404bad问题&#10;4修复“我的消息”，点击头像，里面显示的还是厨房客人的问题&#10;5意外情况下可以删除别的用户的动态&#10;6禁用用户修改头像昵称功能&#10;7登录之后 “积分” 请在微信客户端打开连接&#10;8无网情况下发布日记提示无网并拦截后台事件&#10;9分享到微信QQ等logo修复，添加描述，替换链接&#10;10未登录的情况下，发现页数据加载不出来&#10;11修复单独发文字无法显示的问题">
+      <created>1577083787186</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1577083787186</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -518,7 +542,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20844504" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.19839142" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -526,14 +550,14 @@
       <window_info id="Resources Explorer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.42634562" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.57223797" />
+      <window_info anchor="bottom" id="Version Control" order="0" weight="0.49150142" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.35835695" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="6" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Build" order="8" weight="0.19971672" />
       <window_info anchor="bottom" id="Find" order="9" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -541,7 +565,7 @@
       <window_info anchor="right" id="Theme Preview" order="2" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Gradle" order="4" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.3069705" />
+      <window_info anchor="right" id="Preview" order="5" weight="0.2774799" />
       <window_info anchor="right" id="Word Book" order="6" side_tool="true" />
     </layout>
   </component>
@@ -588,38 +612,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="合并代码》添加/修改/优化功能点分部但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页" />
     <MESSAGE value="合并代码》添加/修改/优化功能点分布但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页" />
-    <option name="LAST_COMMIT_MESSAGE" value="合并代码》添加/修改/优化功能点分布但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页" />
+    <MESSAGE value="1首页 热门菜谱 替换链接&#10;2未登录状态下 多个按钮禁止响应改为 弹出登录界面&#10;3未登录状态下“收藏”按钮改禁用为跳转登录界面，登录后修复“收藏”页面404bad问题&#10;4修复“我的消息”，点击头像，里面显示的还是厨房客人的问题&#10;5意外情况下可以删除别的用户的动态&#10;6禁用用户修改头像昵称功能&#10;7登录之后 “积分” 请在微信客户端打开连接&#10;8无网情况下发布日记提示无网并拦截后台事件&#10;9分享到微信QQ等logo修复，添加描述，替换链接&#10;10未登录的情况下，发现页数据加载不出来&#10;11修复单独发文字无法显示的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="1首页 热门菜谱 替换链接&#10;2未登录状态下 多个按钮禁止响应改为 弹出登录界面&#10;3未登录状态下“收藏”按钮改禁用为跳转登录界面，登录后修复“收藏”页面404bad问题&#10;4修复“我的消息”，点击头像，里面显示的还是厨房客人的问题&#10;5意外情况下可以删除别的用户的动态&#10;6禁用用户修改头像昵称功能&#10;7登录之后 “积分” 请在微信客户端打开连接&#10;8无网情况下发布日记提示无网并拦截后台事件&#10;9分享到微信QQ等logo修复，添加描述，替换链接&#10;10未登录的情况下，发现页数据加载不出来&#10;11修复单独发文字无法显示的问题" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/common/UILazyFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="221" column="35" lean-forward="true" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="350" column="88" lean-forward="true" selection-start-line="350" selection-start-column="88" selection-end-line="350" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/api/Api.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-725">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/bean/LikedInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -690,21 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="98" column="42" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="83" column="20" lean-forward="true" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
@@ -757,29 +738,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_found_data.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="378" column="11" selection-start-line="378" selection-start-column="11" selection-end-line="378" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_found_sub.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="251" column="21" selection-start-line="251" selection-start-column="21" selection-end-line="251" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -816,21 +779,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="94" column="50" selection-start-line="94" selection-start-column="37" selection-end-line="94" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4674">
-          <caret line="341" column="24" selection-start-line="341" selection-start-column="24" selection-end-line="341" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -904,11 +852,104 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="414" column="95" lean-forward="true" selection-start-line="414" selection-start-column="95" selection-end-line="414" selection-end-column="95" />
+        <state relative-caret-position="897">
+          <caret line="347" selection-start-line="347" selection-end-line="347" />
           <folding>
             <element signature="e#15829#15877#0" expanded="true" />
             <element signature="e#15971#16017#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="100" column="23" selection-start-line="100" selection-start-column="23" selection-end-line="100" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_focus_sub.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="217" column="28" selection-start-line="217" selection-start-column="28" selection-end-line="217" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="141" column="25" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_send_repice.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendRepiceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="908" selection-start-line="908" selection-end-line="908" />
+          <folding>
+            <element signature="e#22393#22394#0" expanded="true" />
+            <element signature="e#22467#22468#0" expanded="true" />
+            <element signature="e#39049#39050#0" expanded="true" />
+            <element signature="e#39089#39090#0" expanded="true" />
+            <element signature="e#42749#42750#0" expanded="true" />
+            <element signature="e#42812#42813#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundTabAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_found_data.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="76" column="52" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="406" column="104" selection-start-line="406" selection-start-column="104" selection-end-line="406" selection-end-column="104" />
+          <folding>
+            <element signature="e#28377#28378#0" expanded="true" />
           </folding>
         </state>
       </provider>

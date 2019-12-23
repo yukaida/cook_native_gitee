@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -403,11 +404,12 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         case R.id.found_button_delete:
                             diary_id_fordelete = item.getDiary_id();
                             position_fordelete = position;
-//                            if (item.getCreate_user().equals(openid)) {
+                            Log.d("yukaida", "onItemChildClick: " + diary_id_fordelete + "\n" + openid);
+                            if (item.getCreate_user().equals(openid)) {
                                 showPopupMenu(view);
-//                            } else {
-//                                Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
-//                            }
+                            } else {
+                                Toast.makeText(mActivity, "请核对用户信息", Toast.LENGTH_SHORT).show();
+                            }
 
                             break;
                     }

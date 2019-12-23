@@ -16,7 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -193,8 +195,15 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             @Override
             public void onRightClick(View v) {
                 //跳转到草稿箱界面
-                Intent intent = new Intent(SendRepiceActivity.this, DraftsActivity.class);
-                startActivityForResult(intent, 56);
+
+                if (checkEditStatus()) {
+                    Intent intent = new Intent(SendRepiceActivity.this, DraftsActivity.class);
+                    startActivityForResult(intent, 56);
+                } else {
+                    popupCheckCover();
+                }
+
+
             }
         });
 
@@ -266,7 +275,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
             }
         });
     }
@@ -695,63 +703,60 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     break;
 
                 case 56://草稿箱返回数据
-                    String json_draftsDetail = data.getStringExtra("json_draftsDetail");
-                    Log.d("testneed", "onActivityResult: " + json_draftsDetail);
-                    DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
 
-
-                    List<String> img_url = draftsDetail.getData().getImg_url();//封面
-                    titlePath = img_url.get(0);
+                        String json_draftsDetail = data.getStringExtra("json_draftsDetail");
+                        Log.d("testneed", "onActivityResult: " + json_draftsDetail);
+                        DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
+                        List<String> img_url = draftsDetail.getData().getImg_url();//封面
+                        titlePath = img_url.get(0);
 //                    repiceCoverIv
-                    if (img_url.size() > 0) {
-                        GlideApp.with(this).load(img_url.get(0))
+                        if (img_url.size() > 0) {
+                            GlideApp.with(this).load(img_url.get(0))
 //                    .skipMemoryCache(true)
-                                .dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(repiceCoverIv);
+                                    .dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(repiceCoverIv);
 
-                        addLl.setVisibility(View.GONE);
-                        addDescTv.setVisibility(View.GONE);
-                    }
+                            addLl.setVisibility(View.GONE);
+                            addDescTv.setVisibility(View.GONE);
+                        }
 
+                        String title = draftsDetail.getData().getTitle();//菜谱名称
+                        repiceNameEt.setText(title);
 
-                    String msg_content = draftsDetail.getData().getMsg_content();//菜谱名称
-                    repiceNameEt.setText(msg_content);
+                        String explain = draftsDetail.getData().getMsg_content();//菜谱说明
+                        repiceDescEt.setText(explain);
 
-                    String desc = draftsDetail.getData().getDesc();//菜谱说明
-                    repiceDescEt.setText(desc);
+                        String cookbook_type = draftsDetail.getData().getCookbook_type();//菜谱类型（蒸烤/普通）
+                        if ("蒸烤菜谱".equals(cookbook_type)) {
+                            repiceSteamingRoastRb.setChecked(true);
+                        } else {
+                            repiceNormalRb.setChecked(true);
+                        }
 
-                    String cookbook_type = draftsDetail.getData().getCookbook_type();//菜谱类型（蒸烤/普通）
-                    if ("蒸烤菜谱".equals(cookbook_type)) {
-                        repiceSteamingRoastRb.setChecked(true);
-                    } else {
-                        repiceNormalRb.setChecked(true);
-                    }
+                        List<Material> material_list = draftsDetail.getData().getMaterial();//材料list
+                        loadAndAddMaterialView(material_list);
 
-                    List<Material> material_list = draftsDetail.getData().getMaterial();//材料list
-                    loadAndAddMaterialView(material_list);
-
-                    List<Steps> steps_lsit = draftsDetail.getData().getSteps();//步骤list
-                    List<Stepinfo> data_temp = new ArrayList<>();//添加进rv的list
-                    for (int i = 0; i < steps_lsit.size(); i++) {//将获取到的数据添加到界面原来的数组结构中，Edit属性默认全置为flase
-                        Stepinfo stepinfo = new Stepinfo();
-                        stepinfo.setDesc(steps_lsit.get(i).getDesc());
-                        stepinfo.setEdit(false);
-                        stepinfo.setImg(steps_lsit.get(i).getImg());
-                        stepinfo.setThumbnail(steps_lsit.get(i).getThumbnail());
-                        data_temp.add(stepinfo);
-                    }
+                        List<Steps> steps_lsit = draftsDetail.getData().getSteps();//步骤list
+                        List<Stepinfo> data_temp = new ArrayList<>();//添加进rv的list
+                        for (int i = 0; i < steps_lsit.size(); i++) {//将获取到的数据添加到界面原来的数组结构中，Edit属性默认全置为flase
+                            Stepinfo stepinfo = new Stepinfo();
+                            stepinfo.setDesc(steps_lsit.get(i).getDesc());
+                            stepinfo.setEdit(false);
+                            stepinfo.setImg(steps_lsit.get(i).getImg());
+                            stepinfo.setThumbnail(steps_lsit.get(i).getThumbnail());
+                            data_temp.add(stepinfo);
+                        }
 //                    foodStepAdapter.setNewData(stepinfos);
 //                    List<Stepinfo> data = foodStepAdapter.getData();
 //                    data.remove(position);
-                    foodStepAdapter.setNewData(data_temp);
-                    foodStepAdapter.notifyDataSetChanged();
-
-                    String tips = draftsDetail.getData().getTips();//小贴士
-                    repiceTipEt.setText(tips);
-
-                    break;
+                        foodStepAdapter.setNewData(data_temp);
+                        foodStepAdapter.notifyDataSetChanged();
+                        String tips = draftsDetail.getData().getDesc();//小贴士
+                        repiceTipEt.setText(tips);
+                        break;
+                    }
             }
         }
-    }
+
 
     @Override
     public void setData(DrufNumResponse data) {
@@ -878,6 +883,36 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 SPUtils.put("draft", "");
             }
         }).create().show();
+
+    }
+
+    public void  popupCheckCover() {//从草稿箱添加回来的数据确认覆盖弹窗
+
+        if (builder == null) {
+            builder = new DialogBackTip.Builder(this);
+        }
+
+        builder.setTitle("进入草稿箱当前已编辑菜谱会丢失\n" +
+                "是否保留？").setLeftText("不保留").setRightText("保留").setRightClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                scroll.fullScroll(ScrollView.FOCUS_DOWN);
+                Toast.makeText(SendRepiceActivity.this, "请点击最下方的“存为草稿”", Toast.LENGTH_SHORT).show();
+            }
+        }).setLeftClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //todo 点击确认之后清空当前编辑的数据
+
+
+
+                Intent intent = new Intent(SendRepiceActivity.this, DraftsActivity.class);
+                startActivityForResult(intent, 56);
+            }
+        }).create().show();
+
 
 
     }

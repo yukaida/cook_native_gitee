@@ -104,7 +104,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
     private int currentPosition = 0;
     String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
 
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -126,7 +125,6 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
         EventBusUtil.register(this);
         homePresenter = new HomePresenter(this, this);
-
 
         cookingActivityRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         cookingActivityAdapter = new CookingActivityAdapter();
@@ -207,11 +205,9 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
                 searchEt.setText("");
                 searchLl.setVisibility(View.GONE);
                 searchBgiv.setVisibility(View.VISIBLE);
-
                 isRefresh = true;
                 homePresenter.loadSquareInfo(userId, "0", true);
             }
@@ -388,16 +384,14 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGetMessage(Event message) {
-
     }
-
 
     @OnClick({R.id.search_tv, R.id.search_bgiv, R.id.hot_recipe_ll, R.id.brand_area_ll, R.id.integral_punching_ll, R.id.message_ll, R.id.more_wonderful_tv, R.id.expert_story_tv, R.id.activity_more_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.hot_recipe_ll:
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/square?code=123&ctg=cookbook&openid=" + userId);
+                intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/square?&X-source=diary&code=123&ctg=cookbook&openid=" + userId);
                 startActivity(intent);
                 break;
             case R.id.brand_area_ll:
