@@ -471,6 +471,11 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         String repiceDesc = repiceDescEt.getText().toString().trim();
         String repiceTip = repiceTipEt.getText().toString().trim();
         List<Stepinfo> data = foodStepAdapter.getData();
+
+        for (int i = 0; i < data.size(); i++) {
+            Log.d("catch1224", "repiceCreate: " + data.get(i).getImg());
+        }
+
         loadViewItem();
         if (img_url == null) {
             img_url = new ArrayList<String>();
@@ -507,8 +512,11 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
 
         Gson gson = new Gson();
 
+        //todo 这里需要做一个判断 是从相册选取的照片 还是从草稿箱获取的
         SPUtils.put(AppConstant.USER_IMAGE, titleThumbPath);
+
         SPUtils.put(AppConstant.pic, gson.toJson(data));
+
         SPUtils.put(AppConstant.repice, gson.toJson(allMsgFound));
 
         SPUtils.put(AppConstant.USER_IMAGE2, titleThumbPath);
@@ -564,7 +572,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
             foodMaterialLl.addView(inflate);
             sortViewItem();
         }
-
     }
 
     private void sortViewItem() {
@@ -653,7 +660,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -663,11 +669,9 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     if (selectList != null && selectList.size() > 0) {
-
                         if (type.equals("more")) {
                             stepinfos.clear();
                         }
-
                         for (int i = 0; i < selectList.size(); i++) {
                             if (selectList.get(i).isCompressed()) {
                                 if (type.equals("top")) {
@@ -695,16 +699,11 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                                 }
                             }
                         }
-
-
                     } else {
                         ToastUtils.show("无图片选中");
                     }
-
                     break;
-
                 case 56://草稿箱返回数据
-
                         String json_draftsDetail = data.getStringExtra("json_draftsDetail");
                         Log.d("testneed", "onActivityResult: " + json_draftsDetail);
                         DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
@@ -715,7 +714,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                             GlideApp.with(this).load(img_url.get(0))
 //                    .skipMemoryCache(true)
                                     .dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(repiceCoverIv);
-
                             addLl.setVisibility(View.GONE);
                             addDescTv.setVisibility(View.GONE);
                         }

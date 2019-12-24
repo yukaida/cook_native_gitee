@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.utils.FastClickUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
@@ -192,6 +193,133 @@ public class TagActivity extends CommonActivity {
             tagButton.setText(getResources().getString(R.string.tag_create_tag));
         }
 
+
+        tagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!FastClickUtils.isFastClick()) {
+                    Toast.makeText(getApplicationContext(), "请勿重复点击", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Log.d("tag_catch", "onViewClicked: 保存 "
+                            + "\n" + ischecked0
+                            + "\n" + ischecked1
+                            + "\n" + ischecked2
+                            + "\n" + ischecked3
+                            + "\n" + ischecked4
+                            + "\n" + ischecked5
+                            + "\n" + ischecked6
+                            + "\n" + ischecked7
+                            + "\n" + ischecked8
+                            + "\n" + ischecked9
+                            + "\n" + ischecked10
+                            + "\n" + ischecked11
+                    );
+
+                    if (    (Boolean) SPUtils.get("hasTagData", hasTagData)
+                    ) {//如果有数据且不为空 说明点的是 重置按钮
+                        SPUtils.put("ischecked0", false);
+                        SPUtils.put("ischecked1", false);
+                        SPUtils.put("ischecked2", false);
+                        SPUtils.put("ischecked3", false);
+                        SPUtils.put("ischecked4", false);
+                        SPUtils.put("ischecked5", false);
+                        SPUtils.put("ischecked6", false);
+                        SPUtils.put("ischecked7", false);
+                        SPUtils.put("ischecked8", false);
+                        SPUtils.put("ischecked9", false);
+                        SPUtils.put("ischecked10", false);
+                        SPUtils.put("ischecked11", false);
+
+                        SPUtils.put("hasTagData", false);
+
+                        tagImageView.setImageResource(R.drawable.tag_pic0);
+                        tagImageView1.setImageResource(R.drawable.tag_pic1);
+                        tagImageView2.setImageResource(R.drawable.tag_pic2);
+                        tagImageView3.setImageResource(R.drawable.tag_pic3);
+                        tagImageView4.setImageResource(R.drawable.tag_pic4);
+                        tagImageView5.setImageResource(R.drawable.tag_pic5);
+                        tagImageView6.setImageResource(R.drawable.tag_pic6);
+                        tagImageView7.setImageResource(R.drawable.tag_pic7);
+                        tagImageView8.setImageResource(R.drawable.tag_pic8);
+                        tagImageView9.setImageResource(R.drawable.tag_pic9);
+                        tagImageView10.setImageResource(R.drawable.tag_pic10);
+                        tagImageView11.setImageResource(R.drawable.tag_pic11);
+
+                        tagButton.setText(getResources().getString(R.string.tag_create_tag));
+
+
+                    } else {//没有数据 则点的是 生成按钮
+
+                        if (ischecked0 || ischecked1
+                                || ischecked2
+                                || ischecked3
+                                || ischecked4
+                                || ischecked5
+                                || ischecked6
+                                || ischecked7
+                                || ischecked8
+                                || ischecked9
+                                || ischecked10
+                                || ischecked11
+                        ) {
+                            SPUtils.put("ischecked0", ischecked0);
+                            SPUtils.put("ischecked1", ischecked1);
+                            SPUtils.put("ischecked2", ischecked2);
+                            SPUtils.put("ischecked3", ischecked3);
+                            SPUtils.put("ischecked4", ischecked4);
+                            SPUtils.put("ischecked5", ischecked5);
+                            SPUtils.put("ischecked6", ischecked6);
+                            SPUtils.put("ischecked7", ischecked7);
+                            SPUtils.put("ischecked8", ischecked8);
+                            SPUtils.put("ischecked9", ischecked9);
+                            SPUtils.put("ischecked10", ischecked10);
+                            SPUtils.put("ischecked11", ischecked11);
+                            SPUtils.put("hasTagData", true);
+
+                            Log.d("tag_catch", "onViewClicked: 保存 "
+                                    + "\n" + ischecked0
+                                    + "\n" + ischecked1
+                                    + "\n" + ischecked2
+                                    + "\n" + ischecked3
+                                    + "\n" + ischecked4
+                                    + "\n" + ischecked5
+                                    + "\n" + ischecked6
+                                    + "\n" + ischecked7
+                                    + "\n" + ischecked8
+                                    + "\n" + ischecked9
+                                    + "\n" + ischecked10
+                                    + "\n" + ischecked11
+                            );
+
+                            Toast.makeText(getApplicationContext(), "请稍等个性化标签正在生成", Toast.LENGTH_LONG).show();
+
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    /**
+                                     *要执行的操作
+                                     */
+//                        Toast.makeText(TagActivity.this, "已根据你的标签生成个性化推荐", Toast.LENGTH_SHORT).show();
+                                    tagButton.setText(getResources().getString(R.string.tag_create_resettag));
+                                    finish();
+                                }
+                            };
+                            Timer timer = new Timer();
+                            timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
+
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "请至少选择一个标签", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -202,8 +330,7 @@ public class TagActivity extends CommonActivity {
 
     @OnClick({R.id.tag_imageView, R.id.tag_imageView1, R.id.tag_imageView2, R.id.tag_imageView3
             , R.id.tag_imageView4, R.id.tag_imageView5, R.id.tag_imageView6, R.id.tag_imageView7
-            , R.id.tag_imageView8, R.id.tag_imageView9, R.id.tag_imageView10, R.id.tag_imageView11,
-            R.id.tag_button})
+            , R.id.tag_imageView8, R.id.tag_imageView9, R.id.tag_imageView10, R.id.tag_imageView11})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tag_imageView://0
@@ -314,124 +441,15 @@ public class TagActivity extends CommonActivity {
                     tagImageView11.setImageResource(R.drawable.tag_pic11);
                 }
                 break;
-            case R.id.tag_button://保存按钮
-
-                Log.d("tag_catch", "onViewClicked: 保存 "
-                        + "\n" + ischecked0
-                        + "\n" + ischecked1
-                        + "\n" + ischecked2
-                        + "\n" + ischecked3
-                        + "\n" + ischecked4
-                        + "\n" + ischecked5
-                        + "\n" + ischecked6
-                        + "\n" + ischecked7
-                        + "\n" + ischecked8
-                        + "\n" + ischecked9
-                        + "\n" + ischecked10
-                        + "\n" + ischecked11
-                );
-
-                if (    (Boolean) SPUtils.get("hasTagData", hasTagData)
-                ) {//如果有数据且不为空 说明点的是 重置按钮
-                    SPUtils.put("ischecked0", false);
-                    SPUtils.put("ischecked1", false);
-                    SPUtils.put("ischecked2", false);
-                    SPUtils.put("ischecked3", false);
-                    SPUtils.put("ischecked4", false);
-                    SPUtils.put("ischecked5", false);
-                    SPUtils.put("ischecked6", false);
-                    SPUtils.put("ischecked7", false);
-                    SPUtils.put("ischecked8", false);
-                    SPUtils.put("ischecked9", false);
-                    SPUtils.put("ischecked10", false);
-                    SPUtils.put("ischecked11", false);
-
-                    SPUtils.put("hasTagData", false);
-
-                    tagImageView.setImageResource(R.drawable.tag_pic0);
-                    tagImageView1.setImageResource(R.drawable.tag_pic1);
-                    tagImageView2.setImageResource(R.drawable.tag_pic2);
-                    tagImageView3.setImageResource(R.drawable.tag_pic3);
-                    tagImageView4.setImageResource(R.drawable.tag_pic4);
-                    tagImageView5.setImageResource(R.drawable.tag_pic5);
-                    tagImageView6.setImageResource(R.drawable.tag_pic6);
-                    tagImageView7.setImageResource(R.drawable.tag_pic7);
-                    tagImageView8.setImageResource(R.drawable.tag_pic8);
-                    tagImageView9.setImageResource(R.drawable.tag_pic9);
-                    tagImageView10.setImageResource(R.drawable.tag_pic10);
-                    tagImageView11.setImageResource(R.drawable.tag_pic11);
-
-                    tagButton.setText(getResources().getString(R.string.tag_create_tag));
-
-
-                } else {//没有数据 则点的是 生成按钮
-
-                    if (ischecked0 || ischecked1
-                            || ischecked2
-                            || ischecked3
-                            || ischecked4
-                            || ischecked5
-                            || ischecked6
-                            || ischecked7
-                            || ischecked8
-                            || ischecked9
-                            || ischecked10
-                            || ischecked11
-                    ) {
-                        SPUtils.put("ischecked0", ischecked0);
-                        SPUtils.put("ischecked1", ischecked1);
-                        SPUtils.put("ischecked2", ischecked2);
-                        SPUtils.put("ischecked3", ischecked3);
-                        SPUtils.put("ischecked4", ischecked4);
-                        SPUtils.put("ischecked5", ischecked5);
-                        SPUtils.put("ischecked6", ischecked6);
-                        SPUtils.put("ischecked7", ischecked7);
-                        SPUtils.put("ischecked8", ischecked8);
-                        SPUtils.put("ischecked9", ischecked9);
-                        SPUtils.put("ischecked10", ischecked10);
-                        SPUtils.put("ischecked11", ischecked11);
-                        SPUtils.put("hasTagData", true);
-
-                        Log.d("tag_catch", "onViewClicked: 保存 "
-                                + "\n" + ischecked0
-                                + "\n" + ischecked1
-                                + "\n" + ischecked2
-                                + "\n" + ischecked3
-                                + "\n" + ischecked4
-                                + "\n" + ischecked5
-                                + "\n" + ischecked6
-                                + "\n" + ischecked7
-                                + "\n" + ischecked8
-                                + "\n" + ischecked9
-                                + "\n" + ischecked10
-                                + "\n" + ischecked11
-                        );
-
-                        Toast.makeText(this, "请稍等个性化标签正在生成", Toast.LENGTH_LONG).show();
-
-                        TimerTask task = new TimerTask() {
-                            @Override
-                            public void run() {
-                                /**
-                                 *要执行的操作
-                                 */
-//                        Toast.makeText(TagActivity.this, "已根据你的标签生成个性化推荐", Toast.LENGTH_SHORT).show();
-                                tagButton.setText(getResources().getString(R.string.tag_create_resettag));
-                                finish();
-                            }
-                        };
-                        Timer timer = new Timer();
-                        timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
-
-
-                    } else {
-                        Toast.makeText(this, "请至少选择一个标签", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }
-                break;
+//            case R.id.tag_button://保存按钮
+//
+//
+//
+//
+//                break;
 
         }
     }
+
+
 }

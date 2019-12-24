@@ -290,13 +290,15 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                 UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                                 image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                                 image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-//                        压缩格式设置
+                                //                        压缩格式设置
                                 image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
                                 String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
-                                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
-                                web.setTitle(item.getTitle());//标题
+                                final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
+
+
+                                web.setTitle(getActivity().getString(R.string.share_title_found_new));//标题
                                 web.setThumb(image);  //缩略图
-                                web.setDescription(item.getDesc());//描述
+                                web.setDescription(item.getMsg_content());//描述
 
                                 new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {
                                     @Override

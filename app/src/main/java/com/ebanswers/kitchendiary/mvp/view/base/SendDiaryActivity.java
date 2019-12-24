@@ -59,6 +59,8 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -232,12 +234,11 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                     diaryTextViewLink.setVisibility(View.GONE);
                 }
                 break;
-
             case R.id.diary_imageview_add://照片选择
                 Log.d("testneed", "onViewClicked: ");
-                openCamera(9, PictureConfig.MULTIPLE);
+                int choiceCount = 9 - sendDiaryPicAdapter.getData().size();
+                openCamera(choiceCount, PictureConfig.MULTIPLE);
                 break;
-
             case R.id.diary_textView_fabu://发布
                 if (diaryTextViewLink.getVisibility() == View.VISIBLE) {
                     String url_link = diaryTextViewLink.getText().toString().trim();
@@ -252,6 +253,19 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
 
                 }
 
+                String text_input = diaryEditText.getText().toString().trim();
+                if (text_input != null && text_input.length() > 1) {
+
+                } else {
+                    Toast.makeText(this, "请输入有效信息", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                if (isContainChinese(text_input) || isENChar(text_input) || HasDigit(text_input)) {//限定输入的信息中必须有中文,英文,阿拉伯数字
+                } else {
+                    Toast.makeText(this, "请输入有效信息", Toast.LENGTH_SHORT).show();
+                    break;
+                }
 
                 if (NetworkUtils.checkNetwork(this)) {
                     if (diaryEditText.getText().length() > 1) {
@@ -285,7 +299,7 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                         SPUtils.put("ContentBean", new Gson().toJson(contentBean));//文本信息-展示
                         SPUtils.put("PiclistBean", new Gson().toJson(piclistBean));//图片信息-展示
 
-                        Log.d(TAG, "yukaida1: "+SPUtils.get("PiclistBean",new String()));
+                        Log.d(TAG, "yukaida1: " + SPUtils.get("PiclistBean", new String()));
 
                         startService(intent_toDiaryService);
                         EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUND, "发现页"));
@@ -508,4 +522,45 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
         };
         ApiMethods.getTopic(new MyObserver<Topics>(SendDiaryActivity.this, listener), openid);
     }
+
+
+    /**
+     * 判断字符串中是否包含中文
+     *
+     * @param str 待校验字符串
+     * @return 是否为中文
+     * @warn 不能校验是否为中文标点符号
+     */
+    public static boolean isContainChinese(String str) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * 判断字符串中是否含有英文，包含返回true
+     */
+    public boolean isENChar(String string) {
+        boolean flag = false;
+        Pattern p = Pattern.compile("[a-zA-z]");
+        if (p.matcher(string).find()) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    // 判断一个字符串是否含有数字
+    public boolean HasDigit(String content) {
+        boolean flag = false;
+        Pattern p = Pattern.compile(".*\\d+.*");
+        Matcher m = p.matcher(content);
+        if (m.matches()) {
+            flag = true;
+        }
+        return flag;
+    }
+
 }
