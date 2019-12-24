@@ -39,9 +39,6 @@ import com.ebanswers.kitchendiary.adapter.RecommendFocusAdapter;
 import com.ebanswers.kitchendiary.bean.AllMsgFound;
 import com.ebanswers.kitchendiary.bean.CommentInfo;
 import com.ebanswers.kitchendiary.bean.DeleteDRBack;
-import com.ebanswers.kitchendiary.bean.DiaryPicinfo;
-import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.ContentBean;
-import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.PiclistBean;
 import com.ebanswers.kitchendiary.bean.FoodStepinfo;
 import com.ebanswers.kitchendiary.bean.FoundHomeInfo;
 import com.ebanswers.kitchendiary.bean.FoundLoadMoreInfo;
@@ -150,7 +147,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     CommentInfo commentInfo;
     List<FoodStepinfo> foodStepinfos = new ArrayList<>();
 
-    String userId ;
+    String userId;
     private int deletePosition;
     private CommentInfo commentInfo1;
 
@@ -165,6 +162,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     private String diary_id_fordelete = "";
     private String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
     private int position_fordelete = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_found_sub;
@@ -283,10 +281,10 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 AllMsgFound item = (AllMsgFound) adapter.getItem(position);
-                if (!TextUtils.isEmpty(item.getDiary_id())){
+                if (!TextUtils.isEmpty(item.getDiary_id())) {
                     switch (view.getId()) {
                         case R.id.share_iv:
-                            if (SPUtils.getIsLogin()){
+                            if (SPUtils.getIsLogin()) {
                                 UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                                 image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                                 image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
@@ -317,7 +315,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                         }
                                     }
                                 }).open();
-                            }else {
+                            } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                                 startActivity(new Intent(getContext(), WelActivity.class));
                             }
@@ -326,7 +324,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             break;
                         case R.id.focu_status_iv:
 
-                            if (SPUtils.getIsLogin()){
+                            if (SPUtils.getIsLogin()) {
                                 isSimpleClick = true;
                                 currentPosition = position;
                                 type = "subscribe";
@@ -335,14 +333,14 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                 } else {
                                     foundPresenter.follower("", userId, item.getCreate_user());
                                 }
-                            }else {
+                            } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                                 startActivity(new Intent(getContext(), WelActivity.class));
                             }
 
                             break;
                         case R.id.collection_status_iv:
-                            if (SPUtils.getIsLogin()){
+                            if (SPUtils.getIsLogin()) {
                                 isSimpleClick = true;
                                 currentPosition = position;
                                 type = "collection";
@@ -351,20 +349,20 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                 } else {
                                     foundPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
                                 }
-                            }else {
+                            } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                                 startActivity(new Intent(getContext(), WelActivity.class));
                             }
 
                             break;
                         case R.id.message_iv:
-                            if (SPUtils.getIsLogin()){
+                            if (SPUtils.getIsLogin()) {
                                 type = "Comment";
                                 isSimpleClick = true;
                                 currentPosition = position;
                                 String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
                                 popupCommentWindow(item.getDiary_id(), userId, username);
-                            }else {
+                            } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                                 startActivity(new Intent(getContext(), WelActivity.class));
                             }
@@ -372,17 +370,17 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             break;
                         case R.id.like_status_iv:
 
-                            if (SPUtils.getIsLogin()){
+                            if (SPUtils.getIsLogin()) {
                                 isSimpleClick = true;
                                 currentPosition = position;
                                 type = "like";
-                                String  userName = (String) SPUtils.get(AppConstant.USER_NAME,"");
+                                String userName = (String) SPUtils.get(AppConstant.USER_NAME, "");
                                 if (item.isIs_liked()) {
                                     foundPresenter.islike("unlike", item.getDiary_id(), userName);
                                 } else {
                                     foundPresenter.islike("like", item.getDiary_id(), userName);
                                 }
-                            }else {
+                            } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                                 startActivity(new Intent(getContext(), WelActivity.class));
                             }
@@ -400,7 +398,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         case R.id.share_pic_rv:
                             Intent intent1 = new Intent(getContext(), WebActivity.class);
                             String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
-                            intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid="+ openid1);
+                            intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid1);
                             startActivity(intent1);
                             break;
                         case R.id.found_button_delete:
@@ -421,7 +419,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
         foundAdapter.setCommentDeleteLisenter(new FoundAdapter.CommentDeleteLisenter() {
             @Override
-            public void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition) {
+            public void deleteComment(CommentInfo commentInfo, String diary_id, int position, int foundPosition) {
                 if (userId.equals(commentInfo.getOpenid())) {
                     type = "CommentDelete";
                     currentPosition = foundPosition;
@@ -432,8 +430,8 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             }
 
             @Override
-            public void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition) {
-                if (!commentInfo.getOpenid().equals(userId)){
+            public void replyComment(CommentInfo commentInfo, String diary_id, int foundPosition) {
+                if (!commentInfo.getOpenid().equals(userId)) {
                     currentPosition = foundPosition;
                     type = "ReplyComment";
                     popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
@@ -488,7 +486,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 // 和自己要写的逻辑
                 return false;
             }
-        }) ;
+        });
 
         TextView sendCommmentTv = contentView.findViewById(R.id.send_commment_tv);
         sendCommmentTv.setOnClickListener(new View.OnClickListener() {
@@ -510,7 +508,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         customPopWindow.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if (!customPopWindow.getPopupWindow().isShowing()){
+                if (!customPopWindow.getPopupWindow().isShowing()) {
                     Utils.hideSoftInput(getContext(), commentEt);
                 }
             }
@@ -560,7 +558,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         customPopWindow1.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if (!customPopWindow1.getPopupWindow().isShowing()){
+                if (!customPopWindow1.getPopupWindow().isShowing()) {
                     replyCommentEt.setFocusable(false);
                     Utils.hideSoftInput(getContext(), replyCommentEt);
                 }
@@ -597,7 +595,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     protected void initData() {
-        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         foundPresenter.loadInfo(userId, false);
         foundPresenter.topic();
     }
@@ -643,7 +641,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 newMsgShowLl.setVisibility(View.GONE);
                 ((HomeActivity) getActivity()).setMessageNumTv();
                 Intent intent3 = new Intent(getContext(), WebActivity.class);
-                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid="+userId);
+                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid=" + userId);
                 startActivity(intent3);
                 break;
         }
@@ -657,12 +655,16 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             if (data.getAll_msg() != null && data.getAll_msg().size() > 0) {
 
 //                foundAdapter.setNewData(data.getAll_msg());
-                if (isSimpleClick) {
-                    foundAdapter.setData(currentPosition, data.getAll_msg().get(currentPosition));
-                    isSimpleClick = false;
-                } else {
-                    foundAdapter.setNewData(data.getAll_msg());
-                }
+//                if (isSimpleClick) {
+//                    foundAdapter.setData(currentPosition, data.getAll_msg().get(currentPosition));
+//                    isSimpleClick = false;
+//                } else {
+//                }
+                foundAdapter.setNewData(data.getAll_msg());
+                foundAdapter.notifyDataSetChanged();
+            } else {
+
+                foundAdapter.setNewData(new ArrayList<>());
                 foundAdapter.notifyDataSetChanged();
             }
 
@@ -707,7 +709,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         if (data != null) {
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
-                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE, "刷新我的界面"));
                 AllMsgFound item = (AllMsgFound) foundAdapter.getItem(currentPosition);
                 if (type.equals("subscribe")) {
                     if (item.isIs_subscribe()) {
@@ -731,7 +733,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         item.setIs_liked(false);
                         item.setLike_count(item.getLike_count() - 1);
                         for (int i = 0; i < liked.size(); i++) {
-                            if (liked.get(i).getOpenid().equals(userId)){
+                            if (liked.get(i).getOpenid().equals(userId)) {
                                 liked.remove(i);
                             }
                         }
@@ -740,7 +742,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         item.setLike_count(item.getLike_count() + 1);
                         LikedInfo likedInfo = new LikedInfo();
                         likedInfo.setOpenid(userId);
-                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
+                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME, ""));
                         liked.add(likedInfo);
                     }
                     item.setLiked(liked);
@@ -753,7 +755,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     }
                     comment.add(commentInfo);
                     item.setComment(comment);
-                    item.setComment_count(item.getComment_count() +1);
+                    item.setComment_count(item.getComment_count() + 1);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("ReplyComment")) {
@@ -763,7 +765,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     }
                     comment.add(commentInfo1);
                     item.setComment(comment);
-                    item.setComment_count(item.getComment_count() +1);
+                    item.setComment_count(item.getComment_count() + 1);
                     foundAdapter.setData(currentPosition, item);
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("CommentDelete")) {
@@ -797,9 +799,9 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
     @Override
     public void netWorkError(String result) {
-        if (NetworkUtils.isNetworkAvailable(getContext())){
+        if (NetworkUtils.isNetworkAvailable(getContext())) {
             ToastUtils.show(result);
-        }else {
+        } else {
             ToastUtils.show("无可用网络！");
         }
         foundSwrl.finishLoadMore();
@@ -836,23 +838,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 mNick.setText(bundle.getString("screenname"));*/
 
             }
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        int msg_num = (int) SPUtils.get("msg_num", 0);
-        if (msg_num > 0) {
-            newMsgShowLl.setVisibility(View.VISIBLE);
-            if (msg_num < 100) {
-                newMsgNumTv.setText(msg_num + "条新消息");
-            } else {
-                newMsgNumTv.setText("99+条新消息");
-            }
-
-        } else {
-            newMsgShowLl.setVisibility(View.GONE);
         }
     }
 
@@ -897,20 +882,20 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
             ToastUtils.show("菜谱正在发送中...");
             if (dialogBackTip == null) {
                 dialogBackTip = new DialogBackTip.Builder(getContext()).setTitle("菜谱正在发送中...")
-                    .setLeftText("取消")
-                    .setRightText("继续")
-                    .setRightClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).setLeftClickListener(new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    getActivity().stopService(new Intent(getContext(), CreateRepiceService.class));
-                    dialog.dismiss();
-                }
-                }).create();
+                        .setLeftText("取消")
+                        .setRightText("继续")
+                        .setRightClickListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).setLeftClickListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().stopService(new Intent(getContext(), CreateRepiceService.class));
+                                dialog.dismiss();
+                            }
+                        }).create();
             }
 //            dialogBackTip.show();
         }
@@ -922,48 +907,48 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 //            foundSwrl.autoRefresh();
         } else {*/
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    String repice = (String) SPUtils.get(AppConstant.repice2, "");
-                    String pic = (String) SPUtils.get(AppConstant.pic2, "");
-                    Gson gson = new Gson();
-                    AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String repice = (String) SPUtils.get(AppConstant.repice2, "");
+                String pic = (String) SPUtils.get(AppConstant.pic2, "");
+                Gson gson = new Gson();
+                AllMsgFound allMsgFound = gson.fromJson(repice, AllMsgFound.class);
 
-                    List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
-                    }.getType());
-                    String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
-                    ArrayList<String> img_url = new ArrayList<String>();
-                    ArrayList<String> thumbnail_url = new ArrayList<String>();
-                    img_url.add(userImage);
-                    thumbnail_url.add(userImage);
-                    allMsgFound.setImg_url(img_url);
-                    allMsgFound.setThumbnail_url(thumbnail_url);
-                    for (int i = 0; i < stepinfos.size(); i++) {
-                        FoodStepinfo foodStepinfo = new FoodStepinfo();
-                        foodStepinfo.setImg(stepinfos.get(i).getImg());
-                        foodStepinfo.setThumbnail(stepinfos.get(i).getThumbnail());
-                        foodStepinfo.setDesc(stepinfos.get(i).getDesc());
-                        foodStepinfos.add(foodStepinfo);
-                    }
-                    allMsgFound.setSteps(foodStepinfos);
-
-                    if (foundAdapter != null) {
-                        foundAdapter.addData(0, allMsgFound);
-                        foundAdapter.notifyDataSetChanged();
-
-                        SPUtils.put(AppConstant.USER_IMAGE2,"");
-                        SPUtils.put(AppConstant.pic2,"");
-                        SPUtils.put(AppConstant.repice2,"");
-                    }
+                List<Stepinfo> stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {
+                }.getType());
+                String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE2, "");
+                ArrayList<String> img_url = new ArrayList<String>();
+                ArrayList<String> thumbnail_url = new ArrayList<String>();
+                img_url.add(userImage);
+                thumbnail_url.add(userImage);
+                allMsgFound.setImg_url(img_url);
+                allMsgFound.setThumbnail_url(thumbnail_url);
+                for (int i = 0; i < stepinfos.size(); i++) {
+                    FoodStepinfo foodStepinfo = new FoodStepinfo();
+                    foodStepinfo.setImg(stepinfos.get(i).getImg());
+                    foodStepinfo.setThumbnail(stepinfos.get(i).getThumbnail());
+                    foodStepinfo.setDesc(stepinfos.get(i).getDesc());
+                    foodStepinfos.add(foodStepinfo);
                 }
-            },500);
+                allMsgFound.setSteps(foodStepinfos);
+
+                if (foundAdapter != null) {
+                    foundAdapter.addData(0, allMsgFound);
+                    foundAdapter.notifyDataSetChanged();
+
+                    SPUtils.put(AppConstant.USER_IMAGE2, "");
+                    SPUtils.put(AppConstant.pic2, "");
+                    SPUtils.put(AppConstant.repice2, "");
+                }
+            }
+        }, 500);
 
 
 //        }
     }
 
-    public void addDiary(){
+    public void addDiary() {
 
 //        //todo  取一个日记信息 添加到待展示界面
 //
@@ -1010,7 +995,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 //        },500);
 //
 //
-
 
 
     }
@@ -1069,8 +1053,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
     }
 
 
-
-    public void deleteMyDiaryOrRepice(int position,String draft_id,String openid) {
+    public void deleteMyDiaryOrRepice(int position, String draft_id, String openid) {
         ObserverOnNextListener<DeleteDRBack, Throwable> listener = new ObserverOnNextListener<DeleteDRBack, Throwable>() {
             @Override
             public void onNext(DeleteDRBack deleteDRBack) {
@@ -1081,6 +1064,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     Toast.makeText(getContext(), "请重试", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onError(Throwable throwable) {
                 Toast.makeText(getContext(), "后台网络异常", Toast.LENGTH_SHORT).show();
@@ -1095,7 +1079,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         if (message.getType() == Event.EVENT_SEND_SUCCESS) {
             String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
             if (!TextUtils.isEmpty(userId)) {
-                if (foundSwrl!= null){
+                if (foundSwrl != null) {
 //                    foundSwrl.autoRefresh();
 
                     searchEt.setText("");

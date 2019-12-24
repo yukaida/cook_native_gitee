@@ -16,14 +16,13 @@ public class NetworkUtils {
     /**
      * 检查当前网络是否可用基于Context
      *
-     * @param  c
+     * @param c
      * @return true 表示网络可用
      */
     public static boolean isNetworkAvailable(Context c) {
-        Context context = c.getApplicationContext();
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (c == null) return false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)c.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager == null) {
             return false;
         } else {
@@ -180,7 +179,7 @@ public class NetworkUtils {
     }
 
     public static boolean checkNetwork(Context context) {
-        if (context!=null){
+        if (context != null) {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo info = connectivityManager.getActiveNetworkInfo();
             return info != null && info.isAvailable();
@@ -188,20 +187,20 @@ public class NetworkUtils {
         return false;
     }
 
-    public static boolean checkIsWifiMode(Context context){
-        if (context!=null){
+    public static boolean checkIsWifiMode(Context context) {
+        if (context != null) {
             ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo info = manager.getActiveNetworkInfo();
-            if (info!=null && info.isAvailable()){
-                if (info.getType()==ConnectivityManager.TYPE_WIFI){
+            if (info != null && info.isAvailable()) {
+                if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             throw new NullPointerException("Context is Null");
         }
     }

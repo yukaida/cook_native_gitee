@@ -110,7 +110,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     private FoundAdapter foundAdapter;
     private CustomPopWindow customPopWindow;
     private Bundle bundle;
-    String userId ;
+    String userId;
     private CommentInfo commentInfo;
     private CommentInfo commentInfo1;
     private int deletePosition;
@@ -131,7 +131,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     protected void initView() {
-        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         focusPresenter = new FocusPresenter(this, this);
         UMShareListener umShareListener = new UMShareListener() {
             /**
@@ -201,7 +201,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 switch (view.getId()) {
                     case R.id.share_iv:
 //                        showShare(item.getDesc(),item.getHead_url());
-                        if (SPUtils.getIsLogin()){
+                        if (SPUtils.getIsLogin()) {
                             UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                             image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                             image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
@@ -230,13 +230,13 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                                     }
                                 }
                             }).open();
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
                         break;
                     case R.id.focu_status_iv:
-                        if (SPUtils.getIsLogin()){
+                        if (SPUtils.getIsLogin()) {
                             isSimpleClick = true;
                             currentPosition = position;
                             type = "subscribe";
@@ -245,14 +245,14 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                             } else {
                                 focusPresenter.follower("", userId, item.getCreate_user());
                             }
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
 
                         break;
                     case R.id.collection_status_iv:
-                        if (SPUtils.getIsLogin()){
+                        if (SPUtils.getIsLogin()) {
                             isSimpleClick = true;
                             currentPosition = position;
                             type = "collection";
@@ -261,27 +261,27 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                             } else {
                                 focusPresenter.collected("collect", item.getDiary_id(), item.getCreate_user());
                             }
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
 
                         break;
                     case R.id.message_iv:
-                        if (SPUtils.getIsLogin()){
+                        if (SPUtils.getIsLogin()) {
                             type = "Comment";
                             isSimpleClick = true;
                             currentPosition = position;
                             String username = (String) SPUtils.get(AppConstant.USER_NAME, "");
                             popupCommentWindow(item.getDiary_id(), userId, username);
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
                         break;
                     case R.id.like_status_iv:
 
-                        if (SPUtils.getIsLogin()){
+                        if (SPUtils.getIsLogin()) {
                             isSimpleClick = true;
                             currentPosition = position;
                             type = "like";
@@ -290,7 +290,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                             } else {
                                 focusPresenter.islike("like", item.getDiary_id(), userId);
                             }
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
@@ -315,7 +315,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
         foundAdapter.setCommentDeleteLisenter(new FoundAdapter.CommentDeleteLisenter() {
             @Override
-            public void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition) {
+            public void deleteComment(CommentInfo commentInfo, String diary_id, int position, int foundPosition) {
                 if (userId.equals(commentInfo.getOpenid())) {
                     type = "CommentDelete";
                     currentPosition = foundPosition;
@@ -326,8 +326,8 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
             }
 
             @Override
-            public void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition) {
-                if (!commentInfo.getOpenid().equals(userId)){
+            public void replyComment(CommentInfo commentInfo, String diary_id, int foundPosition) {
+                if (!commentInfo.getOpenid().equals(userId)) {
                     currentPosition = foundPosition;
                     type = "ReplyComment";
                     popupReplyCommentWindow(diary_id, commentInfo.getOpenid(), commentInfo.getNickname());
@@ -338,14 +338,14 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
         focusSrl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                if (foundAdapter != null){
+                if (foundAdapter != null) {
                     List<AllMsgFound> data = foundAdapter.getData();
-                    if (data.size() > 0){
+                    if (data.size() > 0) {
                         focusPresenter.foundinfoLoadMore("more", String.valueOf(data.size()), userId, "square-related", data.get(data.size() - 1).getDiary_id(), "", "", "zh", true);
-                    }else {
+                    } else {
                         focusSrl.finishLoadMore();
                     }
-                }else {
+                } else {
                     focusSrl.finishLoadMore();
                 }
 
@@ -365,7 +365,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     protected void initData() {
-        if (focusPresenter != null){
+        if (focusPresenter != null) {
             focusPresenter.loadInfo(userId, false);
             focusPresenter.topic();
         }
@@ -403,7 +403,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 SPUtils.put("msg_num", 0);
                 ((HomeActivity) getActivity()).setMessageNumTv();
                 Intent intent3 = new Intent(getContext(), WebActivity.class);
-                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid="+userId);
+                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid=" + userId);
                 startActivity(intent3);
                 newMsgShowLl.setVisibility(View.GONE);
                 break;
@@ -419,7 +419,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)//显示大小
                 .create().showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
-        Utils.showSoftInput(getContext(),getView());
+        Utils.showSoftInput(getContext(), getView());
         EditText commentEt = contentView.findViewById(R.id.comment_et);
         TextView sendCommmentTv = contentView.findViewById(R.id.send_commment_tv);
         sendCommmentTv.setOnClickListener(new View.OnClickListener() {
@@ -451,15 +451,15 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
             public void onClick(View v) {
                 String comment = commentEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(comment)) {
-                    if (commentInfo1 == null){
+                    if (commentInfo1 == null) {
                         commentInfo1 = new CommentInfo();
                     }
                     commentInfo1.setComment(comment);
-                    commentInfo1.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
+                    commentInfo1.setNickname((String) SPUtils.get(AppConstant.USER_NAME, ""));
                     commentInfo1.setOpenid(userId);
                     commentInfo1.setFrom_openid(tmp_user);
                     commentInfo1.setFrom_user(name);
-                    focusPresenter.commentReply("comment", diary_id, comment, userId, (String) SPUtils.get(AppConstant.USER_NAME,""),tmp_user, name);
+                    focusPresenter.commentReply("comment", diary_id, comment, userId, (String) SPUtils.get(AppConstant.USER_NAME, ""), tmp_user, name);
                     customPopWindow.dissmiss();
                 }
             }
@@ -503,12 +503,15 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
 //                foundAdapter.setNewData(data.getAll_msg());
 
-                if (isSimpleClick) {
-                    foundAdapter.setData(currentPosition, data.getAll_msg().get(currentPosition));
-                    isSimpleClick = false;
-                } else {
-                    foundAdapter.setNewData(data.getAll_msg());
-                }
+//                if (isSimpleClick) {
+//                    foundAdapter.setData(currentPosition, data.getAll_msg().get(currentPosition));
+//                    isSimpleClick = false;
+//                } else {
+//                }
+                foundAdapter.setNewData(data.getAll_msg());
+                foundAdapter.notifyDataSetChanged();
+            } else {
+                foundAdapter.setNewData(new ArrayList<>());
                 foundAdapter.notifyDataSetChanged();
             }
         }
@@ -538,7 +541,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
         if (data != null) {
             if (data.getCode() == 0) {
 //                ToastUtils.show("关注成功");
-                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE, "刷新我的界面"));
                 AllMsgFound item = (AllMsgFound) foundAdapter.getItem(currentPosition);
                 if (type.equals("subscribe")) {
                     if (item.isIs_subscribe()) {
@@ -556,13 +559,13 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                         item.setIs_collected(true);
 //                        item.setMaster_rank(item.getMaster_rank() + 1);
                     }
-                } else if (type.equals("like")){
+                } else if (type.equals("like")) {
                     List<LikedInfo> liked = item.getLiked();
                     if (item.isIs_liked()) {
                         item.setIs_liked(false);
                         item.setLike_count(item.getLike_count() - 1);
                         for (int i = 0; i < liked.size(); i++) {
-                            if (liked.get(i).getOpenid().equals(userId)){
+                            if (liked.get(i).getOpenid().equals(userId)) {
                                 liked.remove(i);
                             }
                         }
@@ -571,28 +574,28 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                         item.setLike_count(item.getLike_count() + 1);
                         LikedInfo likedInfo = new LikedInfo();
                         likedInfo.setOpenid(userId);
-                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME,""));
+                        likedInfo.setNickname((String) SPUtils.get(AppConstant.USER_NAME, ""));
                         liked.add(likedInfo);
                     }
                     item.setLiked(liked);
-                }else if (type.equals("Comment")){
+                } else if (type.equals("Comment")) {
                     List<CommentInfo> comment = item.getComment();
-                    if (comment == null){
+                    if (comment == null) {
                         comment = new ArrayList<>();
                     }
                     comment.add(commentInfo);
                     item.setComment(comment);
 
-                } else if (type.equals("ReplyComment")){
+                } else if (type.equals("ReplyComment")) {
                     List<CommentInfo> comment = item.getComment();
-                    if (comment == null){
+                    if (comment == null) {
                         comment = new ArrayList<>();
                     }
                     comment.add(commentInfo1);
                     item.setComment(comment);
-                } else if (type.equals("CommentDelete")){
+                } else if (type.equals("CommentDelete")) {
                     List<CommentInfo> comment = item.getComment();
-                    if (comment == null){
+                    if (comment == null) {
                         comment = new ArrayList<>();
                     }
                     comment.remove(deletePosition);
@@ -611,8 +614,8 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     public void topData(FoundTopResponse baseResponse) {
-        if (baseResponse!=null){
-            if (baseResponse.getData() != null && baseResponse.getData().size() > 0){
+        if (baseResponse != null) {
+            if (baseResponse.getData() != null && baseResponse.getData().size() > 0) {
                 foundTabAdapter.setNewData(baseResponse.getData());
                 foundTabAdapter.notifyDataSetChanged();
             }
@@ -621,9 +624,9 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
 
     @Override
     public void netWorkError(String result) {
-        if (NetworkUtils.isNetworkAvailable(getContext())){
+        if (NetworkUtils.isNetworkAvailable(getContext())) {
             ToastUtils.show(result);
-        }else {
+        } else {
             ToastUtils.show("无可用网络！");
         }
         focusSrl.finishLoadMore();
@@ -664,7 +667,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     @Override
     public void onResume() {
         super.onResume();
-        userId =  (String)SPUtils.get(AppConstant.USER_ID, "");
+        userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         int msg_num = (int) SPUtils.get("msg_num", 0);
         if (msg_num > 0) {
             newMsgShowLl.setVisibility(View.VISIBLE);
@@ -680,7 +683,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     }
 
     public void scroolTopRefresh() {
-        if (focusSrv.getScaleY()!=0) {
+        if (focusSrv.getScaleY() != 0) {
             focusSrv.fullScroll(ScrollView.FOCUS_UP);
         }
         initData();
