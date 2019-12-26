@@ -42,7 +42,6 @@ public class DiaryInfo {
      * create_user : tmp_user
      */
 
-    private String img_url;
     private int comment_count;
     private boolean folded;
     private String cookbook_type;
@@ -67,19 +66,11 @@ public class DiaryInfo {
     private String article_title;
     private String create_date;
     private String diary_id;
-    private String thumbnail_url;
+    private List<String> thumbnail_url;
     private String create_user;
     private List<TopicListBean> topic_list;
     private List<CommentInfo> comment;
     private List<?> liked;
-
-    public String getImg_url() {
-        return img_url;
-    }
-
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
-    }
 
     public int getComment_count() {
         return comment_count;
@@ -273,11 +264,11 @@ public class DiaryInfo {
         this.diary_id = diary_id;
     }
 
-    public String getThumbnail_url() {
+    public List<String> getThumbnail_url() {
         return thumbnail_url;
     }
 
-    public void setThumbnail_url(String thumbnail_url) {
+    public void setThumbnail_url(List<String> thumbnail_url) {
         this.thumbnail_url = thumbnail_url;
     }
 

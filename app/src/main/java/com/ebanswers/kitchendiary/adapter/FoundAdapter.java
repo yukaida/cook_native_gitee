@@ -51,12 +51,8 @@ import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.ebanswers.kitchendiary.utils.Utils.getContext;
 
 /**
  * Create by dongli
@@ -198,6 +194,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0){
             if (item.getThumbnail_url().size() > 1){
+                sharePicRv.setVisibility(View.VISIBLE);
                 SharePictureAdapter sharePictureAdapter = new SharePictureAdapter();
                 sharePicRv.setAdapter(sharePictureAdapter);
                 sharePictureAdapter.setNewData(item.getThumbnail_url());
@@ -232,38 +229,39 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                     }
                 });
             }else {
-                SinglePictureAdapter singlePictureAdapter = new SinglePictureAdapter();
-                sharePicRv.setAdapter(singlePictureAdapter);
-                singlePictureAdapter.setNewData(item.getImg_url());
-                singlePictureAdapter.notifyDataSetChanged();
-                singlePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                        //组织数据
-                        ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
-                        mThumbViewInfoList.clear();
-                        for (int i = 0;i < item.getImg_url().size(); i++) {
-                            Rect bounds = new Rect();
-                            //new ThumbViewInfo(图片地址);
-                            ThumbViewInfo iteminfo = new ThumbViewInfo(item.getImg_url().get(i));
-                            iteminfo.setBounds(bounds);
-                            mThumbViewInfoList.add(iteminfo);
-                        }
-
-                        //打开预览界面
-                        GPreviewBuilder.from((Activity) mContext)
-                                //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
-                                .to(ImageLookActivity.class)
-                                .setData(mThumbViewInfoList)
-                                .setCurrentIndex(position)
-                                .setSingleFling(true)
-                                .setType(GPreviewBuilder.IndicatorType.Number)
-                                // 小圆点
-                                //  .setType(GPreviewBuilder.IndicatorType.Dot)
-                                .start();//启动
-                    }
-                });
+                sharePicRv.setVisibility(View.GONE);
+//                SinglePictureAdapter singlePictureAdapter = new SinglePictureAdapter();
+//                sharePicRv.setAdapter(singlePictureAdapter);
+//                singlePictureAdapter.setNewData(item.getImg_url());
+//                singlePictureAdapter.notifyDataSetChanged();
+//                singlePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
+//                        //组织数据
+//                        ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
+//                        mThumbViewInfoList.clear();
+//                        for (int i = 0;i < item.getImg_url().size(); i++) {
+//                            Rect bounds = new Rect();
+//                            //new ThumbViewInfo(图片地址);
+//                            ThumbViewInfo iteminfo = new ThumbViewInfo(item.getImg_url().get(i));
+//                            iteminfo.setBounds(bounds);
+//                            mThumbViewInfoList.add(iteminfo);
+//                        }
+//
+//                        //打开预览界面
+//                        GPreviewBuilder.from((Activity) mContext)
+//                                //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
+//                                .to(ImageLookActivity.class)
+//                                .setData(mThumbViewInfoList)
+//                                .setCurrentIndex(position)
+//                                .setSingleFling(true)
+//                                .setType(GPreviewBuilder.IndicatorType.Number)
+//                                // 小圆点
+//                                //  .setType(GPreviewBuilder.IndicatorType.Dot)
+//                                .start();//启动
+//                    }
+//                });
             }
         }
         RecyclerView commentsRv = helper.getView(R.id.comments_rv);

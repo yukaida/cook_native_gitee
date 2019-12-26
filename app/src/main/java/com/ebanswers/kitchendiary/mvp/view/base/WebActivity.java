@@ -39,6 +39,8 @@ public class WebActivity extends CommonActivity {
     WebView mWebView;
 
 
+    private boolean isAppendId;///  是否拼接id
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_web;
@@ -71,12 +73,6 @@ public class WebActivity extends CommonActivity {
         WeakReference<WebView> weakReference = new WeakReference(this);
 
 
-
-
-
-
-
-
         // 允许网页定位
         settings.setGeolocationEnabled(true);
         // 允许保存密码
@@ -94,7 +90,7 @@ public class WebActivity extends CommonActivity {
         }
 
         // 加快HTML网页加载完成的速度，等页面finish再加载图片
-        if(Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT >= 19) {
             settings.setLoadsImagesAutomatically(true);
         } else {
             settings.setLoadsImagesAutomatically(false);
@@ -109,6 +105,7 @@ public class WebActivity extends CommonActivity {
         mWebView.setWebChromeClient(new MyWebChromeClient());
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
+        isAppendId = intent.getBooleanExtra("isAppendId",false);
         LogUtils.d("url====" + url);
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
@@ -184,7 +181,7 @@ public class WebActivity extends CommonActivity {
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
                 if (!url.contains("&openid=")) {
-                    mWebView.loadUrl(url + "&openid=" + SPUtils.get(AppConstant.USER_ID, "") + "&my_openid=" + HomeActivity.getOpenId());
+                    mWebView.loadUrl(url + "?openid=" + SPUtils.get(AppConstant.USER_ID, "") + "&my_openid=" + HomeActivity.getOpenId());
                 } else {
                     mWebView.loadUrl(url);
                 }
@@ -200,7 +197,7 @@ public class WebActivity extends CommonActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             if (title != null) {
-//                setTitle(title);
+                setTitle(title);
             }
         }
 

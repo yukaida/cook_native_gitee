@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHolder> {
 
-    public KitchenDiaryAdapter(){
+    public KitchenDiaryAdapter() {
         super(R.layout.item_more_wonderful);
     }
 
@@ -30,7 +30,7 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
     protected void convert(BaseViewHolder helper, DiaryInfo item) {
 
         CircleImageView cookingUserIv = helper.getView(R.id.goods_builder_iv);
-        if (!TextUtils.isEmpty(item.getHead_url())){
+        if (!TextUtils.isEmpty(item.getHead_url())) {
 
             GlideApp.with(mContext)
                     .load(item.getHead_url())
@@ -45,13 +45,13 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
         ViewGroup.LayoutParams layoutParams = goodsShowIv.getLayoutParams();
         layoutParams.width = layoutParams.width;
         Random rand = new Random();
-        layoutParams.height = rand.nextInt(100)+300;
+        layoutParams.height = rand.nextInt(100) + 300;
         goodsShowIv.setLayoutParams(layoutParams);
 
-        if (item.getThumbnail_url()!= null && !TextUtils.isEmpty(item.getThumbnail_url())){
+        if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0) {
 
             GlideApp.with(mContext)
-                    .load(item.getThumbnail_url())
+                    .load(item.getThumbnail_url().get(0))
                     .skipMemoryCache(true)
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -66,22 +66,22 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
         helper.addOnClickListener(R.id.goods_builder_iv);
         helper.addOnClickListener(R.id.goods_builder_tv);
 
-        if (item.isIs_subscribe()){
+        if (item.isIs_subscribe()) {
             focusStatusIv.setBackgroundResource(R.mipmap.icon_focu);
-        }else {
+        } else {
             focusStatusIv.setBackgroundResource(R.mipmap.icon_focus_off);
         }
 
-        if (!TextUtils.isEmpty(item.getNickname())){
-            helper.setText(R.id.goods_builder_tv,item.getNickname());
+        if (!TextUtils.isEmpty(item.getNickname())) {
+            helper.setText(R.id.goods_builder_tv, item.getNickname());
         }
 
-        if (!TextUtils.isEmpty(item.getMaster_rank() + "")){
-            helper.setText(R.id.goods_focu_num_tv,item.getMaster_rank() + "");
+        if (!TextUtils.isEmpty(item.getMaster_rank() + "")) {
+            helper.setText(R.id.goods_focu_num_tv, item.getMaster_rank() + "");
         }
 
-        if (!TextUtils.isEmpty(item.getTitle())){
-            helper.setText(R.id.goods_name_tv,item.getTitle());
+        if (!TextUtils.isEmpty(item.getMsg_content())) {
+            helper.setText(R.id.goods_name_tv, item.getMsg_content());
         }
 
     }
