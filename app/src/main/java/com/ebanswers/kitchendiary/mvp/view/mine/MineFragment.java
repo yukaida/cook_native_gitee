@@ -753,8 +753,8 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     } else {
 //                        kitchenDiaryAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布日记哦", diaryRv);
+                        kitchenDiaryAdapter.setNewData(new ArrayList<>());
                         kitchenDiaryAdapter.setEmptyView(noDataView);
-
                     }
                     kitchenDiaryAdapter.notifyDataSetChanged();
                 } else {

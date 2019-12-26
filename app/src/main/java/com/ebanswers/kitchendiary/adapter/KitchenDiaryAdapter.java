@@ -77,7 +77,7 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
         }
 
         if (!TextUtils.isEmpty(item.getMaster_rank() + "")) {
-            helper.setText(R.id.goods_focu_num_tv, item.getMaster_rank() + "");
+            helper.setText(R.id.goods_focu_num_tv, item.getLike_count() + "");
         }
 
         if (!TextUtils.isEmpty(item.getMsg_content())) {

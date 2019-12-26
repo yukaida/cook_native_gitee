@@ -62,7 +62,6 @@ import java.util.regex.Pattern;
 public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> {
 
 
-
     public FoundAdapter() {
         super(R.layout.item_found_data);
     }
@@ -77,66 +76,65 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         String userid = (String) SPUtils.get(AppConstant.USER_ID, "");
 
 
-
         if (userid.equals(item.getCreate_user())) {
-            ImageView imageView_delete= helper.getView(R.id.found_button_delete);
+            ImageView imageView_delete = helper.getView(R.id.found_button_delete);
             imageView_delete.setVisibility(View.VISIBLE);
         }
 
-        if (userid.equals(item.getCreate_user())){
+        if (userid.equals(item.getCreate_user())) {
             helper.getView(R.id.focu_status_iv).setVisibility(View.GONE);
         }
 
-        if (item.isIs_master()){
+        if (item.isIs_master()) {
             helper.getView(R.id.is_master_iv).setVisibility(View.VISIBLE);
-        }else {
+        } else {
             helper.getView(R.id.is_master_iv).setVisibility(View.GONE);
         }
 
         ImageView isMasterRankIv = helper.getView(R.id.is_master_rank_iv);
         TextView masterRankTv = helper.getView(R.id.master_rank_tv);
 
-        if (item.getMaster_rank() > 0){
-            if (item.getMaster_rank() == 1){
+        if (item.getMaster_rank() > 0) {
+            if (item.getMaster_rank() == 1) {
                 isMasterRankIv.setVisibility(View.VISIBLE);
                 isMasterRankIv.setBackgroundResource(R.mipmap.icon_first);
                 masterRankTv.setVisibility(View.GONE);
-            }else if (item.getMaster_rank() == 2){
+            } else if (item.getMaster_rank() == 2) {
                 isMasterRankIv.setVisibility(View.VISIBLE);
                 isMasterRankIv.setBackgroundResource(R.mipmap.icon_second);
                 masterRankTv.setVisibility(View.GONE);
-            }else if (item.getMaster_rank() == 3){
+            } else if (item.getMaster_rank() == 3) {
                 isMasterRankIv.setVisibility(View.VISIBLE);
                 isMasterRankIv.setBackgroundResource(R.mipmap.icon_third);
                 masterRankTv.setVisibility(View.GONE);
-            }else if (item.getMaster_rank() <= 500){
+            } else if (item.getMaster_rank() <= 500) {
                 isMasterRankIv.setVisibility(View.VISIBLE);
                 isMasterRankIv.setBackgroundResource(R.mipmap.icon_sort);
                 masterRankTv.setVisibility(View.VISIBLE);
-                masterRankTv.setText(item.getMaster_rank()+"");
-            }else {
+                masterRankTv.setText(item.getMaster_rank() + "");
+            } else {
                 isMasterRankIv.setVisibility(View.GONE);
                 masterRankTv.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             isMasterRankIv.setVisibility(View.GONE);
             masterRankTv.setVisibility(View.GONE);
         }
 
-        if (item.getIs_top() != 0){
+        if (item.getIs_top() != 0) {
             isTopShowIv.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             isTopShowIv.setVisibility(View.GONE);
         }
 
-        if (!TextUtils.isEmpty(item.getHead_url())){
+        if (!TextUtils.isEmpty(item.getHead_url())) {
             GlideApp.with(mContext)
                     .load(item.getHead_url())
                     .skipMemoryCache(true)
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(userHeadIv);
-        }else {
+        } else {
             GlideApp.with(mContext)
                     .load(R.mipmap.icon_user_head)
                     .skipMemoryCache(true)
@@ -145,46 +143,46 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                     .into(userHeadIv);
         }
 
-        if (item.isIs_subscribe()){
+        if (item.isIs_subscribe()) {
             helper.getView(R.id.focu_status_iv).setBackgroundResource(R.mipmap.icon_focuon_bg);
-        }else {
+        } else {
             helper.getView(R.id.focu_status_iv).setBackgroundResource(R.mipmap.icon_focus_found);
         }
 
         helper.addOnClickListener(R.id.focu_status_iv);
 
-        if (!TextUtils.isEmpty(item.getNickname())){
-            helper.setText(R.id.user_name_tv,item.getNickname());
-        }else {
-            helper.setText(R.id.user_name_tv,"");
+        if (!TextUtils.isEmpty(item.getNickname())) {
+            helper.setText(R.id.user_name_tv, item.getNickname());
+        } else {
+            helper.setText(R.id.user_name_tv, "");
         }
 
-        if (!TextUtils.isEmpty(item.getMsg_content())){
-            if (!TextUtils.isEmpty(item.getDiary_type()) && item.getDiary_type().equals("cookbook")){
+        if (!TextUtils.isEmpty(item.getMsg_content())) {
+            if (!TextUtils.isEmpty(item.getDiary_type()) && item.getDiary_type().equals("cookbook")) {
 
                 SpannableString spannableString = new SpannableString(" " + item.getMsg_content());
                 Drawable drawable = mContext.getResources().getDrawable(R.mipmap.icon_repice);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 spannableString.setSpan(new VerticalImageSpan(drawable), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                helper.setText(R.id.user_descrbe_tv,spannableString);
+                helper.setText(R.id.user_descrbe_tv, spannableString);
 
-            }else {
+            } else {
                 TextView textView_comment = helper.getView(R.id.user_descrbe_tv);
-                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment,item));
+                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment, item));
             }
 
-        }else {
-            if (!TextUtils.isEmpty(item.getDiary_type()) && item.getDiary_type().equals("cookbook")){
+        } else {
+            if (!TextUtils.isEmpty(item.getDiary_type()) && item.getDiary_type().equals("cookbook")) {
 
                 SpannableString spannableString = new SpannableString("  ");
                 Drawable drawable = mContext.getResources().getDrawable(R.mipmap.icon_repice);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 spannableString.setSpan(new VerticalImageSpan(drawable), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                helper.setText(R.id.user_descrbe_tv,spannableString);
+                helper.setText(R.id.user_descrbe_tv, spannableString);
 
-            }else {
+            } else {
                 TextView textView_comment = helper.getView(R.id.user_descrbe_tv);
-                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment,item));
+                helper.setText(R.id.user_descrbe_tv, analysisTextView(item.getMsg_content(), textView_comment, item));
             }
 
         }
@@ -192,77 +190,43 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         RecyclerView sharePicRv = helper.getView(R.id.share_pic_rv);
         sharePicRv.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
 
-        if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0){
-            if (item.getThumbnail_url().size() > 1){
-                sharePicRv.setVisibility(View.VISIBLE);
-                SharePictureAdapter sharePictureAdapter = new SharePictureAdapter();
-                sharePicRv.setAdapter(sharePictureAdapter);
-                sharePictureAdapter.setNewData(item.getThumbnail_url());
-                sharePictureAdapter.notifyDataSetChanged();
-                sharePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0) {
+            sharePicRv.setVisibility(View.VISIBLE);
+            SharePictureAdapter sharePictureAdapter = new SharePictureAdapter();
+            sharePicRv.setAdapter(sharePictureAdapter);
+            sharePictureAdapter.setNewData(item.getThumbnail_url());
+            sharePictureAdapter.notifyDataSetChanged();
+            sharePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                        //组织数据
-                        ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
-                        ThumbViewInfo iteminfo;
-                        mThumbViewInfoList.clear();
-                        for (int i = 0;i < item.getImg_url().size(); i++) {
-                            Rect bounds = new Rect();
-                            //new ThumbViewInfo(图片地址);
-                            iteminfo=new ThumbViewInfo(item.getThumbnail_url().get(i));
-                            iteminfo.setBounds(bounds);
-                            mThumbViewInfoList.add(iteminfo);
-                        }
-
-                        //打开预览界面
-                        GPreviewBuilder.from((Activity) mContext)
-                                //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
-                                .to(ImageLookActivity.class)
-                                .setData(mThumbViewInfoList)
-                                .setCurrentIndex(position)
-                                .setSingleFling(true)
-                                .setType(GPreviewBuilder.IndicatorType.Number)
-                                // 小圆点
-                                //  .setType(GPreviewBuilder.IndicatorType.Dot)
-                                .start();//启动
+                    //组织数据
+                    ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
+                    ThumbViewInfo iteminfo;
+                    mThumbViewInfoList.clear();
+                    for (int i = 0; i < item.getImg_url().size(); i++) {
+                        Rect bounds = new Rect();
+                        //new ThumbViewInfo(图片地址);
+                        iteminfo = new ThumbViewInfo(item.getThumbnail_url().get(i));
+                        iteminfo.setBounds(bounds);
+                        mThumbViewInfoList.add(iteminfo);
                     }
-                });
-            }else {
-                sharePicRv.setVisibility(View.GONE);
-//                SinglePictureAdapter singlePictureAdapter = new SinglePictureAdapter();
-//                sharePicRv.setAdapter(singlePictureAdapter);
-//                singlePictureAdapter.setNewData(item.getImg_url());
-//                singlePictureAdapter.notifyDataSetChanged();
-//                singlePictureAdapter.setOnItemClickListener(new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                        //组织数据
-//                        ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
-//                        mThumbViewInfoList.clear();
-//                        for (int i = 0;i < item.getImg_url().size(); i++) {
-//                            Rect bounds = new Rect();
-//                            //new ThumbViewInfo(图片地址);
-//                            ThumbViewInfo iteminfo = new ThumbViewInfo(item.getImg_url().get(i));
-//                            iteminfo.setBounds(bounds);
-//                            mThumbViewInfoList.add(iteminfo);
-//                        }
-//
-//                        //打开预览界面
-//                        GPreviewBuilder.from((Activity) mContext)
-//                                //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
-//                                .to(ImageLookActivity.class)
-//                                .setData(mThumbViewInfoList)
-//                                .setCurrentIndex(position)
-//                                .setSingleFling(true)
-//                                .setType(GPreviewBuilder.IndicatorType.Number)
-//                                // 小圆点
-//                                //  .setType(GPreviewBuilder.IndicatorType.Dot)
-//                                .start();//启动
-//                    }
-//                });
-            }
+
+                    //打开预览界面
+                    GPreviewBuilder.from((Activity) mContext)
+                            //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
+                            .to(ImageLookActivity.class)
+                            .setData(mThumbViewInfoList)
+                            .setCurrentIndex(position)
+                            .setSingleFling(true)
+                            .setType(GPreviewBuilder.IndicatorType.Number)
+                            // 小圆点
+                            //  .setType(GPreviewBuilder.IndicatorType.Dot)
+                            .start();//启动
+                }
+            });
+        } else {
+            sharePicRv.setVisibility(View.GONE);
         }
         RecyclerView commentsRv = helper.getView(R.id.comments_rv);
         commentsRv.setHasFixedSize(true);
@@ -273,17 +237,15 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         TextView lookMoreTv = helper.getView(R.id.look_more_tv);
         commentsRv.setAdapter(commentsAdapter);
 
-        if (item.getComment() != null && item.getComment().size() > 0){
+        if (item.getComment() != null && item.getComment().size() > 0) {
             commentsRv.setAdapter(commentsAdapter);
 
-            if (item.getComment_count()>3){
+            if (item.getComment_count() > 3) {
                 lookMoreTv.setVisibility(View.VISIBLE);
                 for (int i = 0; i < 3; i++) {
                     commentsAdapter.addData(item.getComment().get(i));
                 }
-            }
-
-            else {
+            } else {
                 lookMoreTv.setVisibility(View.GONE);
                 commentsAdapter.setNewData(item.getComment());
             }
@@ -304,13 +266,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 @Override
                 public void click(int position) {
                     String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
-                    if (userId.equals(((CommentInfo) commentsAdapter.getItem(position)).getOpenid())){
-                        if (commentDeleteLisenter != null){
-                            commentDeleteLisenter.deleteComment((CommentInfo) commentsAdapter.getItem(position),item.getDiary_id(),position,helper.getAdapterPosition());
-                        }
-                    }else {
+                    if (userId.equals(((CommentInfo) commentsAdapter.getItem(position)).getOpenid())) {
                         if (commentDeleteLisenter != null) {
-                            commentDeleteLisenter.replyComment((CommentInfo) commentsAdapter.getItem(position), item.getDiary_id(),helper.getAdapterPosition());
+                            commentDeleteLisenter.deleteComment((CommentInfo) commentsAdapter.getItem(position), item.getDiary_id(), position, helper.getAdapterPosition());
+                        }
+                    } else {
+                        if (commentDeleteLisenter != null) {
+                            commentDeleteLisenter.replyComment((CommentInfo) commentsAdapter.getItem(position), item.getDiary_id(), helper.getAdapterPosition());
                         }
                     }
                 }
@@ -329,41 +291,41 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 public void onClick(View v) {
                     int size = item.getComment_count();//评论数
                     List<CommentInfo> data = commentsAdapter.getData();//在展示的评论数
-                    if (data.size() < size){
-                                getMoreComment(commentsAdapter,item.getDiary_id(),lookMoreTv);
-                        }
+                    if (data.size() < size) {
+                        getMoreComment(commentsAdapter, item.getDiary_id(), lookMoreTv);
+                    }
                 }
             });
-        }else {
+        } else {
             lookMoreTv.setVisibility(View.GONE);
             commentsAdapter.setNewData(new ArrayList<CommentInfo>());
             commentsAdapter.notifyDataSetChanged();
         }
 
-        if (!TextUtils.isEmpty(item.getCreate_date())){
-            helper.setText(R.id.sned_time_tv,item.getCreate_date());
+        if (!TextUtils.isEmpty(item.getCreate_date())) {
+            helper.setText(R.id.sned_time_tv, item.getCreate_date());
         }
 
-        if (item.isIs_liked()){
-            helper.setBackgroundRes(R.id.like_status_iv,R.mipmap.icon_focu);
-        }else {
-            helper.setBackgroundRes(R.id.like_status_iv,R.mipmap.icon_focus_off);
+        if (item.isIs_liked()) {
+            helper.setBackgroundRes(R.id.like_status_iv, R.mipmap.icon_focu);
+        } else {
+            helper.setBackgroundRes(R.id.like_status_iv, R.mipmap.icon_focus_off);
         }
 
-        if (!TextUtils.isEmpty(item.getLike_count() + "")){
-            if (item.getLike_count() < 999){
-                helper.setText(R.id.like_tv,item.getLike_count() + "");
-            }else if (item.getLike_count() < 9999){
-                helper.setText(R.id.like_tv,item.getLike_count()/1000 + "k");
-            }else {
-                helper.setText(R.id.like_tv,item.getLike_count()/10000 + "w");
+        if (!TextUtils.isEmpty(item.getLike_count() + "")) {
+            if (item.getLike_count() < 999) {
+                helper.setText(R.id.like_tv, item.getLike_count() + "");
+            } else if (item.getLike_count() < 9999) {
+                helper.setText(R.id.like_tv, item.getLike_count() / 1000 + "k");
+            } else {
+                helper.setText(R.id.like_tv, item.getLike_count() / 10000 + "w");
             }
         }
 
-        if (item.isIs_collected()){
-            helper.setBackgroundRes(R.id.collection_status_iv,R.mipmap.icon_collection);
-        }else {
-            helper.setBackgroundRes(R.id.collection_status_iv,R.mipmap.icon_collection_off);
+        if (item.isIs_collected()) {
+            helper.setBackgroundRes(R.id.collection_status_iv, R.mipmap.icon_collection);
+        } else {
+            helper.setBackgroundRes(R.id.collection_status_iv, R.mipmap.icon_collection_off);
         }
 
        /* if (!TextUtils.isEmpty(item.getMaster_rank() + "")){
@@ -376,20 +338,20 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             }
         }*/
 
-        if (!TextUtils.isEmpty(item.getComment_count() + "")){
-            if (item.getComment_count() < 999){
-                helper.setText(R.id.message_tv,item.getComment_count() + "");
+        if (!TextUtils.isEmpty(item.getComment_count() + "")) {
+            if (item.getComment_count() < 999) {
+                helper.setText(R.id.message_tv, item.getComment_count() + "");
                 if (item.getComment_count() > 0) {
                 }
 
-            }else if (item.getLike_count() < 9999){
-                helper.setText(R.id.message_tv,item.getComment_count()/1000 + "k");
-            }else {
-                helper.setText(R.id.message_tv,item.getComment_count()/10000 + "w");
+            } else if (item.getLike_count() < 9999) {
+                helper.setText(R.id.message_tv, item.getComment_count() / 1000 + "k");
+            } else {
+                helper.setText(R.id.message_tv, item.getComment_count() / 10000 + "w");
             }
         }
 
-        if (item.getLiked() != null && item.getLiked().size() > 0 ){
+        if (item.getLiked() != null && item.getLiked().size() > 0) {
             helper.getView(R.id.liked_rl).setVisibility(View.VISIBLE);
 
 
@@ -397,7 +359,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
             for (int i = 0; i < item.getLiked().size(); i++) {
                 int currentPosition = i;
-                if (i == item.getLiked().size()-1){
+                if (i == item.getLiked().size() - 1) {
                     builder.append(item.getLiked().get(i).getNickname()).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
                         @Override
                         public void updateDrawState(TextPaint ds) {
@@ -414,7 +376,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                         }
                     });
                     builder.append("等" + item.getLiked().size() + "人觉得很赞");
-                }else {
+                } else {
                     builder.append(item.getLiked().get(i).getNickname() + ",").setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
                         @Override
                         public void updateDrawState(TextPaint ds) {
@@ -433,14 +395,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                 }
             }
 //            addTagToTextView(helper.getView(R.id.liked_username_tv),builder.create().toString(),"等" + item.getLiked().size() + "人觉得很赞");
-            helper.setText(R.id.liked_username_tv,builder.create());
-            ((TextView)helper.getView(R.id.liked_username_tv)).setMovementMethod(LinkMovementMethod.getInstance());
+            helper.setText(R.id.liked_username_tv, builder.create());
+            ((TextView) helper.getView(R.id.liked_username_tv)).setMovementMethod(LinkMovementMethod.getInstance());
             //在ListView/RecyclerView中的应用
 //            etv.updateForRecyclerView(text, etvWidth, state);//etvWidth为控件的真实宽度，state是控件所处的状态，“收缩”/“伸展”状态
         } else {
             helper.getView(R.id.liked_rl).setVisibility(View.GONE);
         }
-
 
 
         helper.addOnClickListener(R.id.focu_status_iv);
@@ -459,9 +420,10 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
     }
 
-    public interface CommentDeleteLisenter{
-        void deleteComment(CommentInfo commentInfo, String diary_id, int position,int foundPosition);
-        void replyComment(CommentInfo commentInfo, String diary_id,int foundPosition);
+    public interface CommentDeleteLisenter {
+        void deleteComment(CommentInfo commentInfo, String diary_id, int position, int foundPosition);
+
+        void replyComment(CommentInfo commentInfo, String diary_id, int foundPosition);
     }
 
     public void setCommentDeleteLisenter(CommentDeleteLisenter commentDeleteLisenter) {
@@ -525,7 +487,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void getMoreComment(CommentsAdapter commentsAdapter,String draft_id,TextView lookMoreTv) {//获取更多评论信息-----------------------
+    public void getMoreComment(CommentsAdapter commentsAdapter, String draft_id, TextView lookMoreTv) {//获取更多评论信息-----------------------
         ObserverOnNextListener<CommentInfoMore, Throwable> listener = new ObserverOnNextListener<CommentInfoMore, Throwable>() {
             @Override
             public void onNext(CommentInfoMore commentInfoMore) {//从网络上获取的草稿箱信息
@@ -553,7 +515,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         ApiMethods.getMoreComment(new MyObserver<CommentInfoMore>(mContext, listener), "allcomment", draft_id, "3");
     }
 
-    private CharSequence analysisTextView(String desc, TextView tv,AllMsgFound item) {
+    private CharSequence analysisTextView(String desc, TextView tv, AllMsgFound item) {
         /*正则表达式  取出 两个#之间的内容 （不包含#） */
         Pattern p = Pattern.compile("#([^\\#|.]+)#");
         /*android 提供的 具有强大的CharSequence 处理能力 各种区域处理*/
@@ -571,7 +533,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             /*取出 字符串 前后添加#*/
             final String s = m.group(1);
             int startIndex = m.start(1) - 1;
-            int endIndex = startIndex + s.length()+2;
+            int endIndex = startIndex + s.length() + 2;
             /*区域处理*/
 
             ss.setSpan(new ClickableSpan() {
