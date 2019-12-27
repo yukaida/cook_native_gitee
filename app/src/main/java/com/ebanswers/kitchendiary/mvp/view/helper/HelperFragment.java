@@ -157,12 +157,12 @@ public class HelperFragment extends CommonLazyFragment implements BaseView.Helpe
 
                 } else if (view.getId() == R.id.goods_builder_iv || view.getId() == R.id.goods_builder_tv) {
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    intent.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user() + "&my_openid=" + HomeActivity.getOpenId());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user() + "&my_openid=" + HomeActivity.getOpenId());
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getContext(), WebActivity.class);
                     String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
-                    String url = "http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid;
+                    String url = "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid;
                     intent.putExtra("url",url);
                     startActivity(intent);
                 }

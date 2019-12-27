@@ -18,9 +18,7 @@ import android.widget.ProgressBar;
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
-import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.utils.LogUtils;
-import com.ebanswers.kitchendiary.utils.SPUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -181,7 +179,7 @@ public class WebActivity extends CommonActivity {
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
                 if (!url.contains("&openid=")) {
-                    mWebView.loadUrl(url + "?openid=" + SPUtils.get(AppConstant.USER_ID, "") + "&my_openid=" + HomeActivity.getOpenId());
+                    mWebView.loadUrl(url + "?openid=" + HomeActivity.getOpenId() + "&my_openid=" + HomeActivity.getOpenId());
                 } else {
                     mWebView.loadUrl(url);
                 }

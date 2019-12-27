@@ -285,7 +285,13 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     switch (view.getId()) {
                         case R.id.share_iv:
                             if (SPUtils.getIsLogin()) {
-                                UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                                UMImage image;
+                                if (item.getImg_url()!=null && item.getImg_url().size()>0) {
+                                    image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                                } else {
+                                    image=new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+                                }
+
                                 image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                                 image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
                                 //                        压缩格式设置
