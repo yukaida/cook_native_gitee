@@ -425,7 +425,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                             EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_FOUBND, "发现页"));
                             finish();
                         } else {
-                            ToastUtils.show("发布菜谱必须包含:封面图 菜谱名 有一条步骤或步骤图");
+                            ToastUtils.show("发布菜谱必须包含:封面图 菜谱名 有一条步骤和步骤图");
                         }
                     }
                 } else {
@@ -471,10 +471,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
         String repiceDesc = repiceDescEt.getText().toString().trim();
         String repiceTip = repiceTipEt.getText().toString().trim();
         List<Stepinfo> data = foodStepAdapter.getData();
-
-        for (int i = 0; i < data.size(); i++) {
-            Log.d("catch1224", "repiceCreate: " + data.get(i).getImg());
-        }
 
         loadViewItem();
         if (img_url == null) {
@@ -704,57 +700,53 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                     }
                     break;
                 case 56://草稿箱返回数据
-                        String json_draftsDetail = data.getStringExtra("json_draftsDetail");
-                        Log.d("testneed", "onActivityResult: " + json_draftsDetail);
-                        DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
-                        List<String> img_url = draftsDetail.getData().getImg_url();//封面
-                        titlePath = img_url.get(0);
-//                    repiceCoverIv
-                        if (img_url.size() > 0) {
-                            GlideApp.with(this).load(img_url.get(0))
-//                    .skipMemoryCache(true)
-                                    .dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(repiceCoverIv);
-                            addLl.setVisibility(View.GONE);
-                            addDescTv.setVisibility(View.GONE);
-                        }
-
-                        String title = draftsDetail.getData().getTitle();//菜谱名称
-                        repiceNameEt.setText(title);
-
-                        String explain = draftsDetail.getData().getMsg_content();//菜谱说明
-                        repiceDescEt.setText(explain);
-
-                        String cookbook_type = draftsDetail.getData().getCookbook_type();//菜谱类型（蒸烤/普通）
-                        if ("蒸烤菜谱".equals(cookbook_type)) {
-                            repiceSteamingRoastRb.setChecked(true);
-                        } else {
-                            repiceNormalRb.setChecked(true);
-                        }
-
-                        List<Material> material_list = draftsDetail.getData().getMaterial();//材料list
-                        loadAndAddMaterialView(material_list);
-
-                        List<Steps> steps_lsit = draftsDetail.getData().getSteps();//步骤list
-                        List<Stepinfo> data_temp = new ArrayList<>();//添加进rv的list
-                        for (int i = 0; i < steps_lsit.size(); i++) {//将获取到的数据添加到界面原来的数组结构中，Edit属性默认全置为flase
-                            Stepinfo stepinfo = new Stepinfo();
-                            stepinfo.setDesc(steps_lsit.get(i).getDesc());
-                            stepinfo.setEdit(false);
-                            stepinfo.setImg(steps_lsit.get(i).getImg());
-                            stepinfo.setThumbnail(steps_lsit.get(i).getThumbnail());
-                            data_temp.add(stepinfo);
-                        }
-//                    foodStepAdapter.setNewData(stepinfos);
-//                    List<Stepinfo> data = foodStepAdapter.getData();
-//                    data.remove(position);
-                        foodStepAdapter.setNewData(data_temp);
-                        foodStepAdapter.notifyDataSetChanged();
-                        String tips = draftsDetail.getData().getDesc();//小贴士
-                        repiceTipEt.setText(tips);
-                        break;
+                    String json_draftsDetail = data.getStringExtra("json_draftsDetail");
+                    Log.d("testneed", "onActivityResult: " + json_draftsDetail);
+                    DraftsDetail draftsDetail = new Gson().fromJson(json_draftsDetail, DraftsDetail.class);
+                    List<String> img_url = draftsDetail.getData().getImg_url();//封面
+                    titlePath = img_url.get(0);
+                    if (img_url.size() > 0) {
+                        GlideApp.with(this).load(img_url.get(0)).dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(repiceCoverIv);
+                        addLl.setVisibility(View.GONE);
+                        addDescTv.setVisibility(View.GONE);
+                        titleThumbPath = img_url.get(0);
                     }
+
+                    String title = draftsDetail.getData().getTitle();//菜谱名称
+                    repiceNameEt.setText(title);
+
+                    String explain = draftsDetail.getData().getMsg_content();//菜谱说明
+                    repiceDescEt.setText(explain);
+
+                    String cookbook_type = draftsDetail.getData().getCookbook_type();//菜谱类型（蒸烤/普通）
+                    if ("蒸烤菜谱".equals(cookbook_type)) {
+                        repiceSteamingRoastRb.setChecked(true);
+                    } else {
+                        repiceNormalRb.setChecked(true);
+                    }
+
+                    List<Material> material_list = draftsDetail.getData().getMaterial();//材料list
+                    loadAndAddMaterialView(material_list);
+
+                    List<Steps> steps_lsit = draftsDetail.getData().getSteps();//步骤list
+                    List<Stepinfo> data_temp = new ArrayList<>();//添加进rv的list
+                    for (int i = 0; i < steps_lsit.size(); i++) {//将获取到的数据添加到界面原来的数组结构中，Edit属性默认全置为flase
+                        Stepinfo stepinfo = new Stepinfo();
+                        stepinfo.setDesc(steps_lsit.get(i).getDesc());
+                        stepinfo.setEdit(false);
+                        stepinfo.setImg(steps_lsit.get(i).getImg());
+                        stepinfo.setThumbnail(steps_lsit.get(i).getThumbnail());
+                        data_temp.add(stepinfo);
+                    }
+                    foodStepAdapter.setNewData(data_temp);
+                    foodStepAdapter.notifyDataSetChanged();
+                    String tips = draftsDetail.getData().getDesc();//小贴士
+                    repiceTipEt.setText(tips);
+
+                    break;
             }
         }
+    }
 
 
     @Override
@@ -885,7 +877,7 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
 
     }
 
-    public void  popupCheckCover() {//从草稿箱添加回来的数据确认覆盖弹窗
+    public void popupCheckCover() {//从草稿箱添加回来的数据确认覆盖弹窗
 
         if (builder == null) {
             builder = new DialogBackTip.Builder(this);
@@ -913,7 +905,6 @@ public class SendRepiceActivity extends CommonActivity implements BaseView.SendR
                 startActivityForResult(intent, 56);
             }
         }).create().show();
-
 
 
     }

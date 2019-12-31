@@ -63,7 +63,6 @@ public class CreateRepiceService extends Service {
     private boolean uploadStep = false;
     private PollingUtil pollingUtil;
     private Runnable runnable;
-    private Runnable runnable1;
     private DialogBackTip.Builder builder;
 
 
@@ -85,11 +84,11 @@ public class CreateRepiceService extends Service {
         Log.e(TAG, "onStartCommand: ");
 
 
-        success = (boolean) SPUtils.get("success",false);
+        success = (boolean) SPUtils.get("success", false);
 
-        if (success){
+        if (success) {
             stopSelf();
-        }else {
+        } else {
 
             send();
         }
@@ -103,9 +102,16 @@ public class CreateRepiceService extends Service {
         String pic = (String) SPUtils.get(AppConstant.pic, "");
         Gson gson = new Gson();
         allMsgFound = gson.fromJson(repice, AllMsgFound.class);
-        stepinfos = gson.fromJson(pic,new TypeToken<List<Stepinfo>>(){}.getType());
+        stepinfos = gson.fromJson(pic, new TypeToken<List<Stepinfo>>() {}.getType());
         String userImage = (String) SPUtils.get(AppConstant.USER_IMAGE, "");
-        if (!TextUtils.isEmpty(userImage)){
+        if (!TextUtils.isEmpty(userImage) && userImage.contains("http")) {
+            ArrayList<String> img_url = new ArrayList<String>();
+            img_url.add(userImage);
+            allMsgFound.setImg_url(img_url);
+            allMsgFound.setThumbnail_url(img_url);
+            SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
+            uploadHeadImage = true;
+        } else if (!TextUtils.isEmpty(userImage)) {
             File file = new File(userImage);
             RequestBody image = RequestBody.create(MediaType.parse("*"), file);
             RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
@@ -118,20 +124,41 @@ public class CreateRepiceService extends Service {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (uploadHeadImage){
-                    if (stepinfos != null){
-                        if (!uploadStep){
+                if (uploadHeadImage) {
+                    if (stepinfos != null) {
+                        if (!uploadStep) {
                             uploadStep = true;
                             if (currentcount < stepinfos.size()) {
-                                File file = new File(stepinfos.get(currentcount).getThumbnail());
-                                RequestBody image = RequestBody.create(MediaType.parse("*"), file);
-                                RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
-                                MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
-                                uploadImg(part, watermark);
-                            }else {
+                                String thumbnail = stepinfos.get(currentcount).getThumbnail();
+                                if (TextUtils.isEmpty(thumbnail)) {
+                                    FoodStepinfo foodStepinfo = new FoodStepinfo();
+                                    foodStepinfo.setImg("");
+                                    foodStepinfo.setThumbnail("");
+                                    foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
+                                    foodStepinfos.add(foodStepinfo);
+                                    SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
+                                    currentcount++;
+                                    uploadStep = false;
+                                } else if (thumbnail.contains("http")) {
+                                    FoodStepinfo foodStepinfo = new FoodStepinfo();
+                                    foodStepinfo.setImg(thumbnail);
+                                    foodStepinfo.setThumbnail(thumbnail);
+                                    foodStepinfo.setDesc(stepinfos.get(currentcount).getDesc());
+                                    foodStepinfos.add(foodStepinfo);
+                                    SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
+                                    currentcount++;
+                                    uploadStep = false;
+                                } else {
+                                    File file = new File(thumbnail);
+                                    RequestBody image = RequestBody.create(MediaType.parse("*"), file);
+                                    RequestBody watermark = RequestBody.create(MediaType.parse("text/plain"), "yes");
+                                    MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), image);
+                                    uploadImg(part, watermark);
+                                }
+                            } else {
                                 uploadStepImage = true;
                                 allMsgFound.setSteps(foodStepinfos);
-                                loadCookbook("cookbook",new Gson().toJson(allMsgFound));
+                                loadCookbook("cookbook", new Gson().toJson(allMsgFound));
                             }
                         }
                     }
@@ -141,77 +168,61 @@ public class CreateRepiceService extends Service {
 
         pollingUtil.startPolling(runnable, 2000, true);
 
-        runnable1 = new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        };
-
-        pollingUtil.startPolling(runnable1, 10000, true);
 
     }
 
     private void uploadHeadImg(MultipartBody.Part part, RequestBody body) {
-        ObserverOnNextListener<ImageResponse,Throwable> listener = new ObserverOnNextListener<ImageResponse, Throwable>() {
+        ObserverOnNextListener<ImageResponse, Throwable> listener = new ObserverOnNextListener<ImageResponse, Throwable>() {
             @Override
             public void onNext(ImageResponse imageResponse) {
-                if (imageResponse != null && imageResponse.getData() != null){
+                if (imageResponse != null && imageResponse.getData() != null) {
 
                     ArrayList<String> img_url = new ArrayList<String>();
                     ArrayList<String> thumbnail_url = new ArrayList<String>();
-                    if (!TextUtils.isEmpty(imageResponse.getData().getImg_url())){
+                    if (!TextUtils.isEmpty(imageResponse.getData().getImg_url())) {
                         img_url.add(imageResponse.getData().getImg_url());
                     }
-                    if (!TextUtils.isEmpty(imageResponse.getData().getThumbnail_url())){
+                    if (!TextUtils.isEmpty(imageResponse.getData().getThumbnail_url())) {
                         thumbnail_url.add(imageResponse.getData().getThumbnail_url());
                     }
                     allMsgFound.setImg_url(img_url);
                     allMsgFound.setThumbnail_url(thumbnail_url);
                     SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
-              /*      Gson gson = new Gson();
-                    SPUtils.put(AppConstant.repice, gson.toJson(allMsgFound));
-                    SPUtils.put(AppConstant.USER_IMAGE, "");*/
                     uploadHeadImage = true;
                 }
             }
 
             @Override
             public void onError(Throwable throwable) {
-                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
-                }else {
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
-                }
+                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
             }
         };
 
-        ApiMethods.uploadImg(new MyObserver<ImageResponse>(getApplicationContext(),listener),part,body);
+        ApiMethods.uploadImg(new MyObserver<ImageResponse>(getApplicationContext(), listener), part, body);
     }
 
-    public void loadCookbook(String action, String allMsgFound){
+    public void loadCookbook(String action, String allMsgFound) {
 
-        ObserverOnNextListener<BaseResponse,Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
+        ObserverOnNextListener<BaseResponse, Throwable> listener = new ObserverOnNextListener<BaseResponse, Throwable>() {
             @Override
             public void onNext(BaseResponse baseResponse) {
-                if (baseResponse.getCode() == 0){
-                    SPUtils.put("success",true);
-                    SPUtils.put(AppConstant.repice,"");
-                    SPUtils.put(AppConstant.pic,"");
-                    SPUtils.put(AppConstant.USER_IMAGE,"");
+                if (baseResponse.getCode() == 0) {
+                    SPUtils.put("success", true);
+                    SPUtils.put(AppConstant.repice, "");
+                    SPUtils.put(AppConstant.pic, "");
+                    SPUtils.put(AppConstant.USER_IMAGE, "");
                     ToastUtils.show("菜谱创建成功");
-                    if (uploadStepImage){
+                    if (uploadStepImage) {
                         pollingUtil.endPolling(runnable);
-                        pollingUtil.endPolling(runnable1);
                     }
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_SUCCESS,"发布成功"));
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_SUCCESS, "发布成功"));
                     stopSelf();
-                }else {
-                    count ++;
-                    if (count == 6){
+                } else {
+                    count++;
+                    if (count == 6) {
 //                    ToastUtils.show("菜谱创建失败，重新提交中");
-                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
-                    }else {
+                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
+                    } else {
                         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                         int anHour = 60 * 1000; // 这是8小时的毫秒数
                         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
@@ -225,12 +236,12 @@ public class CreateRepiceService extends Service {
 
             @Override
             public void onError(Throwable throwable) {
-                count ++;
-                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
-                    if (count == 6){
+                count++;
+                if (NetworkUtils.isNetworkAvailable(getApplicationContext())) {
+                    if (count == 6) {
 //                    ToastUtils.show("菜谱创建失败，重新提交中");
-                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
-                    }else {
+                        EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
+                    } else {
                         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                         int anHour = 60 * 1000; // 这是8小时的毫秒数
                         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
@@ -239,22 +250,22 @@ public class CreateRepiceService extends Service {
                         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPi);
 
                     }
-                }else {
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                } else {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
                 }
 
 
             }
         };
 
-        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(this,listener),allMsgFound,action);
+        ApiMethods.sendcookbook(new MyObserver<BaseResponse>(this, listener), allMsgFound, action);
     }
 
-    public void uploadImg(MultipartBody.Part part, RequestBody body){
-        ObserverOnNextListener<ImageResponse,Throwable> listener = new ObserverOnNextListener<ImageResponse, Throwable>() {
+    public void uploadImg(MultipartBody.Part part, RequestBody body) {
+        ObserverOnNextListener<ImageResponse, Throwable> listener = new ObserverOnNextListener<ImageResponse, Throwable>() {
             @Override
             public void onNext(ImageResponse imageResponse) {
-                if (imageResponse != null && imageResponse.getData() != null){
+                if (imageResponse != null && imageResponse.getData() != null) {
                     FoodStepinfo foodStepinfo = new FoodStepinfo();
                     foodStepinfo.setImg(imageResponse.getData().getImg_url());
                     foodStepinfo.setThumbnail(imageResponse.getData().getThumbnail_url());
@@ -262,22 +273,22 @@ public class CreateRepiceService extends Service {
                     foodStepinfos.add(foodStepinfo);
                     allMsgFound.setSteps(foodStepinfos);
                     SPUtils.put(AppConstant.repice, new Gson().toJson(allMsgFound));
-                    currentcount ++ ;
+                    currentcount++;
                     uploadStep = false;
                 }
             }
 
             @Override
             public void onError(Throwable throwable) {
-                if (NetworkUtils.isNetworkAvailable(getApplicationContext())){
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
-                }else {
-                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+                if (NetworkUtils.isNetworkAvailable(getApplicationContext())) {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
+                } else {
+                    EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
                 }
             }
         };
 
-        ApiMethods.uploadImg(new MyObserver<ImageResponse>(this,listener),part,body);
+        ApiMethods.uploadImg(new MyObserver<ImageResponse>(this, listener), part, body);
 
 
     }
@@ -295,10 +306,10 @@ public class CreateRepiceService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGetMessage(Event message) {
         if (message.getType() == Event.EVENT_NET) {
-            if (message.equals("false")){
-                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL,"发布失败"));
+            if (message.equals("false")) {
+                EventBusUtil.sendEvent(new Event(Event.EVENT_SEND_FAIL, "发布失败"));
                 stopSelf();
-                LogUtils.d("网络状态==="+  message.getParam());
+                LogUtils.d("网络状态===" + message.getParam());
 
             }
 

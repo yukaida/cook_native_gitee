@@ -398,17 +398,17 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 if (SPUtils.getIsLogin()) {
                     UMImage image;
                     if ((((BitmapDrawable) userIcon.getDrawable()).getBitmap()) != null) {
-                         image = new UMImage(getContext(), ((BitmapDrawable) userIcon.getDrawable()).getBitmap());//分享图标
+                        image = new UMImage(getContext(), ((BitmapDrawable) userIcon.getDrawable()).getBitmap());//分享图标
                     } else {
-                        image=new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+                        image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
                     }
 
                     image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                     image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
 //                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/food/diary?openid="+userId);
-                            //切记切记 这里分享的链接必须是http开头
+                    final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + userId);
+                    //切记切记 这里分享的链接必须是http开头
 //                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
                     web.setTitle(getContext().getString(R.string.share_title_new));//标题
                     web.setThumb(image);  //缩略图
@@ -806,6 +806,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     } else {
 //                        cookBookAdapter.getEmptyView().setVisibility(View.GONE);
                         loadEmpty("你还未发布菜谱记录", repiceRv);
+                        cookBookAdapter.setNewData(new ArrayList<>());
                         cookBookAdapter.setEmptyView(noDataView);
                     }
                     cookBookAdapter.notifyDataSetChanged();
