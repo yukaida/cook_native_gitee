@@ -76,9 +76,12 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
         String userid = (String) SPUtils.get(AppConstant.USER_ID, "");
 
 
+        helper.getView(R.id.focu_status_iv).setVisibility(View.VISIBLE);
+        helper.getView(R.id.found_button_delete).setVisibility(View.GONE);
+
         if (userid.equals(item.getCreate_user())) {
-            ImageView imageView_delete = helper.getView(R.id.found_button_delete);
-            imageView_delete.setVisibility(View.VISIBLE);
+            helper.getView(R.id.found_button_delete).setVisibility(View.VISIBLE);
+            helper.getView(R.id.focu_status_iv).setVisibility(View.GONE);
         }
 
         if (userid.equals(item.getCreate_user())) {

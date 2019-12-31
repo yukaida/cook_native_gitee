@@ -101,6 +101,7 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
 
     private List<DiaryPicinfo> piclist = new ArrayList<>();
     private SendDiaryPicAdapter sendDiaryPicAdapter;
+    private String topic = "";
 
     @Override
 
@@ -108,6 +109,11 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
         super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            topic = intent.getStringExtra("topic");
+            diaryEditText.setText(topic);
+        }
     }
 
     @Override

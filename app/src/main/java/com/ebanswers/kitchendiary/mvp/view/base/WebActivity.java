@@ -18,8 +18,11 @@ import android.widget.ProgressBar;
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.mvp.openjs.JsApi;
+import com.ebanswers.kitchendiary.mvp.openjs.OnJsOpen;
 import com.ebanswers.kitchendiary.utils.LogUtils;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
@@ -30,13 +33,13 @@ import static android.webkit.WebView.setWebContentsDebuggingEnabled;
  *    desc   : 浏览器界面
  */
 public class WebActivity extends CommonActivity {
-
+    private OnJsOpen onJsOpen;
     @BindView(R.id.pb_web_progress)
     ProgressBar mProgressBar;
     @BindView(R.id.wv_web_view)
     WebView mWebView;
-
-
+    private JsApi mJsApi;
+    private String currentUrl;
     private boolean isAppendId;///  是否拼接id
 
     @Override
@@ -64,13 +67,24 @@ public class WebActivity extends CommonActivity {
         settings.setAllowFileAccess(true);
         // 支持javaScript
         settings.setJavaScriptEnabled(true);
+        settings.setSaveFormData(false);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setAppCacheEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAppCachePath(this.getFilesDir().getAbsolutePath() + File.separator + "web");
+        settings.setDomStorageEnabled(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
 
-        //js调用android原生方法
-//        mWebView.addJavascriptInterface(new JsApi(),"jsapi");
 
-        WeakReference<WebView> weakReference = new WeakReference(this);
-
-
+        WeakReference<WebView> weakReference = new WeakReference(mWebView);
+        mJsApi = new JsApi(weakReference);
+        //        js调用android原生方法
+        mWebView.addJavascriptInterface(mJsApi,"jsapi");
+        settings.setAllowFileAccess(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
+        settings.setSupportZoom(false);
         // 允许网页定位
         settings.setGeolocationEnabled(true);
         // 允许保存密码
@@ -216,5 +230,20 @@ public class WebActivity extends CommonActivity {
         return super.statusBarDarkFont();
     }
 
+    public OnJsOpen getOnJsOpen() {
+        return onJsOpen;
+    }
+    public void setOnJsOpen(OnJsOpen onJsOpen) {
+        this.onJsOpen = onJsOpen;
+    }
+    public String getCurrentUrl() {
+        return currentUrl;
+    }
 
+    public void setCurrentUrl(String currentUrl) {
+        this.currentUrl = currentUrl;
+    }
+    public JsApi getJsApi() {
+        return mJsApi;
+    }
 }
