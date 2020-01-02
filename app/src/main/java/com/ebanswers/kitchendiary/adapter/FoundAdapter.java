@@ -210,7 +210,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
                     for (int i = 0; i < item.getImg_url().size(); i++) {
                         Rect bounds = new Rect();
                         //new ThumbViewInfo(图片地址);
-                        iteminfo = new ThumbViewInfo(item.getThumbnail_url().get(i));
+                        iteminfo = new ThumbViewInfo(item.getImg_url().get(i));
                         iteminfo.setBounds(bounds);
                         mThumbViewInfoList.add(iteminfo);
                     }

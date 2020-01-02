@@ -401,7 +401,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             break;
                         case R.id.user_descrbe_tv:
 
-                        case R.id.share_pic_rv:
+                        case R.id.share_pic_rv://发现页动态文字点击效果
                             Intent intent1 = new Intent(getContext(), WebActivity.class);
                             String openid1 = (String) SPUtils.get(AppConstant.USER_ID, "");
                             intent1.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid1);

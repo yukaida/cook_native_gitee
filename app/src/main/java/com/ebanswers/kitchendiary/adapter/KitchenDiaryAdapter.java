@@ -41,6 +41,7 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
         }
 
         RoundedImageView goodsShowIv = helper.getView(R.id.goods_show_iv);
+        goodsShowIv.setBackgroundResource(R.drawable.empty2);
 
         ViewGroup.LayoutParams layoutParams = goodsShowIv.getLayoutParams();
         layoutParams.width = layoutParams.width;
