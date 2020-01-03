@@ -32,7 +32,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, CommentInfo item) {
 
-        if (TextUtils.isEmpty(item.getFrom_user())){
+        if (item != null && TextUtils.isEmpty(item.getFrom_user())) {
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
             builder.append(item.getNickname()).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
                 @Override
@@ -59,16 +59,16 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
 
                 @Override
                 public void onClick(@NonNull View widget) {
-                    if (onCommentClickListener != null){
+                    if (onCommentClickListener != null) {
                         onCommentClickListener.click(helper.getPosition());
                     }
                 }
             });
 
 //            addTagToTextView(helper.getView(R.id.liked_username_tv),builder.create().toString(),"等" + item.getLiked().size() + "人觉得很赞");
-            helper.setText(R.id.reader_name_tv,builder.create());
-            ((TextView)helper.getView(R.id.reader_name_tv)).setMovementMethod(LinkMovementMethod.getInstance());
-        }else {
+            helper.setText(R.id.reader_name_tv, builder.create());
+            ((TextView) helper.getView(R.id.reader_name_tv)).setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
 
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
             builder.append(item.getNickname()).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
@@ -82,7 +82,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid()+ "&my_openid=" + HomeActivity.getOpenId());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getOpenid() + "&my_openid=" + HomeActivity.getOpenId());
                     mContext.startActivity(intent);
                 }
             });
@@ -96,7 +96,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
 
                 @Override
                 public void onClick(@NonNull View widget) {
-                    if (onCommentClickListener != null){
+                    if (onCommentClickListener != null) {
                         onCommentClickListener.click(helper.getPosition());
                     }
                 }
@@ -113,7 +113,7 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                 @Override
                 public void onClick(@NonNull View widget) {
                     Intent intent = new Intent(mContext, WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid()+ "&my_openid=" + HomeActivity.getOpenId());
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getFrom_openid() + "&my_openid=" + HomeActivity.getOpenId());
                     mContext.startActivity(intent);
                 }
             });
@@ -127,21 +127,21 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
 
                 @Override
                 public void onClick(@NonNull View widget) {
-                    if (onCommentClickListener != null){
+                    if (onCommentClickListener != null) {
                         onCommentClickListener.click(helper.getPosition());
                     }
                 }
             });
 
 //            addTagToTextView(helper.getView(R.id.liked_username_tv),builder.create().toString(),"等" + item.getLiked().size() + "人觉得很赞");
-            helper.setText(R.id.reader_name_tv,builder.create());
-            ((TextView)helper.getView(R.id.reader_name_tv)).setMovementMethod(LinkMovementMethod.getInstance());
+            helper.setText(R.id.reader_name_tv, builder.create());
+            ((TextView) helper.getView(R.id.reader_name_tv)).setMovementMethod(LinkMovementMethod.getInstance());
         }
 
 
     }
 
-    interface onCommentClickListener{
+    interface onCommentClickListener {
         void click(int position);
     }
 

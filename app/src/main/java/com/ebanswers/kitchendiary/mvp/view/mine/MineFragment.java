@@ -852,7 +852,9 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     }
 
     public void loadEmpty(String tip, View view) {
-        noDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) view.getParent(), false);
+
+        noDataView = LayoutInflater.from(getActivity()).inflate(R.layout.empty_view,(ViewGroup) view.getParent(), false);
+
         TextView emptyTv = noDataView.findViewById(R.id.empty_tv);
         ImageView emptyIv = noDataView.findViewById(R.id.empty_iv);
         ImageView loginIv = noDataView.findViewById(R.id.login_iv);

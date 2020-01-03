@@ -240,7 +240,8 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
 
                 } else {
-                    messageNumTv.setVisibility(View.GONE);
+                    if (messageNumTv != null)
+                        messageNumTv.setVisibility(View.GONE);
                 }
 
 

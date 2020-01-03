@@ -648,23 +648,6 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        int msg_num = (int) SPUtils.get("msg_num", 0);
-        if (msg_num > 0) {
-            newMsgShowLl.setVisibility(View.VISIBLE);
-            if (msg_num < 100) {
-                newMsgNumTv.setText(msg_num + "条新消息");
-            } else {
-                newMsgNumTv.setText("99+条新消息");
-            }
-
-        } else {
-            newMsgShowLl.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         userId = (String) SPUtils.get(AppConstant.USER_ID, "");
