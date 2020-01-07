@@ -68,6 +68,7 @@ public class Constans {
 
     public static final String ACCOUNT_MANAGER = "https://oven.53iq.com/api/account";//账号注册和密码修改
 
+    public static final String USER_CLOCKDAYS = "http://wechat.53iq.com/tmp/kitchen/food/diary";//获取用户打开天数
     public static final String ACCOUNT_LOGIN = "https://api.53iq.com/v1/user/login";//新接口
     public static final String ACCOUNT_LOGOUT = "https://api.53iq.com/v1/user/logout";
     public static final String ACCOUNT_REGISTER = "https://oven.53iq.com/v1/user/register";//账号注册
@@ -94,6 +95,9 @@ public class Constans {
 
     public static final String URL_PRIVACY = "file:////android_asset/KitchenDiary_read_privacy2.html";//隐私政策
     public static final String URL_PROTOCOL = "file:////android_asset/KitchenDiary_read_privacy.html";//用户协议
+    public static final String URL_RULE = "file:////android_asset/clock_rule.html";//用户协议
+
+
 
     public static final String SEARCH_RECIPE = "http://wechapish/act_cookbook";//用户关联菜谱
     public static final String WIFI_CONFIG = "http://192.1ttp-config.json";//AP配网

@@ -22,6 +22,7 @@ import com.ebanswers.kitchendiary.utils.ToastCustom;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -457,8 +458,25 @@ public class RetrofitTask {
 
     }
 
-
-
+    public static void getClockDay(String url, String openid,final CallBack<String> callBack) {
+        RetrofitHelper.getInstance().getService().getClockDay(url,openid,"json","wer")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String str) {
+                        if (callBack != null)
+                            callBack.result(str);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.d("RetrofitTask", "getClockDay:" + throwable.getMessage());
+                        if (callBack != null)
+                            callBack.onError();
+                    }
+                });
+    }
 
 
 

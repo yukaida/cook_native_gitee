@@ -30,7 +30,7 @@ public class PictureAdapter extends BaseQuickAdapter<SquareInfo.DataBean.DiaryBe
     @Override
     protected void convert(BaseViewHolder helper, SquareInfo.DataBean.DiaryBean item) {
 
-        RoundedImageView picIv = helper.getView(R.id.pic_iv);
+        RoundedImageView picIv = helper.getView(R.id.pic_iv_mine_helper);
 
         if (!TextUtils.isEmpty(item.getMsg_content())){
 
@@ -42,6 +42,7 @@ public class PictureAdapter extends BaseQuickAdapter<SquareInfo.DataBean.DiaryBe
             GlideApp.with(mContext)
                     .load(item.getThumbnail_url().get(0))
                     .dontAnimate()
+                    .centerCrop()
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(picIv);

@@ -73,6 +73,10 @@ public interface RetrofitService {
 
 
 
+    @GET()
+    Observable<String> getClockDay(@Url() String url, @Query("openid") String openid,@Query("return_type") String json,@Query("v") String wer);
+
+
     /**
      * 获取广告
      * @param url

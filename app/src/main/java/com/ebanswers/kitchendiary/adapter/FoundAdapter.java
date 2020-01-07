@@ -237,7 +237,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
 
         if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0) {
             sharePicRv.setVisibility(View.VISIBLE);
-            if (item.getThumbnail_url().size() > 1) {
+            if (item.getThumbnail_url().size() > 1) {//发现页用户动态图片大于一张
                 SharePictureAdapter sharePictureAdapter = new SharePictureAdapter();
                 sharePicRv.setAdapter(sharePictureAdapter);
                 sharePictureAdapter.setNewData(item.getThumbnail_url());

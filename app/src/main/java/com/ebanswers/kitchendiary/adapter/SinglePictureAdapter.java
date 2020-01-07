@@ -16,7 +16,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
  */
 public class SinglePictureAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-
     public SinglePictureAdapter() {
         super(R.layout.item_picture_single);
     }
@@ -34,20 +33,14 @@ public class SinglePictureAdapter extends BaseQuickAdapter<String, BaseViewHolde
                     picIv.setImageBitmap(resource);
                 }
             };*/
-
             GlideApp.with(mContext)
                     .load(item)
                     .placeholder(R.drawable.empty)
                     .dontAnimate()
-                    .centerCrop()
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-//                    .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .centerCrop ()
+                    .override(Target.SIZE_ORIGINAL)
+//                    .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
                     .into(picIv);
-
-
         }
     }
-
-
-
 }
