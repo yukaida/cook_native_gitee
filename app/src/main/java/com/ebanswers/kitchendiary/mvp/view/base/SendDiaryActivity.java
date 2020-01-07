@@ -34,16 +34,21 @@ import com.ebanswers.kitchendiary.bean.DiaryServiceNeed.PiclistBean;
 import com.ebanswers.kitchendiary.bean.Topics.NormalTopics;
 import com.ebanswers.kitchendiary.bean.Topics.Topics;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.config.Constans;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.eventbus.Event;
 import com.ebanswers.kitchendiary.eventbus.EventBusUtil;
 import com.ebanswers.kitchendiary.mvp.view.mine.TagActivity;
+import com.ebanswers.kitchendiary.mvp.view.mine.TestCodeinActivity;
 import com.ebanswers.kitchendiary.network.api.ApiMethods;
 import com.ebanswers.kitchendiary.network.observer.MyObserver;
 import com.ebanswers.kitchendiary.network.observer.ObserverOnNextListener;
+import com.ebanswers.kitchendiary.retrofit.RetrofitTask;
 import com.ebanswers.kitchendiary.service.CreateDiaryService;
 import com.ebanswers.kitchendiary.utils.NetworkUtils;
 import com.ebanswers.kitchendiary.utils.SPUtils;
+import com.ebanswers.kitchendiary.utils.ToastCustom;
+import com.ebanswers.kitchendiary.wxapi.WXEntryActivity;
 import com.google.gson.Gson;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
@@ -55,6 +60,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +82,6 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     TitleBar diaryTitle;
     @BindView(R.id.diary_editText)
     EditText diaryEditText;
-
     @BindView(R.id.diary_imageView_topic)
     ImageView diaryImageViewTopic;
     @BindView(R.id.diary_imageView_link)
@@ -84,27 +91,34 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     @BindView(R.id.diary_textView_inputjiontopic)
     TextView diaryTextViewInputjiontopic;
     @BindView(R.id.diary_textView_link)
-
     EditText diaryTextViewLink;
     @BindView(R.id.diary_rv_add)
     RecyclerView diaryRvAdd;
     @BindView(R.id.diary_imageview_add)
     ImageView diaryImageviewAdd;
-
     @BindView(R.id.diary_textView_fabu)
     Button diaryTextViewFabu;
     @BindView(R.id.diary_textView_recommand)
     TextView diaryTextViewRecommand;
-
     @BindView(R.id.diary_recyclerView_topiclist)//话题列表
-            RecyclerView diaryRecyclerViewTopiclist;
+     RecyclerView diaryRecyclerViewTopiclist;
+
+    @BindView(R.id.diary_imageView_clock)
+    ImageView diaryImageViewClock;
+    boolean imageviewClock = false;
+
+    @BindView(R.id.diary_textView_clock)
+    TextView diaryTextViewClock;
+    boolean textviewClock = false;
+
+    @BindView(R.id.diary_textView_rule)
+    TextView diaryTextViewRule;
 
     private List<DiaryPicinfo> piclist = new ArrayList<>();
     private SendDiaryPicAdapter sendDiaryPicAdapter;
     private String topic = "";
-
+    private String days = "1";
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -113,6 +127,31 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
         if (intent != null) {
             topic = intent.getStringExtra("topic");
             diaryEditText.setText(topic);
+        }
+
+        String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
+        if (openid != null && openid.length() > 3) {
+            RetrofitTask.getClockDay(Constans.USER_CLOCKDAYS, openid,new RetrofitTask.CallBack<String>() {
+                @Override
+                public void result(String s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        try {
+                            JSONObject json = new JSONObject(s);
+                            String days = json.getString("days");
+                            Log.d(TAG, "result: 打卡" + days);
+
+                            diaryTextViewClock.setText("打卡第"+days+"天");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
     }
 
@@ -229,9 +268,50 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     }
 
     //---------------------------------------------------点击事件
-    @OnClick({R.id.diary_textView_recommand, R.id.diary_imageview_add, R.id.diary_textView_fabu, R.id.diary_textView_topic})
+    @OnClick({R.id.diary_textView_recommand, R.id.diary_imageview_add, R.id.diary_textView_fabu, R.id.diary_textView_topic, R.id.diary_imageView_clock, R.id.diary_textView_clock, R.id.diary_textView_rule})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.diary_imageView_clock:
+                if (imageviewClock == false) {
+                    imageviewClock = true;
+                    textviewClock = true;
+                    diaryImageViewClock.setImageResource(R.drawable.radio_able);
+                    String text = diaryEditText.getText().toString().trim();
+                    diaryEditText.setText(text + "#打卡第" + days + "天#");
+
+                } else {
+                    imageviewClock = false;
+                    textviewClock = false;
+                    diaryImageViewClock.setImageResource(R.drawable.radio_disable);
+                    String text_todelete = diaryEditText.getText().toString().trim();
+                    String toreplace = "#打卡第" + days + "天#";
+                    String text_toadd=text_todelete.replaceAll(toreplace, "");
+                    diaryEditText.setText(text_toadd);
+                }
+                break;
+            case R.id.diary_textView_clock:
+                if (imageviewClock == false) {
+                    imageviewClock = true;
+                    textviewClock = true;
+                    String text = diaryEditText.getText().toString().trim();
+                    diaryEditText.setText(text + "#打卡第" + days + "天#");
+                    diaryImageViewClock.setImageResource(R.drawable.radio_able);
+                } else {
+                    imageviewClock = false;
+                    textviewClock = false;
+                    diaryImageViewClock.setImageResource(R.drawable.radio_disable);
+                    String text_todelete = diaryEditText.getText().toString().trim();
+                    String toreplace = "#打卡第" + days + "天#";
+                    String text_toadd=text_todelete.replaceAll(toreplace, "");
+                    diaryEditText.setText(text_toadd);
+                }
+                break;
+            case R.id.diary_textView_rule:
+                //todo 跳转到到打开规则网页
+                Intent intent = new Intent(SendDiaryActivity.this, WebActivity.class);
+                intent.putExtra("url", Constans.URL_RULE);
+                startActivity(intent);
+                break;
             case R.id.diary_textView_recommand://推荐一篇
                 closeInputMethod();
                 if (diaryTextViewLink.getVisibility() == View.GONE)
@@ -256,12 +336,9 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                             break;
                         }
                     }
-
                 }
-
                 String text_input = diaryEditText.getText().toString().trim();
                 if (text_input != null && text_input.length() > 1) {
-
                 } else {
                     Toast.makeText(this, "请输入有效信息", Toast.LENGTH_SHORT).show();
                     break;

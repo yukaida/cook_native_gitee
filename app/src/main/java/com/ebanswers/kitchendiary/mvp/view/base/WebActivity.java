@@ -14,13 +14,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.mvp.openjs.JsApi;
 import com.ebanswers.kitchendiary.mvp.openjs.OnJsOpen;
+import com.ebanswers.kitchendiary.utils.ImageLoader;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.previewlibrary.ZoomMediaLoader;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -108,7 +113,7 @@ public class WebActivity extends CommonActivity {
             settings.setLoadsImagesAutomatically(false);
         }
 
-
+        ZoomMediaLoader.getInstance().init(new ImageLoader());//大图预览支持
     }
 
     @Override

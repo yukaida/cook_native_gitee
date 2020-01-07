@@ -3,10 +3,12 @@ package com.ebanswers.kitchendiary.mvp.view.mine;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -165,6 +167,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     private View noDataView;
     private CustomPopWindow.PopupWindowBuilder popupWindowBuilder;
     private CustomPopWindow customPopWindow;
+    private String headurl = "";
     String userId;
     UMShareListener umShareListener = new UMShareListener() {
         /**
@@ -333,6 +336,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 }
             }
         });
+        headurl = (String) SPUtils.get(AppConstant.USER_ICON, new String());
     }
 
     @Override
@@ -396,9 +400,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 break;
             case R.id.share_iv:
                 if (SPUtils.getIsLogin()) {
+
                     UMImage image;
-                    if ((((BitmapDrawable) userIcon.getDrawable()).getBitmap()) != null) {
-                        image = new UMImage(getContext(), ((BitmapDrawable) userIcon.getDrawable()).getBitmap());//分享图标
+//                    if ((((BitmapDrawable) userIcon.getDrawable()).getBitmap()) != null) {
+//                        image = new UMImage(getContext(), ((BitmapDrawable) userIcon.getDrawable()).getBitmap());//分享图标
+//                    } else {
+//                        image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+//                    }
+                    Log.d("catch13", "quickOpenShare:3 "+headurl);
+                    if (headurl != null && headurl.length() > 0) {
+                        image = new UMImage(getContext(), headurl);//分享图标
                     } else {
                         image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
                     }
@@ -406,7 +417,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
                     image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
 //                        压缩格式设置
-//                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
                     final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + userId);
                     //切记切记 这里分享的链接必须是http开头
 //                final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123"); //切记切记 这里分享的链接必须是http开头
@@ -434,7 +445,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                     startActivity(new Intent(getContext(), WelActivity.class));
                 }
-
                 break;
             case R.id.setting_iv:
 //                Intent intent4 = new Intent(getContext(), WebActivity.class);

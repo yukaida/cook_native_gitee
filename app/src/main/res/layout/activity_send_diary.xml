@@ -172,9 +172,41 @@
                 app:layout_constraintBottom_toTopOf="@+id/diary_textView_fabu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/diary_textView_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="点击查看打开规则"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/diary_textView_clock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/diary_textView_clock" />
+
+            <ImageView
+                android:id="@+id/diary_imageView_clock"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/diary_textView_clock"
+                app:layout_constraintEnd_toStartOf="@+id/diary_textView_clock"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diary_textView_recommand"
-                app:layout_constraintVertical_bias="0.515" />
+                app:layout_constraintTop_toTopOf="@+id/diary_textView_clock"
+                app:srcCompat="@drawable/radio_disable" />
+
+            <TextView
+                android:id="@+id/diary_textView_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="打卡第1天"
+                app:layout_constraintBottom_toTopOf="@+id/diary_recyclerView_topiclist"
+                app:layout_constraintStart_toEndOf="@+id/diary_imageView_clock"
+                app:layout_constraintTop_toBottomOf="@+id/diary_textView_recommand" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
