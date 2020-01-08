@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
 public class CreateRepiceDraftService extends Service {
 
 
-    public static final String TAG = "CreateRepiceDraftService";
+    public static final String TAG = "RepiceDraftService";
     private static boolean control = false;
     //    private TokenBean mTokenBean;
     private AlarmManager manager;
