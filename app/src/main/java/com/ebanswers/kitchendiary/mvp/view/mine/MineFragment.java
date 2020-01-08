@@ -340,7 +340,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
     protected void initData() {
         userId = (String) SPUtils.get(AppConstant.USER_ID, "");
         if (!TextUtils.isEmpty(userId)) {
-            minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "", false);
+            minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
             minePresenter.loadUserInfo("wer", userId);
         }
     }
@@ -477,7 +477,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 mineSrl.setEnableLoadMore(true);
                 isMore = false;
                 if (!TextUtils.isEmpty(userId))
-                    minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "", false);
+                    minePresenter.loadDiaryInfo("more", "0", userId, "diary-only", "first", false);
                 break;
             case R.id.me_recipe_tv:
                 TextPaint tp4 = meDiaryTv.getPaint();
@@ -501,7 +501,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 isMore = false;
                 if (!TextUtils.isEmpty(userId)) {
                     mineSrl.setEnableLoadMore(true);
-                    minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "", false);
+                    minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
                 }
                 break;
             case R.id.me_collection_tv:
@@ -854,7 +854,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
 
         initData();
         if (isRepice) {
-            minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "", false);
+            minePresenter.loadCookbookInfo("more", "0", userId, "cookbook", "first", false);
         }
     }
 
