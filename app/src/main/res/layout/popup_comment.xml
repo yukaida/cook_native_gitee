@@ -6,7 +6,6 @@
     android:padding="@dimen/ten"
     android:background="@drawable/shadow2">
 
-
         <EditText
             android:id="@+id/comment_et"
             style="@style/EditTextStyle"

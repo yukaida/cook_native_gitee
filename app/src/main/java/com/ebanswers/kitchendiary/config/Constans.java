@@ -124,4 +124,7 @@ public class Constans {
     public static final int FILE_SELECT_CODE = 0x00;
     public static final int TYPE_PERMISSION_STORAGE = 177;
     public static final String EVENT_UDP_MAC = "EVENT_UDP_MAC";
+
+
+    public static final String AGREEN_PRIVACY = "AGREEN_PRIVACY";
 }

@@ -139,6 +139,7 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                         try {
                             JSONObject json = new JSONObject(s);
                              days = json.getString("days");
+
                             Log.d(TAG, "result: 打卡" + days);
                              daysclock = Integer.parseInt(days) + 1;
                             String days_add = String.valueOf(daysclock);

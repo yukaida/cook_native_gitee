@@ -50,6 +50,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -288,7 +289,12 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         if (data != null) {
             if (data.getRecommend_for_you() != null) {
                 if (data.getRecommend_for_you().size() > 0) {
-                    cookingActivityAdapter.setNewData(data.getRecommend_for_you());
+//todo  这里做差异化处理 给定一个第一的活动
+
+//                    List<RecommendForYou> listtoadd = new ArrayList<>();
+//
+//                    for ()
+                        cookingActivityAdapter.setNewData(data.getRecommend_for_you());
                     cookingActivityAdapter.notifyDataSetChanged();
                 }
             }

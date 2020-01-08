@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -411,7 +412,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         case R.id.found_button_delete:
                             diary_id_fordelete = item.getDiary_id();
                             position_fordelete = position;
-                            Log.d("yukaida", "onItemChildClick: " + diary_id_fordelete + "\n" + openid);
                             if (item.getCreate_user().equals(openid)) {
                                 showPopupMenu(view);
                             } else {
@@ -468,6 +468,17 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         });
     }
 
+    public static void HideKeyboard(View v)
+    {
+        InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
+        if ( imm.isActive( ) ) {
+            imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
+
+        }
+    }
+
+
+//todo  这里需要添加逻辑使弹窗和输入法一起消失
     private void popupCommentWindow(String diary_id, String tmp_user, String name) {//评论输入弹窗
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment, null);
@@ -490,6 +501,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 
                 //里面就是隐藏软键盘
                 Utils.hideSoftInput(getContext(), commentEt);
+
                 // 和自己要写的逻辑
                 return false;
             }

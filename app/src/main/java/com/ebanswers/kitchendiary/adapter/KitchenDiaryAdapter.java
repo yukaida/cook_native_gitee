@@ -58,7 +58,6 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.empty)
                     .into(goodsShowIv);
-
         }
 
 

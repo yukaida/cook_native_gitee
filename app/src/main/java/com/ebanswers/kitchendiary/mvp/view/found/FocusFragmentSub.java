@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -202,15 +203,22 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                     case R.id.share_iv:
 //                        showShare(item.getDesc(),item.getHead_url());
                         if (SPUtils.getIsLogin()) {
-                            UMImage image = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
-                            image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
-                            image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-//                        压缩格式设置
-                            image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                            UMImage image4 ;//分享图标
+                            if (item.getImg_url()!=null && item.getImg_url().size()>0) {
+                                Log.d("分享 1", "onItemChildClick: found "+item.getImg_url());
+                                image4 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                            } else {
+                                Log.d("分享 2", "onItemChildClick: found "+item.getImg_url());
+                                image4 = new UMImage(getContext(), R.drawable.icon_logo);//分享图标
+                            }
+//                            image4.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+//                            image4.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+////                        压缩格式设置
+//                            image4.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
                             String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
                             final UMWeb web = new UMWeb("https://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
                             web.setTitle(item.getTitle());//标题
-                            web.setThumb(image);  //缩略图
+                            web.setThumb(image4);  //缩略图
                             web.setDescription(item.getDesc());//描述
 
                             new ShareAction(getSupportActivity()).withMedia(web).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setShareboardclickCallback(new ShareBoardlistener() {

@@ -151,9 +151,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
 //        popupSendRepiceWindow(tabCenterLl);
-
         if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
             SPUtils.put(AppConstant.USER_NAME, "厨房客人");
         }
