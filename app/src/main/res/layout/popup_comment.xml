@@ -1,60 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/ten"
+    android:background="@drawable/shadow2">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/shadow">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/forty"
-            android:layout_marginTop="@dimen/ten">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/forty"
-                android:text="评论"
-                android:textSize="@dimen/textsize_16"
-                android:textColor="@color/text_black_normal"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/send_commment_tv"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:text="发布"
-                android:textColor="@color/app_theme"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:focusable="true"
-                android:layout_marginRight="10dp"
-                android:textSize="@dimen/textsize_14"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray01"
-            android:layout_marginLeft="@dimen/ten"
-            android:layout_marginRight="@dimen/ten"/>
 
         <EditText
             android:id="@+id/comment_et"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
             style="@style/EditTextStyle"
-            android:hint="留言是对美食最大的肯定"
-            android:gravity="left|top"
-            android:padding="@dimen/ten"
-            android:focusable="true"/>
-    </LinearLayout>
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:hint="评论"
+            android:padding="@dimen/ten" />
+
+        <TextView
+            android:id="@+id/send_commment_tv"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="发送"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/selector_button"
+            android:gravity="center" />
+
 
 
 

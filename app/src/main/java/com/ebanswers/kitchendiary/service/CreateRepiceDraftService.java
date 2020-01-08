@@ -49,7 +49,6 @@ import okhttp3.RequestBody;
  */
 public class CreateRepiceDraftService extends Service {
 
-
     public static final String TAG = "RepiceDraftService";
     private static boolean control = false;
     //    private TokenBean mTokenBean;
@@ -68,7 +67,6 @@ public class CreateRepiceDraftService extends Service {
     private Runnable runnable;
     private Runnable runnable1;
     private DialogBackTip.Builder builder;
-
 
     @Nullable
     @Override
