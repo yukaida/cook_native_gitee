@@ -232,30 +232,28 @@
             android:value="1280" />
         <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true"/>
-
-
         <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true"/>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="com.quanfuxin.mljj.permission.JPUSH_MESSAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /><!--读取手机存储-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--写入手机存储-->
+    <uses-permission android:name="android.permission.CAMERA" /><!--使用摄像头-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!--网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /><!--wifi状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /><!--读取手机联系人-->
+    <uses-permission android:name="com.quanfuxin.mljj.permission.JPUSH_MESSAGE" /><!--极光推送-->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" /><!---->
+    <uses-permission android:name="android.permission.INTERNET" /><!--联网-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /><!--修改系统设置-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /><!--在其他应用上层显示-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /><!--获得大致位置-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /><!--改变wifi状态-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /><!--地理位置GPS-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /><!--地理位置 移动网-->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /><!--改变网络状态-->
+    <uses-permission android:name="android.permission.GET_TASKS" /><!--读取运行app栈 L之后已经禁止-->
+    <uses-permission android:name="android.permission.CALL_PHONE" /><!--拨打电话-->
+    <uses-permission android:name="android.permission.VIBRATE" /><!--振动-->
+    <uses-permission android:name="android.permission.READ_LOGS" /><!--读取日志-->
 </manifest>

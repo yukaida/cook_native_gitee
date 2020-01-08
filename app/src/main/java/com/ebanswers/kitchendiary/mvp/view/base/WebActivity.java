@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -123,7 +124,7 @@ public class WebActivity extends CommonActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
         isAppendId = intent.getBooleanExtra("isAppendId",false);
-        LogUtils.d("url====" + url);
+        LogUtils.d("url====初始加载" + url);
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
@@ -190,7 +191,7 @@ public class WebActivity extends CommonActivity {
         // 跳转到其他链接
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, final String url) {
-            LogUtils.d("url===" + url);
+            LogUtils.d("url===跳转加载" + url);
             String scheme = Uri.parse(url).getScheme();
             if (scheme != null) {
                 scheme = scheme.toLowerCase();
@@ -198,9 +199,36 @@ public class WebActivity extends CommonActivity {
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
                 if (!url.contains("&openid=")) {
-                    mWebView.loadUrl(url + "?openid=" + HomeActivity.getOpenId() + "&my_openid=" + HomeActivity.getOpenId());
+                    if (!url.contains("?openid=")) {
+
+
+                        if (url.contains("following") || url.contains("follower")) {
+                            mWebView.loadUrl(url);
+                        }else {
+
+                            if (url.contains("point_goods")) {
+                                mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
+                                Log.d("jump 兑换商品", "shouldOverrideUrlLoading: "+url + "&openid=" + HomeActivity.getOpenId());
+                            } else {
+
+                                if (url.contains("detail")) {
+                                    mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
+                                    Log.d("jump 用户日记详情", "shouldOverrideUrlLoading: "+url + "?openid=" + HomeActivity.getOpenId());
+                                } else {
+                                    mWebView.loadUrl(url + "?openid=" + HomeActivity.getOpenId() + "&my_openid=" + HomeActivity.getOpenId());
+                                    Log.d("jump 1", "shouldOverrideUrlLoading: ");
+                                }
+                            }
+                        }
+
+
+                    } else {
+                        mWebView.loadUrl(url  + "&my_openid=" + HomeActivity.getOpenId());
+                        Log.d("jump2", "shouldOverrideUrlLoading: ");
+                    }
                 } else {
                     mWebView.loadUrl(url);
+                    Log.d("jump3", "shouldOverrideUrlLoading: "+url);
                 }
             }
             // 已经处理该链接请求

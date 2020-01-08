@@ -287,10 +287,11 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                             if (SPUtils.getIsLogin()) {
                                 UMImage image3;
                                 if (item.getImg_url()!=null && item.getImg_url().size()>0) {
-                                    Log.d("catch13", "onItemChildClick: found "+item.getImg_url());
+                                    Log.d("分享 1", "onItemChildClick: found "+item.getImg_url());
                                     image3 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                                 } else {
-                                    image3 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
+                                    Log.d("分享 2", "onItemChildClick: found "+item.getImg_url());
+                                    image3 = new UMImage(getContext(), R.drawable.icon_logo);//分享图标
                                 }
 
                                 image3.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
@@ -299,7 +300,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
 //                                image3.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
                                 String openid = (String) SPUtils.get(AppConstant.USER_ID, "");
                                 final UMWeb web = new UMWeb("http://wechat.53iq.com/tmp/kitchen/diary/" + item.getDiary_id() + "/detail?code=123&openid=" + openid);//切记切记 这里分享的链接必须是http开头
-
 
                                 web.setTitle(getActivity().getString(R.string.share_title_found_new));//标题
                                 web.setThumb(image3);  //缩略图

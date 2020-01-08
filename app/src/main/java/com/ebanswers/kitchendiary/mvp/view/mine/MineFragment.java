@@ -87,8 +87,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * desc   : 我的
  */
 public class MineFragment extends CommonLazyFragment implements BaseView.MineView {
-
-
     Unbinder unbinder;
     @BindView(R.id.me_title)
     TitleBar meTitle;
@@ -194,7 +192,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
 //            Toast.makeText(getContext(), "分享失败" + throwable.getMessage(), Toast.LENGTH_LONG).show();
         }
-
         /**
          * @descrption 分享取消的回调
          */
@@ -589,7 +586,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                 if (SPUtils.getIsLogin()) {
                     userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent2 = new Intent(getContext(), WebActivity.class);
-                    intent2.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=follower");
+                    intent2.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/" + userId + "/follower/list?types=follower"+"&openid=" + userId);
                     startActivity(intent2);
                 }
 
