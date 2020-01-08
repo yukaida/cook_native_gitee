@@ -118,7 +118,6 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
     private SendDiaryPicAdapter sendDiaryPicAdapter;
     private String topic = "";
     private String days = "1";
-    private int daysclock = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,12 +137,8 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                     if (!TextUtils.isEmpty(s)) {
                         try {
                             JSONObject json = new JSONObject(s);
-                             days = json.getString("days");
-
-                            Log.d(TAG, "result: 打卡" + days);
-                             daysclock = Integer.parseInt(days) + 1;
-                            String days_add = String.valueOf(daysclock);
-                            diaryTextViewClock.setText("打卡第"+days_add+"天");
+                             days = json.getString("this_pub_day");
+                            diaryTextViewClock.setText("打卡第"+days+"天");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -280,16 +275,14 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                     textviewClock = true;
                     diaryImageViewClock.setImageResource(R.drawable.radio_able);
                     String text = diaryEditText.getText().toString().trim();
-                    String days_add = String.valueOf(daysclock);
-                    diaryEditText.setText(text + "#打卡第" + days_add + "天#");
+                    diaryEditText.setText(text + "#打卡第" + days + "天#");
 
                 } else {
                     imageviewClock = false;
                     textviewClock = false;
                     diaryImageViewClock.setImageResource(R.drawable.radio_disable);
                     String text_todelete = diaryEditText.getText().toString().trim();
-                    String days_add = String.valueOf(daysclock);
-                    String toreplace = "#打卡第" + days_add + "天#";
+                    String toreplace = "#打卡第" + days + "天#";
                     String text_toadd=text_todelete.replaceAll(toreplace, "");
                     diaryEditText.setText(text_toadd);
                 }
@@ -299,15 +292,13 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                     imageviewClock = true;
                     textviewClock = true;
                     String text = diaryEditText.getText().toString().trim();
-                    String days_add = String.valueOf(daysclock);
-                    diaryEditText.setText(text + "#打卡第" + days_add + "天#");
+                    diaryEditText.setText(text + "#打卡第" + days + "天#");
                 } else {
                     imageviewClock = false;
                     textviewClock = false;
                     diaryImageViewClock.setImageResource(R.drawable.radio_disable);
                     String text_todelete = diaryEditText.getText().toString().trim();
-                    String days_add = String.valueOf(daysclock);
-                    String toreplace = "#打卡第" + days_add + "天#";
+                    String toreplace = "#打卡第" + days + "天#";
                     String text_toadd=text_todelete.replaceAll(toreplace, "");
                     diaryEditText.setText(text_toadd);
                 }

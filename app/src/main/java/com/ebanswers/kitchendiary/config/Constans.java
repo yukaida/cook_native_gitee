@@ -68,7 +68,7 @@ public class Constans {
 
     public static final String ACCOUNT_MANAGER = "https://oven.53iq.com/api/account";//账号注册和密码修改
 
-    public static final String USER_CLOCKDAYS = "http://wechat.53iq.com/tmp/kitchen/food/diary";//获取用户打开天数
+    public static final String USER_CLOCKDAYS = "http://wechat.53iq.com/tmp/kitchen/publish/diary";//获取用户打开天数
     public static final String ACCOUNT_LOGIN = "https://api.53iq.com/v1/user/login";//新接口
     public static final String ACCOUNT_LOGOUT = "https://api.53iq.com/v1/user/logout";
     public static final String ACCOUNT_REGISTER = "https://oven.53iq.com/v1/user/register";//账号注册
