@@ -466,15 +466,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         });
     }
 
-    public static void HideKeyboard(View v)
-    {
-        InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
-        if ( imm.isActive( ) ) {
-            imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
-
-        }
-    }
-
 
 //todo  这里需要添加逻辑使弹窗和输入法一起消失
     private void popupCommentWindow(String diary_id, String tmp_user, String name) {//评论输入弹窗
