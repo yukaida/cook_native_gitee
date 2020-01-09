@@ -292,7 +292,7 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                                     image3 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                                 } else {
                                     Log.d("分享 2", "onItemChildClick: found "+item.getImg_url());
-                                    image3 = new UMImage(getContext(), R.drawable.icon_logo);//分享图标
+                                    image3 = new UMImage(getContext(), R.drawable.logo_nopic);//分享图标
                                 }
 
                                 image3.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -20,10 +21,12 @@ import android.widget.Toast;
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.openjs.JsApi;
 import com.ebanswers.kitchendiary.mvp.openjs.OnJsOpen;
 import com.ebanswers.kitchendiary.utils.ImageLoader;
 import com.ebanswers.kitchendiary.utils.LogUtils;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.previewlibrary.ZoomMediaLoader;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -58,9 +61,20 @@ public class WebActivity extends CommonActivity {
         return R.id.tb_web_title;
     }
 
-
     @Override
     protected void initView() {
+
+        CookieManager cookieManager = CookieManager.getInstance();
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
+        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
+        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
+
         if (Build.VERSION.SDK_INT >= 19) {
             setWebContentsDebuggingEnabled(true);
         }
@@ -119,6 +133,7 @@ public class WebActivity extends CommonActivity {
 
     @Override
     protected void initData() {
+
         mWebView.setWebViewClient(new MyWebViewClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
         Intent intent = getIntent();
@@ -198,38 +213,38 @@ public class WebActivity extends CommonActivity {
             }
 
             if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)) {
-                if (!url.contains("&openid=")) {
-                    if (!url.contains("?openid=")) {
-
-
-                        if (url.contains("following") || url.contains("follower")) {
-                            mWebView.loadUrl(url);
-                        }else {
-
-                            if (url.contains("point_goods")) {
-                                mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
-                                Log.d("jump 兑换商品", "shouldOverrideUrlLoading: "+url + "&openid=" + HomeActivity.getOpenId());
-                            } else {
-
-                                if (url.contains("detail")) {
-                                    mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
-                                    Log.d("jump 用户日记详情", "shouldOverrideUrlLoading: "+url + "?openid=" + HomeActivity.getOpenId());
-                                } else {
-                                    mWebView.loadUrl(url + "?openid=" + HomeActivity.getOpenId() + "&my_openid=" + HomeActivity.getOpenId());
-                                    Log.d("jump 1", "shouldOverrideUrlLoading: ");
-                                }
-                            }
-                        }
-
-
-                    } else {
-                        mWebView.loadUrl(url  + "&my_openid=" + HomeActivity.getOpenId());
-                        Log.d("jump2", "shouldOverrideUrlLoading: ");
-                    }
-                } else {
+//                if (!url.contains("&openid=")) {
+//                    if (!url.contains("?openid=")) {
+//
+//
+//                        if (url.contains("following") || url.contains("follower")) {
+//                            mWebView.loadUrl(url);
+//                        }else {
+//
+//                            if (url.contains("point_goods")) {
+//                                mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
+//                                Log.d("jump 兑换商品", "shouldOverrideUrlLoading: "+url + "&openid=" + HomeActivity.getOpenId());
+//                            } else {
+//
+//                                if (url.contains("detail")) {
+//                                    mWebView.loadUrl(url + "&openid=" + HomeActivity.getOpenId());
+//                                    Log.d("jump 用户日记详情", "shouldOverrideUrlLoading: "+url + "?openid=" + HomeActivity.getOpenId());
+//                                } else {
+//                                    mWebView.loadUrl(url + "?openid=" + HomeActivity.getOpenId() + "&my_openid=" + HomeActivity.getOpenId());
+//                                    Log.d("jump 1", "shouldOverrideUrlLoading: ");
+//                                }
+//                            }
+//                        }
+//
+//
+//                    } else {
+//                        mWebView.loadUrl(url  + "&my_openid=" + HomeActivity.getOpenId());
+//                        Log.d("jump2", "shouldOverrideUrlLoading: ");
+//                    }
+//                } else {
                     mWebView.loadUrl(url);
                     Log.d("jump3", "shouldOverrideUrlLoading: "+url);
-                }
+//                }
             }
             // 已经处理该链接请求
             return true;

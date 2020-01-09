@@ -369,7 +369,6 @@ public class SettingActivity extends BaseActivity {
                                 ToastUtils.show("请开启手机存储权限");
                             }
                         });
-
                 break;
             case R.id.id_tv_setting_activity_mytag:
                 if (SPUtils.getIsLogin()) {

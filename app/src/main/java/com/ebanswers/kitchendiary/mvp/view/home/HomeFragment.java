@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,9 +138,16 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 RecommendForYou item = (RecommendForYou) adapter.getItem(position);
 //                if (item.getUrl().startsWith("http") || item.getUrl().startsWith("https")){
-                    Intent intent = new Intent(getContext(), WebActivity.class);
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                //-------------------------------------------------------------------zheli
+                Log.d("活动", "onItemClick: " + position);
+                if (position == 0) {
+                    intent.putExtra("url","https://wechat.53iq.com/k2ui/");
+                    startActivity(intent);
+                } else {
                     intent.putExtra("url", Deployment.BASE_URL_WORK + item.getUrl().substring(1) + "&openid=" + HomeActivity.getOpenId());
                     startActivity(intent);
+                }
 //                }else {
 //                    ToastUtils.show("链接路径错误");
 //                }
@@ -161,8 +169,8 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 SquareInfo.DataBean item = (SquareInfo.DataBean) adapter.getItem(position);
                 if (view.getId() == R.id.focu_iv) {
 
-                    if (!HomeActivity.isLoginMethod()){
-                        if (SPUtils.getIsLogin()){
+                    if (!HomeActivity.isLoginMethod()) {
+                        if (SPUtils.getIsLogin()) {
                             isSimpleClick = true;
                             currentPosition = position;
                             String create_user = item.getCreate_user();
@@ -173,11 +181,11 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                                 homePresenter.follower("", userId, create_user);
                             }
 
-                        }else {
+                        } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                             startActivity(new Intent(getContext(), WelActivity.class));
                         }
-                    }else {
+                    } else {
 //                    LoginActivity.openActivity(getContext(),LoginActivity.TYPE_PHONE_CODE);
                         startActivity(new Intent(getContext(), WelActivity.class));
                     }
@@ -186,7 +194,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 } else if (view.getId() == R.id.cooking_username_tv || view.getId() == R.id.cooking_user_iv) {
                     String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     Intent intent = new Intent(getContext(), WebActivity.class);
-                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user()+ "&my_openid=" + userId);
+                    intent.putExtra("url", "https://wechat.53iq.com/tmp/kitchen/food/diary?openid=" + item.getCreate_user() + "&my_openid=" + userId);
                     startActivity(intent);
                 }
             }
@@ -288,15 +296,38 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
         homeSwrl.finishRefresh();
         if (data != null) {
             if (data.getRecommend_for_you() != null) {
-                if (data.getRecommend_for_you().size() > 0) {
-//todo  这里做差异化处理 给定一个第一的活动
 
-//                    List<RecommendForYou> listtoadd = new ArrayList<>();
-//
-//                    for ()
-                        cookingActivityAdapter.setNewData(data.getRecommend_for_you());
+                RecommendForYou temp = data.getRecommend_for_you().get(0);
+                Log.d("temp", "setData: " + temp.toString());
+
+
+                if (data.getRecommend_for_you().size() > 0) {
+                    //todo  这里做差异化处理 给定一个第一的活动 首页活动
+
+                    List<RecommendForYou> listtoadd = new ArrayList<>();
+
+                    RecommendForYou first = new RecommendForYou();
+                    first.setTitle("集菜谱赢红包");
+                    first.setStart_time("01.07");
+                    first.setClass_time("");
+                    first.setUrl("https://wechat.53iq.com/k2ui/");
+                    first.setInpage_img("");
+                    first.setEnd_time("01.31");
+                    first.setStatus(0);
+                    first.setImg("http://storage.56iq.net/group1/M00/0C/2E/CgoKTV4VjgeAY7dFAAY0I9ZnUiE789.gif");
+
+
+                    listtoadd.add(first);
+
+                    for (int i = 0; i < data.getRecommend_for_you().size(); i++) {
+                        listtoadd.add(data.getRecommend_for_you().get(i));
+                    }
+
+                    cookingActivityAdapter.setNewData(listtoadd);
                     cookingActivityAdapter.notifyDataSetChanged();
                 }
+
+
             }
         }
     }
@@ -312,17 +343,17 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 //                        expertStoryAdapter.setData(currentPosition, data.getData().get(currentPosition));
 //                        isSimpleClick = false;
 //                    } else {
-                        if (isRefresh) {
-                            if (data.getData().size() < 5) {
-                                expertStoryAdapter.loadMoreEnd();
-                            }
-                            expertStoryAdapter.setNewData(data.getData());
-                            expertStoryAdapter.notifyDataSetChanged();
-                        } else {
-                            expertStoryAdapter.addData(data.getData());
-//                            expertStoryAdapter.notifyItemRangeInserted(expertStoryAdapter.getData().size() - data.getData().size(), data.getData().size());
-                            expertStoryAdapter.notifyDataSetChanged();
+                    if (isRefresh) {
+                        if (data.getData().size() < 5) {
+                            expertStoryAdapter.loadMoreEnd();
                         }
+                        expertStoryAdapter.setNewData(data.getData());
+                        expertStoryAdapter.notifyDataSetChanged();
+                    } else {
+                        expertStoryAdapter.addData(data.getData());
+//                            expertStoryAdapter.notifyItemRangeInserted(expertStoryAdapter.getData().size() - data.getData().size(), data.getData().size());
+                        expertStoryAdapter.notifyDataSetChanged();
+                    }
 //                    }
                 }
             }
@@ -337,7 +368,7 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 //                ToastUtils.show("关注成功");
 //                homePresenter.loadSquareInfo("tmp_user");
 //                SquareInfo.DataBean item = expertStoryAdapter.getItem(currentPosition);
-                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE,"刷新我的界面"));
+                EventBusUtil.sendEvent(new Event(Event.EVENT_UPDATE_MINE, "刷新我的界面"));
                 SquareInfo.DataBean item = expertStoryAdapter.getData().get(currentPosition);
                 if (item.isIs_subscribe()) {
                     item.setIs_subscribe(false);
@@ -352,9 +383,9 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
     @Override
     public void netWorkError(String result) {
-        if (NetworkUtils.isNetworkAvailable(getContext())){
+        if (NetworkUtils.isNetworkAvailable(getContext())) {
             ToastUtils.show(result);
-        }else {
+        } else {
             ToastUtils.show("无可用网络！");
         }
         homeSwrl.finishRefresh();
@@ -407,14 +438,14 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 break;
             case R.id.integral_punching_ll:
                 Intent intent2 = new Intent(getContext(), WebActivity.class);
-                intent2.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid="+userId);
+                intent2.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/point_goods?code=123&openid=" + userId);
                 startActivity(intent2);
                 break;
             case R.id.message_ll:
                 SPUtils.put("msg_num", 0);
                 ((HomeActivity) getActivity()).setMessageNumTv();
                 Intent intent3 = new Intent(getContext(), WebActivity.class);
-                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid="+userId);
+                intent3.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/relate/me?code=123&openid=" + userId);
                 startActivity(intent3);
                 break;
             case R.id.more_wonderful_tv:
@@ -422,13 +453,13 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 break;
             case R.id.expert_story_tv:
                 Intent intent4 = new Intent(getContext(), WebActivity.class);
-                intent4.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/rec_articles?code=123&types=user_story&openid="+ userId);
+                intent4.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/rec_articles?code=123&types=user_story&openid=" + userId);
                 startActivity(intent4);
 
                 break;
             case R.id.activity_more_tv:
                 Intent intent5 = new Intent(getContext(), WebActivity.class);
-                intent5.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/activity_list?code=123&openid="+ userId);
+                intent5.putExtra("url", "http://wechat.53iq.com/tmp/kitchen/activity_list?code=123&openid=" + userId);
                 startActivity(intent5);
 
                 break;

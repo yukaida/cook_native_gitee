@@ -236,7 +236,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                         minePresenter.loadDiaryInfo("more", kitchenDiaryAdapter.getItemCount() + "", userId, "diary-only", "", true);
                     }
                 }
-
             }
 
             @Override
@@ -408,7 +407,7 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
                     if (headurl != null && headurl.length() > 0) {
                         image = new UMImage(getContext(), headurl);//分享图标
                     } else {
-                        image = new UMImage(getContext(), R.mipmap.icon_logo);//分享图标
+                        image = new UMImage(getContext(), R.drawable.logo_nopic);//分享图标
                     }
 
                     image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
