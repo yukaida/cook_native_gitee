@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/id_dialog_save_pic"
+        style="@style/TextViewStyle"
+        android:text="@string/picture_save"
+        android:background="@drawable/selector_viewgroup_pressed_bg"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divideLineColor"
+
+        />
+    <TextView
+        android:id="@+id/id_dialog_share_pic"
+        style="@style/TextViewStyle"
+        android:text="@string/share_title"
+        android:visibility="gone"
+        android:background="@drawable/selector_viewgroup_pressed_bg"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divideLineColor"
+        />
+    <TextView
+        android:id="@+id/id_dialog_cancel"
+        style="@style/TextViewStyle"
+        android:text="@string/common_cancel"
+        android:background="@drawable/selector_viewgroup_pressed_bg"
+        />
+</LinearLayout>

@@ -955,4 +955,7 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     }
 
+
+
+
 }

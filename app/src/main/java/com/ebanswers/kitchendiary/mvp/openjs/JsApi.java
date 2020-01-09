@@ -17,11 +17,14 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonApplication;
+import com.ebanswers.kitchendiary.config.Constans;
 import com.ebanswers.kitchendiary.config.ShareContentConfig;
 import com.ebanswers.kitchendiary.constant.AppConstant;
+import com.ebanswers.kitchendiary.constant.FileUtils;
 import com.ebanswers.kitchendiary.mvp.view.base.ImageLookActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.LoginActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.SendDiaryActivity;
+import com.ebanswers.kitchendiary.mvp.view.base.SendRepiceActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WebActivity;
 import com.ebanswers.kitchendiary.mvp.view.base.WelActivity;
 import com.ebanswers.kitchendiary.utils.DialogUtils;
@@ -43,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -91,6 +95,26 @@ public class JsApi {
                 Intent intent = new Intent(webActivity, SendDiaryActivity.class);
                 intent.putExtra("topic", topic);
 
+                webActivity.startActivity(intent);
+            }
+        }
+    }
+
+
+    /**
+     * 打开发布日记界面，带话题
+     *
+     */
+    @JavascriptInterface
+    public void openPictures() {
+        Context context = webView.get().getContext();
+        Log.d("openPictures", "openPictures topic");
+        if (webView != null && webView.get() != null) {
+            if (getOpenId().equals("tmp_user")) {
+                showLogin();
+            } else {
+                WebActivity webActivity = (WebActivity) context;
+                Intent intent = new Intent(webActivity, SendDiaryActivity.class);
                 webActivity.startActivity(intent);
             }
         }
@@ -249,4 +273,49 @@ public class JsApi {
 //        ShareContentConfig.targetUrl = targetUrl;
 //        ShareContentConfig.imgUrl = imgUrl;
     }
+
+
+    @JavascriptInterface
+    public void publishRecipe(String title, String url) {
+        Log.d("jsapi", "publishRecipe: ");
+        Context context = webView.get().getContext();
+        Log.d("openPictures", "openPictures topic");
+        if (webView != null && webView.get() != null) {
+            if (getOpenId().equals("tmp_user")) {
+                showLogin();
+            } else {
+                WebActivity webActivity = (WebActivity) context;
+                Intent intent = new Intent(webActivity, SendRepiceActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("url", url);
+                webActivity.startActivity(intent);
+            }
+        }
+    }
+
+
+    @JavascriptInterface
+    public void publishActivities(String title, String url, String keywords) {
+        Log.d("jsapi", "publishActivities: ");
+
+    }
+
+    private float getFileSize(File file) {
+        float cacheFileSize = 0.0f;
+        if (file.exists() && file.isDirectory()) {
+            for (File file1 : file.listFiles()) {
+                if (file1.exists() && file1.isFile()) {
+                    cacheFileSize += FileUtils.getFileSize(file1.getAbsolutePath()) * 1.0f / (1024 * 1024);
+                } else {
+                    getFileSize(file1);
+                }
+            }
+        } else if (file.exists() && file.isFile()) {
+            cacheFileSize = FileUtils.getFileSize(file.getAbsolutePath()) * 1.0f / (1024 * 1024);
+        }
+        return cacheFileSize;
+    }
+
+
+
 }
