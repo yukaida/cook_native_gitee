@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -52,7 +53,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -302,34 +305,61 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
 
 
                 if (data.getRecommend_for_you().size() > 0) {
-                    //todo  这里做差异化处理 给定一个第一的活动 首页活动
+                    // 这里做差异化处理 给定一个第一的活动 首页活动
 
-                    List<RecommendForYou> listtoadd = new ArrayList<>();
+                    if (showfist()) {//如果超过1月31号就不作第一个活动展示处理
 
-                    RecommendForYou first = new RecommendForYou();
-                    first.setTitle("集菜谱赢红包");
-                    first.setStart_time("01.07");
-                    first.setClass_time("");
-                    first.setUrl("https://wechat.53iq.com/k2ui/");
-                    first.setInpage_img("");
-                    first.setEnd_time("01.31");
-                    first.setStatus(0);
-                    first.setImg("http://storage.56iq.net/group1/M00/0C/2E/CgoKTV4VjgeAY7dFAAY0I9ZnUiE789.gif");
+                        List<RecommendForYou> listtoadd = new ArrayList<>();
+
+                        RecommendForYou first = new RecommendForYou();
+                        first.setTitle("集菜谱赢红包");
+                        first.setStart_time("01.07");
+                        first.setClass_time("");
+                        first.setUrl("https://wechat.53iq.com/k2ui/");
+                        first.setInpage_img("");
+                        first.setEnd_time("01.31");
+                        first.setStatus(0);
+//                    first.setImg("http://storage.56iq.net/group1/M00/0C/2E/CgoKTV4VjgeAY7dFAAY0I9ZnUiE789.gif");
+                        first.setImg("activity");
 
 
-                    listtoadd.add(first);
+                        listtoadd.add(first);
 
-                    for (int i = 0; i < data.getRecommend_for_you().size(); i++) {
-                        listtoadd.add(data.getRecommend_for_you().get(i));
+                        for (int i = 0; i < data.getRecommend_for_you().size(); i++) {
+                            listtoadd.add(data.getRecommend_for_you().get(i));
+                        }
+
+                        cookingActivityAdapter.setNewData(listtoadd);
+                        cookingActivityAdapter.notifyDataSetChanged();
+                    } else {
+                        cookingActivityAdapter.setNewData(data.getRecommend_for_you());
+                        cookingActivityAdapter.notifyDataSetChanged();
                     }
 
-                    cookingActivityAdapter.setNewData(listtoadd);
-                    cookingActivityAdapter.notifyDataSetChanged();
+
                 }
 
 
             }
         }
+    }
+
+
+    private Boolean showfist(){
+
+        Calendar calendars = Calendar.getInstance();
+
+        calendars.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        int month=calendars.get(Calendar.MONTH)+1;
+        Log.d("month", "showfist: "+month);
+        if (month == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
     @Override

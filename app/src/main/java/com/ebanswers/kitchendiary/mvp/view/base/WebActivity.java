@@ -134,6 +134,18 @@ public class WebActivity extends CommonActivity {
     @Override
     protected void initData() {
 
+
+        CookieManager cookieManager = CookieManager.getInstance();
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
+        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+
+        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
+        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
+
         mWebView.setWebViewClient(new MyWebViewClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
         Intent intent = getIntent();
@@ -242,8 +254,22 @@ public class WebActivity extends CommonActivity {
 //                        Log.d("jump2", "shouldOverrideUrlLoading: ");
 //                    }
 //                } else {
+
+                CookieManager cookieManager = CookieManager.getInstance();
+
+                cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+                cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+
+                cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
+                cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+
+                cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
+                cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
+
+
+                Log.d("url====", "shouldOverrideUrlLoading: "+url);
                     mWebView.loadUrl(url);
-                    Log.d("jump3", "shouldOverrideUrlLoading: "+url);
+
 //                }
             }
             // 已经处理该链接请求
