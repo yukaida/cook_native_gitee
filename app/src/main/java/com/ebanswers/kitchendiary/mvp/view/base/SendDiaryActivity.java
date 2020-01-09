@@ -291,6 +291,7 @@ public class SendDiaryActivity extends CommonActivity implements OnPermission {
                 if (imageviewClock == false) {
                     imageviewClock = true;
                     textviewClock = true;
+                    diaryImageViewClock.setImageResource(R.drawable.radio_able);
                     String text = diaryEditText.getText().toString().trim();
                     diaryEditText.setText(text + "#打卡第" + days + "天#");
                 } else {
