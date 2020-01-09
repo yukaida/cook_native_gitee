@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -287,12 +285,12 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                         case R.id.share_iv:
                             if (SPUtils.getIsLogin()) {
                                 UMImage image3;
-                                if (item.getImg_url()!=null && item.getImg_url().size()>0) {
-                                    Log.d("分享 1", "onItemChildClick: found "+item.getImg_url());
+                                if (item.getImg_url() != null && item.getImg_url().size() > 0) {
+                                    Log.d("分享 1", "onItemChildClick: found " + item.getImg_url());
                                     image3 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                                 } else {
-                                    Log.d("分享 2", "onItemChildClick: found "+item.getImg_url());
-                                    image3 = new UMImage(getContext(), R.drawable.logo_nopic);//分享图标
+                                    Log.d("分享 2", "onItemChildClick: found " + item.getImg_url());
+                                    image3 = new UMImage(getContext(), R.drawable.icon_logo);//分享图标
                                 }
 
                                 image3.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
@@ -466,15 +464,6 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 foundPresenter.loadInfo(userId, true);
             }
         });
-    }
-
-    public static void HideKeyboard(View v)
-    {
-        InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
-        if ( imm.isActive( ) ) {
-            imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
-
-        }
     }
 
 

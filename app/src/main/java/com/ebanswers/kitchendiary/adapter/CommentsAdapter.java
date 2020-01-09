@@ -71,7 +71,11 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
         } else {
 
             SpannableStringUtils.Builder builder = SpannableStringUtils.getBuilder("");
-            builder.append(item.getNickname()).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
+            String nickname = "";
+            if (item != null && item.getNickname() != null) {
+                nickname = item.getNickname();
+            }
+            builder.append(nickname).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
@@ -101,8 +105,12 @@ public class CommentsAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolde
                     }
                 }
             });
+            String from_user = "";
+            if (item != null && item.getFrom_user() != null) {
+                from_user = item.getFrom_user();
+            }
 
-            builder.append(item.getFrom_user()).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
+            builder.append(from_user).setForegroundColor(mContext.getResources().getColor(R.color.btn_blue_normal)).setClickSpan(new ClickableSpan() {
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
