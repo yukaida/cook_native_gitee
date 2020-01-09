@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -287,12 +286,6 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
         });
 
 
-        if (SPUtils.getIsLogin()) {
-            invitationCardIv.setVisibility(View.VISIBLE);
-        } else {
-            invitationCardIv.setVisibility(View.GONE);
-        }
-
 
         cookBookAdapter = new CookBookAdapter();
         repiceRv.setHasFixedSize(true);
@@ -334,6 +327,16 @@ public class MineFragment extends CommonLazyFragment implements BaseView.MineVie
             }
         });
         headurl = (String) SPUtils.get(AppConstant.USER_ICON, new String());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SPUtils.getIsLogin()) {
+            invitationCardIv.setVisibility(View.VISIBLE);
+        } else {
+            invitationCardIv.setVisibility(View.GONE);
+        }
     }
 
     @Override
