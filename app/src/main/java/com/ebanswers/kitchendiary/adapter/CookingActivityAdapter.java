@@ -1,6 +1,8 @@
 package com.ebanswers.kitchendiary.adapter;
 
+import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.bean.RecommendForYou;
+import com.ebanswers.kitchendiary.common.CommonApplication;
 import com.ebanswers.kitchendiary.utils.GlideApp;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -29,14 +32,17 @@ public class CookingActivityAdapter extends BaseQuickAdapter<RecommendForYou, Ba
         RoundedImageView cookingActivityIv = helper.getView(R.id.cooking_activity_iv);
 
         if (!TextUtils.isEmpty(item.getImg())){
-
-            GlideApp.with(mContext)
-                    .load(item.getImg())
-                    .skipMemoryCache(true)
-                    .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(cookingActivityIv);
-
+            Log.d(TAG, "convert: "+item.getImg());
+            if ("activity".equals(item.getImg())) {
+                GlideApp.with(CommonApplication.getInstance()).asGif().load(R.drawable.activity).into(cookingActivityIv);
+            } else {
+                GlideApp.with(mContext)
+                        .load(item.getImg())
+                        .skipMemoryCache(true)
+                        .dontAnimate()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(cookingActivityIv);
+            }
         }
 
 

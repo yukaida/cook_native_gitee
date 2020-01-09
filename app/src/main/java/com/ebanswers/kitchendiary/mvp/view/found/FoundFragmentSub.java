@@ -466,8 +466,17 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         });
     }
 
+    public static void HideKeyboard(View v)
+    {
+        InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
+        if ( imm.isActive( ) ) {
+            imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
 
-    //todo  这里需要添加逻辑使弹窗和输入法一起消失
+        }
+    }
+
+
+//todo  这里需要添加逻辑使弹窗和输入法一起消失
     private void popupCommentWindow(String diary_id, String tmp_user, String name) {//评论输入弹窗
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment, null);
@@ -482,9 +491,8 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)//显示大小
                 .create().showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
         EditText commentEt = contentView.findViewById(R.id.comment_et);
-
-        showSoftInput(commentEt);
-
+        commentEt.requestFocus();
+        Utils.showSoftInput(getContext(), commentEt);
         commentEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -517,7 +525,9 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         customPopWindow.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-               hideSoftInput(recommendLl);
+                if (!customPopWindow.getPopupWindow().isShowing()) {
+                    Utils.hideSoftInput(getContext(), commentEt);
+                }
             }
         });
     }
@@ -537,8 +547,9 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                 .create().showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
         EditText replyCommentEt = contentView.findViewById(R.id.reply_comment_et);
         replyCommentEt.setHint("回复" + name);
-
-        showSoftInput(replyCommentEt);
+        replyCommentEt.requestFocus();
+//        Utils.showSoftInput(getContext(), replyCommentEt);
+        Utils.showSoftInput(getContext(), replyCommentEt);
 
         TextView replyCommmentTv = contentView.findViewById(R.id.reply_comment_tv);
         replyCommmentTv.setOnClickListener(new View.OnClickListener() {
@@ -564,31 +575,12 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
         customPopWindow1.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                hideSoftInput(recommendLl);
+                if (!customPopWindow1.getPopupWindow().isShowing()) {
+                    replyCommentEt.setFocusable(false);
+                    Utils.hideSoftInput(getContext(), replyCommentEt);
+                }
             }
         });
-    }
-
-
-    private void showSoftInput(View view) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.requestFocus();
-                Utils.showSoftInput(getContext(), view);
-            }
-        }, 200);
-    }
-
-
-    private void hideSoftInput(View view){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.requestFocus();
-                Utils.hideSoftInput(getContext(), view);
-            }
-        }, 50);
     }
 
     private void popupCommentDeleteWindow(String diary_id, String tmp_user, String name, String comment) {

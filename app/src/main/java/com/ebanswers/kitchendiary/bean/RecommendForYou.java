@@ -1,5 +1,7 @@
 package com.ebanswers.kitchendiary.bean;
 
+import androidx.annotation.NonNull;
+
 /**
  * Create by dongli
  * Create date 2019-10-29
@@ -108,5 +110,21 @@ public class RecommendForYou {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "RecommendForYou{" +
+                "people=" + people +
+                ", title='" + title + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", class_time='" + class_time + '\'' +
+                ", url='" + url + '\'' +
+                ", inpage_img='" + inpage_img + '\'' +
+                ", types='" + types + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", status=" + status +
+                ", img='" + img + '\'' +
+                '}';
     }
 }

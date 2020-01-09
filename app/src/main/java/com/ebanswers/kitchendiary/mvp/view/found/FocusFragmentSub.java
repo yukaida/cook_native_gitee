@@ -209,7 +209,7 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                                 image4 = new UMImage(getContext(), item.getImg_url().get(0));//分享图标
                             } else {
                                 Log.d("分享 2", "onItemChildClick: found "+item.getImg_url());
-                                image4 = new UMImage(getContext(), R.drawable.icon_logo);//分享图标
+                                image4 = new UMImage(getContext(), R.drawable.logo_nopic);//分享图标
                             }
 //                            image4.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
 //                            image4.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
