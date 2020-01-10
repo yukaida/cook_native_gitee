@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -421,17 +420,14 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
     private void popupCommentWindow(String diary_id, String tmp_user, String name) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment, null);
-        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext())
-                .setView(contentView).enableBackgroundDark(false) //弹出popWindow时，背景是否变暗
+        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext()).setView(contentView).enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
                 .setBgDarkAlpha(0.7f) // 控制亮度
                 .setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED)
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)//显示大小
                 .create().showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
+        Utils.showSoftInput(getContext(), getView());
         EditText commentEt = contentView.findViewById(R.id.comment_et);
-
-        showSoftInput(commentEt);
-
         TextView sendCommmentTv = contentView.findViewById(R.id.send_commment_tv);
         sendCommmentTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,49 +439,19 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 }
             }
         });
-        customPopWindow.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                hideSoftInput(getView());
-            }
-        });
-    }
-
-
-    private void showSoftInput(View view) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.requestFocus();
-                Utils.showSoftInput(getContext(), view);
-            }
-        }, 200);
-    }
-
-
-    private void hideSoftInput(View view){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.requestFocus();
-                Utils.hideSoftInput(getContext(), view);
-            }
-        }, 50);
     }
 
     private void popupReplyCommentWindow(String diary_id, String tmp_user, String name) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment_reply, null);
-        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext())
-                .setView(contentView).enableBackgroundDark(false) //弹出popWindow时，背景是否变暗
+        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext()).setView(contentView).enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
                 .setBgDarkAlpha(0.7f) // 控制亮度
                 .setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)//显示大小
                 .create().showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
         EditText commentEt = contentView.findViewById(R.id.reply_comment_et);
         commentEt.setHint("回复" + name);
-
-        showSoftInput(commentEt);
-
+        commentEt.setFocusable(true);
+        Utils.showSoftInput(getContext(), commentEt);
         TextView replyCommmentTv = contentView.findViewById(R.id.reply_comment_tv);
         replyCommmentTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -505,20 +471,12 @@ public class FocusFragmentSub extends CommonLazyFragment implements BaseView.Foc
                 }
             }
         });
-
-        customPopWindow.getPopupWindow().setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                hideSoftInput(getView());
-            }
-        });
     }
 
     private void popupCommentDeleteWindow(String diary_id, String tmp_user, String name, String comment) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.popup_comment_delete, null);
-        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext()).setView(contentView)
-                .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+        customPopWindow = new CustomPopWindow.PopupWindowBuilder(getContext()).setView(contentView).enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
                 .setBgDarkAlpha(0.7f) // 控制亮度
                 .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)//显示大小
                 .create().showAtLocation(focusRv.getRootView(), Gravity.CENTER, 0, 0);

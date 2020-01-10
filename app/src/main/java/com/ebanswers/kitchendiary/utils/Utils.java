@@ -203,14 +203,14 @@ public class Utils {
 
     public static void showSoftInput(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-        imm.showSoftInput(view, 0);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        //imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
     public static void hideSoftInput(Context context, View view) {
         Log.d("Utils", "hideSoftInput: ");
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_HIDDEN); //强制隐藏键盘
     }
 
     /**
