@@ -1,15 +1,18 @@
 // (c)2016 Flipboard Inc, All Rights Reserved.
 package com.ebanswers.kitchendiary.network;
 
+import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.network.api.ImageApi;
 import com.ebanswers.kitchendiary.network.api.LoginApi;
 import com.ebanswers.kitchendiary.network.api.WorkingLogApi;
+import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
@@ -42,20 +45,22 @@ public class NetworkManager {
      */
     private static OkHttpClient okHttpClient() {
         //开启Log
+
+        String userid = (String) SPUtils.get(AppConstant.USER_ID, "");
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(logging)
-//                .addInterceptor(new ReceivedCookiesInterceptor())
-//        .addInterceptor(chain -> {
-//            Request request = chain.request()
-//                    .newBuilder()
-//                    .addHeader("openid",userId)
-//                    .build();
-//            return chain.proceed(request);
-//        })
+                .addInterceptor(new ReceivedCookiesInterceptor())
+        .addInterceptor(chain -> {
+            Request request = chain.request()
+                    .newBuilder()
+                    .addHeader("openid", userid)
+                    .build();
+            return chain.proceed(request);
+        })
                 .build();
         return client;
     }

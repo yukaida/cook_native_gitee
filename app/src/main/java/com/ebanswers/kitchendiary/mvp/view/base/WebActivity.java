@@ -2,6 +2,7 @@ package com.ebanswers.kitchendiary.mvp.view.base;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,6 +43,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.ebanswers.baselibrary.utils.WebViewLifecycleUtils;
 import com.ebanswers.kitchendiary.R;
 import com.ebanswers.kitchendiary.common.CommonActivity;
+import com.ebanswers.kitchendiary.common.CommonApplication;
 import com.ebanswers.kitchendiary.constant.AppConstant;
 import com.ebanswers.kitchendiary.mvp.openjs.JsApi;
 import com.ebanswers.kitchendiary.mvp.openjs.OnJsOpen;
@@ -62,6 +64,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -105,16 +108,28 @@ public class WebActivity extends CommonActivity implements OnPermission {
     @Override
     protected void initView() {
 
-        CookieManager cookieManager = CookieManager.getInstance();
+            CookieManager cookieManager = CookieManager.getInstance();
 
-        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
-        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
 
-        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
-        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+        HashSet<String> perferences = (HashSet) CommonApplication.getInstance().getSharedPreferences("cookieData", Context.MODE_PRIVATE).getStringSet("cookie", null);
 
-        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
-        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
+        for (String cookie:perferences) {
+            cookieManager.setCookie("https://wechat.53iq.com/",cookie);
+        }
+
+        cookieManager.setCookie("https://wechat.53iq.com/","partner_id=ddb4c038579a11e59e8800a0d1eb6068; X-sourcediary; ");
+
+
+
+
+//        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+//        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+//
+//        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
+//        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+//
+//        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
+//        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
 
         if (Build.VERSION.SDK_INT >= 19) {
             setWebContentsDebuggingEnabled(true);
@@ -368,17 +383,17 @@ public class WebActivity extends CommonActivity implements OnPermission {
     @Override
     protected void initData() {
 
-
-        CookieManager cookieManager = CookieManager.getInstance();
-
-        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
-        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
-
-        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
-        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
-
-        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
-        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
+//
+//        CookieManager cookieManager = CookieManager.getInstance();
+//
+//        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+//        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
+//
+//        cookieManager.setCookie("https://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");
+//        cookieManager.setCookie("http://wechat.53iq.com/", "partner_id"+"ddb4c038579a11e59e8800a0d1eb6068");//厂商标识
+//
+//        cookieManager.setCookie("https://wechat.53iq.com/", "X-source"+"diary");
+//        cookieManager.setCookie("http://wechat.53iq.com/", "X-source"+"diary");//从哪个app打开
 
         mWebView.setWebViewClient(new MyWebViewClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
