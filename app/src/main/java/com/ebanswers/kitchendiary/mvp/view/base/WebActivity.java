@@ -119,9 +119,6 @@ public class WebActivity extends CommonActivity implements OnPermission {
 
         cookieManager.setCookie("https://wechat.53iq.com/","partner_id=ddb4c038579a11e59e8800a0d1eb6068; X-sourcediary; ");
 
-
-
-
 //        cookieManager.setCookie("https://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
 //        cookieManager.setCookie("http://wechat.53iq.com/", "openid"+ SPUtils.get(AppConstant.USER_ID, ""));//用户标识
 //

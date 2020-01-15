@@ -67,6 +67,17 @@ public class DiaryInfo {
     private String create_date;
     private String diary_id;
     private List<String> thumbnail_url;
+
+    public List<String> getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(List<String> img_url) {
+        this.img_url = img_url;
+    }
+
+    private List<String> img_url;
+
     private String create_user;
     private List<TopicListBean> topic_list;
     private List<CommentInfo> comment;

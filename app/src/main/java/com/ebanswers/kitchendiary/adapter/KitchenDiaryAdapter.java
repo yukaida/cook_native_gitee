@@ -52,9 +52,9 @@ public class KitchenDiaryAdapter extends BaseQuickAdapter<DiaryInfo, BaseViewHol
         if (item.getThumbnail_url() != null && item.getThumbnail_url().size() > 0) {
 
             GlideApp.with(mContext)
-                    .load(item.getThumbnail_url().get(0))
+                    .load(item.getImg_url().get(0))
                     .skipMemoryCache(true)
-                    .dontAnimate()
+                    .dontAnimate()//移除所有动画
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.empty)
                     .into(goodsShowIv);
