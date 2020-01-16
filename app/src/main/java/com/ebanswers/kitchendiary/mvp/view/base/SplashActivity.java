@@ -15,16 +15,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.common.CommonActivity;
 import com.ebanswers.kitchendiary.config.Constans;
+import com.ebanswers.kitchendiary.database.bean.AD;
+import com.ebanswers.kitchendiary.utils.ADManager;
+import com.ebanswers.kitchendiary.utils.DownloadSpeedUtil;
+import com.ebanswers.kitchendiary.utils.LanguageUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ScreenSizeUtils;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 import static java.lang.Thread.sleep;
 
-public class SplashActivity extends AppCompatActivity {
+//启动页 广告页 隐私弹窗页
+
+public class SplashActivity extends CommonActivity {
+
+    @BindView(R.id.tv_wel_skip)
+    TextView tvWelSkip;
+    @BindView(R.id.iv_wel_ad)
+    ImageView ivWelAd;
+    private Subscription countDown;
+    private AD localAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +59,24 @@ public class SplashActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        localAd = ADManager.getInstance().getLocalValidAd();
+        File adFile = ADManager.getInstance().getLocalAdImage(localAd);
+
+        DownloadSpeedUtil.getNetSpeed(getApplicationInfo().uid);
+
+        if (localAd != null && adFile != null) {
+            Picasso.with(this).load(adFile).resize(ScreenSizeUtils.getScreenWidth(this), ScreenSizeUtils.getScreenHeight(this)).centerInside().into(ivWelAd);
+            startCountDown(localAd.getShow_time());
+        } else {
+            pri_Pop();
+        }
+
+
+    }
+
+
+
+    private void pri_Pop(){
         new Thread( new Runnable( ) {
             @Override
             public void run() {
@@ -66,12 +110,27 @@ public class SplashActivity extends AppCompatActivity {
                 });
             }
         } ).start();
+    }//隐私弹窗
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_wel;
+    }
 
+    @Override
+    protected int getTitleBarId() {
+        return 0;
+    }
 
+    @Override
+    protected void initView() {
 
     }
 
+    @Override
+    protected void initData() {
+
+    }
 
 
     public void createPrivacyDialog() {
@@ -116,4 +175,26 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void startCountDown(final int seconds) {
+        countDown = Observable.interval(1, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        tvWelSkip.setVisibility(View.VISIBLE);
+                        tvWelSkip.setText(LanguageUtil.getInstance().getStringById(R.string.wel_skip) + (seconds - aLong));
+                        if (aLong >= seconds) {
+                            pri_Pop();
+                            countDown.unsubscribe();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
+    }
+
 }
