@@ -1,5 +1,6 @@
 package com.ebanswers.kitchendiary.mvp.view.base;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -45,6 +46,7 @@ import com.ebanswers.kitchendiary.network.response.MessageResponse;
 import com.ebanswers.kitchendiary.service.CreateRepiceDraftService;
 import com.ebanswers.kitchendiary.service.CreateRepiceService;
 import com.ebanswers.kitchendiary.service.UpdateService;
+import com.ebanswers.kitchendiary.utils.ADManager;
 import com.ebanswers.kitchendiary.utils.AppUtils;
 import com.ebanswers.kitchendiary.utils.ButtonUtils;
 import com.ebanswers.kitchendiary.utils.LogUtils;
@@ -53,7 +55,10 @@ import com.ebanswers.kitchendiary.widget.dialog.DialogBackTip;
 import com.ebanswers.kitchendiary.widget.popupwindow.CustomPopWindow;
 import com.ebanswers.kitchendiary.widget.viewpager_animator.ZoomOutPageTransformer;
 import com.gyf.barlibrary.ImmersionBar;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.hjq.toast.ToastUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.socialize.UMShareAPI;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,17 +67,19 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * desc   : 主页界面
  */
-public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener, ScreenUtils {
+public class HomeActivity extends CommonActivity implements ViewPager.OnPageChangeListener, ScreenUtils, OnPermission {
 
     @BindView(R.id.vp_home_pager)
     ViewPager mViewPager;
@@ -150,6 +157,9 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
 
     @Override
     protected void initView() {
+
+
+
         EventBus.getDefault().register(this);
 //        popupSendRepiceWindow(tabCenterLl);
         if (TextUtils.isEmpty((String) SPUtils.get(AppConstant.USER_NAME, ""))) {
@@ -200,12 +210,32 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
          */
         startTask();
 
+        requestPermission();
+
+    }
+
+
+    private void requestPermission() {
+        new RxPermissions(this).request(
+                Manifest.permission.READ_PHONE_STATE,//手机信息
+                Manifest.permission.READ_EXTERNAL_STORAGE,//读取存储信息
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,//写入存储信息
+                Manifest.permission.ACCESS_FINE_LOCATION,//定位(GPS)
+                Manifest.permission.CAMERA//摄像头
+        )
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Log.d("MainActivity", "accept: " + aBoolean);
+                    }
+                });
 
     }
 
     @Override
     protected void initData() {
         loadMessageInfo();
+        ADManager.getInstance().downloadAds();
     }
 
     private void loadMessageInfo() {
@@ -956,6 +986,13 @@ public class HomeActivity extends CommonActivity implements ViewPager.OnPageChan
     }
 
 
+    @Override
+    public void hasPermission(List<String> granted, boolean isAll) {
 
+    }
 
+    @Override
+    public void noPermission(List<String> denied, boolean quick) {
+
+    }
 }

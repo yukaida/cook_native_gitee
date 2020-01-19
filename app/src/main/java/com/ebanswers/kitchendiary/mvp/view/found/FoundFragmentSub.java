@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ebanswers.baselibrary.widget.ClearEditText;
 import com.ebanswers.kitchendiary.R;
+import com.ebanswers.kitchendiary.adapter.CommentsAdapter;
 import com.ebanswers.kitchendiary.adapter.FoundAdapter;
 import com.ebanswers.kitchendiary.adapter.FoundTabAdapter;
 import com.ebanswers.kitchendiary.adapter.RecommendFocusAdapter;
@@ -779,14 +780,25 @@ public class FoundFragmentSub extends CommonLazyFragment implements BaseView.Fou
                     foundAdapter.notifyDataSetChanged();
                 } else if (type.equals("CommentDelete")) {
                     List<CommentInfo> comment = item.getComment();
+                    int count=item.getComment_count();
                     if (comment == null) {
                         comment = new ArrayList<>();
                     }
-                    comment.remove(deletePosition);
-                    item.setComment(comment);
-                    item.setComment_count(item.getComment_count() - 1);
-                    foundAdapter.setData(currentPosition, item);
-                    foundAdapter.notifyDataSetChanged();
+
+                    if (count <= 4) {
+                        comment.remove(deletePosition);
+                        item.setComment(comment);
+                        item.setComment_count(item.getComment_count() - 1);
+                        foundAdapter.setData(currentPosition, item);
+                        foundAdapter.notifyDataSetChanged();
+                    } else {
+
+
+
+                    }
+
+//-----------------------------------------------------------------------
+
                 } else if (type.equals("recommend")) {
                     MasterInfo item1 = recommendFocusAdapter.getItem(recommendPosition);
                     if (item.isIs_subscribe()) {

@@ -346,6 +346,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             commentsAdapter.setOnCommentClickListener(new CommentsAdapter.onCommentClickListener() {
                 @Override
                 public void click(int position) {
+                    Log.d("评论", "onItemClick: "+"setOnCommentClickListener");
                     String userId = (String) SPUtils.get(AppConstant.USER_ID, "");
                     if (userId.equals(((CommentInfo) commentsAdapter.getItem(position)).getOpenid())) {
                         if (commentDeleteLisenter != null) {
@@ -362,7 +363,7 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
             commentsAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                    Log.d("评论", "onItemClick: "+"setOnItemClickListener");
                 }
             });
 
@@ -571,15 +572,13 @@ public class FoundAdapter extends BaseQuickAdapter<AllMsgFound, BaseViewHolder> 
     public void getMoreComment(CommentsAdapter commentsAdapter, String draft_id, TextView lookMoreTv) {//获取更多评论信息-----------------------
         ObserverOnNextListener<CommentInfoMore, Throwable> listener = new ObserverOnNextListener<CommentInfoMore, Throwable>() {
             @Override
-            public void onNext(CommentInfoMore commentInfoMore) {//从网络上获取的草稿箱信息
+            public void onNext(CommentInfoMore commentInfoMore) {
                 if (commentInfoMore.getCode() == 0) {
-
 
                     List<CommentInfo> data = commentsAdapter.getData();
 
                     for (int i = 0; i < commentInfoMore.getData().size(); i++) {
                         data.add(commentInfoMore.getData().get(i));
-
                     }
                     commentsAdapter.setNewData(data);
                     lookMoreTv.setVisibility(View.GONE);

@@ -93,9 +93,9 @@ public class Constans {
     public static final String URL_SEARCH_GOODS = "https://oven.53iq.com/s=%s&goods=%s&standard=%s";//搜索商品
     public static final String URL_SEARCH_ACP = "http://oven.53iq.com/staarch_key=%s";//搜索ACP
 
-    public static final String URL_PRIVACY = "file:////android_asset/KitchenDiary_read_privacy2.html";//隐私政策
+    public static final String URL_PRIVACY = "http://53iq.com/static/privacy/privacy.html";//隐私政策
     public static final String URL_PROTOCOL = "file:////android_asset/KitchenDiary_read_privacy.html";//用户协议
-    public static final String URL_RULE = "file:////android_asset/clock_rule.html";//用户协议
+    public static final String URL_RULE = "file:////android_asset/clock_rule.html";//打卡活动规则
 
 
 

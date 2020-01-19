@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,9 +35,12 @@ import com.ebanswers.kitchendiary.utils.ScreenSizeUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,6 +70,10 @@ public class SplashActivity extends CommonActivity {
         localAd = ADManager.getInstance().getLocalValidAd();
         File adFile = ADManager.getInstance().getLocalAdImage(localAd);
 
+        if (localAd != null) {
+            Log.d("localad", "onCreate: "+localAd.toString());
+        }
+
         DownloadSpeedUtil.getNetSpeed(getApplicationInfo().uid);
 
         if (localAd != null && adFile != null) {
@@ -72,9 +84,26 @@ public class SplashActivity extends CommonActivity {
         }
 
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.ebanswers.kitchendiary",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+        } catch (NoSuchAlgorithmException e) {
+        }
     }
 
 
+    private void stopCountDown() {
+        if (countDown != null) {
+            countDown.unsubscribe();
+        }
+    }
 
     private void pri_Pop(){
         new Thread( new Runnable( ) {
@@ -170,7 +199,7 @@ public class SplashActivity extends CommonActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(SplashActivity.this, WebActivity.class);
-                intent1.putExtra("url", "http://53iq.com/static/privacy/privacy.html");
+                intent1.putExtra("url", Constans.URL_PRIVACY);
                 startActivity(intent1);
             }
         });
@@ -195,6 +224,28 @@ public class SplashActivity extends CommonActivity {
 
                     }
                 });
+    }
+
+
+    @OnClick({R.id.iv_wel_ad, R.id.tv_wel_skip})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_wel_ad:
+                if (localAd != null) {
+                    Intent intent1 = new Intent(SplashActivity.this, FullActivity.class);
+                    intent1.putExtra("type", FullActivity.TYPE_LOGIN_POLICY);
+                    intent1.putExtra("url", localAd.getUrl());
+                    startActivityForResult(intent1, 0);
+                    tvWelSkip.setVisibility(View.GONE);
+                    stopCountDown();
+                }
+                break;
+            case R.id.tv_wel_skip:
+               pri_Pop();
+                break;
+            default:
+                break;
+        }
     }
 
 }

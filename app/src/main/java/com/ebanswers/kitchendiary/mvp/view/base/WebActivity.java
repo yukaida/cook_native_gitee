@@ -110,12 +110,15 @@ public class WebActivity extends CommonActivity implements OnPermission {
 
             CookieManager cookieManager = CookieManager.getInstance();
 
+        if (null!=(HashSet) CommonApplication.getInstance().getSharedPreferences("cookieData", Context.MODE_PRIVATE).getStringSet("cookie", null)) {
+            HashSet<String> perferences = (HashSet) CommonApplication.getInstance().getSharedPreferences("cookieData", Context.MODE_PRIVATE).getStringSet("cookie", null);
 
-        HashSet<String> perferences = (HashSet) CommonApplication.getInstance().getSharedPreferences("cookieData", Context.MODE_PRIVATE).getStringSet("cookie", null);
-
-        for (String cookie:perferences) {
-            cookieManager.setCookie("https://wechat.53iq.com/",cookie);
+            for (String cookie:perferences) {
+                cookieManager.setCookie("https://wechat.53iq.com/",cookie);
+            }
         }
+
+
 
         cookieManager.setCookie("https://wechat.53iq.com/","partner_id=ddb4c038579a11e59e8800a0d1eb6068; X-sourcediary; ");
 
