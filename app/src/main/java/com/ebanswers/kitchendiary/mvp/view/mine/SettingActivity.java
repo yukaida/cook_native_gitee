@@ -391,7 +391,11 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.id_tv_setting_activity_about:
-                gowWeb("https://mp.weixin.qq.com/s?__biz=MzAwMDIxNjY3Mw==&mid=502137091&idx=1&sn=7e202f0fb2f4b89ef5ae3d02bd6d283f#wechat_redirect");
+
+                Intent intent = new Intent(SettingActivity.this, NewAboutActivity.class);
+                startActivity(intent);
+
+//                gowWeb("https://mp.weixin.qq.com/s?__biz=MzAwMDIxNjY3Mw==&mid=502137091&idx=1&sn=7e202f0fb2f4b89ef5ae3d02bd6d283f#wechat_redirect");
                 break;
             case R.id.id_tv_setting_activity_reply:
                 View mview = View.inflate(this, R.layout.setting_reply_layout, null);

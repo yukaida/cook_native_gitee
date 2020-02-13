@@ -1,5 +1,6 @@
 package com.ebanswers.kitchendiary.mvp.view.base;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
@@ -32,6 +36,7 @@ import com.ebanswers.kitchendiary.utils.DownloadSpeedUtil;
 import com.ebanswers.kitchendiary.utils.LanguageUtil;
 import com.ebanswers.kitchendiary.utils.SPUtils;
 import com.ebanswers.kitchendiary.utils.ScreenSizeUtils;
+import com.ebanswers.kitchendiary.wxapi.WXEntryActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -192,17 +197,64 @@ public class SplashActivity extends CommonActivity {
                 finish();
             }
         });
+
+
         SpannableString spannableString = new SpannableString(clickAll.getText());
-        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_color)), 8, clickAll.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        clickAll.setText(spannableString);
-        clickAll.setOnClickListener(new View.OnClickListener() {
+
+
+
+        spannableString.setSpan(new ClickableSpan() {
             @Override
-            public void onClick(View v) {
+            public void onClick(@NonNull View widget) {
+//                Intent intent1 = new Intent(SplashActivity.this, FullActivity.class);
+//                intent1.putExtra("type", FullActivity.TYPE_LOGIN_POLICY);
+//                intent1.putExtra("url", Constans.URL_PROTOCOL);
+//                startActivity(intent1);
+
+                Intent intent1 = new Intent(SplashActivity.this, WebActivity.class);
+                intent1.putExtra("url", Constans.URL_PROTOCOL);
+                startActivity(intent1);
+
+
+            }
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                ds.setUnderlineText(false);
+            }
+        }, 9, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
                 Intent intent1 = new Intent(SplashActivity.this, WebActivity.class);
                 intent1.putExtra("url", Constans.URL_PRIVACY);
                 startActivity(intent1);
             }
-        });
+
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                ds.setUnderlineText(false);
+            }
+        }, 16, clickAll.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_color)), 9, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_color)), 16, clickAll.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+//        clickAll.setText(spannableString);
+//        clickAll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent1 = new Intent(SplashActivity.this, WebActivity.class);
+//                intent1.putExtra("url", Constans.URL_PRIVACY);
+//                startActivity(intent1);
+//            }
+//        });
+
+        clickAll.setMovementMethod(LinkMovementMethod.getInstance());
+        clickAll.setText(spannableString);
+        clickAll.setHighlightColor(getResources().getColor(R.color.nocolor));
     }
 
     private void startCountDown(final int seconds) {

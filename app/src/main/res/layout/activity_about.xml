@@ -27,7 +27,91 @@
         android:id="@+id/app_version_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="版本号：0.0.1"/>
+        android:text="V0.0.1"/>
+
+    <view
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divideLineColor"
+
+        />
+
+    <TextView
+        android:id="@+id/ab_userprotocol"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      用户协议"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"/>
+
+
+    <view
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divideLineColor"
+
+        />
+
+    <TextView
+        android:id="@+id/ab_userprivacy"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      隐私政策"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"
+
+        />
+
+    <view
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divideLineColor"
+
+        />
+
+    <TextView
+        android:id="@+id/ab_aboutus"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      关于我们"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"/>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/divideLineColor"
+
+        />
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        />
+
+    <TextView
+
+        android:id="@+id/ab_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="杭州纳帕科技 版权所有" />
+
+    <TextView
+    android:layout_marginBottom="15dp"
+        android:id="@+id/ab_year"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Copyright ©2017-2020" />
 
 
 </LinearLayout>

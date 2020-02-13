@@ -32,7 +32,7 @@
     <string name="register_password_input_hint2">再次输入密码</string>
 
     <!-- 关于 -->
-    <string name="about_text">关于我们</string>
+    <string name="about_text">关于厨房日记</string>
 
 
     <!--首页-->
@@ -252,7 +252,7 @@
     <string name="cancel_share">取消分享</string>
     <string name="notify">通知</string>
     <string name="mytag">我的标签</string>
-    <string name="about_diary">关于我们</string>
+    <string name="about_diary">关于厨房日记</string>
     <string name="exit_login">退出登录</string>
     <string name="re_voice">请直接说:食材、菜名</string>
     <string name="reply">反馈</string>
@@ -515,7 +515,7 @@
 
     <string name="login_privacy_content">感谢您使用厨房日记!\n我们深知个人信息对您的重要性, 依据法律要求制定了用户协议和隐私政策, 特向您推送本提示。请您仔细阅读并充分理解相关条款。主要包含以下内容:\n 1.为了更好地提供社区浏览、发布日记、推送通知等相关服务，我们会收集使用相关信息（可能涉及手机号、设备信息等）；\n2.未经您的同意，我们不会将上述信息用于您未授权的其他用途或目的；\n3.您可以对以上述信息进行访问和删除，我们也提供注销、投诉方式。\n
     </string>
-    <string name="login_privacy_tip">您可以阅读完整版隐私政策</string>
+    <string name="login_privacy_tip">您可以阅读完整版的《用户协议》和《隐私政策》</string>
 
     <string name="shortcutShortLabel">发布日记</string>
     <string name="shortcutLongLabel">发布日记</string>

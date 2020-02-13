@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".mvp.view.mine.NewAboutActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <ImageView
+            android:id="@+id/ab_topback"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/cratediary_back" />
+
+        <TextView
+            android:id="@+id/ab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关于厨房日记"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="@dimen/space_120"
+        android:layout_height="@dimen/space_120"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginBottom="@dimen/space_20"
+        android:src="@mipmap/icon_logo" />
+
+    <TextView
+        android:id="@+id/app_version_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="V0.0.1" />
+
+    <View
+        android:id="@+id/ab_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divideLineColor" />
+
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/ab_userprotocol"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      用户协议"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"/>
+
+    <TextView
+
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divideLineColor"/>
+
+
+<!--    <view-->
+<!--        android:id="@+id/ab_line2"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/divideLineColor"-->
+<!--        />-->
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/ab_userprivacy"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      隐私政策"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"
+
+        />
+
+    <TextView
+
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divideLineColor"/>
+
+<!--    <view-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/divideLineColor"-->
+
+<!--        />-->
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/ab_aboutus"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35dp"
+        android:text="      关于我们"
+        android:layout_marginRight="3dp"
+        android:drawableRight="@drawable/back_right"/>
+
+    <TextView
+
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divideLineColor"/>
+
+<!--    <view-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:background="@color/divideLineColor"-->
+
+<!--        />-->
+
+<!--&lt;!&ndash;    <view&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="1dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;        />&ndash;&gt;-->
+
+    <TextView
+
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="@color/nocolor"/>
+
+    <TextView
+        android:id="@+id/ab_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="杭州纳帕科技 版权所有"
+        android:textColor="#59000000"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/ab_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Copyright ©2017-2020"
+        android:textColor="#59000000"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

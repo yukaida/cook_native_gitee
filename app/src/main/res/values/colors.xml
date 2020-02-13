@@ -74,7 +74,7 @@
     <color name="primary_dark">#FF0288D1</color>
     <color name="status_bar_color">@color/primary_dark</color>
     <color name="mainActivityBottomTextColor">#4D4D4D</color>
-    <color name="divideLineColor">#DADADA</color>
+    <color name="divideLineColor">#88DADADA</color>
     <color name="white_bg">#F8F8F8</color>
     <color name="share_bg_color">#E9EFF2</color>
     <color name="mainActivityBottomBgColor">#F8F8F8</color>
@@ -85,5 +85,6 @@
     <color name="text_blue">#2E6296</color>
     <color name="hint_color">#A9A9A9</color>
     <color name="topic_content_color">#0099cc</color>
+    <color name="nocolor">#00FFFFFF</color>
 
 </resources>

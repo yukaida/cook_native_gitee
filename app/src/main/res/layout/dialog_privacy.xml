@@ -6,9 +6,9 @@
     android:background="@drawable/shape_white_all_radiu_bg"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
+    android:paddingLeft="10dp"
     android:paddingTop="30dp"
-    android:paddingRight="20dp"
+    android:paddingRight="10dp"
     android:paddingBottom="10dp">
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/login_privacy_tip"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 
     <Button

@@ -3,33 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ebanswers.kitchendiary">
 
-    <uses-permission android:name="android.permission.INTERNET" /><!--网络-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!--网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /><!--wifi状态-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /><!--程序可以读取设备外部存储空间（内置SDcard和外置SDCard）的文件-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--程序可以写入设备外部存储空间（内置SDcard和外置SDCard）的文件-->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /><!--网络变化-->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /><!--唤醒-->
-    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" /><!--未读消息-->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /><!--解析更新包-->
-    <uses-permission  android:name="android.permission.RECORD_AUDIO" /><!-- 允许程序录制声音通过手机或耳机的麦克风-->
-    <uses-permission  android:name="android.permission.CAMERA" /><!-- 摄像头-->
-
-    <!--极光推送需要用到的权限-->
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"> </uses-permission><!--监听唤醒机器-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"> </uses-permission><!-- 允许程序访问电话状态  -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"> </uses-permission><!--修改系统设置-->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"> </uses-permission><!--允许程序挂载、反挂载外部文件系统-->
-    <uses-permission android:name="android.permission.VIBRATE"> </uses-permission><!--震动-->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"> </uses-permission><!--悬浮窗-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"> </uses-permission><!--允许程序通过WiFi或移动基站的方式获取用户粗略的经纬度信息-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"> </uses-permission><!--改变wifi状态-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"> </uses-permission><!--定位信息(GPS)-->
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"> </uses-permission><!--应用在后台运行时访问设备位置-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"> </uses-permission><!-- 允许应用程序访问额外的位置提供命令-->
-    <uses-permission android:name="android.permission.GET_TASKS"> </uses-permission><!--允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等-->
-
-
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- wifi状态 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 程序可以读取设备外部存储空间（内置SDcard和外置SDCard）的文件 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 程序可以写入设备外部存储空间（内置SDcard和外置SDCard）的文件 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 网络变化 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 唤醒 -->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" /> <!-- 未读消息 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 解析更新包 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制声音通过手机或耳机的麦克风 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头 -->
+    <!-- 极光推送需要用到的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"></uses-permission> <!-- 监听唤醒机器 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission> <!-- 允许程序访问电话状态 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission> <!-- 修改系统设置 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission> <!-- 允许程序挂载、反挂载外部文件系统 -->
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission> <!-- 震动 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission> <!-- 悬浮窗 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission> <!-- 允许程序通过WiFi或移动基站的方式获取用户粗略的经纬度信息 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission> <!-- 改变wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission> <!-- 定位信息(GPS) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"></uses-permission> <!-- 应用在后台运行时访问设备位置 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission> <!-- 允许应用程序访问额外的位置提供命令 -->
+    <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
 
     <application
         android:name=".common.CommonApplication"
@@ -44,7 +41,14 @@
         android:smallScreens="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mvp.view.base.CheckLoginActivity"></activity>
+        <activity android:name=".mvp.view.mine.NewAboutActivity"
+
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" >
+
+
+        </activity>
+        <activity android:name=".mvp.view.base.CheckLoginActivity" />
         <activity
             android:name=".mvp.view.base.SplashActivity"
             android:theme="@style/SplashTheme">
