@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cook_native_gitee.iml" filepath="$PROJECT_DIR$/cook_native_gitee.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="cook_native_gitee/app" />
+      <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" group="cook_native_gitee/baselibrary" />
+      <module fileurl="file://$PROJECT_DIR$/cook_native_gitee.iml" filepath="$PROJECT_DIR$/cook_native_gitee.iml" group="cook_native_gitee" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" group="cook_native_gitee/library" />
     </modules>
   </component>
 </project>

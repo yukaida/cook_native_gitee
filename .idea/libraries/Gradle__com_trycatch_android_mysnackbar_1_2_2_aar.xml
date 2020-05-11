@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.trycatch.android:mysnackbar:1.2.2@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1ce612484ba7a6126928e3ec9105f1c/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2734581ef7454874d245a3318fe148d5/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1ce612484ba7a6126928e3ec9105f1c/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1ce612484ba7a6126928e3ec9105f1c/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2734581ef7454874d245a3318fe148d5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2734581ef7454874d245a3318fe148d5/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

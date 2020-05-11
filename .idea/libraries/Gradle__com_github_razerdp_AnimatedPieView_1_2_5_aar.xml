@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.razerdp:AnimatedPieView:1.2.5@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd141623e48ed4a231fd48cb6903e4c0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c820d8cbf0c05c84f1484e256013b96c/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd141623e48ed4a231fd48cb6903e4c0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd141623e48ed4a231fd48cb6903e4c0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c820d8cbf0c05c84f1484e256013b96c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c820d8cbf0c05c84f1484e256013b96c/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -144,13 +144,13 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
                 Intent intent = new Intent(getContext(), WebActivity.class);
                 //-------------------------------------------------------------------zheli
                 Log.d("活动", "onItemClick: " + position);
-                if (position == 0) {
-                    intent.putExtra("url","https://wechat.53iq.com/k2ui/");
-                    startActivity(intent);
-                } else {
+//                if (position == 0) {
+//                    intent.putExtra("url","https://wechat.53iq.com/k2ui/");
+//                    startActivity(intent);
+//                } else {
                     intent.putExtra("url", Deployment.BASE_URL_WORK + item.getUrl().substring(1) + "&openid=" + HomeActivity.getOpenId());
                     startActivity(intent);
-                }
+//                }
 //                }else {
 //                    ToastUtils.show("链接路径错误");
 //                }
@@ -301,40 +301,40 @@ public class HomeFragment extends CommonLazyFragment implements BaseView.HomeVie
             if (data.getRecommend_for_you() != null) {
 
                 RecommendForYou temp = data.getRecommend_for_you().get(0);
-                Log.d("temp", "setData: " + temp.toString());
+                Log.d("temp", "setData: " + data.getRecommend_for_you().toString());
 
 
                 if (data.getRecommend_for_you().size() > 0) {
                     // 这里做差异化处理 给定一个第一的活动 首页活动
 
-                    if (showfist()) {//如果超过1月31号就不作第一个活动展示处理
-
-                        List<RecommendForYou> listtoadd = new ArrayList<>();
-
-                        RecommendForYou first = new RecommendForYou();
-                        first.setTitle("集菜谱赢红包");
-                        first.setStart_time("01.07");
-                        first.setClass_time("");
-                        first.setUrl("https://wechat.53iq.com/k2ui/");
-                        first.setInpage_img("");
-                        first.setEnd_time("01.31");
-                        first.setStatus(0);
-//                    first.setImg("http://storage.56iq.net/group1/M00/0C/2E/CgoKTV4VjgeAY7dFAAY0I9ZnUiE789.gif");
-                        first.setImg("activity");
-
-
-                        listtoadd.add(first);
-
-                        for (int i = 0; i < data.getRecommend_for_you().size(); i++) {
-                            listtoadd.add(data.getRecommend_for_you().get(i));
-                        }
-
-                        cookingActivityAdapter.setNewData(listtoadd);
-                        cookingActivityAdapter.notifyDataSetChanged();
-                    } else {
+//                    if (showfist()) {//如果超过1月31号就不作第一个活动展示处理
+//
+//                        List<RecommendForYou> listtoadd = new ArrayList<>();
+//
+//                        RecommendForYou first = new RecommendForYou();
+//                        first.setTitle("集菜谱赢红包");
+//                        first.setStart_time("01.07");
+//                        first.setClass_time("");
+//                        first.setUrl("https://wechat.53iq.com/k2ui/");
+//                        first.setInpage_img("");
+//                        first.setEnd_time("01.31");
+//                        first.setStatus(0);
+////                    first.setImg("http://storage.56iq.net/group1/M00/0C/2E/CgoKTV4VjgeAY7dFAAY0I9ZnUiE789.gif");
+//                        first.setImg("activity");
+//
+//
+//                        listtoadd.add(first);
+//
+//                        for (int i = 0; i < data.getRecommend_for_you().size(); i++) {
+//                            listtoadd.add(data.getRecommend_for_you().get(i));
+//                        }
+//
+//                        cookingActivityAdapter.setNewData(listtoadd);
+//                        cookingActivityAdapter.notifyDataSetChanged();
+//                    } else {
                         cookingActivityAdapter.setNewData(data.getRecommend_for_you());
                         cookingActivityAdapter.notifyDataSetChanged();
-                    }
+//                    }
 
 
                 }

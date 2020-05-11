@@ -49,7 +49,14 @@ android {
             keyPassword '53iqkitchen'
             storePassword '53iqkitchen'
         }
+        debug_config {
+            storeFile file("kitchen_diary.jks")
+            keyAlias 'kitchen diary'
+            keyPassword '53iqkitchen'
+            storePassword '53iqkitchen'
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

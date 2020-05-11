@@ -6,34 +6,141 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/cratediary_back.png" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc0dc6c1-9c6e-4ff1-beca-e4e8e86bf2fe" name="Default Changelist" comment="">
+    <list default="true" id="9ee68697-4f2f-4d41-8d1b-6b06623e6c3e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_multidex_multidex_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_multidex_multidex_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_multidex_multidex_instrumentation_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_multidex_multidex_instrumentation_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_palette_palette_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_palette_palette_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_0_alpha4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_0_alpha4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_0_alpha4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_0_alpha4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_0_alpha4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_0_alpha4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_0_alpha4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_0_alpha4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_banner_2_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_banner_2_2_5_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_qrcodecore_1_1_7_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_qrcodecore_1_1_7_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_swipebacklayout_1_1_9_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_swipebacklayout_1_1_9_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_zxing_1_1_7_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_bingoogolapple_bga_zxing_1_1_7_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_bigkoo_pickerview_2_0_8_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_bigkoo_pickerview_2_0_8_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_2_9_47_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_2_9_47_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_LuckSiege_PictureSelector_picture_library_v2_2_9_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_LuckSiege_PictureSelector_picture_library_v2_2_9_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ctiao_ndkbitmap_x86_0_9_24_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ctiao_ndkbitmap_x86_0_9_24_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_promeg_tinypinyin_2_0_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_promeg_tinypinyin_2_0_3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_razerdp_AnimatedPieView_1_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_razerdp_AnimatedPieView_1_2_5_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_7_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_7_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_dagger_dagger_2_11_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_dagger_dagger_2_11_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_gyf_barlibrary_barlibrary_2_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_gyf_barlibrary_barlibrary_2_3_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_titlebar_3_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_titlebar_3_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_toast_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_toast_2_5_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_xxpermissions_5_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hjq_xxpermissions_5_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_10_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_10_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_annotations_10_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_annotations_10_1_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_runtime_10_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_runtime_10_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_2_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nineoldandroids_library_2_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nineoldandroids_library_2_4_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_qmuiteam_qmui_1_0_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_qmuiteam_qmui_1_0_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshHeader_1_1_0_alpha_14_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshHeader_1_1_0_alpha_14_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshLayout_1_1_0_alpha_14_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshLayout_1_1_0_alpha_14_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_3_10_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_3_10_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_11_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_11_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_4_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_adapter_rxjava_2_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_adapter_rxjava_2_1_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_crashreport_3_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_crashreport_3_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_2_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_2_1_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_2_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_components_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_components_2_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trycatch_android_mysnackbar_1_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trycatch_android_mysnackbar_1_2_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ycjiang_imgepreviewlibrary_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ycjiang_imgepreviewlibrary_1_1_3_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_zhy_autolayout_1_4_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_zhy_autolayout_1_4_5_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxandroid_1_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxandroid_1_2_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_imid_swipebacklayout_lib_library_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_imid_swipebacklayout_lib_library_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_jessyan_autosize_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_jessyan_autosize_1_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apmem_tools_layouts_1_10_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apmem_tools_layouts_1_10_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_eventbus_3_0_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_eventbus_3_0_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_greendao_3_2_2_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_greendao_3_2_2_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_greendao_api_3_2_2_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_greendao_api_3_2_2_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_simple_androideventbus_1_0_5_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_simple_androideventbus_1_0_5_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/statistic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="isMigrated" value="true" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="f26201e6" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_XL_API_29" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -41,287 +148,26 @@
       </state>
     </system>
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SplashActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3686">
-              <caret line="256" column="70" selection-start-line="256" selection-start-column="70" selection-end-line="256" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1558">
-              <caret line="82" column="43" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/SettingActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5966">
-              <caret line="394" column="73" selection-start-line="394" selection-start-column="73" selection-end-line="394" selection-end-column="73" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/NewAboutActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_new_about.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/baselibrary/src/main/res/values/dimens.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/back_right.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2584">
-              <caret line="136" column="57" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_privacy.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="layoutResourceFile_vertical" />
-        <option value="resourceFile" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>diary_rv</find>
-      <find>diaryRv</find>
-      <find>goods_show_iv</find>
-      <find>getArticle_img</find>
-      <find>setDiaryData</find>
-      <find>loadDiaryInfo</find>
-      <find>DiaryInfo</find>
-      <find>order_rv</find>
-      <find>greendao</find>
-      <find>userid</find>
-      <find>tab_center_ll</find>
-      <find>finish</find>
-      <find>getNickname</find>
-      <find>recommend_rv</find>
-      <find>recommendRv</find>
-      <find>look_more_tv</find>
-      <find>查看更多</find>
-      <find>permission</find>
-      <find>XXPermissions</find>
-      <find>隐私政策</find>
-      <find>URL_RULE</find>
-      <find>setactivity</find>
-      <find>SettingActivity</find>
-      <find>AboutActivity</find>
-      <find>RxPermissions</find>
-      <find>gow</find>
-      <find>URL_PR</find>
-      <find>found_rv</find>
-      <find>message_iv</find>
-      <find>id_tv_setting_activity_about</find>
-    </findStrings>
-  </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/app/dong.jks" />
-    <option name="KEY_ALIAS" value="dong" />
+    <option name="KEY_STORE_PATH" value="E:\GitHub\cook_native_gitee\app\kitchen_diary.jks" />
+    <option name="KEY_ALIAS" value="kitchen diary" />
     <option name="REMEMBER_PASSWORDS" value="true" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="yukaida &lt;kaida.yu@qq.com&gt;" />
-      </list>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="newyearActivity" />
-      </map>
-    </option>
-    <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/SinglePictureAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/PictureAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_pictrue.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/diary_radio.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/diary_radio.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/custom_checkbox_selector.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_send_diary.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/retrofit/RetrofitService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/openjs/JsApi.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/CookBookAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/assets/clock_rule.html" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/service/CreateRepiceDraftService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_comment_reply.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/retrofit/RetrofitTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_comment.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/utils/Utils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendDiaryActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/MineFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FocusFragmentSub.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/bean/RecommendForYou.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/CookingActivityAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_found_sub.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/wxapi/WXEntryActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/ReceivedCookiesInterceptor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/NetworkManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/network/AddCookiesInterceptor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/bean/DiaryInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/KitchenDiaryAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/shortcuts" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/shortcuts.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/CheckLoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_spalsh.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/WebActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_privacy.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/config/Constans.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/AboutActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/SettingActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_about.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/NewAboutActivity.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="495" />
-    <option name="y" value="50" />
-    <option name="width" value="1230" />
-    <option name="height" value="825" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="cook20200106" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cook20200106" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
+  <component name="ProjectId" id="1aYUKyJmCXe4P30L7QmyLsnVdfp" />
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="xiaomi-mi_8-f26201e6" />
-    <property name="DEBUGGABLE_PROCESS" value="com.ebanswers.kitchendiary" />
-    <property name="DEBUGGER_ID" value="Auto" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="f26201e6" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-01-19T06:20:42.113Z" />
-    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
-    <property name="ExportApk.BuildVariants" value="anzhiRelease" />
+    <property name="ApkExportedModule" value="app" />
+    <property name="ExportApk.ApkPath" value="E:\GitHub\cook_native_gitee\app" />
+    <property name="ExportApk.BuildVariants" value="xiaomiRelease" />
     <property name="ExportApk.SignV1" value="true" />
-    <property name="ExportApk.SignV2" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.17" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/kitchen_diary.jks" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
-  </component>
-  <component name="RecentsManager">
-    <key name="android.template.packageName">
-      <recent name="com.ebanswers.kitchendiary.mvp.view.mine" />
-      <recent name="com.ebanswers.kitchendiary.mvp.view.base" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.ebanswers.kitchendiary.service" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\cook20200106\app\src\main\res\mipmap-xxhdpi" />
-      <recent name="E:\cook20200106\app\src\main\res\drawable-xhdpi" />
-      <recent name="E:\cook20200106\app\src\main\res\drawable-xxhdpi" />
-      <recent name="E:\cook20200106\app\src\main\res\layout" />
-      <recent name="E:\cook20200106\app\src\main\java\com\ebanswers\kitchendiary\service" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -336,30 +182,6 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-    </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -382,8 +204,6 @@
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <option name="DEBUGGER_TYPE" value="Auto" />
@@ -420,219 +240,19 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="TestNG">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SvnConfiguration">
-    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fc0dc6c1-9c6e-4ff1-beca-e4e8e86bf2fe" name="Default Changelist" comment="" />
-      <created>1575991631680</created>
+      <changelist id="9ee68697-4f2f-4d41-8d1b-6b06623e6c3e" name="Default Changelist" comment="" />
+      <created>1586911960844</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1575991631680</updated>
+      <updated>1586911960844</updated>
     </task>
-    <task id="LOCAL-00001" summary="合并代码》添加/修改/优化功能点分布但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页">
-      <created>1576759595846</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1576759595846</updated>
-    </task>
-    <task id="LOCAL-00002" summary="1首页 热门菜谱 替换链接&#10;2未登录状态下 多个按钮禁止响应改为 弹出登录界面&#10;3未登录状态下“收藏”按钮改禁用为跳转登录界面，登录后修复“收藏”页面404bad问题&#10;4修复“我的消息”，点击头像，里面显示的还是厨房客人的问题&#10;5意外情况下可以删除别的用户的动态&#10;6禁用用户修改头像昵称功能&#10;7登录之后 “积分” 请在微信客户端打开连接&#10;8无网情况下发布日记提示无网并拦截后台事件&#10;9分享到微信QQ等logo修复，添加描述，替换链接&#10;10未登录的情况下，发现页数据加载不出来&#10;11修复单独发文字无法显示的问题">
-      <created>1577083787186</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1577083787186</updated>
-    </task>
-    <task id="LOCAL-00003" summary="进入草稿箱时添加弹窗">
-      <created>1577092472490</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1577092472490</updated>
-    </task>
-    <task id="LOCAL-00004" summary="修复草稿箱重复添加  数据会重复的问题">
-      <created>1577096922438</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1577096922438</updated>
-    </task>
-    <task id="LOCAL-00005" summary="修复草稿箱重复添加  数据会重复的问题">
-      <created>1578363286563</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1578363286563</updated>
-    </task>
-    <task id="LOCAL-00006" summary="合并代码">
-      <created>1578365579927</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1578365579927</updated>
-    </task>
-    <task id="LOCAL-00007" summary="修复分享到微信有几率无图问题">
-      <created>1578367339026</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1578367339026</updated>
-    </task>
-    <task id="LOCAL-00008" summary="1.替换资源文件&#10;2.打卡天数矫正&#10;3.修复多级页面无法打开问题">
-      <created>1578447334685</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1578447334685</updated>
-    </task>
-    <task id="LOCAL-00009" summary="合并代码">
-      <created>1578448443266</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1578448443266</updated>
-    </task>
-    <task id="LOCAL-00010" summary="合并代码，修改评论弹窗风格">
-      <created>1578453429099</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1578453429099</updated>
-    </task>
-    <task id="LOCAL-00011" summary="添加首页用户须知弹窗.修复关注页分享微信图片不对的问题">
-      <created>1578477116977</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1578477116977</updated>
-    </task>
-    <task id="LOCAL-00012" summary="分享无图日记时替换图片，防止黑边&#10;处理我的页面打卡天数不对的问题&#10;强制添加并固定首个活动为新年活动&#10;置入cookie，解决所有网页深层级出现请在微信客户端打开的问题">
-      <created>1578538301955</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1578538301955</updated>
-    </task>
-    <task id="LOCAL-00013" summary="新年活动跳转发布日记.发布菜谱.邀请卡长按保存（所有网页长按保存图片）">
-      <created>1578640899773</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1578640899773</updated>
-    </task>
-    <task id="LOCAL-00014" summary="修复部分网页出现身份失效问题">
-      <created>1578999311292</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1578999311292</updated>
-    </task>
-    <task id="LOCAL-00015" summary="我的页面置换高清图">
-      <created>1579070648904</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1579070648904</updated>
-    </task>
-    <task id="LOCAL-00016" summary="桌面图标长按添加发布日记快捷方式">
-      <created>1579160730216</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1579160730216</updated>
-    </task>
-    <task id="LOCAL-00017" summary="启动页广告">
-      <created>1579176083930</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1579176083930</updated>
-    </task>
-    <task id="LOCAL-00018" summary="首页弹窗添加用户协议&#10;翻新&quot;关于厨房日记&quot;页面">
-      <created>1581597771979</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1581597771979</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <layout>
-      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.13873994" />
-      <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Build Variants" order="3" side_tool="true" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Designer" order="5" />
-      <window_info id="Resources Explorer" order="6" weight="0.21313673" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.5435657" weight="0.9575071" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.5596515" weight="0.7974504" />
-      <window_info anchor="bottom" id="TODO" order="2" weight="0.3286119" />
-      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.3286119" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.45241287" side_tool="true" weight="0.33994335" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.34135976" />
-      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49932975" weight="0.3838527" />
-      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.54758716" visible="true" weight="0.33994335" />
-      <window_info anchor="bottom" id="Find" order="9" weight="0.3286119" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.5892351" />
-      <window_info anchor="bottom" id="Statistic" order="11" weight="0.3286119" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Gradle" order="4" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.23190348" />
-      <window_info anchor="right" id="Word Book" order="6" side_tool="true" weight="0.3297587" />
-    </layout>
-  </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ORDER">
-      <list>
-        <option value="0" />
-        <option value="2" />
-        <option value="3" />
-        <option value="1" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -640,451 +260,11 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="master" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="合并代码》添加/修改/优化功能点分部但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页" />
-    <MESSAGE value="合并代码》添加/修改/优化功能点分布但不局限于：创建日记功能  草稿箱  发现页#话题#标签  查看更多评论  启动页" />
-    <MESSAGE value="1首页 热门菜谱 替换链接&#10;2未登录状态下 多个按钮禁止响应改为 弹出登录界面&#10;3未登录状态下“收藏”按钮改禁用为跳转登录界面，登录后修复“收藏”页面404bad问题&#10;4修复“我的消息”，点击头像，里面显示的还是厨房客人的问题&#10;5意外情况下可以删除别的用户的动态&#10;6禁用用户修改头像昵称功能&#10;7登录之后 “积分” 请在微信客户端打开连接&#10;8无网情况下发布日记提示无网并拦截后台事件&#10;9分享到微信QQ等logo修复，添加描述，替换链接&#10;10未登录的情况下，发现页数据加载不出来&#10;11修复单独发文字无法显示的问题" />
-    <MESSAGE value="进入草稿箱时添加弹窗" />
-    <MESSAGE value="修复草稿箱重复添加  数据会重复的问题" />
-    <MESSAGE value="修复分享到微信有几率无图问题" />
-    <MESSAGE value="1.替换资源文件&#10;2.打卡天数矫正&#10;3.修复多级页面无法打开问题" />
-    <MESSAGE value="合并代码" />
-    <MESSAGE value="合并代码，修改评论弹窗风格" />
-    <MESSAGE value="添加首页用户须知弹窗.修复关注页分享微信图片不对的问题" />
-    <MESSAGE value="分享无图日记时替换图片，防止黑边&#10;处理我的页面打卡天数不对的问题&#10;强制添加并固定首个活动为新年活动&#10;置入cookie，解决所有网页深层级出现请在微信客户端打开的问题" />
-    <MESSAGE value="新年活动跳转发布日记.发布菜谱.邀请卡长按保存（所有网页长按保存图片）" />
-    <MESSAGE value="修复部分网页出现身份失效问题" />
-    <MESSAGE value="我的页面置换高清图" />
-    <MESSAGE value="桌面图标长按添加发布日记快捷方式" />
-    <MESSAGE value="启动页广告" />
-    <MESSAGE value="首页弹窗添加用户协议&#10;翻新&quot;关于厨房日记&quot;页面" />
-    <option name="LAST_COMMIT_MESSAGE" value="首页弹窗添加用户协议&#10;翻新&quot;关于厨房日记&quot;页面" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/CookingActivityAdapter.java</url>
-          <line>35</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.CymChad/BaseRecyclerViewAdapterHelper/2.9.47/7c01aa206d1c5af63e465c980b4e5fb7ef2061cc/BaseRecyclerViewAdapterHelper-2.9.47-sources.jar!/com/chad/library/adapter/base/BaseQuickAdapter.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxandroid/2.1.0/6bb55f070564d0f3920f370223bdbede2b998682/rxandroid-2.1.0-sources.jar!/io/reactivex/android/schedulers/HandlerScheduler.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="218" column="17" selection-start-line="218" selection-start-column="17" selection-end-line="218" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/WebActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11">
-          <caret line="112" column="18" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
-          <folding>
-            <element signature="e#14505#14506#0" expanded="true" />
-            <element signature="e#14568#14569#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hjq/xxpermissions/5.2/414c4d084a980a98058272a72650d3f63809c7bd/xxpermissions-5.2-sources.jar!/com/hjq/permissions/OnPermission.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hjq/xxpermissions/5.2/414c4d084a980a98058272a72650d3f63809c7bd/xxpermissions-5.2-sources.jar!/com/hjq/permissions/Permission.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/login/PasswordSetFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/login/PasswordLoginFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/wxapi/WXEntryActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1520">
-          <caret line="154" column="53" selection-start-line="154" selection-start-column="53" selection-end-line="154" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_send_diary.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3363">
-          <caret line="177" column="28" selection-start-line="177" selection-start-column="28" selection-end-line="177" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/WelActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="61" column="33" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wel.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/text/Spanned.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="108" column="28" selection-start-line="108" selection-start-column="28" selection-end-line="108" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/graphics/Color.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="304" column="38" selection-start-line="304" selection-start-column="38" selection-end-line="304" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/widget/TextView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="2367" column="22" selection-start-line="2367" selection-start-column="22" selection-end-line="2367" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/text/SpannableString.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="58" column="16" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/title_layout.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0cb9aaab3bce96592f20c502fa8e899b/res/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2869">
-          <caret line="219" column="21" selection-start-line="219" selection-start-column="21" selection-end-line="219" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/common/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/home/BillActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SendDiaryActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-726">
-          <caret line="78" column="53" selection-start-line="78" selection-start-column="39" selection-end-line="78" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="89" column="51" selection-start-line="89" selection-start-column="51" selection-end-line="89" selection-end-column="51" />
-          <folding>
-            <element signature="e#638#658#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mapping.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697357">
-          <caret line="36703" column="21" selection-start-line="36703" selection-start-column="21" selection-end-line="36703" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/common/CommonActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/config/Constans.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1805">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_found.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/found/FoundFragmentSub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7087">
-          <caret line="474" column="58" selection-start-line="474" selection-start-column="58" selection-end-line="474" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_comment.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4769">
-          <caret line="251" column="29" selection-start-line="251" selection-start-column="29" selection-end-line="251" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shadow2.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/adapter/FoundTabAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="12" column="53" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_found_data.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2793">
-          <caret line="147" column="43" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_found_sub.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3059">
-          <caret line="161" column="41" selection-start-line="161" selection-start-column="33" selection-end-line="161" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="41" column="85" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="85" />
-          <folding>
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="40" selection-start-line="4" selection-start-column="8" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="517" column="59" selection-start-line="517" selection-start-column="37" selection-end-line="517" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/base/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3686">
-          <caret line="256" column="70" selection-start-line="256" selection-start-column="70" selection-end-line="256" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1558">
-          <caret line="82" column="43" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5966">
-          <caret line="394" column="73" selection-start-line="394" selection-start-column="73" selection-end-line="394" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ebanswers/kitchendiary/mvp/view/mine/NewAboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_new_about.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/baselibrary/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/back_right.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2584">
-          <caret line="136" column="57" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_privacy.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
